@@ -145,6 +145,7 @@ public class Util {
 				System.out.println(o.toString());
 	}
 
+	//borrar esto, GRACIAS
 	/**
 	 * Lee el fichero de configuracion XML y establece una conexion con el servidor con
 	 * los datos del fichero. En caso de ser erroneos, se establece la configuracion por defecto.
@@ -182,7 +183,7 @@ public class Util {
 					server = ServidorSQL.getInstance(Util.MYSQL_LOGIN_USUARIO, Util.MYSQL_LOGIN_PASS);
 				}
 				else if (ServidorSQL.numeroDeConexiones==1)
-					Util.debug("No se realizará ningun cambio en la conexion");
+					Util.debug("No se realizarï¿½ ningun cambio en la conexion");
 			}
 			return server;
 		}
@@ -210,7 +211,7 @@ public class Util {
 	 * Carga una fuente que no esta instalada en el sistema para usarla
 	 * @param name	ruta de la fuente en el repostorio
 	 * @param tipo	tipo de fuente: negrita, cursiva
-	 * @param tamano	tamaño de la fuente
+	 * @param tamano	tamaï¿½o de la fuente
 	 * @return devuelve un objeto fuente con la fuente seleccionada
 	 */
 	public static Font getFont(String name, int tipo, float tamano) {
@@ -231,7 +232,7 @@ public class Util {
 	 * parametros
 	 * @param name		nombre de la fuente
 	 * @param tipo		tipo de fuante: normal, negrita, cursiva
-	 * @param tamano	tamaño de la fuente
+	 * @param tamano	tamaï¿½o de la fuente
 	 */
 	public static void setTipografia(String name, int tipo, float tamano){
 		UIManager.put("OptionPane.messageFont", new FontUIResource(Util.getFont(name, tipo, tamano)));		
