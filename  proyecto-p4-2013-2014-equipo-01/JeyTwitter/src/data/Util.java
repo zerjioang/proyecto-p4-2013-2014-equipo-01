@@ -145,7 +145,7 @@ public class Util {
 				System.out.println(o.toString());
 	}
 
-	//borrar esto, GRACIAS
+	
 	/**
 	 * Lee el fichero de configuracion XML y establece una conexion con el servidor con
 	 * los datos del fichero. En caso de ser erroneos, se establece la configuracion por defecto.
