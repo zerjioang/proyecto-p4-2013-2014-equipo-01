@@ -6,7 +6,6 @@ import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
-import java.net.URL;
 
 import javax.swing.ImageIcon;
 import util.Util;
@@ -40,7 +39,7 @@ public class SystemTrayLogo {
 	public SystemTrayLogo(){
 		popup = new PopupMenu("Menu");
 	    tray = SystemTray.getSystemTray();
-	    icono = crearImagen(Util.SYSTEM_TRAY_ICON);
+	    icono = (new ImageIcon(SystemTrayLogo.class.getResource("/res/images/icon.png"))).getImage();
 	    trayIcon = new TrayIcon(icono, Util.APP_TITULO);
 	}
 	
@@ -141,14 +140,4 @@ public class SystemTrayLogo {
 		tray.remove(trayIcon);
 		existe=false;
 	}
-	
-    /**
-     * Crea el icono que se le asignara al objeto
-     * @param ruta		Ruta del icono
-     * @return			Devuelve el icono
-     */
-    private Image crearImagen(String ruta) {
-        URL imageURL = SystemTrayLogo.class.getResource(ruta);
-        return (new ImageIcon(imageURL, "")).getImage();
-    }
 }

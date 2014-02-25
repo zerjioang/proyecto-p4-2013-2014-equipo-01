@@ -9,7 +9,7 @@ public class Util {
 	public static final String FICHERO_XML = "config.xml";
 	public static final String FICHERO_LOG = "log.txt";
 	
-	public static final String SYSTEM_TRAY_ICON = null;
+	public static final String APP_ICON = "/res/imagenes/icon.png";
 	
 	public static final boolean DEBUG = true;
 

@@ -1,14 +1,13 @@
 package controller.sql;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import util.Util;
 import controller.io.Fichero;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 /**
  * Clase necesaria para realizar la conexion con el servidor SQL
@@ -21,9 +20,8 @@ public class ServidorSQL{
 	
 	private static ServidorSQL servidor;
 	private static Connection con;
-    private static PreparedStatement st;  
+    private static Statement st;  
     private static ResultSet res;
-    private static boolean conexionPorDefecto;
     
 	private String nombreDB;
 	private boolean conectado;
@@ -34,7 +32,6 @@ public class ServidorSQL{
 	 */
 	private ServidorSQL() {
 		conectado = false;
-		conexionPorDefecto = true;
 		nombreDB = Util.SQLITE_NOMBRE_BBDD;
 	}
 	
@@ -44,12 +41,8 @@ public class ServidorSQL{
 	 */
 	public static ServidorSQL getInstance() {
 		if(servidor==null){
-			Util.debug("OPCION A");
+			Util.debug("Conectando con servidor SQLITE..");
 			servidor =  new ServidorSQL();
-		}
-		else{
-			Util.debug("OPCION B");
-			servidor = Util.cargarConfigServidor();
 		}
 		return servidor;
     }
@@ -95,8 +88,6 @@ public class ServidorSQL{
         }
         catch (Exception e){  
             error = e.getMessage();
-            if(error.contains("after statement closed"))
-            	conectado=false;
             Fichero.nuevaLineaLog("Error interno ([Error referente a la tabla]): \t" + e.getMessage());
             return false;
         }  
@@ -123,8 +114,6 @@ public class ServidorSQL{
         }
         catch (Exception e){  
         	error = e.getMessage();
-        	if(error.contains("after statement closed"))
-            	conectado=false;
         	Fichero.nuevaLineaLog("Error interno ([Error al borrar la tabla]): \t" + e.getMessage());
         }  
 	}
@@ -153,13 +142,10 @@ public class ServidorSQL{
 				return true;
 			}
 			else{
-				conectado=false;
 				return false;
 			}
 		} catch (SQLException e) {
 			error = e.getMessage();
-			if(error.contains("after statement closed"))
-            	conectado=false;
 			Fichero.nuevaLineaLog("Error interno ([Error al realizar operacion]): \t" + e.getMessage());
 			return false;
 		}
@@ -173,8 +159,8 @@ public class ServidorSQL{
         Util.debug("* Iniciando conexion ...");
         try
         {
-        	//Class.forName("org.sqlite.JDBC");	//SQLite
-            Class.forName("com.mysql.jdbc.Driver"); //Load HSQLDB driver for MySQL
+        	Class.forName("org.sqlite.JDBC");	//SQLite
+            //Class.forName("com.mysql.jdbc.Driver"); //Load HSQLDB driver for MySQL
             Util.debug("* Cargando JDBC driver...");
             conectado=true;
         } 
@@ -222,7 +208,7 @@ public class ServidorSQL{
         	st  = con.createStatement(); 	//SQLite
             Util.debug("* Conexion realizada con exito");
             setNumeroDeConexiones(getNumeroDeConexiones() + 1);
-            conectado=true;
+            conectado&=true;
         }
         catch (Exception e)
         {  
@@ -304,9 +290,9 @@ public class ServidorSQL{
 	}
 	/**
 	 * 
-	 * @return devuelve un PreparedStatement
+	 * @return devuelve un Statement
 	 */
-	public PreparedStatement getPrepStatement(){
+	public Statement getPrepStatement(){
 		return st;
 	}
 	
