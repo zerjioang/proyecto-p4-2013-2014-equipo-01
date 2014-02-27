@@ -20,8 +20,8 @@ public class ServidorSQL{
 	
 	private static ServidorSQL servidor;
 	private static Connection con;
-    private static Statement st;  
-    private static ResultSet res;
+    private  Statement st;  
+    private  ResultSet res;
     
 	private String nombreDB;
 	private boolean conectado;
