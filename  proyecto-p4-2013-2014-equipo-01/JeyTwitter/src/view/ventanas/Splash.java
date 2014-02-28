@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+
+import com.sun.javadoc.Type;
+
 import java.awt.Color;
 import java.awt.Toolkit;
 
@@ -41,7 +44,7 @@ public class Splash extends JFrame {
 	public Splash() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Splash.class.getResource(IMG_ICON)));
 		setUndecorated(true);
-		setType(Type.POPUP);
+		//setType(Type.POPUP);
 		setTitle(TITULO);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
