@@ -31,6 +31,7 @@ public class Welcome extends CustomJFrame {
 
 	private JPanel panelCero;
 	private JPanel panelUno;
+	private JTextPane inputCode;
 
 	/**
 	 * Launch the application.
@@ -72,14 +73,14 @@ public class Welcome extends CustomJFrame {
 		panelUno.setVisible(false);
 		panelUno.setLayout(null);
 
-		JTextPane textPane = new JTextPane();
-		textPane.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		textPane.setOpaque(false);
-		textPane.setFont(Util.getFont("Roboto-Regular", Font.PLAIN, 40));
-		textPane.setBorder(null);
-		textPane.setAutoscrolls(false);
-		textPane.setBounds(88, 155, 292, 48);
-		panelUno.add(textPane);
+		inputCode = new JTextPane();
+		inputCode.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		inputCode.setOpaque(false);
+		inputCode.setFont(Util.getFont("Roboto-Regular", Font.PLAIN, 40));
+		inputCode.setBorder(null);
+		inputCode.setAutoscrolls(false);
+		inputCode.setBounds(88, 155, 292, 48);
+		panelUno.add(inputCode);
 
 		JLabel lblAuthCodeTexto = new JLabel("");
 		lblAuthCodeTexto.setIcon(new ImageIcon(Welcome.class.getResource("/res/images/authCode_text.png")));
@@ -149,5 +150,15 @@ public class Welcome extends CustomJFrame {
 			return panelCero;
 		}
 		else return null;
+	}
+	
+	// hacer set get de todos los eventos que necesite
+	
+	public String getCodigo(){
+		return inputCode.getText();
+	}
+	
+	public void setCodigo(String code){
+		inputCode.setText(code);
 	}
 }

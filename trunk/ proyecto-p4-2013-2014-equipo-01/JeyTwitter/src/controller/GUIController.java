@@ -55,7 +55,7 @@ public class GUIController {
 	public void sendTweet() {
 		// Se supone que recoge el texto de el textfield de turno
 		try {
-			t.tweet("Hola! Tuiteo desde JeyTuiter!");
+			t.tweet("Probando JeyTuiter desde source code!!!");
 		} catch (TwitterException e) {
 			// Error al tuitear, mostrar mensaje
 			e.printStackTrace();
@@ -65,7 +65,9 @@ public class GUIController {
 	public static void main(String[] args) {
 		// Inicio de el programa
 		GUIController gui = new GUIController();
-		gui.showTimeline();
+		
+		//gui.showTimeline();
+		gui.sendTweet();
 	}
 
 }

@@ -105,7 +105,7 @@ public class CustomJFrame extends JFrame {
 		//setLayout(new BorderLayout(0, 0));
 		
 		tituloVentana = new JLabel("");
-		tituloVentana.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 14)); 
+		//tituloVentana.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 14)); 
 		tituloVentana.setHorizontalAlignment(SwingConstants.CENTER);
 		tituloVentana.setForeground(Color.WHITE);
 		tituloVentana.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
@@ -137,7 +137,7 @@ public class CustomJFrame extends JFrame {
 		lblImagenFondo.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 		lblImagenFondo.setIcon(new ImageIcon(CustomJFrame.class.getResource("/res/images/barra.png")));
 		lblImagenFondo.setBounds(0, 0, getWidth(), altoBarra);
-		lblImagenFondo.setIcon(Util.escalarImagen(lblImagenFondo));
+		//lblImagenFondo.setIcon(Util.escalarImagen(lblImagenFondo));
 		panelBarra.add(lblImagenFondo);
 		
 		//Eventos-Listeners
