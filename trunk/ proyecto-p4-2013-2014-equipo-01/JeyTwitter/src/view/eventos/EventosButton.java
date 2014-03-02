@@ -1,7 +1,6 @@
 package view.eventos;
 
 import view.botones.Button;
-import view.botones.CoolBlueButton;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

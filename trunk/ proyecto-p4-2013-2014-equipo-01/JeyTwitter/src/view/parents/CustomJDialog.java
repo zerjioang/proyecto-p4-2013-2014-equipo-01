@@ -18,7 +18,7 @@ import util.Util;
 
 public class CustomJDialog extends JDialog{
 	
-	private static final String TITULO = "JeyTuiter";
+	private static final String TITULO = Util.APP_TITULO;
 	
 	protected Boolean estado = null;
 	private JPanel contentPane;
@@ -58,6 +58,8 @@ public class CustomJDialog extends JDialog{
 		
 		getContentPane().add(btnCancelar);
 		getContentPane().add(btnAceptar);
+		
+		//Eventos
 		
 		btnCancelar.addMouseListener(new MouseAdapter() {
 			@Override

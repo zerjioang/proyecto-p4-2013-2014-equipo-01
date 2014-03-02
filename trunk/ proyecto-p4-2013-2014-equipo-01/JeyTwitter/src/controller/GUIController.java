@@ -66,8 +66,12 @@ public class GUIController {
 		// Inicio de el programa
 		GUIController gui = new GUIController();
 		
-		//gui.showTimeline();
-		gui.sendTweet();
+		gui.showTimeline();
+		//gui.sendTweet();
+	}
+
+	public TwitterService getTwitterService() {
+		return t;
 	}
 
 }

@@ -2,9 +2,12 @@ package view.eventos.welcome;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.UnknownHostException;
 
 import javax.swing.JPanel;
 
+import controller.GUIController;
+import controller.TwitterService;
 import util.InvalidInputException;
 import util.Util;
 import view.parents.CustomJFrame;
@@ -20,14 +23,21 @@ public class EventoClickEmpezar implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		try {
-			boolean resp = Util.showMessage(ventana, "Abrir Navegador", "Aqui se abrirá el navegador", "Continuar", "Atras");
-			if(resp)
-				desplazarJPanel();
-		} catch (InvalidInputException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					System.out.println("Conectando con Twitter...");
+					GUIController controller = new GUIController();
+					System.out.println("Pidiendo autorizacion...");
+					controller.getTwitterService().requestToken();
+				} catch (UnknownHostException e) {
+					Util.showError(ventana, "Conexion rechazada","No se pudo contactar con Twitter","Cancelar","Reiniciar");
+				} catch (Exception e) {
+					Util.showError(ventana, "Conexion rechazada", "Imposible conectar con "+e.getMessage(),"Cancelar","Reiniciar");
+				}
+			}
+		}).start();
 	}
 
 	private void desplazarJPanel() {

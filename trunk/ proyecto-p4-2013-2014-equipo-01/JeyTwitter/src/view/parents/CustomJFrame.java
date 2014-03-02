@@ -26,14 +26,12 @@ import java.awt.BorderLayout;
 
 import javax.swing.SwingConstants;
 
-import java.awt.Font;
-
 public class CustomJFrame extends JFrame {
 	
 	//Constantes
 	protected static final int altoBarra = 26;
 	private final static int tamBoton = 16;
-	private final static String RUTA_ICONO = "/res/images/icon.png";
+	private final static String RUTA_ICONO = Util.APP_ICONO;
 	
 	private Point initialClick, lastPosition;
 	private JLabel lblCerrar;

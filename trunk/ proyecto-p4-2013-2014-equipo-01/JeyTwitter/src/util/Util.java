@@ -1,6 +1,8 @@
 package util;
 
+import view.parents.CustomJFrame;
 import view.ventanas.MensajeWindow;
+import view.ventanas.VentanaError;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -26,6 +28,11 @@ public class Util {
 	FICHERO_XML = "config.xml",
 	SQLITE_NOMBRE_BBDD = "db.sqlite";
 
+	public static final String[] configs = 
+		{
+		"configuraciones"
+		};
+
 	public static String[] principal =
 		{
 		"Inicio",
@@ -36,10 +43,20 @@ public class Util {
 		"Busqueda"
 		};
 
+	/**
+	* Se encarga de cerrar la ventana al hacer click en el boton cerrar
+	* de la barra superior. Muestra un dialogo de confirmacion para
+	* asegurar la accion.
+	*/
 	public static void cerrarVentana(Component parent) throws InvalidInputException{
 		showMessage(parent, "Cerrar JeyTwitter", "Desea realmente cerrar?", "Si", "No");
 	}
 
+	/**
+	* Muestra un mensaje en pantalla del mismo estilo que la clase JOPtionPane
+	* pero este metodo tiene la posibilidad de definir el texto de los botones.
+	* Ademas la interfaz visual no viene determinada por swing
+	*/
 	public static boolean showMessage(Component parent, String titulo, String mensaje, String textoAceptar, String textoCancelar) throws InvalidInputException{
 		MensajeWindow mw = new MensajeWindow();
 		mw.setTituloVentana(titulo);
@@ -54,12 +71,19 @@ public class Util {
 		return mw.getEstado();
 	}
 
+	/**
+	* Redimensiona el tamaño de una imagen al tamaño del componente que recibe
+	*/
 	public static ImageIcon escalarImagen(Component comp){
 		ImageIcon fot = (ImageIcon) ( (JLabel) comp ).getIcon();
 		Icon icono = new ImageIcon(fot.getImage().getScaledInstance(comp.getWidth(), comp.getHeight(), Image.SCALE_DEFAULT));
 		return (ImageIcon) icono;
 	}
 
+	/**
+	* Actualmente muestra un efecto de desvanecimiento inverso en la ventana JFrame
+	* que recibe como parametro. Aumenta la opacidad de la ventana desde 0f hasta 1f
+	*/
 	public static void mostrarImagenDifuso(Component comp) {
 		comp.setVisible(false);
 		float opacidad=0.f;
@@ -75,8 +99,9 @@ public class Util {
 	}
 
 	/**
-	 * Cierra la imagen cambiando su opacidad progresivamente de 1f a 0f
-	 */
+	* Actualmente muestra un efecto de desvanecimiento en la ventana JFrame
+	* que recibe como parametro. Disminuye la opacidad de la ventana desde 1f hasta 0f
+	*/
 	public static void ocultarImagenDifuso(Component comp) {
 		float opacidad=1.0f;
 		((JFrame) comp).setOpacity(opacidad);
@@ -99,6 +124,9 @@ public class Util {
 		}
 	}
 
+	/**
+	* Asigna el tema Nimbus Look and Feel a la aplicación
+	*/
 	public static void asignarNimbus() {
 		try {
 			//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -135,10 +163,23 @@ public class Util {
 		return font;
 	}
 
+	/**
+	* Muestra informacion en consola cuanto el parametro 
+	* DEBUG es igual a TRUE
+	*/
 	public static void debug(String string) {
 		if(DEBUG)
-			System.out.println(string);
+			if (string!=null) {
+				System.out.println(string);
+			}
+			else {
+				System.err.println("[Object NULL]");
+			}
 	}
-	
+
+	public static void showError(Component parent, String lblTitulodeLaVentana, String lblMensajeAMostrar, String textoBotonBlanco, String textoBotonRojo) {
+		VentanaError error = new VentanaError(parent, lblTitulodeLaVentana,lblMensajeAMostrar,"Cancelar","Reiniciar");
+		error.setVisible(true);
+	}
 	
 }

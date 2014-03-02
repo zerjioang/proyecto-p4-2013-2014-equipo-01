@@ -11,21 +11,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
 
 import java.awt.Color;
 import java.awt.Font;
-
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-
-import java.awt.Cursor;
-
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JFormattedTextField;
-import java.awt.ComponentOrientation;
 
 public class Welcome extends CustomJFrame {
 
@@ -76,10 +66,10 @@ public class Welcome extends CustomJFrame {
 		inputCode = new JTextPane();
 		inputCode.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		inputCode.setOpaque(false);
-		inputCode.setFont(Util.getFont("Roboto-Regular", Font.PLAIN, 40));
+		inputCode.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 40));
 		inputCode.setBorder(null);
 		inputCode.setAutoscrolls(false);
-		inputCode.setBounds(88, 155, 292, 48);
+		inputCode.setBounds(80, 155, 292, 52);
 		panelUno.add(inputCode);
 
 		JLabel lblAuthCodeTexto = new JLabel("");
@@ -152,12 +142,17 @@ public class Welcome extends CustomJFrame {
 		else return null;
 	}
 	
-	// hacer set get de todos los eventos que necesite
-	
+	/**
+	* @return devuelve el codigo de autorizacion introducido por el usuario
+	*/
 	public String getCodigo(){
 		return inputCode.getText();
 	}
 	
+	/**
+	* Establece el codigo de autorizacion
+	* @param code codigo de autorizacion a introducir
+	*/
 	public void setCodigo(String code){
 		inputCode.setText(code);
 	}

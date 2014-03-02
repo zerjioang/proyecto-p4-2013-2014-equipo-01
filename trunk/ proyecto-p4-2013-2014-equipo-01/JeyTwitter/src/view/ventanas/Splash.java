@@ -8,16 +8,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 
+import util.Util;
+
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.awt.Window.Type;
 
 public class Splash extends JFrame {
 
 	//Constantes
-	private static final String TITULO = "Iniciando JeyTuiter...";
+	private static final String TITULO = "Iniciando "+Util.APP_TITULO+"...";
 	private static final String IMG_SPLASH = "/res/images/Splash.png";
-	private static final String IMG_ICON = "/res/images/icon.png";
+	private static final String IMG_ICON = Util.APP_ICONO;
 			
 	private JPanel contentPane;
 
