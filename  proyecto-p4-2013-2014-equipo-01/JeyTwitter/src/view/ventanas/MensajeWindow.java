@@ -35,6 +35,9 @@ public class MensajeWindow extends CustomJDialog {
 			}
 		});
 	}
+	/**
+	* Establece el fondo de la ventana
+	*/
 	private void initMensajeWindow(){
 		imagenBackground = "/res/images/mensajeVentanaNormal.png";
 	}
@@ -75,6 +78,7 @@ public class MensajeWindow extends CustomJDialog {
 	}
 
 	/**
+	* Construye los elementos de la ventana
 	 * @throws SecurityException
 	 */
 	private void iniciarElementos() {

@@ -4,7 +4,6 @@ import java.awt.Cursor;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-import javax.swing.plaf.ButtonUI;
 
 public class MenuButton extends BotonUI{
 	

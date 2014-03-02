@@ -33,6 +33,7 @@ public class ServidorSQL{
 	private ServidorSQL() {
 		conectado = false;
 		nombreDB = Util.SQLITE_NOMBRE_BBDD;
+		conectar();
 	}
 	
 	/**

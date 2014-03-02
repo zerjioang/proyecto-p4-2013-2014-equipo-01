@@ -5,6 +5,10 @@ import java.awt.Cursor;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
+/**
+* Clase que simula un boton de dos posiciones. El boton puede estar encendido o apagado.
+* Ideal para operaciones binarias.
+*/
 public class BinaryButton extends Button{
 	
 	private boolean estado;
@@ -31,28 +35,28 @@ public class BinaryButton extends Button{
 	}
 
 	/**
-	 * @return the imagenOn
+	 * @return devuelve la imagen asignada al estado ON
 	 */
 	public  ImageIcon getImagenOn() {
 		return new ImageIcon(BinaryButton.class.getResource(IMAGEN_ON));
 	}
 
 	/**
-	 * @return the imagenOff
+	 * @return devuelve la imagen asignada al estado OFF
 	 */
 	public  ImageIcon getImagenOff() {
 		return new ImageIcon(BinaryButton.class.getResource(IMAGEN_OFF));
 	}
 
 	/**
-	 * @return the estado
+	 * @return devuelve el estado actual del boton: TRUE - FALSE, ON - OFF
 	 */
 	public boolean getEstado() {
 		return estado;
 	}
 
 	/**
-	 * @param estado the estado to set
+	 * @param establece el estado del boton
 	 */
 	public void setEstado(boolean estado) {
 		this.estado = estado;
