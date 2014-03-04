@@ -25,10 +25,10 @@ public class XML {
 	 */
 	public static void main(String []args){
 		XML x = new XML("prueba.xml");
-		x.añadir("tamaño", "10");
-		x.añadir("tamaño2", "100");
-		x.mostrarProp("tamaño");
-		x.eliminar("tamaño2");
+		x.anadir("tamaï¿½o", "10");
+		x.anadir("tamaï¿½o2", "100");
+		x.mostrarProp("tamaï¿½o");
+		x.eliminar("tamaï¿½o2");
 		x.guardarXML();
 	}
 	
@@ -38,13 +38,13 @@ public class XML {
 	}
 	
 	/**
-	 * Añade un dato al fichero
+	 * Aï¿½ade un dato al fichero
 	 * @param nombre	nombre del dato (clave)
-	 * @param dato		dato a añadir
+	 * @param dato		dato a aï¿½adir
 	 */
-	public void añadir(String nombre, String dato){
+	public void anadir(String nombre, String dato){
 		pr.setProperty(nombre, dato);
-		Util.debug("Clave ("+nombre+") añadida correctamente");
+		Util.debug("Clave ("+nombre+") aï¿½adida correctamente");
 	}
 	
 	/**
@@ -108,18 +108,18 @@ public class XML {
 	}
 
 	/**
-	 * Añade un dato al fichero config.XML
-	 * @param id	nombre de la clave quq se va a añadir
-	 * @param o		dato que se va a añadir
+	 * Aï¿½ade un dato al fichero config.XML
+	 * @param id	nombre de la clave quq se va a aï¿½adir
+	 * @param o		dato que se va a aï¿½adir
 	 */
-	public static void añadirDato(String id, Object o){
+	public static void anadirDato(String id, Object o){
 		String dato = o.toString();
 		if(config==null)
 			config = new XML(Util.FICHERO_XML);
 		else if(new File(Util.FICHERO_XML).exists() && new File(Util.FICHERO_XML).length() > 0);
 			config.leerXML();
 			
-		config.añadir(id, dato);
+		config.anadir(id, dato);
 		config.guardarXML();
 	}
 	
@@ -142,7 +142,7 @@ public class XML {
 	
 	/**
 	 * 
-	 * @return devuelve el nº de datos guardados en el fichero
+	 * @return devuelve el nï¿½ de datos guardados en el fichero
 	 */
 	public static int size(){
 		return config.getProperties().size();

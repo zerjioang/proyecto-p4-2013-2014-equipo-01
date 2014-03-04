@@ -43,7 +43,7 @@ public class Fichero {
 		}
 	}
 	/**
-	 * Añade una nueva linea al fichero log.txt que ya existia
+	 * Aï¿½ade una nueva linea al fichero log.txt que ya existia
 	 */
 	public static void nuevaLineaLog(String str) {
 		BufferedWriter out;
@@ -59,16 +59,16 @@ public class Fichero {
 		} catch (IOException e) {}
 	}
 	/**
-	 * Crea un fichero de texto legible con un nombre predeterminado y añade la linea introducida como parametro
+	 * Crea un fichero de texto legible con un nombre predeterminado y aï¿½ade la linea introducida como parametro
 	 * @param nombre	nombre.extension del fichero a crear
-	 * @param añadirLinea	contenido que se va a insertar en el fichero
+	 * @param aï¿½adirLinea	contenido que se va a insertar en el fichero
 	 */
-	public static void crearFicheroNuevo(String nombre, String añadirLinea) {
+	public static void crearFicheroNuevo(String nombre, String anadirLinea) {
 		BufferedWriter out;
 		try {
 			//Calculo la fecha y hora actuales
 			out = new BufferedWriter(new FileWriter(nombre, true));
-	        out.write(añadirLinea);
+	        out.write(anadirLinea);
 	        out.write("\r\n");
 	        out.close();
 		} catch (IOException e) {}
@@ -194,7 +194,7 @@ public class Fichero {
 	}
 	/**
 	 * Lee un fichero que contiene un objeto de java y lo devuelve
-	 * Este metodo ha sido diseñado para leer objetos que esten en el classpath de la aplicacion
+	 * Este metodo ha sido diseï¿½ado para leer objetos que esten en el classpath de la aplicacion
 	 * @param nombreFichero	Nombre del fichero a leer
 	 * @return		Devuelve el objeto si todo ha sido correcto y si no devuelve null
 	 */
@@ -214,7 +214,7 @@ public class Fichero {
 	}
 	/**
 	 * Guarda un objeto en un fichero
-	 * Este metodo ha sido diseñado para guardar objetos en el classpath de la aplicacion
+	 * Este metodo ha sido diseï¿½ado para guardar objetos en el classpath de la aplicacion
 	 * @param nombreFichero	Nombre del fichero a guardar
 	 * @return		Devuelve true si la operacion se ha realizado 
 	 * correctamente y false si se ha producido algun error
