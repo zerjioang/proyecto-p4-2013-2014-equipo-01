@@ -69,7 +69,7 @@ public class TwitterService {
 	}
 	
 	/**
-	 * Se obtiene el timeline
+	 * Se obtiene el timeline (20 últimos pero se puede parametrizar mas)
 	 * @return
 	 * @throws TwitterException
 	 */
@@ -84,6 +84,36 @@ public class TwitterService {
 	}
 	
 	/**
+	 * Recupera el Timeline de menciones
+	 * @return
+	 * @throws TwitterException
+	 */
+	public ResponseList<Status> getMentions() throws TwitterException {
+		ResponseList<Status> list = null;
+		
+		if (tw != null) {
+			list = tw.getMentionsTimeline();						
+		}
+		
+		return list;
+	}
+	
+	/**
+	 * Recupera todos nuestros Tweets retwitteados por otros
+	 * @return
+	 * @throws TwitterException
+	 */
+	public ResponseList<Status> getRetweetsOfMe() throws TwitterException {
+		ResponseList<Status> list = null;
+		
+		if (tw != null) {
+			list = tw.getRetweetsOfMe();						
+		}
+		
+		return list;
+	}
+	
+	/**
 	 * Tuitea el mensaje por parámetro
 	 * @param message
 	 * @throws TwitterException 
@@ -91,4 +121,10 @@ public class TwitterService {
 	public void tweet(String message) throws TwitterException {
 		tw.updateStatus(message);
 	}
+	
+	
+	public void retweet() {
+		
+	}
+	
 }
