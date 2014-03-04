@@ -1,6 +1,6 @@
 package view.parents;
 
-import view.botones.CoolBlueButton;
+import view.elementos.botones.CoolBlueButton;
 
 import java.awt.Component;
 import java.awt.Point;

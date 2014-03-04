@@ -1,12 +1,13 @@
 package view.parents;
 
-import view.eventos.EventoClickCerrar;
-import view.eventos.EventoClickMinimizar;
-import view.eventos.EventoMaximizarDesdeBarra;
-import view.eventos.EventosDeBarra;
+import view.eventos.barraMenu.EventoClickCerrar;
+import view.eventos.barraMenu.EventoClickMinimizar;
+import view.eventos.barraMenu.EventoMaximizarDesdeBarra;
+import view.eventos.barraMenu.EventosDeBarra;
 
 import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Point;
 
 import javax.swing.ImageIcon;
@@ -100,14 +101,12 @@ public class CustomJFrame extends JFrame {
 	}
 
 	private void initBarra() {
-		//setLayout(new BorderLayout(0, 0));
-		
-		tituloVentana = new JLabel("");
-		//tituloVentana.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 14)); 
-		tituloVentana.setHorizontalAlignment(SwingConstants.CENTER);
+		tituloVentana = new JLabel();
+		tituloVentana.setHorizontalAlignment(SwingConstants.LEFT); //SwingConstants.CENTER
 		tituloVentana.setForeground(Color.WHITE);
 		tituloVentana.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-		tituloVentana.setBounds(0, 0, getWidth()-70, altoBarra);
+		tituloVentana.setBounds(10, 0, getWidth()-70, altoBarra);
+		tituloVentana.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 13));
 		panelBarra.add(tituloVentana);
 		
 		lblCerrar = new JLabel("");
@@ -126,7 +125,6 @@ public class CustomJFrame extends JFrame {
 		panelBarra.add(lblMinimizar);
 
 		lblBotonesBotonera = new JLabel("");
-		//lblBotonesBotonera.setForeground(Color.WHITE);
 		lblBotonesBotonera.setIcon(new ImageIcon(CustomJFrame.class.getResource("/res/images/botonera/botonesNormales.png")));
 		lblBotonesBotonera.setBounds(getWidth()-71, 0, 69, 26);
 		panelBarra.add(lblBotonesBotonera);
@@ -135,7 +133,7 @@ public class CustomJFrame extends JFrame {
 		lblImagenFondo.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 		lblImagenFondo.setIcon(new ImageIcon(CustomJFrame.class.getResource("/res/images/barra.png")));
 		lblImagenFondo.setBounds(0, 0, getWidth(), altoBarra);
-		//lblImagenFondo.setIcon(Util.escalarImagen(lblImagenFondo));
+		lblImagenFondo.setIcon(Util.escalarImagen(lblImagenFondo));
 		panelBarra.add(lblImagenFondo);
 		
 		//Eventos-Listeners

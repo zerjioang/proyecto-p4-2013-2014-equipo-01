@@ -1,6 +1,6 @@
 package view.renderers;
 
-import view.botones.BotonUI;
+import view.elementos.botones.BotonUI;
 
 import java.awt.Component;
 
