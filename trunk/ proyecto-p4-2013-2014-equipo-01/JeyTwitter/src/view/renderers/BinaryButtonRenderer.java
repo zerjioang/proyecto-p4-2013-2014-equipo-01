@@ -1,7 +1,9 @@
 package view.renderers;
 
-import view.botones.BinaryButton;
+import view.elementos.botones.BinaryButton;
+
 import java.awt.Component;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
