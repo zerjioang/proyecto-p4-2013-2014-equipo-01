@@ -1,6 +1,5 @@
 package util;
 
-import view.parents.CustomJFrame;
 import view.ventanas.MensajeWindow;
 import view.ventanas.VentanaError;
 
@@ -30,7 +29,11 @@ public class Util {
 
 	public static final String[] configs = 
 		{
-		"configuraciones"
+		"Activar sonidos",
+		"Permitir multiples usuarios",
+		"Permitir edición offline",
+		"Desautorizar cliente",
+		"Reiniciar configuración"
 		};
 
 	public static String[] principal =
@@ -41,6 +44,13 @@ public class Util {
 		"Retweets",
 		"Favoritos",
 		"Busqueda"
+		};
+
+	public static String[] settings =
+		{
+		"General",
+		"Cuenta",
+		"Notificaciones"
 		};
 
 	/**
@@ -177,9 +187,10 @@ public class Util {
 			}
 	}
 
-	public static void showError(Component parent, String lblTitulodeLaVentana, String lblMensajeAMostrar, String textoBotonBlanco, String textoBotonRojo) {
+	public boolean showError(Component parent, String lblTitulodeLaVentana, String lblMensajeAMostrar, String textoBotonBlanco, String textoBotonRojo) {
 		VentanaError error = new VentanaError(parent, lblTitulodeLaVentana,lblMensajeAMostrar,"Cancelar","Reiniciar");
 		error.setVisible(true);
+		return error.getEstado();
 	}
 	
 }
