@@ -1,8 +1,8 @@
 package view.ventanas;
 
 import util.Util;
-import view.eventos.EventoCerrar;
-import view.eventos.EventosDeBarra;
+import view.eventos.barraMenu.EventoCerrar;
+import view.eventos.barraMenu.EventosDeBarra;
 import view.parents.CustomJDialog;
 
 import java.awt.Color;
@@ -29,7 +29,7 @@ public class VentanaError extends CustomJDialog {
 	 * @param lblMensajeAMostrar
 	 * @param lblTitulodeLaVentana
 	 */
-
+	
 	private String botonRojo;
 	private String botonBlanco;
 	private String lblMensajeAMostrar0;

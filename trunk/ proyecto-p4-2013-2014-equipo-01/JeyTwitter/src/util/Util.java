@@ -95,15 +95,23 @@ public class Util {
 	* que recibe como parametro. Aumenta la opacidad de la ventana desde 0f hasta 1f
 	*/
 	public static void mostrarImagenDifuso(Component comp) {
+		mostrarImagenDifuso(comp, 15);
+	}
+	/**
+	* Actualmente muestra un efecto de desvanecimiento inverso en la ventana JFrame
+	* que recibe como parametro. Aumenta la opacidad de la ventana desde 0f hasta 1f
+	* Ademas puede configurar la velocidad con el parametro time
+	*/
+	public static void mostrarImagenDifuso(Component comp, int time) {
 		comp.setVisible(false);
 		float opacidad=0.f;
 		((JFrame) comp).setOpacity(opacidad);
 		comp.setVisible(true);
 		for (opacidad = 0.f; opacidad < 1.0f; opacidad+=0.01f ) {
-			pausar(25);
+			pausar(time);
 			((JFrame) comp).setOpacity(opacidad);
 		}
-		pausar(25);
+		pausar(time);
 		((JFrame) comp).setOpacity(1.0f);
 		((JFrame) comp).setVisible(true);
 	}
@@ -113,14 +121,23 @@ public class Util {
 	* que recibe como parametro. Disminuye la opacidad de la ventana desde 1f hasta 0f
 	*/
 	public static void ocultarImagenDifuso(Component comp) {
+		ocultarImagenDifuso(comp, 25);
+	}
+	
+	/**
+	* Actualmente muestra un efecto de desvanecimiento en la ventana JFrame
+	* que recibe como parametro. Disminuye la opacidad de la ventana desde 1f hasta 0f
+	* Ademas puede configurar la velocidad con el parametro time
+	*/
+	public static void ocultarImagenDifuso(Component comp, int time) {
 		float opacidad=1.0f;
 		((JFrame) comp).setOpacity(opacidad);
 		comp.setVisible(true);
 		for (opacidad = 1.0f; opacidad > 0.0f; opacidad-=0.1f ) {
-			pausar(25);
+			pausar(time);
 			((JFrame) comp).setOpacity(opacidad);
 		}
-		pausar(25);
+		pausar(time);
 		((JFrame) comp).setOpacity(0.0f);
 		((JFrame) comp).setVisible(false);
 	}
@@ -187,7 +204,7 @@ public class Util {
 			}
 	}
 
-	public boolean showError(Component parent, String lblTitulodeLaVentana, String lblMensajeAMostrar, String textoBotonBlanco, String textoBotonRojo) {
+	public static boolean showError(Component parent, String lblTitulodeLaVentana, String lblMensajeAMostrar, String textoBotonBlanco, String textoBotonRojo) {
 		VentanaError error = new VentanaError(parent, lblTitulodeLaVentana,lblMensajeAMostrar,"Cancelar","Reiniciar");
 		error.setVisible(true);
 		return error.getEstado();

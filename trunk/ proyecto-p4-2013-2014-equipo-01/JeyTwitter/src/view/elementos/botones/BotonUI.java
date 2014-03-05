@@ -1,4 +1,4 @@
-package view.botones;
+package view.elementos.botones;
 
 import java.awt.Color;
 import java.awt.Cursor;

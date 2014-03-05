@@ -1,20 +1,21 @@
 package view.eventos;
 
-import java.awt.Window;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class EventoCerrar implements MouseListener {
+import view.elementos.botones.MenuButton;
+
+public class EventoMenuButton implements MouseListener {
+
+	private MenuButton boton;
 	
-	private final Window ventana;
-	
-	public EventoCerrar(Window o){
-		ventana = o;
+	public EventoMenuButton(MenuButton menuButton) {
+		boton = menuButton;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		ventana.dispose();
+		System.out.println("click");
 	}
 
 	@Override

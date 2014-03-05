@@ -7,8 +7,6 @@ import java.net.UnknownHostException;
 import javax.swing.JPanel;
 
 import controller.GUIController;
-import controller.TwitterService;
-import util.InvalidInputException;
 import util.Util;
 import view.parents.CustomJFrame;
 import view.ventanas.Welcome;
@@ -38,6 +36,7 @@ public class EventoClickEmpezar implements MouseListener {
 				}
 			}
 		}).start();
+		desplazarJPanel();
 	}
 
 	private void desplazarJPanel() {
@@ -50,9 +49,10 @@ public class EventoClickEmpezar implements MouseListener {
 				panelMostrar.setVisible(true);
 				ventana.getMainPanel().add(panelMostrar);
 				int w = panel.getWidth(), h = panel.getHeight();
-				for (int i = 0; i < panel.getHeight(); i=i+1) {
+				for (int i = 0; i < panel.getHeight(); i=i+2) {
 					panel.setBounds(0, i, w, h);
-					Util.pausar(1);
+					panel.setVisible(true);
+					Util.pausar(10);
 				}
 			}
 		}).start();

@@ -1,8 +1,7 @@
-package view.eventos;
+package view.eventos.barraMenu;
 
 import view.parents.CustomJFrame;
 
-import java.awt.EventQueue;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -21,24 +20,19 @@ public class EventoClickCerrar implements MouseListener {
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				if(parent.isDisposeWindow()){
+		if(parent.isDisposeWindow()){
+			Util.ocultarImagenDifuso(parent);
+			parent.dispose();
+		}
+		else{
+			try {
+				boolean respPositiva = Util.showMessage(parent, "Cerrar app","Desea realmente cerrar "+Util.APP_TITULO+"?", "Cerrar", "Cancelar");
+				if(respPositiva){
 					Util.ocultarImagenDifuso(parent);
-					parent.dispose();
+					System.exit(0);
 				}
-				else{
-					try {
-						boolean respPositiva = Util.showMessage(parent, "Cerrar app","Desea realmente cerrar JeyTuiter?", "Cerrar", "Cancelar");
-						if(respPositiva){
-							Util.ocultarImagenDifuso(parent);
-							System.exit(0);
-						}
-					} catch (Exception e) {}
-				}
-			}
-		});
+			} catch (Exception e) {}
+		}
 	}
 
 	@Override

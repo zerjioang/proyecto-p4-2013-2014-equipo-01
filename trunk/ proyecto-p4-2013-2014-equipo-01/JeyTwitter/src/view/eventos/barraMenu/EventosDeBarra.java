@@ -1,4 +1,4 @@
-package view.eventos;
+package view.eventos.barraMenu;
 
 import view.parents.CustomJDialog;
 import view.parents.CustomJFrame;

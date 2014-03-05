@@ -1,6 +1,6 @@
 package view.eventos;
 
-import view.botones.BinaryButton;
+import view.elementos.botones.BinaryButton;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

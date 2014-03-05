@@ -1,8 +1,8 @@
 package view.ventanas;
 
 import util.Util;
-import view.eventos.EventoCerrar;
-import view.eventos.EventosDeBarra;
+import view.eventos.barraMenu.EventoCerrar;
+import view.eventos.barraMenu.EventosDeBarra;
 import view.parents.CustomJDialog;
 import view.parents.CustomJFrame;
 
