@@ -1,4 +1,4 @@
-package view.eventos;
+package view.eventos.barraMenu;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -33,6 +33,7 @@ public class EventoClickMinimizar implements MouseListener {
 			ventana.setLocation(currentLocation);
 		}
 		ventana.setExtendedState(JFrame.ICONIFIED);
+		ventana.setLocation(ventana.getLastPosition());
 	}
 
 	@Override

@@ -1,9 +1,11 @@
-package view.botones;
+package view.elementos.botones;
 
 import java.awt.Cursor;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+
+import view.eventos.EventoMenuButton;
 
 public class MenuButton extends BotonUI{
 	

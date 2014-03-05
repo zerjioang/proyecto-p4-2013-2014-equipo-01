@@ -1,4 +1,4 @@
-package view.botones;
+package view.elementos.botones;
 
 import view.eventos.EventoClickBinaryButton;
 import java.awt.Cursor;

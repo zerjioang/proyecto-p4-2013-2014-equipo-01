@@ -1,8 +1,10 @@
 package view.ventanas;
 
 import util.Util;
-import view.botones.BotonEmpezar;
-import view.botones.BotonUI;
+import view.elementos.botones.BotonEmpezar;
+import view.elementos.botones.BotonUI;
+import view.elementos.input.CampoCodeAuth;
+import view.elementos.input.EventoKeyListenerAuthCode;
 import view.eventos.welcome.EventoClickEmpezar;
 import view.eventos.welcome.EventoWelcomeContinuar;
 import view.parents.CustomJFrame;
@@ -44,33 +46,31 @@ public class Welcome extends CustomJFrame {
 	 */
 	public Welcome() {
 		super(468, 329);
-		getMainPanel().setBorder(null);
-		getMainPanel().setBackground(Color.DARK_GRAY);
 		init();
 	}
 
 	public void init(){
 
+		getMainPanel().setBorder(null);
+		getMainPanel().setBackground(Color.DARK_GRAY);
 		setDisposeWindow(false);
-		setTitulo("Bienvenido a JeyTuiter");
+		setTitulo("Bienvenido a "+Util.APP_TITULO);
 		getMainPanel().setLayout(null);
-
+		
 		panelUno = new JPanel();
 		panelUno.setBorder(null);
 		panelUno.setBackground(Color.BLACK);
 		panelUno.setBounds(0, 0, 468, 304);
-		getMainPanel().add(panelUno);
 		panelUno.setVisible(false);
 		panelUno.setLayout(null);
-
-		inputCode = new JTextPane();
-		inputCode.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		inputCode.setOpaque(false);
-		inputCode.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 40));
-		inputCode.setBorder(null);
-		inputCode.setAutoscrolls(false);
-		inputCode.setBounds(80, 155, 292, 52);
-		panelUno.add(inputCode);
+		getMainPanel().add(panelUno);
+		
+		CampoCodeAuth codeField = new CampoCodeAuth();
+		codeField.setBounds(80, 156, 308, 58);
+		codeField.getInputField().addKeyListener(new EventoKeyListenerAuthCode(codeField));
+		panelUno.add(codeField.getInputField());
+		panelUno.add(codeField.getImagenFondo());
+		panelUno.add(codeField);
 
 		JLabel lblAuthCodeTexto = new JLabel("");
 		lblAuthCodeTexto.setIcon(new ImageIcon(Welcome.class.getResource("/res/images/authCode_text.png")));
@@ -83,18 +83,12 @@ public class Welcome extends CustomJFrame {
 		panelUno.add(lblContinuar);
 		lblContinuar.addMouseListener(new EventoWelcomeContinuar(this));
 
-		JLabel lblImagenFondoInput = new JLabel("");
-		lblImagenFondoInput.setIcon(new ImageIcon(Welcome.class.getResource("/res/images/textInput/IntroCodeField_normal.png")));
-		lblImagenFondoInput.setBounds(70, 149, 324, 64);
-		panelUno.add(lblImagenFondoInput);
-
 		panelCero = new JPanel();
 		panelCero.setBorder(null);
 		panelCero.setBackground(Color.BLACK);
 		panelCero.setBounds(0, 0, 468, 304);
 		panelCero.setLayout(null);
 		getMainPanel().add(panelCero);
-
 
 		JLabel lblTextoBienvenida = new JLabel("");
 		lblTextoBienvenida.setIcon(new ImageIcon(Welcome.class.getResource("/res/images/textoBienvenida.png")));
@@ -116,7 +110,8 @@ public class Welcome extends CustomJFrame {
 		panelCero.add(lblBackimg);
 		lblBackimg.setBounds(0, 0, 468, 301);
 		lblBackimg.setLabelFor(lblBackimg);
-		lblBackimg.setIcon(new ImageIcon(Welcome.class.getResource("/res/images/bg_welcome.png")));
+		ImageIcon imagen = new ImageIcon(Welcome.class.getResource("/res/images/bg_welcome.png"));
+		lblBackimg.setIcon(imagen);
 
 		/*JPanel[] paneles = new JPanel[2];
 		for (int i = 0; i < paneles.length; i++) {
@@ -125,14 +120,13 @@ public class Welcome extends CustomJFrame {
 		}
 		getMainPanel().add(paneles[0]);
 		paneles[0].setForeground(Color.YELLOW);*/
-		ImageIcon imagen = new ImageIcon(Welcome.class.getResource("/res/images/bg_welcome.png"));
 
-		//setBounds(0, 0, 468, 329);
 		setLocationRelativeTo(null);
 	}
 
 	public JPanel getPanel(int numero){
-		//Sustituirlos paneles por un array de paneles
+		//Sustituir los paneles por un array de paneles
+		//return panel[i];
 		if(numero==1){
 			return panelUno;
 		}

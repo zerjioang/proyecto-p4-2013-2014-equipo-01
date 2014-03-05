@@ -62,4 +62,13 @@ public class Splash extends JFrame {
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f)); //Lo hace transparente el ultimo valor es el nivel de transparencia
 	}
 
+	public void mostrar(){
+		Util.mostrarImagenDifuso(this);
+		setVisible(true);
+	}
+	@Override
+	public void dispose(){
+		Util.ocultarImagenDifuso(this);
+		super.dispose();
+	}
 }
