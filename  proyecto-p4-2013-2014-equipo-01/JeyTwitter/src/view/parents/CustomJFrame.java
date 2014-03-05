@@ -76,13 +76,10 @@ public class CustomJFrame extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CustomJFrame.class.getResource(RUTA_ICONO)));
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setBounds(100, 100, 638, 318);
 		
 		panelBarra = new JPanel();
-		//panelBarra.setBackground(Color.GREEN);
 		
 		panelContenido = new JPanel();
-		//panelContenido.setBackground(Color.YELLOW);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -109,24 +106,24 @@ public class CustomJFrame extends JFrame {
 		tituloVentana.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 13));
 		panelBarra.add(tituloVentana);
 		
-		lblCerrar = new JLabel("");
+		lblCerrar = new JLabel();
 		lblCerrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblCerrar.setBounds(getWidth()-24, 3, tamBoton, tamBoton);
 		panelBarra.add(lblCerrar);
 		
-		lblMaximizar = new JLabel("");
+		lblMaximizar = new JLabel();
 		lblMaximizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblMaximizar.setBounds(getWidth()-45, 3, tamBoton, tamBoton);
 		panelBarra.add(lblMaximizar);
 		
-		lblMinimizar = new JLabel("");
+		lblMinimizar = new JLabel();
 		lblMinimizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblMinimizar.setBounds(getWidth()-67, 3, tamBoton, tamBoton);
 		panelBarra.add(lblMinimizar);
 
-		lblBotonesBotonera = new JLabel("");
+		lblBotonesBotonera = new JLabel();
 		lblBotonesBotonera.setIcon(new ImageIcon(CustomJFrame.class.getResource("/res/images/botonera/botonesNormales.png")));
-		lblBotonesBotonera.setBounds(getWidth()-71, 0, 69, 26);
+		lblBotonesBotonera.setBounds(getWidth()-69, 0, 69, 26);
 		panelBarra.add(lblBotonesBotonera);
 		
 		lblImagenFondo = new JLabel("");
@@ -146,6 +143,17 @@ public class CustomJFrame extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
+	public void mostrar(){
+		Util.mostrarImagenDifuso(this);
+		setVisible(true);
+	}
+	@Override
+	public void dispose(){
+		Util.ocultarImagenDifuso(this);
+		setVisible(false);
+		super.dispose();
+	}
+	
 	/**
 	 * @return the initialClick
 	 */
