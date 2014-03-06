@@ -54,7 +54,7 @@ public class Welcome extends CustomJFrame {
 		getMainPanel().setBorder(null);
 		getMainPanel().setBackground(Color.DARK_GRAY);
 		setDisposeWindow(false);
-		setTitulo("Bienvenido a "+Util.APP_TITULO);
+		setTitle("Bienvenido a "+Util.APP_TITULO);
 		getMainPanel().setLayout(null);
 		
 		panelUno = new JPanel();

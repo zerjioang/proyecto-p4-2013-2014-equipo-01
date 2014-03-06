@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 import util.Util;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class InvisibleJFrame extends JFrame {
 
@@ -50,11 +52,9 @@ public class InvisibleJFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		fondo = new JLabel();
 		fondo.setIcon(icono);
-		contentPane.add(fondo);
 		
 		init();
 	}
@@ -75,7 +75,34 @@ public class InvisibleJFrame extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
+	/**
+	 * @param icono the icono to set
+	 */
+	public void setImagenFondo(ImageIcon icono) {
+		fondo.setIcon(icono);
+		this.icono = icono;
+	}
+	
 	public void setImagenFondo(String ruta){
 		fondo.setIcon(new ImageIcon(InvisibleJFrame.class.getResource(ruta)));
+		this.icono = icono;
+	}
+
+	/**
+	 * @return the icono
+	 */
+	public ImageIcon getImagenFondo() {
+		return icono;
+	}
+	
+
+	public void mostrar(int pausar){
+		Util.mostrarImagenDifuso(this, pausar);
+		setVisible(true);
+	}
+	@Override
+	public void dispose(){
+		Util.ocultarImagenDifuso(this);
+		super.dispose();
 	}
 }

@@ -6,7 +6,7 @@ public class Launcher {
 
 	public static void main(String[] args) {
 		Splash spl = new Splash();
-		spl.mostrar();
+		spl.mostrar(5);
 		Util.pausar(800);
 		spl.dispose();
 		Welcome wc = new Welcome();

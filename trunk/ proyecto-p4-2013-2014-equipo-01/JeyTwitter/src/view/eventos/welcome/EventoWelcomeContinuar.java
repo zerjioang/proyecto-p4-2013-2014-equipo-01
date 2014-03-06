@@ -3,9 +3,8 @@ package view.eventos.welcome;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import util.InvalidInputException;
-import util.Util;
 import view.parents.CustomJFrame;
+import view.ventanas.Principal;
 
 public class EventoWelcomeContinuar implements MouseListener {
 
@@ -16,11 +15,10 @@ public class EventoWelcomeContinuar implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		try {
-			Util.showMessage(ventana, "Ventana principal", "Ahora se deberia abrir la ventana principal", "Lo pillo", "Atras");
-		} catch (InvalidInputException e) {
-			e.printStackTrace();
-		}
+		Principal p = new Principal();
+		p.setLocationRelativeTo(ventana);
+		p.setVisible(true);
+		ventana.cerrar();
 	}
 
 	@Override

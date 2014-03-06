@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.InputStream;
 
 import javax.swing.Icon;
@@ -19,6 +20,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Util {
 	
 	public static boolean DEBUG = false;
+	
+	public static final int anchoPantalla = Toolkit.getDefaultToolkit().getScreenSize().width;
+	public static final int altoPantalla = Toolkit.getDefaultToolkit().getScreenSize().height;
 
 	public static final String 
 	APP_TITULO = "JeyTuiter",
@@ -32,9 +36,10 @@ public class Util {
 		{
 		"Activar sonidos",
 		"Permitir multiples usuarios",
-		"Permitir edici�n offline",
+		"Permitir edicion offline",
 		"Desautorizar cliente",
-		"Reiniciar configuraci�n"
+		"Reiniciar configuracion",
+		"Minimizar a la barra de tareas"
 		};
 
 	public static String[] principal =
@@ -97,7 +102,7 @@ public class Util {
 	* que recibe como parametro. Aumenta la opacidad de la ventana desde 0f hasta 1f
 	*/
 	public static void mostrarImagenDifuso(Component comp) {
-		mostrarImagenDifuso(comp, 15);
+		mostrarImagenDifuso(comp, 25);
 	}
 	/**
 	* Actualmente muestra un efecto de desvanecimiento inverso en la ventana JFrame
@@ -159,14 +164,14 @@ public class Util {
 	public static void asignarNimbus() {
 		//Al tener activado el look and feel de Nimbus algunas ventanas con
 		//transparencia se volvian opacas. Ahora esta desactivado
-		/*try {
-			//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 	/**
@@ -210,6 +215,7 @@ public class Util {
 
 	public static boolean showError(Component parent, String lblTitulodeLaVentana, String lblMensajeAMostrar, String textoBotonBlanco, String textoBotonRojo) {
 		VentanaError error = new VentanaError(parent, lblTitulodeLaVentana,lblMensajeAMostrar,"Cancelar","Reiniciar");
+		error.getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		error.setVisible(true);
 		return error.getEstado();
 	}
