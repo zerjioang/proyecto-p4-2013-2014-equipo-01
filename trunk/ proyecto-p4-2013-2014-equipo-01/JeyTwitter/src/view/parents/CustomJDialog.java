@@ -2,6 +2,7 @@ package view.parents;
 
 import view.elementos.botones.CoolBlueButton;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -48,6 +49,7 @@ public class CustomJDialog extends JDialog{
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CustomJFrame.class.getResource("/res/images/icon.png")));
 		setUndecorated(true);
 		setResizable(false);
+		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		setTitle(TITULO);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		

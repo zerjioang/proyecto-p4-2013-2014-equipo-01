@@ -88,6 +88,7 @@ public class MensajeWindow extends CustomJDialog {
 		setAlwaysOnTop(true);
 		setBounds(100, 100, 443, 177);
 		
+		
 		//Construccion de objetos
 		JLabel lblFondo = new JLabel();
 		
@@ -117,7 +118,7 @@ public class MensajeWindow extends CustomJDialog {
 		lblArrastrar .setBounds(10, 12, 373, 23);
 		lblArrastrar.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));	
 		
-		//Se añaden al panel principal que tiene layout null
+		//Se aï¿½aden al panel principal que tiene layout null
 		
 		getContentPane().add(lblArrastrar);	
 		getContentPane().add(lblMensajeAMostrar);
@@ -130,7 +131,8 @@ public class MensajeWindow extends CustomJDialog {
 		lblArrastrar.addMouseListener(new EventosDeBarra(this));
 		lblArrastrar.addMouseMotionListener(new EventosDeBarra(this));
 		
-		setBackground(new Color(1.0f,1.0f,1.0f,0.0f)); //Lo hace transparente el ultimo valor es el nivel de transparencia
+		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f)); //Lo hace transparente el ultimo valor es el nivel de transparencia
 		setLocationRelativeTo(ventanaPadre);
 	}
 }

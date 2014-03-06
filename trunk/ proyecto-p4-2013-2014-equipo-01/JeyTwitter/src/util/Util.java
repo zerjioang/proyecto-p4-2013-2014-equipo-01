@@ -3,6 +3,7 @@ package util;
 import view.ventanas.MensajeWindow;
 import view.ventanas.VentanaError;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
@@ -31,9 +32,9 @@ public class Util {
 		{
 		"Activar sonidos",
 		"Permitir multiples usuarios",
-		"Permitir edición offline",
+		"Permitir ediciï¿½n offline",
 		"Desautorizar cliente",
-		"Reiniciar configuración"
+		"Reiniciar configuraciï¿½n"
 		};
 
 	public static String[] principal =
@@ -74,6 +75,7 @@ public class Util {
 		mw.setBotonPositivo(textoAceptar);
 		mw.setBotonNegativo(textoCancelar);
 		mw.setLocationRelativeTo(parent);
+		mw.getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		if(titulo.length()>50 || mensaje.length()>50 || textoAceptar.length()>11 || textoCancelar.length()>11)
 			throw new InvalidInputException("Unexpected input string length. Check input Strings");
 		mw.setVisible(true);
@@ -82,7 +84,7 @@ public class Util {
 	}
 
 	/**
-	* Redimensiona el tamaño de una imagen al tamaño del componente que recibe
+	* Redimensiona el tamaï¿½o de una imagen al tamaï¿½o del componente que recibe
 	*/
 	public static ImageIcon escalarImagen(Component comp){
 		ImageIcon fot = (ImageIcon) ( (JLabel) comp ).getIcon();
@@ -152,24 +154,26 @@ public class Util {
 	}
 
 	/**
-	* Asigna el tema Nimbus Look and Feel a la aplicación
+	* Asigna el tema Nimbus Look and Feel a la aplicaciï¿½n
 	*/
 	public static void asignarNimbus() {
-		try {
+		//Al tener activado el look and feel de Nimbus algunas ventanas con
+		//transparencia se volvian opacas. Ahora esta desactivado
+		/*try {
 			//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	/**
 	 * Carga una fuente que no esta instalada en el sistema para usarla
 	 * @param name	nombre de la fuente a cargar situada en la carpeta /res/fonts. omitir la extension
 	 * @param tipo	tipo de fuente: normal, negrita, cursiva
-	 * @param tamano	tamaño de la fuente
+	 * @param tamano	tamaï¿½o de la fuente
 	 * @return devuelve un objeto fuente con la fuente seleccionada
 	 */
 	public static Font getFont(String name, int tipo, float tamano) {
