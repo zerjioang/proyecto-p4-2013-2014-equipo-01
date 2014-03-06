@@ -51,7 +51,7 @@ public class AcercaDe extends CustomJFrame {
 	private void init() {
 		setDisposeWindow(true);
 		setAlwaysOnTop(true);
-		setTitulo(TITULO);
+		setTitle(TITULO);
 		getMainPanel().setBackground(COLOR_FONDO);
 		JLabel lblDev = new JLabel("Desarrollado por:");
 		lblDev.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 18));

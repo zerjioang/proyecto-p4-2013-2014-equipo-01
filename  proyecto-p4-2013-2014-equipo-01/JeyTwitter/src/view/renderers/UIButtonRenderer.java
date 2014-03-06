@@ -16,8 +16,6 @@ public class UIButtonRenderer extends DefaultTableCellRenderer{
 	public Component getTableCellRendererComponent (JTable table, Object value, boolean isSelected,boolean hasFocus, int row, int column){
 		super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		BotonUI l = (BotonUI)value;
-		//JLabel l = new JLabel((ImageIcon)value);
-		//l.setBorder( BorderFactory.createLineBorder( Color.RED ));
 		return l;
 	}
 }

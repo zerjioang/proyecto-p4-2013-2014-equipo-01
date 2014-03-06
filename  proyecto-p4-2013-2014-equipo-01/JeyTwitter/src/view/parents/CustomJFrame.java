@@ -53,7 +53,7 @@ public class CustomJFrame extends JFrame {
 			public void run() {
 				try {
 					CustomJFrame frame = new CustomJFrame(600,300);
-					frame.setTitulo("Ventana de prueba");
+					frame.setTitle("Ventana de prueba");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -147,6 +147,16 @@ public class CustomJFrame extends JFrame {
 		Util.mostrarImagenDifuso(this);
 		setVisible(true);
 	}
+	
+	public void mostrar(int pausar){
+		Util.mostrarImagenDifuso(this, pausar);
+		setVisible(true);
+	}
+	
+	public void cerrar(){
+		Util.ocultarImagenDifuso(this);
+		setVisible(false);
+	}
 	@Override
 	public void dispose(){
 		Util.ocultarImagenDifuso(this);
@@ -187,9 +197,9 @@ public class CustomJFrame extends JFrame {
 	public JPanel getMainPanel() {
 		return panelContenido;
 	}
-	
-	public void setTitulo(String titulo){
-		setTitle(titulo);
+	@Override
+	public void setTitle(String titulo){
+		super.setTitle(titulo);
 		tituloVentana.setText(titulo);
 	}
 
