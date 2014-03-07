@@ -1,5 +1,5 @@
 package model;
-	import java.sql.Connection;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,33 +8,38 @@ import java.sql.Statement;
  * @author Fiser
  * Clase encargada de conectarse a una base de datos de diversos tipos
  */
-public class SQLiteManager {
+public class SQLiteManager
+{
 	private Connection connection;
 	private Statement query;
 	private String dir;
-
-	public boolean connect(){
-		boolean funciona = true;
+	private boolean connect;
+	public SQLiteManager(String dir)
+	{
+		this.dir = dir;
+	}
+	public void connect(){
 		try {
 			Class.forName("org.sqlite.JDBC");
 			try {
 				connection = DriverManager.getConnection("jdbc:sqlite:"+dir);
 				query = connection.createStatement();
+				connect = true;
 			}catch (SQLException e1) {
-				funciona = false;
+				connect = false;
 				System.out.print(e1.getMessage());
 			}
 		}catch (ClassNotFoundException e) {
-			funciona = false;
+			connect = false;
 			System.out.print(e.getMessage());
 		}
-		return funciona;
 	}
 	public void disconnet()
 	{
 		try{
 			query.close();
 			connection.close();
+			connect = false;
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -65,5 +70,8 @@ public class SQLiteManager {
 			disconnet();
 		}
 		return resultado;
+	}
+	public boolean isConnect() {
+		return connect;
 	}
 }
