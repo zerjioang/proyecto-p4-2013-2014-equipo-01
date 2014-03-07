@@ -23,7 +23,8 @@ public class Welcome extends CustomJFrame {
 
 	private JPanel panelCero;
 	private JPanel panelUno;
-	private JTextPane inputCode;
+	private CampoCodeAuth codeField;
+	private BotonEmpezar lblOK;
 
 	/**
 	 * Launch the application.
@@ -65,7 +66,7 @@ public class Welcome extends CustomJFrame {
 		panelUno.setLayout(null);
 		getMainPanel().add(panelUno);
 		
-		CampoCodeAuth codeField = new CampoCodeAuth();
+		codeField = new CampoCodeAuth();
 		codeField.setBounds(80, 156, 308, 58);
 		codeField.getInputField().addKeyListener(new EventoKeyListenerAuthCode(codeField));
 		panelUno.add(codeField.getInputField());
@@ -95,10 +96,10 @@ public class Welcome extends CustomJFrame {
 		lblTextoBienvenida.setBounds(21, 129, 406, 94);
 		panelCero.add(lblTextoBienvenida);
 
-		BotonEmpezar lblOk = new BotonEmpezar();
-		panelCero.add(lblOk);
-		lblOk.setBounds(160, 242, 164, 43);
-		lblOk.addMouseListener(new EventoClickEmpezar(this));
+		lblOK = new BotonEmpezar();
+		panelCero.add(lblOK);
+		lblOK.setBounds(160, 242, 164, 43);
+		lblOK.addMouseListener(new EventoClickEmpezar(this));
 
 		JLabel lblWelcome = new JLabel("Bienvenido");
 		panelCero.add(lblWelcome);
@@ -140,7 +141,7 @@ public class Welcome extends CustomJFrame {
 	* @return devuelve el codigo de autorizacion introducido por el usuario
 	*/
 	public String getCodigo(){
-		return inputCode.getText();
+		return codeField.getInputField().getText();
 	}
 	
 	/**
@@ -148,6 +149,14 @@ public class Welcome extends CustomJFrame {
 	* @param code codigo de autorizacion a introducir
 	*/
 	public void setCodigo(String code){
-		inputCode.setText(code);
+		codeField.setText(code);
+	}
+
+	public BotonEmpezar getLblOK() {
+		return lblOK;
+	}
+
+	public void setLblOK(BotonEmpezar lblOK) {
+		this.lblOK = lblOK;
 	}
 }

@@ -26,11 +26,9 @@ public class EventoClickEmpezar implements MouseListener {
 			public void run() {
 				try {
 					System.out.println("Conectando con Twitter...");
-					GUIController controller = new GUIController();
 					System.out.println("Pidiendo autorizacion...");
-					controller.getTwitterService().requestToken();
-				} catch (UnknownHostException e) {
-					Util.showError(ventana, "Conexion rechazada","No se pudo contactar con Twitter","Cancelar","Reiniciar");
+					GUIController.getInstance().authenticate();
+					
 				} catch (Exception e) {
 					Util.showError(ventana, "Conexion rechazada", "Imposible conectar con "+e.getMessage(),"Cancelar","Reiniciar");
 				}

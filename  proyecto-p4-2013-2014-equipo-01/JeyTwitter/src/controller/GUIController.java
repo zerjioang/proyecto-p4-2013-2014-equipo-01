@@ -19,33 +19,23 @@ public class GUIController {
 	// Keys de la API console
 	private final static String CONSUMER_KEY = "KRiUVHsXKNRDHVIGxYJ7w";
 	private final static String CONSUMER_KEY_SECRET = "BDwwg2NBUjY48OcTB2818sp7E7L32AzhNLdgt82ZVQ";
+	private static GUIController instance = null; 
 	
 	private TwitterService t;
 	private String token;
 	private Welcome welcomeWindow;
 	
-	public GUIController() {
-		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					//Welcome welcomeWindow = new Welcome();
-					//welcomeWindow.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		if (token == null) {
-			try {
-				t.requestToken();
-			} catch (Exception e) {
-				// Error al recuperar el token
-				e.printStackTrace();
-			}
-		}
+	public GUIController() {}
+	
+	private synchronized static void createInstance() {
+        if (instance == null) { 
+            instance = new GUIController();
+        }
+    }
+	
+	public static GUIController getInstance() {
+		createInstance();
+		return instance;
 	}
 	
 	/**
@@ -67,6 +57,23 @@ public class GUIController {
 		}
 	}
 	
+	public void authenticate() {
+		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
+		
+		if (token == null) {
+			try {
+				t.requestToken();
+			} catch (Exception e) {
+				// Error al recuperar el token
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void setPin(String pin) {
+		t.setAccessToken(pin);
+		showTimeline();
+	}
 	/**
 	 * Tuitea usando el texto de el componente de la GUI correspondiente
 	 */

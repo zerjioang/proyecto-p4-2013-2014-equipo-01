@@ -19,6 +19,8 @@ import twitter4j.auth.RequestToken;
  *
  */
 public class TwitterService {
+	private AccessToken accessToken = null;
+	RequestToken requestToken = null;
 	private Twitter tw;
 	
 	/**
@@ -37,13 +39,11 @@ public class TwitterService {
 	 * @throws Exception
 	 */
 	public void requestToken() throws Exception {
-		RequestToken requestToken = tw.getOAuthRequestToken();
+		requestToken = tw.getOAuthRequestToken();
 		
 		if(Desktop.isDesktopSupported()){
 		  Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
 		}
-		
-		AccessToken accessToken = null;
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (null == accessToken) {
@@ -66,6 +66,15 @@ public class TwitterService {
 		System.out.println("Access Token: " + accessToken.getToken());
 		System.out.println("Access Token Secret: "
 				+ accessToken.getTokenSecret());
+	}
+	
+	public void setAccessToken(String pin) {
+		try {
+			accessToken = tw.getOAuthAccessToken(requestToken, pin);
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
