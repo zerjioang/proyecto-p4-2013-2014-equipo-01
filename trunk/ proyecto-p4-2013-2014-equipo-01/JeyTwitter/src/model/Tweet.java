@@ -17,7 +17,6 @@ public class Tweet {
 	private boolean isFavoriteByMe;
 	private boolean isRetweet;
 	private boolean isRetweetedByMe;
-	private Image profileImage;
 	/**
 	 * @param idStatus
 	 * @param textStatus
@@ -28,7 +27,7 @@ public class Tweet {
 	 * @param isRetweetedByMe
 	 */
 	public Tweet(long idStatus, String textStatus, Date dateCreated, User user,
-			boolean isFavorite, boolean isFavoriteByMe, boolean isRetweet, boolean isRetweetedByMe, Image profileImage) {
+			boolean isFavorite, boolean isFavoriteByMe, boolean isRetweet, boolean isRetweetedByMe) {
 		super();
 		this.idStatus = idStatus;
 		this.textStatus = textStatus;
@@ -38,7 +37,6 @@ public class Tweet {
 		this.isFavoriteByMe = isFavoriteByMe;
 		this.isRetweet = isRetweet;
 		this.isRetweetedByMe = isRetweetedByMe;
-		this.profileImage = profileImage;
 	}
 
 	public long getIdStatus() {
@@ -101,12 +99,5 @@ public class Tweet {
 
 	public void setRetweetedByMe(boolean isRetweetedByMe) {
 		this.isRetweetedByMe = isRetweetedByMe;
-	}
-	public Image getProfileImage() {
-		return profileImage;
-	}
-
-	public void setUser(Image profileImage) {
-		this.profileImage = profileImage;
 	}
 }
