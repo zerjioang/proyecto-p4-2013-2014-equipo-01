@@ -12,13 +12,15 @@ import twitter4j.User;
  */
 public class Perfil {
 	private String username;
+	private String realName;
 	private String description;
 	private Image profileImage;
 	private Date lastDateUpdate;
 	
-	public Perfil(String username, String description, Image profileImage, Date lastDateUpdate) {
+	public Perfil(String username, String realName, String description, Image profileImage, Date lastDateUpdate) {
 		super();
 		this.username = username;
+		this.realName = realName;
 		this.description = description;
 		this.profileImage = profileImage;
 		this.setLastDateUpdate(lastDateUpdate);
@@ -50,5 +52,13 @@ public class Perfil {
 
 	public void setLastDateUpdate(Date lastDateUpdate) {
 		this.lastDateUpdate = lastDateUpdate;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
 	}
 }

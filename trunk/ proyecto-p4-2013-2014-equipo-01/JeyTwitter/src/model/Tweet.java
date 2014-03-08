@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.Image;
 import java.util.Date;
 import twitter4j.User;
 /**
@@ -15,7 +14,7 @@ public class Tweet {
 	private User user;
 	private boolean isFavorite;
 	private boolean isFavoriteByMe;
-	private boolean isRetweet;
+	private String isRetweetbyUser;
 	private boolean isRetweetedByMe;
 	/**
 	 * @param idStatus
@@ -27,7 +26,7 @@ public class Tweet {
 	 * @param isRetweetedByMe
 	 */
 	public Tweet(long idStatus, String textStatus, Date dateCreated, User user,
-			boolean isFavorite, boolean isFavoriteByMe, boolean isRetweet, boolean isRetweetedByMe) {
+			boolean isFavorite, boolean isFavoriteByMe, String isRetweetbyUser, boolean isRetweetedByMe) {
 		super();
 		this.idStatus = idStatus;
 		this.textStatus = textStatus;
@@ -35,7 +34,7 @@ public class Tweet {
 		this.user = user;
 		this.isFavorite = isFavorite;
 		this.isFavoriteByMe = isFavoriteByMe;
-		this.isRetweet = isRetweet;
+		this.isRetweetbyUser = isRetweetbyUser;
 		this.isRetweetedByMe = isRetweetedByMe;
 	}
 
@@ -85,12 +84,12 @@ public class Tweet {
 	public void setFavoriteByMe(boolean isFavoriteByMe) {
 		this.isFavoriteByMe = isFavoriteByMe;
 	}
-	public boolean isRetweet() {
-		return isRetweet;
+	public String isRetweetbyUser() {
+		return isRetweetbyUser;
 	}
 
-	public void setRetweet(boolean isRetweet) {
-		this.isRetweet = isRetweet;
+	public void setRetweetbyUser(String isRetweetbyUser) {
+		this.isRetweetbyUser = isRetweetbyUser;
 	}
 
 	public boolean isRetweetedByMe() {
