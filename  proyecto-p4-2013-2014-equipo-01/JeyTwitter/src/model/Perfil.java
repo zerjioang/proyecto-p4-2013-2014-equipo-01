@@ -1,10 +1,7 @@
 package model;
 import java.awt.Image;
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
 
-import twitter4j.User;
 /**
  * Clase modelo que un perfil de un usuario, inicialmente pensado para almacenar solo al usuario logeado.
  * @author Fiser

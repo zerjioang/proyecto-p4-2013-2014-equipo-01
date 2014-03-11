@@ -9,7 +9,8 @@ import javax.swing.JTable;
 
 public class EventoTablaSettings implements MouseListener {
 	
-	private JTable tabla;
+	private final JTable tabla;
+	
 	public EventoTablaSettings(JTable table) {
 		tabla = table;
 	}

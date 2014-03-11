@@ -3,7 +3,6 @@ package view.eventos.principal;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import view.ventanas.AcercaDe;
 import view.ventanas.Config;
 import view.ventanas.Principal;
 

@@ -23,8 +23,6 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import java.awt.Cursor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Notificacion extends InvisibleJFrame {
 	

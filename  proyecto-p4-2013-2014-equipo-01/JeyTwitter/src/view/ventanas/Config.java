@@ -4,8 +4,8 @@ package view.ventanas;
 import util.Util;
 import view.elementos.botones.CoolBlueButton;
 import view.eventos.settings.EventoTablaSettings;
-import view.models.ModeloTablaConfig;
 import view.models.ModeloTablaSettings;
+import view.models.tablasConfig.ModeloTablaConfigGeneral;
 import view.parents.CustomJFrame;
 import view.renderers.BinaryButtonRenderer;
 import view.renderers.UIButtonRenderer;
@@ -90,7 +90,7 @@ public class Config extends CustomJFrame{
 		table.setForeground(Color.WHITE);
 		table.setBackground(COLOR_FONDO);
 		table.setBorder(null);
-		table.setModel(new ModeloTablaConfig());
+		table.setModel(new ModeloTablaConfigGeneral());
 		
 		//se define el render de la tabla
 		BinaryButtonRenderer render = new BinaryButtonRenderer();

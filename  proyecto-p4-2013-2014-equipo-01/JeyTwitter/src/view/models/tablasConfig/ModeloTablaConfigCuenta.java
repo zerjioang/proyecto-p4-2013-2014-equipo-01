@@ -1,14 +1,16 @@
-package view.models;
+package view.models.tablasConfig;
 
 import view.elementos.botones.BinaryButton;
+import view.models.DataGenerate;
+import view.models.ModeloTablaLateral;
 
 import util.Util;
 
-public class ModeloTablaConfig extends ModeloTablaLateral implements DataGenerate{
+public class ModeloTablaConfigCuenta extends ModeloTablaLateral implements DataGenerate{
 
-	public ModeloTablaConfig() {
+	public ModeloTablaConfigCuenta() {
 		super();
-		nombresSetting = Util.configs;
+		nombresSetting = Util.settingsCuenta;
 		columnNames = new String[2];
 		columnNames[0] = "Setting";
 		columnNames[1] = "Estado";

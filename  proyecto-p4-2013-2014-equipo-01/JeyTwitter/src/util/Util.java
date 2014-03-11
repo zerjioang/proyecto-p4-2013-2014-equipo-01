@@ -31,14 +31,33 @@ public class Util {
 	FICHERO_LOG = "log.txt",
 	FICHERO_XML = "config.xml",
 	SQLITE_NOMBRE_BBDD = "db.sqlite";
-
-	public static final String[] configs = 
+	
+	//Este array representa las diferentes areas de configuracion
+	public static String[] settings =
+		{
+		"General",
+		"Cuenta",
+		"Notificaciones"
+		};
+	/*
+	 * Cada uno de los siguientes arrays representa las configuraciones disponibles
+	 * dentro de cada area de configuracion
+	 */
+	public static String[] settingsGeneral =
 		{
 		"Activar sonidos",
+		"Reiniciar configuracion",
+		};
+	
+	public static String[] settingsCuenta =
+		{
 		"Permitir multiples usuarios",
 		"Permitir edicion offline",
 		"Desautorizar cliente",
-		"Reiniciar configuracion",
+		};
+	
+	public static String[] settingsNotif =
+		{
 		"Minimizar a la barra de tareas"
 		};
 
@@ -50,13 +69,6 @@ public class Util {
 		"Retweets",
 		"Favoritos",
 		"Busqueda"
-		};
-
-	public static String[] settings =
-		{
-		"General",
-		"Cuenta",
-		"Notificaciones"
 		};
 
 	/**

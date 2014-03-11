@@ -2,7 +2,6 @@ package view.eventos.welcome;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.net.UnknownHostException;
 
 import javax.swing.JPanel;
 

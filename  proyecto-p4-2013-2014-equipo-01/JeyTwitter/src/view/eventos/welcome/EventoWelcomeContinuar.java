@@ -4,7 +4,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import controller.GUIController;
-import view.parents.CustomJFrame;
 import view.ventanas.Principal;
 import view.ventanas.Welcome;
 
@@ -18,12 +17,13 @@ public class EventoWelcomeContinuar implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		System.out.println(ventana.getCodigo());
-		if(ventana.get)
-		GUIController.getInstance().setPin(ventana.getCodigo());
-		Principal p = new Principal();
-		p.setLocationRelativeTo(ventana);
-		p.setVisible(true);
-		ventana.cerrar();
+		if(ventana.getCodeField().evaluate()){
+			GUIController.getInstance().setPin(ventana.getCodigo());
+			Principal p = new Principal();
+			p.setLocationRelativeTo(ventana);
+			p.setVisible(true);
+			ventana.cerrar();
+		}
 	}
 
 	@Override

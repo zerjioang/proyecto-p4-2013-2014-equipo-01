@@ -14,7 +14,6 @@ import java.awt.EventQueue;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -158,5 +157,13 @@ public class Welcome extends CustomJFrame {
 
 	public void setLblOK(BotonEmpezar lblOK) {
 		this.lblOK = lblOK;
+	}
+
+	public CampoCodeAuth getCodeField() {
+		return codeField;
+	}
+
+	public void setCodeField(CampoCodeAuth codeField) {
+		this.codeField = codeField;
 	}
 }

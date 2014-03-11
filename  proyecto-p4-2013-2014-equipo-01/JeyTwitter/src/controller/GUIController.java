@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,7 +7,6 @@ import java.io.InputStreamReader;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.TwitterException;
-import view.ventanas.Welcome;
 
 /**
  * Clase encargada de intermediar entre la GUI y la API de Twitter
@@ -23,7 +21,6 @@ public class GUIController {
 	
 	private TwitterService t;
 	private String token;
-	private Welcome welcomeWindow;
 	
 	public GUIController() {}
 	
