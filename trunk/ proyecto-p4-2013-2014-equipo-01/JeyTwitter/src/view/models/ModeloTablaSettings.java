@@ -16,7 +16,7 @@ public class ModeloTablaSettings extends ModeloTablaLateral implements DataGener
 	public Object[][] generarDatos() {
 		Object[][] datos = new Object[nombresSetting.length][columnNames.length];
 		for (int i = 0; i < nombresSetting.length; i++) {
-			datos[i][0]= new BotonUI(nombresSetting[i]);//nombresSetting[i]
+			datos[i][0]= new BotonUI(nombresSetting[i]);
 		}
 		return datos;
 	}

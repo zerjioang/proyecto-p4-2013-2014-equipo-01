@@ -13,6 +13,7 @@ public class Button extends JLabel{
 	
 	public Button(String texto) {
 		super(texto);
+		addMouseListener(new EventosButton(this));
 	}
 
 	public Button() {
