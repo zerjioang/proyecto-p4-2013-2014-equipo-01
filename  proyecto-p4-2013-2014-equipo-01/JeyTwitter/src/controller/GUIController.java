@@ -22,6 +22,7 @@ public class GUIController {
 	private TwitterService t;
 	private String token;
 	
+	/* Metodos para el funcionamiento del singleton */
 	public GUIController() {}
 	
 	private synchronized static void createInstance() {
@@ -34,6 +35,7 @@ public class GUIController {
 		createInstance();
 		return instance;
 	}
+	/* Fin de los metodos para el funcionamiento del singleton */
 	
 	/**
 	 * Muestra el TL en el elemento de la GUI correspondiente

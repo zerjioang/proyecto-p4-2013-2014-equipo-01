@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import controller.GUIController;
+import view.parents.CustomJFrame;
 import view.ventanas.Principal;
 import view.ventanas.Welcome;
 
