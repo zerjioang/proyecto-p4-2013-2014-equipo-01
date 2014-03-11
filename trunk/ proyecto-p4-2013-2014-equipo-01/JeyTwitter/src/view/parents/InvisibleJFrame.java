@@ -11,8 +11,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 import util.Util;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 
 public class InvisibleJFrame extends JFrame {
 
@@ -85,7 +83,6 @@ public class InvisibleJFrame extends JFrame {
 	
 	public void setImagenFondo(String ruta){
 		fondo.setIcon(new ImageIcon(InvisibleJFrame.class.getResource(ruta)));
-		this.icono = icono;
 	}
 
 	/**
