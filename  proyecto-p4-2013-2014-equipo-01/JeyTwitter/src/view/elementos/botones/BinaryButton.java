@@ -20,6 +20,11 @@ public class BinaryButton extends Button{
 		super();
 		init();
 	}
+	
+	public BinaryButton(String texto){
+		super(texto);
+		init();
+	}
 
 	private void init() {
 		anchoBoton = 161;
