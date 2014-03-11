@@ -4,6 +4,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import controller.GUIController;
 /**
  * @author Fiser
  * Clase encargada de conectarse a una base de datos de diversos tipos
@@ -14,10 +16,26 @@ public class SQLiteManager
 	private Statement query;
 	private String dir;
 	private boolean connect;
-	public SQLiteManager(String dir)
+	private static SQLiteManager instance = null;
+	private static final String PATH = "JeyTuiterSQL";
+	/* Metodos para el funcionamiento del singleton */
+	public SQLiteManager()
 	{
-		this.dir = dir;
+		this.dir = PATH;
 	}
+	
+	private synchronized static void createInstance() {
+        if (instance == null) { 
+            instance = new SQLiteManager();
+        }
+    }
+	
+	public static SQLiteManager getInstance() {
+		createInstance();
+		return instance;
+	}
+	/* Fin de los metodos para el funcionamiento del singleton */
+	
 	public void connect(){
 		try {
 			Class.forName("org.sqlite.JDBC");
