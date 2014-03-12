@@ -2,6 +2,7 @@ package view.ventanas;
 
 import util.Util;
 import view.elementos.botones.BotonId;
+import view.parents.CustomJDialogWithBar;
 import view.parents.CustomJFrame;
 
 import java.awt.BorderLayout;
@@ -15,7 +16,7 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Font;
 
-public class AcercaDe extends CustomJFrame {
+public class AcercaDe extends CustomJDialogWithBar {
 
 	private static final Color COLOR_FONDO = Color.BLACK;
 	private static final String TITULO = "Acerca de "+Util.APP_TITULO;

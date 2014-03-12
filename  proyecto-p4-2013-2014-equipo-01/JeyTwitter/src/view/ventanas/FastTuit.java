@@ -30,7 +30,7 @@ public class FastTuit extends InvisibleJFrame {
 
 	//Constantes
 	private static final String TITULO = "Enviar Tweet";
-	
+
 	private JLabel lblnombre;
 	private JLabel lblContador;
 	private JTextArea txtMensaje;
@@ -62,39 +62,40 @@ public class FastTuit extends InvisibleJFrame {
 		setTitle(TITULO);
 
 		lblnombre = new JLabel("@Nombre de Usuario");
-		lblnombre.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 14));
-		lblnombre.setBounds(30, 13, 276, 19);
 		contentPane.add(lblnombre);
-		
-		lblContador = new JLabel("140");
-		lblContador.setHorizontalAlignment(SwingConstants.CENTER);
-		lblContador.setFont(new Font("Roboto Lt", Font.PLAIN, 15));
-		lblContador.setForeground(Color.WHITE);
-		lblContador.setBounds(123, 113, 101, 14);
-		contentPane.add(lblContador);
-		
+		lblnombre.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 14));
+		lblnombre.setBounds(25, 22, 276, 19);
+
 		txtMensaje = new JTextArea();
+		contentPane.add(txtMensaje);
 		txtMensaje.addKeyListener(new EventoContador140(this));
 		txtMensaje.setLineWrap(true);
 		txtMensaje.setFont(new Font("Roboto Lt", Font.PLAIN, 14));
 		txtMensaje.setOpaque(false);
 		txtMensaje.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
 		txtMensaje.setBorder(new LineBorder(SystemColor.scrollbar));
-		txtMensaje.setBounds(26, 36, 307, 55);
-		contentPane.add(txtMensaje);
-		
+		txtMensaje.setBounds(25, 49, 307, 87);
+
+		lblContador = new JLabel("140");
+		lblContador.setHorizontalAlignment(SwingConstants.CENTER);
+		lblContador.setFont(new Font("Roboto Lt", Font.PLAIN, 15));
+		lblContador.setForeground(Color.WHITE);
+		lblContador.setBounds(123, 165, 101, 14);
+		contentPane.add(lblContador);
+
 		btnAtras = new BotonNegroCuadrado("Atras");
-		btnAtras.setBounds(26, 103, 67, 33);
+		btnAtras.setBounds(26, 155, 67, 33);
 		contentPane.add(btnAtras);
-		
+
 		btnEnviar = new BotonAzulCuadrado("Tweet");
-		btnEnviar.setBounds(257, 103, 67, 33);
+		btnEnviar.setBounds(257, 155, 67, 33);
 		contentPane.add(btnEnviar);
-		
+
 		btnAtras.addMouseListener(new EventoAtrasFastTuit(this));
 		btnEnviar.addMouseListener(new EventoEnviarFastTuit(this));
-		
+
 		contentPane.add(fondo);
+		getContentPane().setLayout(null);
 	}
 
 	/**

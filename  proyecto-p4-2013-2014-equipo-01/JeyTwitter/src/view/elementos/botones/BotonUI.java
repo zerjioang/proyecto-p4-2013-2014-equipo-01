@@ -45,4 +45,15 @@ public class BotonUI extends Button{
 		//Se le añade el listener que controlara las imagenes dependiendo del estado del raton
 		addMouseListener(new EventosButton(this));
 	}
+
+	public void click() {
+		System.out.println(getImagenClick());
+		setIcon(new ImageIcon(MensajeWindow.class.getResource(getImagenClick())));
+	}
+	public void entered() {
+		setIcon(new ImageIcon(MensajeWindow.class.getResource(getImagenHover())));
+	}
+	public void exited() {
+		setIcon(new ImageIcon(MensajeWindow.class.getResource(getImagenNormal())));
+	}
 }

@@ -2,14 +2,15 @@ package view.eventos.barraMenu;
 
 import view.parents.CustomJFrame;
 
+import java.awt.Window;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 public class EventoMaximizarDesdeBarra implements WindowListener {
 
-	private final CustomJFrame ventana;
+	private final Window ventana;
 	
-	public EventoMaximizarDesdeBarra(CustomJFrame customJFrame) {
+	public EventoMaximizarDesdeBarra(Window customJFrame) {
 		ventana = customJFrame;
 	}
 
@@ -27,7 +28,7 @@ public class EventoMaximizarDesdeBarra implements WindowListener {
 
 	@Override
 	public void windowDeiconified(WindowEvent arg0) {
-		ventana.setLocation(ventana.getLastPosition());
+		ventana.setLocation(((CustomJFrame) ventana).getLastPosition());
 		ventana.setOpacity(1.0f);
         ventana.setVisible(true);
 	}

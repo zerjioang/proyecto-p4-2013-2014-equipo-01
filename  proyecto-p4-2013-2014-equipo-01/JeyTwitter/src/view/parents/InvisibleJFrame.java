@@ -41,12 +41,13 @@ public class InvisibleJFrame extends JFrame {
 	 */
 	public InvisibleJFrame(String imagenFondo) {
 		this.imagenfondo=imagenFondo;
+		icono = new ImageIcon(InvisibleJFrame.class.getResource(imagenFondo));
 		setUndecorated(true);
 		setType(Type.POPUP);
 		setResizable(false);
 		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, icono.getIconWidth(), icono.getIconHeight());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);

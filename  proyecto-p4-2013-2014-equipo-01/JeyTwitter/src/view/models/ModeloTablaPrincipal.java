@@ -16,10 +16,14 @@ public class ModeloTablaPrincipal extends ModeloTablaLateral implements DataGene
 
 	public Object[][] generarDatos() {
 		Object[][] datos = new Object[nombresSetting.length][columnNames.length];
-		for (int i = 0; i < nombresSetting.length; i++) {
+		
+		MenuButton prim = new MenuButton(nombresSetting[0]);
+		prim.click();
+		datos[0][0]= prim;
+		
+		for (int i = 1; i < nombresSetting.length; i++) {
 			System.out.println(nombresSetting[i]);
-			MenuButton b = new MenuButton();
-			b.setText(nombresSetting[i]);
+			MenuButton b = new MenuButton(nombresSetting[i]);
 			datos[i][0]= b;
 		}
 		return datos;

@@ -8,6 +8,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.io.InputStream;
 
 import javax.swing.Icon;
@@ -46,19 +47,28 @@ public class Util {
 	public static String[] settingsGeneral =
 		{
 		"Activar sonidos",
-		"Reiniciar configuracion",
+		"No mostrar splash al iniciar",
+		"Minimizar a la barra de tareas",
+		"Iniciar con el sistema",
+		"Reiniciar configuracion"
 		};
 	
 	public static String[] settingsCuenta =
 		{
 		"Permitir multiples usuarios",
+		"Cerrar sesion al salir",
 		"Permitir edicion offline",
+		"Modo Streaming",
 		"Desautorizar cliente",
 		};
 	
 	public static String[] settingsNotif =
 		{
-		"Minimizar a la barra de tareas"
+		"Deshabilitar notificaciones",
+		"Mostrar tipo de notificacion",
+		"Mostrar hora",
+		"Personalizar posicion de la ventana",
+		"Definir tiempo de espera"
 		};
 
 	public static String[] principal =
@@ -68,7 +78,8 @@ public class Util {
 		"Menciones",
 		"Retweets",
 		"Favoritos",
-		"Busqueda"
+		"Busqueda",
+		"Data Mining"
 		};
 
 	/**
@@ -77,7 +88,7 @@ public class Util {
 	* asegurar la accion.
 	*/
 	public static void cerrarVentana(Component parent) throws InvalidInputException{
-		showMessage(parent, "Cerrar JeyTwitter", "Desea realmente cerrar?", "Si", "No");
+		showMessage(parent, "Cerrar "+APP_TITULO, "Desea realmente cerrar?", "Si", "No");
 	}
 
 	/**
@@ -93,7 +104,7 @@ public class Util {
 		mw.setBotonNegativo(textoCancelar);
 		mw.setLocationRelativeTo(parent);
 		mw.getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		if(titulo.length()>50 || mensaje.length()>50 || textoAceptar.length()>11 || textoCancelar.length()>11)
+		if(titulo.length()>50 || mensaje.length()>60 || textoAceptar.length()>11 || textoCancelar.length()>11)
 			throw new InvalidInputException("Unexpected input string length. Check input Strings");
 		mw.setVisible(true);
 		//System.out.println("Estado de la respuesta: "+mw.getEstado());
@@ -149,16 +160,17 @@ public class Util {
 	* Ademas puede configurar la velocidad con el parametro time
 	*/
 	public static void ocultarImagenDifuso(Component comp, int time) {
+		System.out.println("Cerrarnod");
 		float opacidad=1.0f;
-		((JFrame) comp).setOpacity(opacidad);
+		((Window) comp).setOpacity(opacidad);
 		comp.setVisible(true);
 		for (opacidad = 1.0f; opacidad > 0.0f; opacidad-=0.1f ) {
 			pausar(time);
-			((JFrame) comp).setOpacity(opacidad);
+			((Window) comp).setOpacity(opacidad);
 		}
 		pausar(time);
-		((JFrame) comp).setOpacity(0.0f);
-		((JFrame) comp).setVisible(false);
+		((Window) comp).setOpacity(0.0f);
+		((Window) comp).setVisible(false);
 	}
 	/**
 	 * Pausa la ejecucion durante un tiempo determinado

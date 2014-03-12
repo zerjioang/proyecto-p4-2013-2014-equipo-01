@@ -12,6 +12,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
+import util.Util;
 
 /**
  * Clase encargada de encapsular los usos de la API de Twitter
@@ -68,12 +69,12 @@ public class TwitterService {
 				+ accessToken.getTokenSecret());
 	}
 	
-	public void setAccessToken(String pin) {
+	public void setAccessToken(String pin) throws TwitterException {
 		try {
 			accessToken = tw.getOAuthAccessToken(requestToken, pin);
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.debug("getOAuthAccessTokenError: "+e.getMessage());
+			throw e;
 		}
 	}
 	

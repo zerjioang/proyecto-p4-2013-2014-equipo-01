@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.TwitterException;
+import util.Util;
 
 /**
  * Clase encargada de intermediar entre la GUI y la API de Twitter
@@ -56,7 +57,7 @@ public class GUIController {
 		}
 	}
 	
-	public void authenticate() {
+	public void authenticate() throws Exception {
 		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
 		
 		if (token == null) {
@@ -64,12 +65,13 @@ public class GUIController {
 				t.requestToken();
 			} catch (Exception e) {
 				// Error al recuperar el token
-				e.printStackTrace();
+				Util.debug("Error al recuperar el token: "+e.getMessage());
+				throw e;
 			}
 		}
 	}
 	
-	public void setPin(String pin) {
+	public void setPin(String pin) throws TwitterException {
 		t.setAccessToken(pin);
 		showTimeline();
 	}

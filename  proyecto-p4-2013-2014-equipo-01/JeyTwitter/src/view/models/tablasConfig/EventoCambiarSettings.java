@@ -5,7 +5,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JTable;
 
-import view.elementos.botones.BinaryButton;
+import view.elementos.botones.MenuButton;
+import view.renderers.BinaryButtonRenderer;
 import view.ventanas.Config;
 
 public class EventoCambiarSettings implements MouseListener {
@@ -21,13 +22,22 @@ public class EventoCambiarSettings implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		int row = tablaGeneral.getSelectedRow();
+		int col = tablaGeneral.getSelectedColumn();
+		System.out.println(row+" "+col);
+		for (int i = 0; i < tablaGeneral.getRowCount(); i++) {
+			MenuButton b = (MenuButton) tablaGeneral.getValueAt(i, col);
+			if(i==row)
+				b.click();
+			else
+				b.exited();
+			tablaGeneral.setValueAt(b, i, col);
+		}
+		tablaGeneral.repaint();
+		
 		/*
-		 * 	public static String[] settings =
-		{
 		"General",
 		"Cuenta",
 		"Notificaciones"
-		};
 		 */
 		switch (row) {
 		case 0:
@@ -42,11 +52,14 @@ public class EventoCambiarSettings implements MouseListener {
 		default:
 			break;
 		}
-		//tabla.repaint();
+		//Se define el ancho de la segunda columna de la tabla de configuracion
+		tablaOpciones.getColumnModel().getColumn(1).setCellRenderer(new BinaryButtonRenderer());
+		Config.definirColumnas(1, 100, tablaOpciones);
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {}
+	public void mouseEntered(MouseEvent arg0) {
+	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {}

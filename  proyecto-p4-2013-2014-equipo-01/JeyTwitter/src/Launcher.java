@@ -1,4 +1,3 @@
-import model.SQLiteManager;
 import util.Util;
 import view.ventanas.Splash;
 import view.ventanas.Welcome;
