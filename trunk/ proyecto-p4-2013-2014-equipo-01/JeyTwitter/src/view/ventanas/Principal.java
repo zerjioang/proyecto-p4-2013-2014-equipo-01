@@ -16,10 +16,12 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
 import util.Util;
+import view.eventos.principal.EventoCambiarPrincipal;
 import view.eventos.principal.EventoClickAcercaDe;
 import view.eventos.principal.EventoClickConfig;
 import view.eventos.principal.EventoClickHelp;
 import view.models.ModeloTablaPrincipal;
+import view.models.tablasConfig.EventoCambiarSettings;
 import view.parents.CustomJFrame;
 import view.renderers.UIButtonRenderer;
 
@@ -28,6 +30,7 @@ import javax.swing.JTextPane;
 
 import java.awt.Font;
 import java.awt.Cursor;
+
 import javax.swing.JTabbedPane;
 import javax.swing.border.LineBorder;
 
@@ -69,6 +72,7 @@ public class Principal extends CustomJFrame {
 		panelIzq.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblImagen = new JLabel("Nombre Apellidos");
+		lblImagen.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblImagen.setForeground(Color.WHITE);
 		lblImagen.setBackground(Color.DARK_GRAY);
 		lblImagen.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 14));
@@ -80,10 +84,14 @@ public class Principal extends CustomJFrame {
 		panelIzq.add(lblImagen, BorderLayout.NORTH);
 		
 		tablaMenu = new JTable();
+		tablaMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		tablaMenu.setBackground(Color.DARK_GRAY);
 		tablaMenu.setRowHeight(40);
-		panelIzq.add(tablaMenu, BorderLayout.CENTER);
 		tablaMenu.setModel(new ModeloTablaPrincipal());
+		tablaMenu.addMouseListener(new EventoCambiarPrincipal(this));
+		tablaMenu.getColumnModel().getColumn(0).setCellRenderer(new UIButtonRenderer());
+		
+		panelIzq.add(tablaMenu, BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.DARK_GRAY);
@@ -127,7 +135,6 @@ public class Principal extends CustomJFrame {
 		lblAbout.setIcon(new ImageIcon(Principal.class.getResource("/res/tempIcons/acercaDeIcon.png")));
 		lblAbout.setIcon(Util.escalarImagen(lblAbout));
 		panel.add(lblAbout, BorderLayout.SOUTH);
-		tablaMenu.getColumnModel().getColumn(0).setCellRenderer(new UIButtonRenderer());
 		lblAbout.addMouseListener(new EventoClickAcercaDe(this));
 		
 		JPanel panelApp = new JPanel();
@@ -151,21 +158,35 @@ public class Principal extends CustomJFrame {
 		panelApp.add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel panel_inicio = new JPanel();
-		tabbedPane.addTab("", null, panel_inicio, null);
+		tabbedPane.addTab("panel_inicio", null, panel_inicio, null);
 		
 		JPanel panel_timeLine = new JPanel();
-		tabbedPane.addTab("", null, panel_timeLine, null);
+		tabbedPane.addTab("panel_timeLine", null, panel_timeLine, null);
 		
 		JPanel panel_Menciones = new JPanel();
-		tabbedPane.addTab("", null, panel_Menciones, null);
+		tabbedPane.addTab("panel_Menciones", null, panel_Menciones, null);
 		
 		JPanel panel_reTweets = new JPanel();
-		tabbedPane.addTab("", null, panel_reTweets, null);
+		tabbedPane.addTab("panel_reTweets", null, panel_reTweets, null);
 		
 		JPanel panel_favoritos = new JPanel();
-		tabbedPane.addTab("", null, panel_favoritos, null);
+		tabbedPane.addTab("panel_favoritos", null, panel_favoritos, null);
 		
 		JPanel panel_busqueda = new JPanel();
-		tabbedPane.addTab("", null, panel_busqueda, null);
+		tabbedPane.addTab("panel_busqueda", null, panel_busqueda, null);
+	}
+
+	/**
+	 * @return the tablaMenu
+	 */
+	public JTable getTablaMenu() {
+		return tablaMenu;
+	}
+
+	/**
+	 * @param tablaMenu the tablaMenu to set
+	 */
+	public void setTablaMenu(JTable tablaMenu) {
+		this.tablaMenu = tablaMenu;
 	}
 }

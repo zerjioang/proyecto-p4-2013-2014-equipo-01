@@ -1,8 +1,12 @@
 package view.eventos.barraMenu;
 
 import view.parents.CustomJDialog;
+import view.parents.CustomJDialogWithBar;
 import view.parents.CustomJFrame;
+import view.ventanas.AcercaDe;
+import view.ventanas.Config;
 
+import java.awt.Window;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -13,15 +17,10 @@ import javax.swing.JFrame;
 
 public class EventosDeBarra implements MouseListener, MouseMotionListener {
 
-	private JFrame ventana;
-	private JDialog dialogo;
+	private Window ventana;
 	
-	public EventosDeBarra(JFrame frame){
-		ventana = frame;
-	}
-	
-	public EventosDeBarra(JDialog dialog){
-		dialogo = dialog;
+	public EventosDeBarra(Window window){
+		ventana = window;
 	}
 	
 	@Override
@@ -42,10 +41,12 @@ public class EventosDeBarra implements MouseListener, MouseMotionListener {
 			if(ventana instanceof CustomJFrame){
 				((CustomJFrame) ventana).setInitialClick(e.getPoint());
 			}
+			else if(ventana instanceof CustomJDialog)
+				((CustomJDialog) ventana).setInitialClick(e.getPoint());
+			else if(ventana instanceof CustomJDialogWithBar)
+				((CustomJDialogWithBar) ventana).setInitialClick(e.getPoint());
 		}
-		else if(dialogo!=null){
-			((CustomJDialog) dialogo).setInitialClick(e.getPoint());
-		}
+
 		
 	}
 
@@ -73,23 +74,22 @@ public class EventosDeBarra implements MouseListener, MouseMotionListener {
 				}
 			
 			}
-		}
-		else if(dialogo!=null){
-			if(dialogo instanceof CustomJDialog){
-				if(((CustomJDialog) dialogo).getInitialClick()!=null){
+			else if(ventana instanceof CustomJDialogWithBar | ventana instanceof AcercaDe | ventana instanceof Config){
+				if(((CustomJDialogWithBar) ventana).getInitialClick()!=null){
 					// get location of Window
-		            int thisX = dialogo.getLocation().x;
-		            int thisY = dialogo.getLocation().y;
+		            int thisX = ventana.getLocation().x;
+		            int thisY = ventana.getLocation().y;
 
 		            // Determine how much the mouse moved since the initial click
-		            int xMoved = (thisX + e.getX()) - (thisX + ((CustomJDialog) dialogo).getInitialClick().x);
-		            int yMoved = (thisY + e.getY()) - (thisY + ((CustomJDialog) dialogo).getInitialClick().y);
+		            int xMoved = (thisX + e.getX()) - (thisX + ((CustomJDialogWithBar) ventana).getInitialClick().x);
+		            int yMoved = (thisY + e.getY()) - (thisY + ((CustomJDialogWithBar) ventana).getInitialClick().y);
 
 		            // Move window to this position
 		            int X = thisX + xMoved;
 		            int Y = thisY + yMoved;
-		            dialogo.setLocation(X, Y);
+		            ventana.setLocation(X, Y);
 				}
+				
 			}
 		}
 	}

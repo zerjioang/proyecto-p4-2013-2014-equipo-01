@@ -1,7 +1,7 @@
 package view.models;
 
 import util.Util;
-import view.elementos.botones.BotonUI;
+import view.elementos.botones.MenuButton;
 
 public class ModeloTablaSettings extends ModeloTablaLateral implements DataGenerate {
 
@@ -15,8 +15,13 @@ public class ModeloTablaSettings extends ModeloTablaLateral implements DataGener
 
 	public Object[][] generarDatos() {
 		Object[][] datos = new Object[nombresSetting.length][columnNames.length];
-		for (int i = 0; i < nombresSetting.length; i++) {
-			datos[i][0]= new BotonUI(nombresSetting[i]);
+		
+		MenuButton b = new MenuButton(nombresSetting[0]);
+		b.click();
+		datos[0][0]= b;
+		
+		for (int i = 1; i < nombresSetting.length; i++) {
+			datos[i][0]= new MenuButton(nombresSetting[i]);
 		}
 		return datos;
 	}

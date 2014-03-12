@@ -9,6 +9,11 @@ import view.eventos.EventoMenuButton;
 
 public class MenuButton extends BotonUI{
 	
+	public MenuButton(String texto){
+		super(texto);
+		init();
+	}
+	
 	public MenuButton(){
 		super();
 		init();

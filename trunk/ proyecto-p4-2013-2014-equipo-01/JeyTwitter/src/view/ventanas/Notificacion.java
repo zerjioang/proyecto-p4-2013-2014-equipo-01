@@ -46,9 +46,9 @@ public class Notificacion extends InvisibleJFrame {
 			public void run() {
 				try {
 					Notificacion frame = new Notificacion();
-					frame.setTipoNotificacion(Notificacion.TWEET);
-					frame.ajustarApantalla(300);
-					frame.setVisible(true);
+					frame.setTipoNotificacion(Notificacion.RETWEET);
+					frame.ajustarApantalla();
+					frame.mostrar(0);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -204,7 +204,7 @@ public class Notificacion extends InvisibleJFrame {
 		}
 	}
 	
-	public void ajustarApantalla(int ancho){
+	public void ajustarApantalla(){
 		//valores para windows
 		int offsetX = 10; //cantidad de pixeles de margen vertical derecho
 		int offsetY = 50; //cantidad de pixeles de margen horizontal inferior
