@@ -133,8 +133,47 @@ public class TwitterService {
 	}
 	
 	
-	public void retweet() {
+	
+	
+	public void retweet(){
 		
 	}
+	
+	
+	
+	
+	
+	/**
+	 * Obtiene la lista de seguidores de un usuario
+	 * 
+	 * @param String usuario, Long cursor
+	 * @throws TwitterException 
+	 * @author sergio
+	 */
+	public void followerss(String username, Long cursor) throws TwitterException{
+		
+		tw.getFollowersIDs(username, cursor);
+		
+	}
+	
+
+	/**
+	 * Obtiene la personas que está siguiendo un usuario
+	 * 
+	 * @param String usuario, Long cursor
+	 * @throws TwitterException 
+	 * @author sergio
+	 */
+	public void friends(String username, Long cursor) throws TwitterException{
+		
+		tw.getFriendsIDs(username, cursor);
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 }
