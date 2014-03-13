@@ -103,7 +103,7 @@ public class Welcome extends CustomJFrame {
 		JLabel lblWelcome = new JLabel("Bienvenido");
 		panelCero.add(lblWelcome);
 		lblWelcome.setBounds(21, 45, 257, 65);
-		lblWelcome.setFont(Util.getFont("Comic-sans", Font.PLAIN, 55));
+		lblWelcome.setFont(Util.getFont("Roboto-thin", Font.PLAIN, 55));
 		lblWelcome.setForeground(Color.LIGHT_GRAY);
 
 		final JLabel lblBackimg = new JLabel();

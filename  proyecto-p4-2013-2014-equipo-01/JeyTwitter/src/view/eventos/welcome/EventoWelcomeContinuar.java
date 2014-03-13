@@ -6,7 +6,6 @@ import java.awt.event.MouseListener;
 import controller.GUIController;
 import twitter4j.TwitterException;
 import util.Util;
-import view.parents.CustomJFrame;
 import view.ventanas.Principal;
 import view.ventanas.Welcome;
 

@@ -33,9 +33,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Config extends CustomJDialogWithBar{
 	
+	//Constantes
+	private static final Color COLOR_FONDO = new Color(24,22,23);
+	
 	private JTable tablaDer;
 	private JTable tablaIzq;
-	private static final Color COLOR_FONDO = new Color(24,22,23);
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
