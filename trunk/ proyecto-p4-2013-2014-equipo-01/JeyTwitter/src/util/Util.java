@@ -18,6 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+/**
+ * Almacena todas las variables estaticas de configuracion que el programa necesita.
+ * @author JeyTuiter Dev Team
+ *
+ */
 public class Util {
 	
 	public static boolean DEBUG = false;
@@ -47,6 +52,7 @@ public class Util {
 	public static String[] settingsGeneral =
 		{
 		"Activar sonidos",
+		"Activar modo silencioso",
 		"No mostrar splash al iniciar",
 		"Minimizar a la barra de tareas",
 		"Iniciar con el sistema",
@@ -58,15 +64,17 @@ public class Util {
 		"Permitir multiples usuarios",
 		"Cerrar sesion al salir",
 		"Permitir edicion offline",
-		"Modo Streaming",
+		"Activar modo Streaming",
 		"Desautorizar cliente",
 		};
 	
 	public static String[] settingsNotif =
 		{
 		"Deshabilitar notificaciones",
+		"Deshabilitar sonido de notificacion",
 		"Mostrar tipo de notificacion",
 		"Mostrar hora",
+		"Mostrar siempre arriba",
 		"Personalizar posicion de la ventana",
 		"Definir tiempo de espera"
 		};
@@ -86,7 +94,9 @@ public class Util {
 	* Se encarga de cerrar la ventana al hacer click en el boton cerrar
 	* de la barra superior. Muestra un dialogo de confirmacion para
 	* asegurar la accion.
-	*/
+	 * @param parent	Ventana padre desde la que se ha llamado. Null en caso de no ser ninguna
+	 * @throws InvalidInputException	Excepcion que se lanca en caso de error
+	 */
 	public static void cerrarVentana(Component parent) throws InvalidInputException{
 		showMessage(parent, "Cerrar "+APP_TITULO, "Desea realmente cerrar?", "Si", "No");
 	}
@@ -95,7 +105,15 @@ public class Util {
 	* Muestra un mensaje en pantalla del mismo estilo que la clase JOPtionPane
 	* pero este metodo tiene la posibilidad de definir el texto de los botones.
 	* Ademas la interfaz visual no viene determinada por swing
-	*/
+	 * @param parent	Ventana padre desde la que se ha llamado. Null en caso de no ser ninguna
+	 * @param titulo	Titulo principal de la ventana
+	 * @param mensaje	Mensaje que monstrará la ventana en su interior
+	 * @param textoAceptar	Texto del boton aceptar
+	 * @param textoCancelar Texto del boton cancelar
+	 * @return	devuelve un valor booleano dependiendo de la accion realizada. Devuelve true si se ha pulsado el
+	 * boton de aceptar o false si se
+	 * @throws InvalidInputException
+	 */
 	public static boolean showMessage(Component parent, String titulo, String mensaje, String textoAceptar, String textoCancelar) throws InvalidInputException{
 		MensajeWindow mw = new MensajeWindow();
 		mw.setTituloVentana(titulo);

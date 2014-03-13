@@ -21,7 +21,6 @@ import view.eventos.principal.EventoClickAcercaDe;
 import view.eventos.principal.EventoClickConfig;
 import view.eventos.principal.EventoClickHelp;
 import view.models.ModeloTablaPrincipal;
-import view.models.tablasConfig.EventoCambiarSettings;
 import view.parents.CustomJFrame;
 import view.renderers.UIButtonRenderer;
 

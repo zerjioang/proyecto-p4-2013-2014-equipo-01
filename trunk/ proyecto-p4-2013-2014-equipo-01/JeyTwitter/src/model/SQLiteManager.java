@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import controller.GUIController;
 /**
  * @author Fiser
  * Clase encargada de conectarse a una base de datos de diversos tipos
