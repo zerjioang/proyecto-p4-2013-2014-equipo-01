@@ -71,7 +71,7 @@ public class GUIController {
 	
 	private void authenticate() throws Exception {
 		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
-		
+		/*
 		// Recuperacion del token de la BBDD
 		ResultSet result = SQLiteManager.getInstance().select("SELECT code FROM credential");
 		if (result.first()) {
@@ -80,7 +80,7 @@ public class GUIController {
 			token = result.getString(0);
 			setPin(token);
 		}
-		
+		*/
 		if (token == null) {
 			// No esta registrado el usuario en la BBDD
 			try {
@@ -105,6 +105,7 @@ public class GUIController {
 		t.setAccessToken(pin);
 		showTimeline();
 	}
+	
 	/**
 	 * Tuitea usando el texto de el componente de la GUI correspondiente
 	 */
@@ -119,6 +120,12 @@ public class GUIController {
 	}
 	
 	public void menuConsole() {
+		try {
+			this.authenticate();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String input = null;
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		do {
