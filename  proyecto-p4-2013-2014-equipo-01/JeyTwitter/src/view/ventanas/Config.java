@@ -117,6 +117,9 @@ public class Config extends CustomJDialogWithBar{
 		
 		tablaIzq = new JTable();
 		tablaIzq.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		tablaIzq.setShowHorizontalLines(false);
+		tablaIzq.setShowVerticalLines(false);
+		tablaIzq.setShowGrid(false);
 		tablaIzq.setRowHeight(40);
 		tablaIzq.setForeground(Color.WHITE);
 		tablaIzq.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 15));
