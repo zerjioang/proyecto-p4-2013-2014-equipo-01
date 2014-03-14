@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import util.Util;
 import view.parents.CustomJDialogWithBar;
 import view.parents.CustomJFrame;
 
@@ -34,12 +35,24 @@ public class EventoClickMinimizar implements MouseListener {
 			
 			Dimension lowerBorder = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 			Float op = 1.0f;
-			for (int i = currentLocation.y; i < lowerBorder.height+ventana.getHeight(); i++) {
-				currentLocation = new Point(currentLocation.x, i);
-				op = op - 0.001f;
-				if(op > 0f)
-					ventana.setOpacity(op);
-				ventana.setLocation(currentLocation);
+			
+			if(Util.isMac()){
+				for (int i = currentLocation.y; i < lowerBorder.height+ventana.getHeight(); i=i+20) {
+					currentLocation = new Point(currentLocation.x, i);
+					op = op - 0.001f;
+					if(op > 0f)
+						ventana.setOpacity(op);
+					ventana.setLocation(currentLocation);
+				}
+			}
+			else if(Util.isWin()){
+				for (int i = currentLocation.y; i < lowerBorder.height+ventana.getHeight(); i++) {
+					currentLocation = new Point(currentLocation.x, i);
+					op = op - 0.001f;
+					if(op > 0f)
+						ventana.setOpacity(op);
+					ventana.setLocation(currentLocation);
+				}
 			}
 			
 			ventana.setLocation(((CustomJFrame) ventana).getLastPosition());

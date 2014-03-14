@@ -59,7 +59,7 @@ public class Config extends CustomJDialogWithBar{
 	
 	public Config() {
 		super(567,600);
-		setTitle("Configuración de "+Util.APP_TITULO);
+		setTitle("ConfiguraciÃ³n de "+Util.APP_TITULO);
 		getMainPanel().setBackground(COLOR_FONDO);
 		init();
 	}
