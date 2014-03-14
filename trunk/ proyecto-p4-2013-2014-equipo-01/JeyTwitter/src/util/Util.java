@@ -86,7 +86,7 @@ public class Util {
 		"Retweets",
 		"Favoritos",
 		"Busqueda",
-		"Data Mining"
+		"Estadistica"
 		};
 
 	/**
