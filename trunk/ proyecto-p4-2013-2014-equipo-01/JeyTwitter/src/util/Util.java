@@ -51,10 +51,12 @@ public class Util {
 	 */
 	public static String[] settingsGeneral =
 		{
-		"Activar sonidos",
-		"Activar modo silencioso",
+		"Activar modo silencio",
 		"No mostrar splash al iniciar",
 		"Minimizar a la barra de tareas",
+		"Frecuencia de actualizacion",
+		"Personalizar fuente",
+		"Activar filtros de busqueda",
 		"Iniciar con el sistema",
 		"Reiniciar configuracion"
 		};
@@ -64,7 +66,7 @@ public class Util {
 		"Permitir multiples usuarios",
 		"Cerrar sesion al salir",
 		"Permitir edicion offline",
-		"Activar modo Streaming",
+		//"Activar modo Streaming",
 		"Desautorizar cliente",
 		};
 	
@@ -72,10 +74,8 @@ public class Util {
 		{
 		"Deshabilitar notificaciones",
 		"Deshabilitar sonido de notificacion",
-		"Mostrar tipo de notificacion",
-		"Mostrar hora",
-		"Mostrar siempre arriba",
-		"Personalizar posicion de la ventana",
+		"Personalizar posicion",
+		"Traer notificaciones al frente",
 		"Definir tiempo de espera"
 		};
 
