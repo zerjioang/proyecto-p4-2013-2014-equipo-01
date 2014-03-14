@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
 
+import twitter4j.IDs;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -165,15 +166,26 @@ public class TwitterService {
 	 * @author sergio
 	 */
 	public void friends(String username, Long cursor) throws TwitterException{
-		
+		/*
 		tw.getFriendsIDs(username, cursor);
 		
+		IDs ids;
+		*/
+		
+		
+		 
+	            Twitter twitter = new TwitterFactory().getInstance();
+	// cursor = -1;
+	            IDs ids;
+	            System.out.println("Listing followers's ids.");
+	            
+	                    ids = twitter.getFollowersIDs(cursor);
+	                
+	                for (long id : ids.getIDs()) {
+	                    System.out.println(id);
+	                }
+	             
+	
+		 		}
+		 
 	}
-	
-	
-	
-	
-	
-	
-	
-}
