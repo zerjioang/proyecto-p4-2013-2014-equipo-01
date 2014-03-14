@@ -84,6 +84,9 @@ public class Principal extends CustomJFrame {
 		
 		tablaMenu = new JTable();
 		tablaMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		tablaMenu.setShowHorizontalLines(false);
+		tablaMenu.setShowVerticalLines(false);
+		tablaMenu.setShowGrid(false);
 		tablaMenu.setBackground(Color.DARK_GRAY);
 		tablaMenu.setRowHeight(40);
 		tablaMenu.setModel(new ModeloTablaPrincipal());

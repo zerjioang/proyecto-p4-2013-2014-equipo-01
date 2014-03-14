@@ -81,7 +81,7 @@ public class VentanaError extends CustomJDialog {
 		setBounds(100, 100, imagen.getIconWidth(), imagen.getIconHeight());
 		getContentPane().setLayout(null);
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		
+		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		JLabel lblAceptar = new JLabel("");
 		JLabel lblCancelar = new JLabel("");
 		

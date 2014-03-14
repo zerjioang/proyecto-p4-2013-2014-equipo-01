@@ -81,7 +81,6 @@ public class Util {
 
 	public static String[] principal =
 		{
-		"Inicio",
 		"Timeline",
 		"Menciones",
 		"Retweets",

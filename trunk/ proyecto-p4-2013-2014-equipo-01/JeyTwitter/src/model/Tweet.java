@@ -13,8 +13,7 @@ public class Tweet {
 	private Date dateCreated;
 	private User user;
 	private boolean isFavorite;
-	private boolean isFavoriteByMe;
-	private String isRetweetbyUser;
+	private String retweetbyUser;
 	private boolean isRetweetedByMe;
 	/**
 	 * @param idStatus
@@ -33,8 +32,7 @@ public class Tweet {
 		this.dateCreated = dateCreated;
 		this.user = user;
 		this.isFavorite = isFavorite;
-		this.isFavoriteByMe = isFavoriteByMe;
-		this.isRetweetbyUser = isRetweetbyUser;
+		this.retweetbyUser = isRetweetbyUser;
 		this.isRetweetedByMe = isRetweetedByMe;
 	}
 
@@ -77,19 +75,13 @@ public class Tweet {
 	public void setFavorite(boolean isFavorite) {
 		this.isFavorite = isFavorite;
 	}
-	public boolean isFavoriteByMe() {
-		return isFavoriteByMe;
-	}
-
-	public void setFavoriteByMe(boolean isFavoriteByMe) {
-		this.isFavoriteByMe = isFavoriteByMe;
-	}
+	
 	public String isRetweetbyUser() {
-		return isRetweetbyUser;
+		return retweetbyUser;
 	}
 
 	public void setRetweetbyUser(String isRetweetbyUser) {
-		this.isRetweetbyUser = isRetweetbyUser;
+		this.retweetbyUser = isRetweetbyUser;
 	}
 
 	public boolean isRetweetedByMe() {
