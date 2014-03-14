@@ -262,4 +262,19 @@ public class Util {
 		return error.getEstado();
 	}
 	
+	public static String getOS(){
+		return System.getProperty("os.name").toLowerCase();
+	}
+	
+	public static boolean isMac(){
+		return getOS().contains("mac os");
+	}
+	
+	public static boolean isWin(){
+		return getOS().contains("windows");
+	}
+	
+	public static boolean isNix(){
+		return getOS().contains("nix");
+	}
 }

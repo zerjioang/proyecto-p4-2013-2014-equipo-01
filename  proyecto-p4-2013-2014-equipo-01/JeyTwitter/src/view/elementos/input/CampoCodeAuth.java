@@ -10,7 +10,7 @@ public class CampoCodeAuth extends InputField{
 	public boolean evaluate() {
 		//Este metodo hace que cuando detecta un codigo de 7 digitos 
 		//lo establece como correcto
-		boolean condicion = getInputField().getText().length()==7;
+		boolean condicion = getInputField().getText().length()==7 && getInputField().getText().matches("[0-9]+");
 		if(condicion)
 			setModoCorrecto();
 		else
