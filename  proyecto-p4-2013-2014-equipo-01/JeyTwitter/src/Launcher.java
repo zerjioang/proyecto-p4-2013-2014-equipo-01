@@ -1,4 +1,6 @@
+import controller.GUIController;
 import util.Util;
+import view.ventanas.Principal;
 import view.ventanas.Splash;
 import view.ventanas.Welcome;
 /**
@@ -14,9 +16,13 @@ public class Launcher {
 		Util.pausar(800);
 		spl.dispose();
 		
-		System.out.println(Util.getOS());
-		
-		Welcome wc = new Welcome();
-		wc.setVisible(true);
+		if (GUIController.getInstance().hasValidToken()) {
+			// Tenemos token, lanzamos la ventana principal
+			Principal p = new Principal();
+			p.setVisible(true);
+		} else {
+			Welcome wc = new Welcome();
+			wc.setVisible(true);			
+		}
 	}
 }

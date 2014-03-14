@@ -3,11 +3,17 @@ package controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.ResultSet;
+
+import model.SQLiteManager;
+
+import com.sun.jndi.ldap.ManageReferralControl;
 
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 import util.Util;
+import view.ventanas.Principal;
 
 /**
  * Clase encargada de intermediar entre la GUI y la API de Twitter
@@ -29,6 +35,12 @@ public class GUIController {
 	private synchronized static void createInstance() {
         if (instance == null) { 
             instance = new GUIController();
+            try {
+				instance.authenticate();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
     }
 	
@@ -57,10 +69,20 @@ public class GUIController {
 		}
 	}
 	
-	public void authenticate() throws Exception {
+	private void authenticate() throws Exception {
 		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
 		
+		// Recuperacion del token de la BBDD
+		ResultSet result = SQLiteManager.getInstance().select("SELECT code FROM credential");
+		if (result.first()) {
+			// Hay resultados, aunque solo esperamos una fila.
+			// Asignamos el token y a otra cosa
+			token = result.getString(0);
+			setPin(token);
+		}
+		
 		if (token == null) {
+			// No esta registrado el usuario en la BBDD
 			try {
 				t.requestToken();
 			} catch (Exception e) {
@@ -68,6 +90,14 @@ public class GUIController {
 				Util.debug("Error al recuperar el token: "+e.getMessage());
 				throw e;
 			}
+		}
+	}
+	
+	public boolean hasValidToken() {
+		if (token.isEmpty()) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 	

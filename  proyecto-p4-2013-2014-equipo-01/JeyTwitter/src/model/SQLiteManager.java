@@ -16,7 +16,9 @@ public class SQLiteManager
 	private String dir;
 	private boolean connect;
 	private static SQLiteManager instance = null;
+	
 	private static final String PATH = "JeyTuiterSQL";
+	
 	/* Metodos para el funcionamiento del singleton */
 	public SQLiteManager()
 	{
@@ -35,7 +37,7 @@ public class SQLiteManager
 	}
 	/* Fin de los metodos para el funcionamiento del singleton */
 	
-	public void connect(){
+	private void connect(){
 		try {
 			Class.forName("org.sqlite.JDBC");
 			try {
@@ -51,7 +53,7 @@ public class SQLiteManager
 			System.out.print(e.getMessage());
 		}
 	}
-	public void disconnet()
+	private void disconnet()
 	{
 		try{
 			query.close();
@@ -88,7 +90,5 @@ public class SQLiteManager
 		}
 		return resultado;
 	}
-	public boolean isConnect() {
-		return connect;
-	}
+	
 }
