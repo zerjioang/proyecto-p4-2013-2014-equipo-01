@@ -133,7 +133,9 @@ public class GUIController {
 			System.out.println();
 			System.out.println();
 			System.out.println("1. Ver mi Timeline");
-			System.out.println("2. Ver mis menciones");
+//			System.out.println("2. Ver mis menciones");
+			System.out.println("2. PRUEBA  FOLLOWERS");
+
 			System.out.println("3. Ver tweets que he retwitteado");
 			System.out.println("4. Ver tweets que he marcado como favoritos");
 			System.out.println("5. Twittear un mensaje");
@@ -147,7 +149,14 @@ public class GUIController {
 					case "1":showTimeline();
 					break;
 					
-					case "2":System.out.println("adios");
+					case "2": //System.out.println("adios");
+						
+						long cursor =  -1;
+						try{
+						t.friends("_somega", cursor);
+						}catch(Exception e){
+							System.out.println("Este mensaje esta en el catch del GUIcontroller. Tu código es una mierda, Sergio Ruiz :'( ");
+						}
 					break;
 					
 					case "3":System.out.println("adios");
