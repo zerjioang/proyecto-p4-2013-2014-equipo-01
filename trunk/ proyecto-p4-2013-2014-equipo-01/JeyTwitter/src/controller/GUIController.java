@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.ResultSet;
 
-import model.SQLiteManager;
+import controller.sql.SQLiteManager;
 
 import com.sun.jndi.ldap.ManageReferralControl;
 
@@ -151,12 +151,6 @@ public class GUIController {
 					
 					case "2": //System.out.println("adios");
 						
-						long cursor =  -1;
-						try{
-						t.friends("_somega", cursor);
-						}catch(Exception e){
-							System.out.println("Este mensaje esta en el catch del GUIcontroller. Tu código es una mierda, Sergio Ruiz :'( ");
-						}
 					break;
 					
 					case "3":System.out.println("adios");
