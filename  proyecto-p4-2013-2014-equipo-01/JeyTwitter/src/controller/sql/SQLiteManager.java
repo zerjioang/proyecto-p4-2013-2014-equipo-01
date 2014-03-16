@@ -4,9 +4,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import util.Util;
-import controller.io.Fichero;
 
 /**
  * @author Fiser
@@ -55,7 +53,7 @@ public class SQLiteManager
 			System.out.print(e.getMessage());
 		}
 	}
-	private void disconnet()
+	public void disconnet()
 	{
 		try{
 			query.close();
@@ -87,9 +85,6 @@ public class SQLiteManager
 		}catch (SQLException e) {
 			System.out.print(e.getMessage());
 		}
-		finally{
-			disconnet();
-		}
 		return resultado;
 	}
 	/**
@@ -102,7 +97,7 @@ public class SQLiteManager
 	/**
 	 * Envia una orden o comando SQL al servidor
 	 * @param comando	comando SQL que se quiere enviar
-	 * @return	devuelve tru si se ha ejecutado correctamente y false si ha habido algun error
+	 * @return	devuelve true si se ha ejecutado correctamente y false si ha habido algun error
 	 */
 	public synchronized boolean enviarComando(String comando){
 		try {
@@ -115,11 +110,9 @@ public class SQLiteManager
 						|| comando.toLowerCase().startsWith("alter")
 						|| comando.toLowerCase().startsWith("drop")
 					){
-					Util.debug("Ejecutando Update...");
 					query.executeUpdate(comando);
 				}
 				else{
-					Util.debug("Ejecutando Consulta...");
 					resultadoDeConsulta = query.executeQuery(comando);
 				}
 				return true;
@@ -129,9 +122,6 @@ public class SQLiteManager
 			}
 		} catch (SQLException e) {
 			return false;
-		}
-		finally{
-			disconnet();
-		}
+		}		
 	}
 }
