@@ -22,7 +22,7 @@ public class Usuario {
 		this.token = token;
 		this.nombreUsuario = nombreUsuario;
 	}
-	public Usuario(String token, String nombreUsuario, String nombreReal,
+	public Usuario(String nombreUsuario, String token, String nombreReal,
 			String biografia, Image imagen, Date ultimaFechaActualizacion,
 			int numeroTweets, int numeroSiguiendo, int numeroSeguidores) {
 		this.token = token;

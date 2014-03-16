@@ -1,9 +1,13 @@
 package controller.sql;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import util.Util;
 
 /**
@@ -123,5 +127,44 @@ public class SQLiteManager
 		} catch (SQLException e) {
 			return false;
 		}		
+	}
+	public boolean enviarImagen(String sql, byte [] image){
+		boolean funciona = true;
+		connect();	 
+		try {
+			PreparedStatement consultaPreparada = connection.prepareStatement(sql);
+            consultaPreparada.setBytes(1, image);
+			consultaPreparada.executeUpdate();
+		} catch (SQLException e) {
+			funciona = false;
+			System.out.print(e.getMessage());
+		}
+		finally{  
+			disconnet();
+		}
+		return funciona;
+	}
+	public Image getImage(String name){
+		Image img=null;
+		String query="SELECT imagen FROM Usuarios WHERE nombreUsuario='"+name+"'";
+		connect();
+		Statement stmt=null;
+		try{
+			stmt=connection.createStatement();
+			ResultSet rslt=stmt.executeQuery(query);
+			if(rslt.next()){
+				byte[] imgArr= rslt.getBytes("imagen");
+				img=Toolkit.getDefaultToolkit().createImage(imgArr);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try {
+				connection.close();
+				stmt.close();
+			} catch (Exception e) {
+			}
+		}
+		return img;
 	}
 }
