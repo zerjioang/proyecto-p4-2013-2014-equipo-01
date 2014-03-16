@@ -17,7 +17,7 @@ public class Usuario {
 	private int numeroTweets;
 	private int numeroSiguiendo;
 	private int numeroSeguidores;
-	public Usuario(String token, String nombreUsuario)
+	public Usuario(String nombreUsuario, String token)
 	{
 		this.token = token;
 		this.nombreUsuario = nombreUsuario;
