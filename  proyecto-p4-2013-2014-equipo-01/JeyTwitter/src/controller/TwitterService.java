@@ -158,7 +158,7 @@ public class TwitterService {
 	public void siguiendo(String username, Long cursor) throws TwitterException{
 		
 		//EN IMPLEMENTACION
-		//tw.getFollowersIDs(username, cursor);
+		//tw.getFriendssIDs(username, cursor);
 		
 	}
 	
