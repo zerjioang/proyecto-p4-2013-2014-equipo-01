@@ -12,7 +12,7 @@ import util.Util;
 
 /**
  * @author Fiser
- * Clase encargada de conectarse a una base de datos de diversos tipos
+ * Clase encarada de conectarse a una base de datos de diversos tipos
  */
 public class SQLiteManager
 {

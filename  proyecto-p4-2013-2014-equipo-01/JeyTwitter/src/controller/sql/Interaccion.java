@@ -11,7 +11,11 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 
 import controller.sql.model.Usuario;
-
+/**
+ * Clase con métodos estáticos para facilitar la interacción con la base de datos.
+ * @author Fiser
+ *
+ */
 public class Interaccion {
 	static SQLiteManager gestor = SQLiteManager.getInstance();
 	/**
@@ -86,9 +90,47 @@ public class Interaccion {
         byte[] data = baos.toByteArray(); 
         return gestor.enviarImagen("UPDATE Usuarios SET imagen = ? WHERE nombreUsuario = '"+nombreUsuario+"'", data);
 	}
+	public static LinkedList<Usuario> extraerUsuarios()
+	{
+		gestor.enviarComando("SELECT * FROM Usuarios");
+		try {
+			ResultSet extraidos = gestor.getResultSet();
+			LinkedList<Usuario> temporal = new LinkedList<Usuario>();
+			while(extraidos.next())
+			{
+				Usuario tempUsuario = new Usuario(extraidos.getString("nombreUsuario"),
+						extraidos.getString("token"),
+						extraidos.getString("nombreReal"),
+						extraidos.getString("biografia"),	
+						null,	
+						extraidos.getDate("fechaActualizacion"),	
+						extraidos.getInt("numeroTweets"),	
+						extraidos.getInt("numeroSeguidos"),	
+						extraidos.getInt("numeroSeguidores"));
+				temporal.add(tempUsuario);
+			}
+			gestor.disconnet();
+			cargarImagenes(temporal);
+			return temporal;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	private static void cargarImagenes(LinkedList<Usuario> usuarios)
+	{
+		for(Usuario temp: usuarios)
+		{
+			try{
+			temp.setImagen(gestor.getImage(temp.getNombreUsuario()));
+			}catch(Exception e){
+			}
+		}
+	}
 	public static void main(String[]args) throws IOException
 	{
-
+		LinkedList<Usuario> temp = extraerUsuarios();
+		System.out.println(temp.get(1).getImagen().toString());
 	}
 	
 }
