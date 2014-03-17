@@ -48,7 +48,7 @@ public class TwitterService {
 		if(Desktop.isDesktopSupported()){
 			Desktop.getDesktop().browse(new URI(peticionDeCodigo.getAuthorizationURL()));
 		}
-
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (null == accessToken) {
 			try {
@@ -60,17 +60,29 @@ public class TwitterService {
 				System.out.println("Retry input PIN");
 			}
 		}
-		System.out.println("Access Token: " + accessToken.getToken());
-		System.out.println("Access Token Secret: "+ accessToken.getTokenSecret());
+		
 	}
 
-	public void setCodigoAcceso(String codigo) throws TwitterException {
+	public AccessToken setCodigoAcceso(String codigo) throws TwitterException {
+		System.out.println("Paso por aqui");
+		accessToken = tw.getOAuthAccessToken(peticionDeCodigo, codigo);
+		
+		return accessToken;
+	}
+	
+	public void reusarCodigoAcceso(String codigo, String keySecret) {
+		AccessToken token = new AccessToken(codigo, keySecret);
+		tw.setOAuthAccessToken(token);
 		try {
-			accessToken = tw.getOAuthAccessToken(peticionDeCodigo, codigo);
+			tw.verifyCredentials();
 		} catch (TwitterException e) {
-			Util.debug("getOAuthAccessTokenError: "+e.getMessage());
-			throw e;
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
+	
+	public String getNombreUsuario() throws IllegalStateException, TwitterException {
+		return tw.getScreenName();
 	}
 
 	/**

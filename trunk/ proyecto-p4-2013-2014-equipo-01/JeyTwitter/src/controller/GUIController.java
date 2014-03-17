@@ -3,10 +3,14 @@ package controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
 
+import controller.sql.Interaccion;
+import model.Usuario;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.TwitterException;
+import twitter4j.auth.AccessToken;
 import util.Util;
 
 /**
@@ -30,13 +34,25 @@ public class GUIController {
         if (instancia == null) { 
             instancia = new GUIController();
             try {
-				instancia.autenticar(); //necesita el uso de un hilo
+				instancia.autenticar();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
     }
+	
+	public String dimeNombre() {
+		String nombre = null;
+		try {
+			nombre = t.getNombreUsuario();
+		} catch (IllegalStateException | TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return nombre;
+	}
 	
 	public static GUIController getInstance() {
 		crearInstancia();
@@ -65,25 +81,24 @@ public class GUIController {
 	
 	public void autenticar() throws Exception {
 		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
-		/*
+		
 		// Recuperacion del token de la BBDD
-		ResultSet result = SQLiteManager.getInstance().select("SELECT code FROM credential");
-		if (result.first()) {
+		LinkedList<Usuario> credenciales = Interaccion.extraerCredenciales();
+		if (credenciales.size() > 0) {
 			// Hay resultados, aunque solo esperamos una fila.
 			// Asignamos el token y a otra cosa
-			token = result.getString(0);
-			setPin(token);
+			System.out.println("El token de la BBDD es "+credenciales.get(0).getToken());
+			codigo = credenciales.get(0).getToken();
+			setCodigo(codigo, false);
 		}
-		*/
-		if (codigo == null) {
-			// No esta registrado el usuario en la BBDD
-			try {
-				//t.requestToken();
-			} catch (Exception e) {
-				// Error al recuperar el token
-				Util.debug("Error al recuperar el token: "+e.getMessage());
-				throw e;
-			}
+	}
+	
+	public void solicitarCodigo() {
+		try {
+			t.pedirCodigo();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -95,8 +110,24 @@ public class GUIController {
 		}
 	}
 	
-	public void setCodigo(String codigo) throws TwitterException {
-		t.setCodigoAcceso(codigo);
+	public void setCodigo(String codigo, boolean primeraVez){
+		if (primeraVez) {
+			try {
+				AccessToken accessToken = t.setCodigoAcceso(codigo);
+				// ESTO ES LO QUE HAY QUE GUARDAR!!!!!!!!!!!!!!
+				System.out.println("Access Token: " + accessToken.getToken());
+				System.out.println("Access Token Secret: "+ accessToken.getTokenSecret());
+				// ---------------------------
+				// Guardar en la BBDD
+				Interaccion.introducirCredenciales(t.getNombreUsuario(), codigo);			
+			} catch (TwitterException e) {
+				System.out.println("Error al autenticarse");
+				e.printStackTrace();
+			}
+		} else {
+			t.reusarCodigoAcceso(codigo, CONSUMER_KEY_SECRET);
+		}
+		
 	}
 	
 	/**

@@ -26,8 +26,7 @@ public class EventoClickEmpezar implements MouseListener {
 				try {
 					System.out.println("Conectando con Twitter...");
 					System.out.println("Pidiendo autorizacion...");
-					GUIController.getInstance().autenticar();
-					
+					GUIController.getInstance().solicitarCodigo();
 				} catch (Exception e) {
 					Util.showError(ventana, "Conexion rechazada", "Imposible conectar con "+e.getMessage(),"Cancelar","Reiniciar");
 				}

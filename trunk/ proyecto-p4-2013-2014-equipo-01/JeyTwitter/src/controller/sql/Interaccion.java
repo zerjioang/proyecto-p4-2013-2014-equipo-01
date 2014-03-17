@@ -94,6 +94,14 @@ public class Interaccion {
         byte[] data = baos.toByteArray(); 
         return gestor.enviarImagen("UPDATE Usuarios SET imagen = ? WHERE nombreUsuario = '"+nombreUsuario+"'", data);
 	}
+	/**
+	 * Elimina todos los contenidos de la tabla Usuarios para poder simular
+	 * que se acaba de instalar la app
+	 * @return
+	 */
+	public static boolean borrarTodosLosCredenciales() {
+		return 	gestor.enviarComando("DELETE FROM Usuarios");
+	}
 	public static LinkedList<Usuario> extraerUsuarios()
 	{
 		gestor.enviarComando("SELECT * FROM Usuarios");
@@ -133,13 +141,17 @@ public class Interaccion {
 	}
 	public static void main(String[]args) throws IOException
 	{
-				LinkedList<Usuario> temp = extraerUsuarios();
-				System.out.println(temp.get(1).getImagen().toString());
-				JFrame ventana = new JFrame();
-				JLabel temp2 = new JLabel();
-				temp2.setIcon(new ImageIcon(temp.get(1).getImagen()));
-				ventana.add(temp2);
-				ventana.setVisible(true);
+		/*
+		LinkedList<Usuario> temp = extraerUsuarios();
+		System.out.println(temp.get(1).getImagen().toString());
+		JFrame ventana = new JFrame();
+		JLabel temp2 = new JLabel();
+		temp2.setIcon(new ImageIcon(temp.get(1).getImagen()));
+		ventana.add(temp2);
+		ventana.setVisible(true);
+		*/
+		
+		borrarTodosLosCredenciales();
 	}
 	
 }
