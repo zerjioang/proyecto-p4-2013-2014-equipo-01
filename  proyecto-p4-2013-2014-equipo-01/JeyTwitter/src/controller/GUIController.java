@@ -42,6 +42,10 @@ public class GUIController {
         }
     }
 	
+	/**
+	 * Recupera el nombre del usuario que está autenticado en este momento
+	 * @return
+	 */
 	public String dimeNombre() {
 		String nombre = null;
 		try {
@@ -54,6 +58,11 @@ public class GUIController {
 		return nombre;
 	}
 	
+	/**
+	 * Devuelve la única instancia de esta clase que permanece al mismo tiempo
+	 * en memoria, en caso de no existir, se crea.
+	 * @return
+	 */
 	public static GUIController getInstance() {
 		crearInstancia();
 		return instancia;
@@ -79,6 +88,11 @@ public class GUIController {
 		}
 	}
 	
+	/**
+	 * Crea la sesión en Twitter y recupera de la base de datos el token en caso
+	 * de que exista, si no, solo crea la sesión.
+	 * @throws Exception
+	 */
 	public void autenticar() throws Exception {
 		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
 		
@@ -93,6 +107,9 @@ public class GUIController {
 		}
 	}
 	
+	/**
+	 * Hace que se abra el navegador para que el usuario autorice a JeyTuiter
+	 */
 	public void solicitarCodigo() {
 		try {
 			t.pedirCodigo();
@@ -102,6 +119,10 @@ public class GUIController {
 		}
 	}
 	
+	/**
+	 * Comprueba si existe el token
+	 * @return
+	 */
 	public boolean esTokenValido() {
 		if (codigo == null || codigo.isEmpty()) {
 			return false;
@@ -110,6 +131,15 @@ public class GUIController {
 		}
 	}
 	
+	/**
+	 * En caso de que la aplicación se abra por primera vez se inicia con el
+	 * token que le corresponda y se guarda en la BBDD.
+	 * 
+	 * En caso de que ya exista un usuario de la aplicación, se reusa el token
+	 * ya almacenado
+	 * @param codigo
+	 * @param primeraVez
+	 */
 	public void setCodigo(String codigo, boolean primeraVez){
 		if (primeraVez) {
 			try {
@@ -125,6 +155,7 @@ public class GUIController {
 				e.printStackTrace();
 			}
 		} else {
+			// Está pendiente de actualizar con la nueva info del token
 			t.reusarCodigoAcceso(codigo, CONSUMER_KEY_SECRET);
 		}
 		
@@ -143,6 +174,10 @@ public class GUIController {
 		}
 	}
 	
+	/**
+	 * Muestra un menú interactivo en la consola que permite usar ciertas funciones
+	 * del cliente, solo lo usamos para depurar.
+	 */
 	public void menuConsola() {
 		try {
 			this.autenticar();

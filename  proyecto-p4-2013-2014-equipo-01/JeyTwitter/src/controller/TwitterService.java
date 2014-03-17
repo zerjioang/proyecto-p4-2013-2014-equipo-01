@@ -64,7 +64,7 @@ public class TwitterService {
 	
 	/**
 	 * Se crea un token con el codigo que el usuario ha recibido al autorizar
-	 * JeyTuiter en la web
+	 * la aplicación en la web
 	 * @param codigo
 	 * @return
 	 * @throws TwitterException
