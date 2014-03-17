@@ -1,5 +1,6 @@
 package controller.sql;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
@@ -146,6 +147,7 @@ public class Interaccion {
 		LinkedList<Usuario> temp = extraerUsuarios();
 		System.out.println(temp.get(1).getImagen().toString());
 		JFrame ventana = new JFrame();
+		ventana.setSize(new Dimension(400, 200));
 		JLabel temp2 = new JLabel();
 		temp2.setIcon(new ImageIcon(temp.get(1).getImagen()));
 		ventana.add(temp2);
