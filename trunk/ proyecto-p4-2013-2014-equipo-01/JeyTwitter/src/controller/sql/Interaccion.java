@@ -3,12 +3,16 @@ package controller.sql;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import controller.sql.model.Usuario;
 /**
@@ -129,8 +133,13 @@ public class Interaccion {
 	}
 	public static void main(String[]args) throws IOException
 	{
-		LinkedList<Usuario> temp = extraerUsuarios();
-		System.out.println(temp.get(1).getImagen().toString());
+				LinkedList<Usuario> temp = extraerUsuarios();
+				System.out.println(temp.get(1).getImagen().toString());
+				JFrame ventana = new JFrame();
+				JLabel temp2 = new JLabel();
+				temp2.setIcon(new ImageIcon(temp.get(1).getImagen()));
+				ventana.add(temp2);
+				ventana.setVisible(true);
 	}
 	
 }
