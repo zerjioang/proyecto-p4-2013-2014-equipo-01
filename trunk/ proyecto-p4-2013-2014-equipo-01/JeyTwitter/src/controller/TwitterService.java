@@ -24,7 +24,7 @@ import util.Util;
  */
 public class TwitterService {
 	private AccessToken accessToken = null;
-	RequestToken requestToken = null;
+	private RequestToken peticionDeCodigo = null;
 	private Twitter tw;
 
 	/**
@@ -42,11 +42,11 @@ public class TwitterService {
 	 * usar Twitter.
 	 * @throws Exception
 	 */
-	public void requestToken() throws Exception {
-		requestToken = tw.getOAuthRequestToken();
+	public void pedirCodigo() throws Exception {
+		peticionDeCodigo = tw.getOAuthRequestToken();
 
 		if(Desktop.isDesktopSupported()){
-			Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
+			Desktop.getDesktop().browse(new URI(peticionDeCodigo.getAuthorizationURL()));
 		}
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -54,7 +54,7 @@ public class TwitterService {
 			try {
 				System.out.print("Input PIN here: ");
 				String pin = br.readLine();
-				accessToken = tw.getOAuthAccessToken(requestToken, pin);
+				accessToken = tw.getOAuthAccessToken(peticionDeCodigo, pin);
 			} catch (TwitterException te) {
 				System.out.println("Failed to get access token, caused by: "+ te.getMessage());
 				System.out.println("Retry input PIN");
@@ -64,9 +64,9 @@ public class TwitterService {
 		System.out.println("Access Token Secret: "+ accessToken.getTokenSecret());
 	}
 
-	public void setAccessToken(String pin) throws TwitterException {
+	public void setCodigoAcceso(String codigo) throws TwitterException {
 		try {
-			accessToken = tw.getOAuthAccessToken(requestToken, pin);
+			accessToken = tw.getOAuthAccessToken(peticionDeCodigo, codigo);
 		} catch (TwitterException e) {
 			Util.debug("getOAuthAccessTokenError: "+e.getMessage());
 			throw e;
@@ -151,7 +151,7 @@ public class TwitterService {
 	 */
 	public void seguidores(String username, Long cursor) throws TwitterException{
 		
-		IDs ids;
+		//IDs ids;
 
 		PagableResponseList<User> usuarios;
 		usuarios = tw.getFollowersList(username, -1);

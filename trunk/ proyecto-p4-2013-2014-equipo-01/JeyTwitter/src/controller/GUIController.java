@@ -18,19 +18,19 @@ public class GUIController {
 	// Keys de la API console
 	private final static String CONSUMER_KEY = "KRiUVHsXKNRDHVIGxYJ7w";
 	private final static String CONSUMER_KEY_SECRET = "BDwwg2NBUjY48OcTB2818sp7E7L32AzhNLdgt82ZVQ";
-	private static GUIController instance = null; 
+	private static GUIController instancia = null; 
 	
 	private TwitterService t;
-	private String token;
+	private String codigo;
 	
 	/* Metodos para el funcionamiento del singleton */
 	public GUIController() {}
 	
-	private synchronized static void createInstance() {
-        if (instance == null) { 
-            instance = new GUIController();
+	private synchronized static void crearInstancia() {
+        if (instancia == null) { 
+            instancia = new GUIController();
             try {
-				instance.authenticate(); //necesita el uso de un hilo
+				instancia.autenticar(); //necesita el uso de un hilo
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -39,19 +39,19 @@ public class GUIController {
     }
 	
 	public static GUIController getInstance() {
-		createInstance();
-		return instance;
+		crearInstancia();
+		return instancia;
 	}
 	/* Fin de los metodos para el funcionamiento del singleton */
 	
 	/**
 	 * Muestra el TL en el elemento de la GUI correspondiente
 	 */
-	public void showTimeline() {
-		ResponseList<Status> listTL;
+	public void mostrarTimeline() {
+		ResponseList<Status> listaTL;
 		try {
-			listTL = t.getTimeline();
-			for (Status each : listTL) {
+			listaTL = t.getTimeline();
+			for (Status each : listaTL) {
 				
 				System.out.println("Sent by: @" + each.getUser().getScreenName()
 						+ " - " + each.getUser().getName() + "\n" + each.getText()
@@ -63,7 +63,7 @@ public class GUIController {
 		}
 	}
 	
-	public void authenticate() throws Exception {
+	public void autenticar() throws Exception {
 		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
 		/*
 		// Recuperacion del token de la BBDD
@@ -75,7 +75,7 @@ public class GUIController {
 			setPin(token);
 		}
 		*/
-		if (token == null) {
+		if (codigo == null) {
 			// No esta registrado el usuario en la BBDD
 			try {
 				//t.requestToken();
@@ -87,23 +87,22 @@ public class GUIController {
 		}
 	}
 	
-	public boolean hasValidToken() {
-		if (token==null || token.isEmpty()) {
+	public boolean esTokenValido() {
+		if (codigo == null || codigo.isEmpty()) {
 			return false;
 		} else {
 			return true;
 		}
 	}
 	
-	public void setPin(String pin) throws TwitterException {
-		t.setAccessToken(pin);
-		showTimeline();
+	public void setCodigo(String codigo) throws TwitterException {
+		t.setCodigoAcceso(codigo);
 	}
 	
 	/**
 	 * Tuitea usando el texto de el componente de la GUI correspondiente
 	 */
-	public void sendTweet(String texto) {
+	public void enviarTweet(String texto) {
 		// Se supone que recoge el texto de el textfield de turno
 		try {
 			t.tweet(texto);
@@ -113,9 +112,9 @@ public class GUIController {
 		}
 	}
 	
-	public void menuConsole() {
+	public void menuConsola() {
 		try {
-			this.authenticate();
+			this.autenticar();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -140,7 +139,7 @@ public class GUIController {
 			try {
 				input = reader.readLine();
 				switch(input) {
-					case "1":showTimeline();
+					case "1":mostrarTimeline();
 					break;
 					
 					case "2": //System.out.println("adios");
@@ -156,7 +155,7 @@ public class GUIController {
 					case "5":
 						System.out.print("Introduce el tweet: ");
 						String texto = reader.readLine();
-						sendTweet(texto);
+						enviarTweet(texto);
 					break;
 				}
 				
@@ -170,7 +169,7 @@ public class GUIController {
 	public static void main(String[] args) {
 		// Inicio de el programa
 		GUIController gui = new GUIController();
-		gui.menuConsole();
+		gui.menuConsola();
 	}
 
 }
