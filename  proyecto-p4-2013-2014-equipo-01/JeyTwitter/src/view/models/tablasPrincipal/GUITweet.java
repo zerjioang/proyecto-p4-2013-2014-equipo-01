@@ -118,6 +118,7 @@ public class GUITweet extends JPanel{
 		txtMensaje.setEditable(false);
 		txtMensaje.setFocusable(false);
 		txtMensaje.setOpaque(false);
+		txtMensaje.setBorder(null);
 		panelCentroMensaje.add(txtMensaje,BorderLayout.CENTER);
 	}
 
