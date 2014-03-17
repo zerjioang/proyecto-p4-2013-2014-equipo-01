@@ -10,6 +10,10 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 
 import util.Util;
+/**
+ * Evento que controla la accion a realizar cuando el usuario clica en el boton cerrar de la barra superior
+ * @author Sergio Anguita
+ */
 
 public class EventoClickCerrar implements MouseListener {
 

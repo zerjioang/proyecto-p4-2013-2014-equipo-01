@@ -10,6 +10,10 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
+/**
+ * Representa un boton grafico de color azul con tres estados diferentes
+ * @author Sergio Anguita
+ */
 public class CoolBlueButton extends Button{
 	
 	public CoolBlueButton(){
@@ -22,6 +26,9 @@ public class CoolBlueButton extends Button{
 		init();
 	}
 
+	/**
+	 * Inicializa los elementos
+	 */
 	private void init() {
 		anchoBoton = 99;
 		altoBoton = 29;

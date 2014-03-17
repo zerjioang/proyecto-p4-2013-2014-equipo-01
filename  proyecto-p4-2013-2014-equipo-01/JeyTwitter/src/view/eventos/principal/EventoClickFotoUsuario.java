@@ -1,20 +1,22 @@
-package view.eventos.barraMenu;
+package view.eventos.principal;
 
-import java.awt.Window;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class EventoCerrar implements MouseListener {
+import view.ventanas.Principal;
+
+public class EventoClickFotoUsuario implements MouseListener {
+
+	private final Principal v;
 	
-	private final Window ventana;
-	
-	public EventoCerrar(Window o){
-		ventana = o;
+	public EventoClickFotoUsuario(Principal principal) {
+		v = principal;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		ventana.dispose();
+		System.out.println("Click foto usuario");
+		v.setPanelActual(v.getPaneles()[0]);
 	}
 
 	@Override

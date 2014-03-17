@@ -25,4 +25,9 @@ public class ModeloTablaSettings extends ModeloTablaLateral implements DataGener
 		}
 		return datos;
 	}
+
+	@Override
+	public Class getColumnClass(int column) {
+		return MenuButton.class;
+	}
 }

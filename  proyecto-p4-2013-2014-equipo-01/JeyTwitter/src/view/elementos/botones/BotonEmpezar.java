@@ -2,7 +2,6 @@ package view.elementos.botones;
 
 import javax.swing.ImageIcon;
 
-import view.eventos.EventosButton;
 import view.ventanas.MensajeWindow;
 
 public class BotonEmpezar extends BotonUI{
@@ -12,6 +11,9 @@ public class BotonEmpezar extends BotonUI{
 		init();
 	}
 
+	/**
+	 * Inicializa el contenido
+	 */
 	private void init() {
 		//se definen las imagenes de cada estado del boton
 		setImagenClick("/res/botones/botonUI_EmpezarClick.png");
@@ -19,7 +21,5 @@ public class BotonEmpezar extends BotonUI{
 		setImagenNormal("/res/botones/botonUI_EmpezarNormal.png");
 		
 		setIcon(new ImageIcon(MensajeWindow.class.getResource(getImagenNormal())));
-		
-		addMouseListener(new EventosButton(this));
 	}
 }

@@ -60,6 +60,7 @@ public class InvisibleJFrame extends JFrame {
 
 	private void init() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(InvisibleJFrame.class.getResource(IMG_ICON)));
+		//Application.getApplication().setDockIconImage(new ImageIcon("Football.png").getImage());
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f)); //Lo hace transparente el ultimo valor es el nivel de transparencia
 		ajustarImagen();
 	}
@@ -83,7 +84,7 @@ public class InvisibleJFrame extends JFrame {
 	}
 	
 	public void setImagenFondo(String ruta){
-		fondo.setIcon(new ImageIcon(InvisibleJFrame.class.getResource(ruta)));
+		setImagenFondo(new ImageIcon(InvisibleJFrame.class.getResource(ruta)));
 	}
 
 	/**

@@ -86,26 +86,27 @@ public class Notificacion extends InvisibleJFrame {
 		txtMensaje.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		txtMensaje.setForeground(Color.WHITE);
 		txtMensaje.setLineWrap(true);
-		txtMensaje.setFont(Util.getFont("Roboto-light", Font.PLAIN, 14));
+		txtMensaje.setWrapStyleWord(true);
+		txtMensaje.setFont(Util.getFont("mirda", Font.PLAIN, 16));
 		txtMensaje.setText("Este es un comentario de prueba en una notificacion de JeyTuiter");
 		txtMensaje.setBounds(114, 41, 301, 91);
 		contentPane.add(txtMensaje);
 		
 		lblHora = new JLabel("13:00");
-		lblHora.setFont(Util.getFont("Roboto-light", Font.PLAIN, 14));
+		lblHora.setFont(Util.getFont("mirda", Font.PLAIN, 18));
 		lblHora.setForeground(Color.WHITE);
 		lblHora.setBounds(336, 11, 44, 22);
 		contentPane.add(lblHora);
 		
 		lblusuario = new JLabel("@Usuario");
-		lblusuario.setFont(Util.getFont("Roboto-light", Font.PLAIN, 18));
+		lblusuario.setFont(Util.getFont("mirda", Font.PLAIN, 18));
 		lblusuario.setForeground(Color.WHITE);
-		lblusuario.setBounds(10, 11, 316, 22);
+		lblusuario.setBounds(10, 14, 316, 22);
 		contentPane.add(lblusuario);
 		
 		lblImagenUsuario = new JLabel("Imagen");
-		lblImagenUsuario.setIcon(new ImageIcon(Notificacion.class.getResource("/res/images/userTest.jpg")));
 		lblImagenUsuario.setBounds(10, 41, 94, 91);
+		lblImagenUsuario.setIcon(Util.getImagenRedondeada(new ImageIcon(Notificacion.class.getResource("/res/images/userTest.jpg")), 20));
 		lblImagenUsuario.setIcon(Util.escalarImagen(lblImagenUsuario));
 		contentPane.add(lblImagenUsuario);
 

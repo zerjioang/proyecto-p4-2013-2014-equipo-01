@@ -9,8 +9,6 @@ import view.eventos.EventosButton;
 import view.ventanas.MensajeWindow;
 
 public class BotonId extends Button {
-	
-	private String imagenNormal, imagenHover;
 
 	public BotonId(String normal, String hover){
 		imagenHover = hover;
@@ -18,6 +16,9 @@ public class BotonId extends Button {
 		init();
 	}
 	
+	/**
+	 * Inicializa el contenido
+	 */
 	public void init(){
 		anchoBoton = 250;
 		altoBoton = 50;

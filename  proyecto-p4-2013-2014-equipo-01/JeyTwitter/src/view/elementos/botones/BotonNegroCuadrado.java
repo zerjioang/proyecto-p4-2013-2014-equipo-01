@@ -22,6 +22,9 @@ public class BotonNegroCuadrado extends Button {
 		init();
 	}
 
+	/**
+	 * Inicializa el contenido
+	 */
 	private void init() {
 		
 		anchoBoton = 74;

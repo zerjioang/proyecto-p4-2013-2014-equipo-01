@@ -38,7 +38,7 @@ public class CustomJDialog extends JDialog{
 	public CustomJDialog() {
 		// TODO Auto-generated constructor stub
 		super();
-		Util.asignarNimbus();
+		Util.asignarLFSO();
 		btnCancelar = new CoolBlueButton();
 		btnAceptar = new CoolBlueButton();
 		lblMensajeAMostrar = new JLabel();
@@ -46,7 +46,8 @@ public class CustomJDialog extends JDialog{
 		lblCerrar = new JLabel();
 		
 		setModal(true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(CustomJFrame.class.getResource("/res/images/icon.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CustomJFrame.class.getResource(Util.APP_ICONO)));
+		//Application.getApplication().setDockIconImage(new ImageIcon("Football.png").getImage());
 		setUndecorated(true);
 		setResizable(false);
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));

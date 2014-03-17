@@ -15,7 +15,7 @@ public class Launcher {
 		spl.mostrar(5);
 		Util.pausar(800);
 		spl.dispose();
-		
+		System.out.println("Tenemos el pin? "+GUIController.getInstance().hasValidToken());
 		if (GUIController.getInstance().hasValidToken()) {
 			// Tenemos token, lanzamos la ventana principal
 			Principal p = new Principal();

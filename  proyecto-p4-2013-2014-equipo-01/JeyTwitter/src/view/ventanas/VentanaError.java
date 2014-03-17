@@ -1,7 +1,7 @@
 package view.ventanas;
 
 import util.Util;
-import view.eventos.barraMenu.EventoCerrar;
+import view.eventos.barraMenu.EventoDispose;
 import view.eventos.barraMenu.EventosDeBarra;
 import view.parents.CustomJDialog;
 
@@ -125,7 +125,7 @@ public class VentanaError extends CustomJDialog {
 		lblCerrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		//Listeners
-		lblCerrar.addMouseListener(new EventoCerrar(this));
+		lblCerrar.addMouseListener(new EventoDispose(this));
 		lblTitulodeLaVentana.addMouseListener(new EventosDeBarra(this));
 		lblTitulodeLaVentana.addMouseMotionListener(new EventosDeBarra(this));
 		

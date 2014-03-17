@@ -1,6 +1,5 @@
 package view.ventanas;
 
-
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -26,6 +25,10 @@ import java.awt.SystemColor;
 
 import javax.swing.SwingConstants;
 
+/**
+ * Muestra una ventana flotante que se encarga de mostrar un panel donde introducir un tweet de forma rapida
+ * @author Sergio Anguita
+ */
 public class FastTuit extends InvisibleJFrame {
 
 	//Constantes
@@ -38,7 +41,7 @@ public class FastTuit extends InvisibleJFrame {
 	private BotonNegroCuadrado btnAtras;
 
 	/**
-	 * Launch the application.
+	 * Metodo main de prueba
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -70,7 +73,7 @@ public class FastTuit extends InvisibleJFrame {
 		contentPane.add(txtMensaje);
 		txtMensaje.addKeyListener(new EventoContador140(this));
 		txtMensaje.setLineWrap(true);
-		txtMensaje.setFont(new Font("Roboto Lt", Font.PLAIN, 14));
+		txtMensaje.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 14));
 		txtMensaje.setOpaque(false);
 		txtMensaje.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
 		txtMensaje.setBorder(new LineBorder(SystemColor.scrollbar));
@@ -78,7 +81,7 @@ public class FastTuit extends InvisibleJFrame {
 
 		lblContador = new JLabel("140");
 		lblContador.setHorizontalAlignment(SwingConstants.CENTER);
-		lblContador.setFont(new Font("Roboto Lt", Font.PLAIN, 15));
+		lblContador.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 15));
 		lblContador.setForeground(Color.WHITE);
 		lblContador.setBounds(123, 165, 101, 14);
 		contentPane.add(lblContador);
@@ -99,70 +102,71 @@ public class FastTuit extends InvisibleJFrame {
 	}
 
 	/**
-	 * @return the lblnombre
+	 * @return devuelve el nombre del usuario
 	 */
-	public JLabel getLblnombre() {
-		return lblnombre;
+	public String getNombre() {
+		return lblnombre.getText();
 	}
 
 	/**
-	 * @param lblnombre the lblnombre to set
+	 * @param nombre Asigna el nombre de usuario
 	 */
-	public void setLblnombre(String lblnombre) {
-		this.lblnombre.setText(lblnombre);
+	public void setNombre(String nombre) {
+		this.lblnombre.setText(nombre);
 	}
 
 	/**
-	 * @return the lblContador
+	 * @return devuelve el contador de caracteres con el estado actual
 	 */
-	public int getLblContador() {
+	public int getContador() {
 		return txtMensaje.getText().length();
 	}
 
 	/**
-	 * @param lblContador the lblContador to set
+	 * Asigna una cantidad al contador
+	 * @param valor cantidad a asignar
 	 */
-	public void setLblContador(int valor) {
+	public void setContador(int valor) {
 		lblContador.setText(String.valueOf(valor));
 	}
 
 	/**
-	 * @return the txtMensaje
+	 * @return devuelve el mensaje introducido por el usuario
 	 */
-	public String getTxtMensaje() {
+	public String getMensaje() {
 		return txtMensaje.getText();
 	}
 
 	/**
-	 * @param txtMensaje the txtMensaje to set
+	 * @param txtMensaje asigna un mensaje al campo emnsaje
 	 */
-	public void setTxtMensaje(String txtMensaje) {
-		this.txtMensaje.setText(txtMensaje);
+	public void setMensaje(String mensaje) {
+		this.txtMensaje.setText(mensaje);
 	}
 
 	/**
-	 * @return the btnEnviar
+	 * @return Devuelve el boton de enviar
 	 */
 	public BotonAzulCuadrado getBtnEnviar() {
 		return btnEnviar;
 	}
 
 	/**
-	 * @param btnEnviar the btnEnviar to set
+	 * @param Asigna el boton de enviar
 	 */
 	public void setBtnEnviar(BotonAzulCuadrado btnEnviar) {
 		this.btnEnviar = btnEnviar;
 	}
 
 	/**
-	 * @return the btnAtras
+	 * @return Devuelve el boton 'atras'
 	 */
 	public BotonNegroCuadrado getBtnAtras() {
 		return btnAtras;
 	}
 
 	/**
-	 * @param btnAtras the btnAtras to set
+	 * @param asigna el boton 'atras'
 	 */
 	public void setBtnAtras(BotonNegroCuadrado btnAtras) {
 		this.btnAtras = btnAtras;

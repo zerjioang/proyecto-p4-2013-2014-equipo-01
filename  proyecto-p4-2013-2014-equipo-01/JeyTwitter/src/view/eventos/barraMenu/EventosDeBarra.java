@@ -5,12 +5,17 @@ import view.parents.CustomJDialogWithBar;
 import view.parents.CustomJFrame;
 import view.ventanas.AcercaDe;
 import view.ventanas.Config;
+import view.ventanas.MensajeWindow;
 
 import java.awt.Window;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
+/**
+ * Evento que controla la accion a realizar cuando el usuario tiene el cursor en la barra superior
+ * @author Sergio Anguita
+ *
+ */
 public class EventosDeBarra implements MouseListener, MouseMotionListener {
 
 	private Window ventana;
@@ -39,6 +44,8 @@ public class EventosDeBarra implements MouseListener, MouseMotionListener {
 			}
 			else if(ventana instanceof CustomJDialog)
 				((CustomJDialog) ventana).setInitialClick(e.getPoint());
+			else if(ventana instanceof MensajeWindow)
+				((MensajeWindow) ventana).setInitialClick(e.getPoint());
 			else if(ventana instanceof CustomJDialogWithBar)
 				((CustomJDialogWithBar) ventana).setInitialClick(e.getPoint());
 		}
@@ -51,9 +58,9 @@ public class EventosDeBarra implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		try{
 		if(ventana!=null){
 			if(ventana instanceof CustomJFrame){
-
 				if(((CustomJFrame) ventana).getInitialClick()!=null){
 					// get location of Window
 		            int thisX = ventana.getLocation().x;
@@ -70,7 +77,7 @@ public class EventosDeBarra implements MouseListener, MouseMotionListener {
 				}
 			
 			}
-			else if(ventana instanceof CustomJDialogWithBar | ventana instanceof AcercaDe | ventana instanceof Config){
+			else if(ventana instanceof MensajeWindow || ventana instanceof CustomJDialogWithBar || ventana instanceof AcercaDe || ventana instanceof Config){
 				if(((CustomJDialogWithBar) ventana).getInitialClick()!=null){
 					// get location of Window
 		            int thisX = ventana.getLocation().x;
@@ -85,8 +92,38 @@ public class EventosDeBarra implements MouseListener, MouseMotionListener {
 		            int Y = thisY + yMoved;
 		            ventana.setLocation(X, Y);
 				}
-				
-			}
+				else if(((MensajeWindow) ventana).getInitialClick()!=null){
+					// get location of Window
+		            int thisX = ventana.getLocation().x;
+		            int thisY = ventana.getLocation().y;
+
+		            // Determine how much the mouse moved since the initial click
+		            int xMoved = (thisX + e.getX()) - (thisX + ((MensajeWindow) ventana).getInitialClick().x);
+		            int yMoved = (thisY + e.getY()) - (thisY + ((MensajeWindow) ventana).getInitialClick().y);
+
+		            // Move window to this position
+		            int X = thisX + xMoved;
+		            int Y = thisY + yMoved;
+		            ventana.setLocation(X, Y);
+				}
+				else if(((CustomJDialog) ventana).getInitialClick()!=null){
+					// get location of Window
+		            int thisX = ventana.getLocation().x;
+		            int thisY = ventana.getLocation().y;
+
+		            // Determine how much the mouse moved since the initial click
+		            int xMoved = (thisX + e.getX()) - (thisX + ((CustomJDialog) ventana).getInitialClick().x);
+		            int yMoved = (thisY + e.getY()) - (thisY + ((CustomJDialog) ventana).getInitialClick().y);
+
+		            // Move window to this position
+		            int X = thisX + xMoved;
+		            int Y = thisY + yMoved;
+		            ventana.setLocation(X, Y);
+				}
+			}}
+		}catch (ClassCastException ex){
+			System.out.println(ex.getMessage());
 		}
 	}
 }
+

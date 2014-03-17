@@ -1,5 +1,8 @@
 package view.eventos;
-
+/**
+ * Evento que controla el cambio de estado del boton binario (on off)
+ * @author Sergio Anguita
+ */
 import view.elementos.botones.BinaryButton;
 
 import java.awt.event.MouseEvent;

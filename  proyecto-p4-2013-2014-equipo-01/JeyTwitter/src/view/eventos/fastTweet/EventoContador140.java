@@ -19,7 +19,7 @@ public class EventoContador140 implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		fastTuit.setLblContador(140-fastTuit.getTxtMensaje().length());
+		fastTuit.setContador(140-fastTuit.getMensaje().length());
 	}
 
 	@Override

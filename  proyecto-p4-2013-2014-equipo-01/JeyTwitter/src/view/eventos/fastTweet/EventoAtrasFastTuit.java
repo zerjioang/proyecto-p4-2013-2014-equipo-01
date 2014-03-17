@@ -7,7 +7,7 @@ import view.ventanas.FastTuit;
 
 public class EventoAtrasFastTuit implements MouseListener {
 	
-	private FastTuit fastTuit;
+	private final FastTuit fastTuit;
 
 	public EventoAtrasFastTuit(FastTuit fastTuit) {
 		this.fastTuit = fastTuit;
