@@ -36,6 +36,10 @@ public class TwitterService {
 		tw = new TwitterFactory().getInstance();
 		tw.setOAuthConsumer(key, keySecret);
 	}
+	
+	public void verificarToken() throws TwitterException {
+		tw.verifyCredentials();
+	}
 
 	/**
 	 * Abre una ventana del navegador en la que se le pide confirmacion al usuario 

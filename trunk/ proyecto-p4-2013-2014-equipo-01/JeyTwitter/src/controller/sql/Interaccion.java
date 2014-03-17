@@ -143,7 +143,7 @@ public class Interaccion {
 	}
 	public static void main(String[]args) throws IOException
 	{
-
+		/*
 		LinkedList<Usuario> temp = extraerUsuarios();
 		System.out.println(temp.get(1).getImagen().toString());
 		JFrame ventana = new JFrame();
@@ -151,7 +151,9 @@ public class Interaccion {
 		JLabel temp2 = new JLabel();
 		temp2.setIcon(new ImageIcon(temp.get(1).getImagen()));
 		ventana.add(temp2);
-		ventana.setVisible(true);
+		ventana.setVisible(true);*/
+		
+		//borrarTodosLosCredenciales();
 	}
 	
 }
