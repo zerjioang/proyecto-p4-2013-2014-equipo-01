@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import controller.sql.model.Usuario;
+import model.Usuario;
 /**
  * Clase con métodos estáticos para facilitar la interacción con la base de datos.
  * @author Fiser
