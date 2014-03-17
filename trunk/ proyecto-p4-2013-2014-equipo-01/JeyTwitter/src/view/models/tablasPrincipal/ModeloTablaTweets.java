@@ -1,5 +1,7 @@
 package view.models.tablasPrincipal;
 
+import javax.swing.JPanel;
+
 import view.models.DataGenerate;
 import view.models.ModeloTablaLateral;
 
