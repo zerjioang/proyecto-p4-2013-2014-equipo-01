@@ -38,8 +38,7 @@ public class TwitterService {
 	}
 
 	/**
-	 * Inicia el proceso de autenticación y recupera el token para 
-	 * usar Twitter.
+	 * Abre una ventana del navegador en la que se le pide confirmacion al usuario 
 	 * @throws Exception
 	 */
 	public void pedirCodigo() throws Exception {
@@ -62,7 +61,14 @@ public class TwitterService {
 		}
 		
 	}
-
+	
+	/**
+	 * Se crea un token con el codigo que el usuario ha recibido al autorizar
+	 * JeyTuiter en la web
+	 * @param codigo
+	 * @return
+	 * @throws TwitterException
+	 */
 	public AccessToken setCodigoAcceso(String codigo) throws TwitterException {
 		System.out.println("Paso por aqui");
 		accessToken = tw.getOAuthAccessToken(peticionDeCodigo, codigo);
@@ -70,9 +76,14 @@ public class TwitterService {
 		return accessToken;
 	}
 	
-	public void reusarCodigoAcceso(String codigo, String keySecret) {
-		AccessToken token = new AccessToken(codigo, keySecret);
-		tw.setOAuthAccessToken(token);
+	/**
+	 * Se crea un token en función de uno que está previamente almacenado y se configura
+	 * @param token
+	 * @param tokenSecret
+	 */
+	public void reusarCodigoAcceso(String token, String tokenSecret) {
+		AccessToken t = new AccessToken(token, tokenSecret);
+		tw.setOAuthAccessToken(t);
 		try {
 			tw.verifyCredentials();
 		} catch (TwitterException e) {
@@ -81,6 +92,12 @@ public class TwitterService {
 		}
 	}
 	
+	/**
+	 * Recupera el nombre del usuario que se encuentra autenticado
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws TwitterException
+	 */
 	public String getNombreUsuario() throws IllegalStateException, TwitterException {
 		return tw.getScreenName();
 	}
