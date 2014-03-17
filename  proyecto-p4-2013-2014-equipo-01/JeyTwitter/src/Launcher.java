@@ -1,5 +1,4 @@
 import controller.GUIController;
-import controller.sql.Interaccion;
 import util.Util;
 import view.ventanas.Principal;
 import view.ventanas.Splash;

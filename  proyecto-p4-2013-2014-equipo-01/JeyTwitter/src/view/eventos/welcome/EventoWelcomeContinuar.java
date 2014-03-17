@@ -21,7 +21,7 @@ public class EventoWelcomeContinuar implements MouseListener {
 		System.out.println(ventana.getCodigo());
 		if(ventana.getCodeField().evaluate()){
 			try {
-				GUIController.getInstance().setCodigo(ventana.getCodigo(), true);
+				GUIController.getInstance().setCodigo(ventana.getCodigo());
 				Principal p = new Principal();
 				p.setLocationRelativeTo(ventana);
 				p.setVisible(true);

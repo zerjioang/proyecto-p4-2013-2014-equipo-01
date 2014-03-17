@@ -95,16 +95,6 @@ public class GUIController {
 	 */
 	public void autenticar() throws Exception {
 		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
-		
-		// Recuperacion del token de la BBDD
-		LinkedList<Usuario> credenciales = Interaccion.extraerCredenciales();
-		if (credenciales.size() > 0) {
-			// Hay resultados, aunque solo esperamos una fila.
-			// Asignamos el token y a otra cosa
-			System.out.println("El token de la BBDD es "+credenciales.get(0).getToken());
-			codigo = credenciales.get(0).getToken();
-			setCodigo(codigo, false);
-		}
 	}
 	
 	/**
@@ -120,28 +110,20 @@ public class GUIController {
 	}
 	
 	/**
-	 * Comprueba si existe el token
+	 * Comprueba si existe el codigo del usuario
 	 * @return
 	 */
 	public boolean esTokenValido() {
-		if (codigo == null || codigo.isEmpty()) {
-			return false;
-		} else {
+		LinkedList<Usuario> credenciales = Interaccion.extraerCredenciales();
+		
+		if (credenciales.size() > 0) {
+			// Hay resultados, aunque solo esperamos una fila.
+			// Asignamos el token y a otra cosa
+			System.out.println("El token de la BBDD es "+credenciales.get(0).getToken());
+			t.reusarCodigoAcceso(credenciales.get(0).getToken(), credenciales.get(0).getTokenSecreto());
+			
 			return true;
-		}
-	}
-	
-	/**
-	 * En caso de que la aplicación se abra por primera vez se inicia con el
-	 * token que le corresponda y se guarda en la BBDD.
-	 * 
-	 * En caso de que ya exista un usuario de la aplicación, se reusa el token
-	 * ya almacenado
-	 * @param codigo
-	 * @param primeraVez
-	 */
-	public void setCodigo(String codigo, boolean primeraVez){
-		if (primeraVez) {
+		} else {
 			try {
 				AccessToken accessToken = t.setCodigoAcceso(codigo);
 				// ESTO ES LO QUE HAY QUE GUARDAR!!!!!!!!!!!!!!
@@ -149,16 +131,25 @@ public class GUIController {
 				System.out.println("Access Token Secret: "+ accessToken.getTokenSecret());
 				// ---------------------------
 				// Guardar en la BBDD
-				Interaccion.introducirCredenciales(t.getNombreUsuario(), codigo);			
+				Interaccion.introducirCredenciales(t.getNombreUsuario(), accessToken.getToken(), accessToken.getTokenSecret());			
 			} catch (TwitterException e) {
 				System.out.println("Error al autenticarse");
 				e.printStackTrace();
 			}
-		} else {
-			// Está pendiente de actualizar con la nueva info del token
-			t.reusarCodigoAcceso(codigo, CONSUMER_KEY_SECRET);
+			
+			return false;
 		}
-		
+	}
+	
+	public void setCodigo(String codigo){
+		try {
+			AccessToken accessToken = t.setCodigoAcceso(codigo);
+			// Guardar en la BBDD
+			Interaccion.introducirCredenciales(t.getNombreUsuario(), accessToken.getToken(), accessToken.getTokenSecret());			
+		} catch (TwitterException e) {
+			System.out.println("Error al autenticarse");
+			e.printStackTrace();
+		}
 	}
 	
 	/**
