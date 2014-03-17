@@ -28,9 +28,9 @@ public class Interaccion {
 	 * @param codigo
 	 * @return
 	 */
-	public static boolean introducirCredenciales(String usuario, String codigo)
+	public static boolean introducirCredenciales(String usuario, String codigo, String codigoSecreto)
 	{
-		return 	gestor.enviarComando("INSERT INTO Usuarios (nombreUsuario, token) VALUES ('"+usuario+"','"+codigo+"')");
+		return 	gestor.enviarComando("INSERT INTO Usuarios (nombreUsuario, token, secretToken) VALUES ('"+usuario+"','"+codigo+"','"+codigoSecreto+"')");
 	}
 	/**
 	 * Borra el credencial de la base de datos
@@ -53,7 +53,7 @@ public class Interaccion {
 			LinkedList<Usuario> temporal = new LinkedList<Usuario>();
 			while(extraidos.next())
 			{
-				Usuario tempUsuario = new Usuario(extraidos.getString("nombreUsuario"), extraidos.getString("token"));
+				Usuario tempUsuario = new Usuario(extraidos.getString("nombreUsuario"), extraidos.getString("token"), extraidos.getString("secretToken"));
 				temporal.add(tempUsuario);
 			}
 			gestor.disconnet();
@@ -112,6 +112,7 @@ public class Interaccion {
 			{
 				Usuario tempUsuario = new Usuario(extraidos.getString("nombreUsuario"),
 						extraidos.getString("token"),
+						extraidos.getString("secretToken"),
 						extraidos.getString("nombreReal"),
 						extraidos.getString("biografia"),	
 						null,	
@@ -141,7 +142,7 @@ public class Interaccion {
 	}
 	public static void main(String[]args) throws IOException
 	{
-		/*
+
 		LinkedList<Usuario> temp = extraerUsuarios();
 		System.out.println(temp.get(1).getImagen().toString());
 		JFrame ventana = new JFrame();
@@ -149,9 +150,6 @@ public class Interaccion {
 		temp2.setIcon(new ImageIcon(temp.get(1).getImagen()));
 		ventana.add(temp2);
 		ventana.setVisible(true);
-		*/
-		
-		borrarTodosLosCredenciales();
 	}
 	
 }
