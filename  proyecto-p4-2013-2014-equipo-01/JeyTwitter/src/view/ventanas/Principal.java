@@ -39,17 +39,7 @@ import java.awt.Cursor;
 
 import javax.swing.border.LineBorder;
 
-import java.awt.FlowLayout;
-import java.awt.SystemColor;
-
 import javax.swing.border.MatteBorder;
-
-import java.awt.Component;
-
-import javax.swing.border.TitledBorder;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Principal extends CustomJFrame {
 
@@ -80,7 +70,6 @@ public class Principal extends CustomJFrame {
 					Principal frame = new Principal();
 					frame.setPanelActual(frame.getPaneles()[1]);
 					frame.setVisible(true);
-					System.out.println(((PanelBusqueda) frame.getPaneles()[5]).getTablaResultadosBusqueda().getValueAt(0, 0));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

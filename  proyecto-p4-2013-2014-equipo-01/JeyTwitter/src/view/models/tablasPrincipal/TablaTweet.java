@@ -11,7 +11,7 @@ import util.Util;
 import view.renderers.TweetEditor;
 import view.renderers.TweetRenderer;
 
-public class TablaTweet extends JTable {
+public class TablaTweet extends JTable{
 
 	private int total;
 	public TablaTweet(){
