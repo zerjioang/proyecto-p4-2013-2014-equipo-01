@@ -9,6 +9,7 @@ import java.sql.Date;
  */
 public class Usuario {
 	private String token;
+	private String tokenSecreto;
 	private String nombreUsuario;
 	private String nombreReal;
 	private String biografia;
@@ -17,15 +18,17 @@ public class Usuario {
 	private int numeroTweets;
 	private int numeroSiguiendo;
 	private int numeroSeguidores;
-	public Usuario(String nombreUsuario, String token)
+	public Usuario(String nombreUsuario, String token, String tokenSecreto)
 	{
 		this.token = token;
 		this.nombreUsuario = nombreUsuario;
+		this.tokenSecreto = tokenSecreto;
 	}
-	public Usuario(String nombreUsuario, String token, String nombreReal,
+	public Usuario(String nombreUsuario, String token, String tokenSecreto, String nombreReal,
 			String biografia, Image imagen, Date ultimaFechaActualizacion,
 			int numeroTweets, int numeroSiguiendo, int numeroSeguidores) {
 		this.token = token;
+		this.tokenSecreto = tokenSecreto;
 		this.nombreUsuario = nombreUsuario;
 		this.nombreReal = nombreReal;
 		this.biografia = biografia;
@@ -34,6 +37,18 @@ public class Usuario {
 		this.numeroTweets = numeroTweets;
 		this.numeroSiguiendo = numeroSiguiendo;
 		this.numeroSeguidores = numeroSeguidores;
+	}
+	public String getTokenSecreto() {
+		return tokenSecreto;
+	}
+	public void setTokenSecreto(String tokenSecreto) {
+		this.tokenSecreto = tokenSecreto;
+	}
+	public Date getUltimaFechaActualizacion() {
+		return ultimaFechaActualizacion;
+	}
+	public void setUltimaFechaActualizacion(Date ultimaFechaActualizacion) {
+		this.ultimaFechaActualizacion = ultimaFechaActualizacion;
 	}
 	public int getNumeroTweets() {
 		return numeroTweets;
