@@ -46,7 +46,7 @@ public class PanelBusqueda extends JPanel {
 		panel_BusquedaSup.add(busq.getInputField(), BorderLayout.WEST);
 		panel_BusquedaSup.add(busq.getImagenFondo(), BorderLayout.WEST);
 		panel_BusquedaSup.setBackground(Color.WHITE);
-		busq.getInputField().setBackground(Color.WHITE);
+		busq.getInputField().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		
 		JPanel panelBusquedaTabla = new JPanel();
 		add(panelBusquedaTabla, BorderLayout.CENTER);
