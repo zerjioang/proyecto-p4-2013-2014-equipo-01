@@ -2,9 +2,8 @@ package view.models;
 
 import javax.swing.table.AbstractTableModel;
 
-import view.elementos.botones.BinaryButton;
 
-public class ModeloTablaLateral extends AbstractTableModel{
+public abstract class ModeloTablaLateral extends AbstractTableModel{
 	
 	protected String[] nombresSetting;
 	protected Object rowData[][];
@@ -29,12 +28,7 @@ public class ModeloTablaLateral extends AbstractTableModel{
 		return rowData[row][column];
 	}
 
-	public Class getColumnClass(int column) {
-		if(column==0)
-			return String.class;
-		else
-			return BinaryButton.class;
-	}
+	public abstract Class getColumnClass(int column);
 
 	public void setValueAt(Object value, int row, int column) {
 		rowData[row][column] = value;

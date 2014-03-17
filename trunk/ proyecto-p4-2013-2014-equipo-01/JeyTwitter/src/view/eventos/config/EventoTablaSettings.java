@@ -1,4 +1,4 @@
-package view.eventos.settings;
+package view.eventos.config;
 
 import view.elementos.botones.BinaryButton;
 

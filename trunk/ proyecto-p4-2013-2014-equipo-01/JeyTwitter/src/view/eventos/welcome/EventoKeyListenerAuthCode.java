@@ -1,13 +1,15 @@
-package view.elementos.input;
+package view.eventos.welcome;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import view.elementos.input.CampoCodeAuth;
+
 public class EventoKeyListenerAuthCode implements KeyListener {
 	
-	private InputField field;
+	private CampoCodeAuth field;
 
-	public EventoKeyListenerAuthCode(InputField inputField) {
+	public EventoKeyListenerAuthCode(CampoCodeAuth inputField) {
 		field = inputField;
 	}
 

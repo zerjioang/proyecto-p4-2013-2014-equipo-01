@@ -4,8 +4,8 @@ import util.Util;
 import view.elementos.botones.BotonEmpezar;
 import view.elementos.botones.BotonUI;
 import view.elementos.input.CampoCodeAuth;
-import view.elementos.input.EventoKeyListenerAuthCode;
 import view.eventos.welcome.EventoClickEmpezar;
+import view.eventos.welcome.EventoKeyListenerAuthCode;
 import view.eventos.welcome.EventoWelcomeContinuar;
 import view.parents.CustomJFrame;
 

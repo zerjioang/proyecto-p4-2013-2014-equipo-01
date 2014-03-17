@@ -66,7 +66,7 @@ public class CustomJFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public CustomJFrame(int ancho, int alto) {
-		Util.asignarNimbus();
+		Util.asignarLFSO();
 		setBounds(0, 0, ancho, alto);
 		init();
 		initBarra();
@@ -74,6 +74,7 @@ public class CustomJFrame extends JFrame {
 
 	private void init() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CustomJFrame.class.getResource(RUTA_ICONO)));
+		//Application.getApplication().setDockIconImage(new ImageIcon("Football.png").getImage());
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

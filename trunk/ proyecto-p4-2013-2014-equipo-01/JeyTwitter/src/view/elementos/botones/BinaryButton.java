@@ -26,6 +26,9 @@ public class BinaryButton extends Button{
 		init();
 	}
 
+	/**
+	 * Inicializa los elementos
+	 */
 	private void init() {
 		anchoBoton = 161;
 		altoBoton = 85;

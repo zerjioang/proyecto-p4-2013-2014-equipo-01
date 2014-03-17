@@ -16,37 +16,71 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
 import util.Util;
-import view.eventos.principal.EventoCambiarPrincipal;
+
+import view.elementos.botones.BotonSeguir;
+import view.elementos.paneles.PanelBusqueda;
+import view.elementos.paneles.PanelEnviarTweet;
+import view.elementos.paneles.PanelPerfilUsuario;
+import view.eventos.principal.EventoCambiarColoBoton;
+import view.eventos.principal.EventoCambiarPanelClick;
 import view.eventos.principal.EventoClickAcercaDe;
 import view.eventos.principal.EventoClickConfig;
+import view.eventos.principal.EventoClickFotoUsuario;
 import view.eventos.principal.EventoClickHelp;
+import view.eventos.principal.EventoMaximizarVerticalmente;
 import view.models.ModeloTablaPrincipal;
+import view.models.tablasPrincipal.PanelTablaTweets;
+import view.models.tablasPrincipal.TablaTweet;
 import view.parents.CustomJFrame;
 import view.renderers.UIButtonRenderer;
-
-import javax.swing.JButton;
-import javax.swing.JTextPane;
 
 import java.awt.Font;
 import java.awt.Cursor;
 
-import javax.swing.JTabbedPane;
 import javax.swing.border.LineBorder;
+
+import java.awt.FlowLayout;
+import java.awt.SystemColor;
+
+import javax.swing.border.MatteBorder;
+
+import java.awt.Component;
+
+import javax.swing.border.TitledBorder;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Principal extends CustomJFrame {
 
-	//private JPanel contentPane;
+	//Constantes
+	private static final Color COLOR_FONDO = new Color(24,22,23);
+	private static final Color COLOR_PANEL = new Color(64, 64, 64);
+	
 	private JTable tablaMenu;
+	private BotonSeguir btnDejarDeSeguir;
+	private JPanel[] panelesPrincipales;
+	
+	private PanelTablaTweets timeLine, menciones, retweets, favoritos;
+	private PanelPerfilUsuario panelUsuario;
+	private PanelEnviarTweet panelInferior;
+	private PanelBusqueda panelBusqueda;
+	
+	private JPanel panelMostrandoActual;
+	private JPanel panelVista;
+	private JLabel lblImagen;
 
 	/**
-	 * Launch the application.
+	 * Main de prueba
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Principal frame = new Principal();
+					frame.setPanelActual(frame.getPaneles()[1]);
 					frame.setVisible(true);
+					System.out.println(((PanelBusqueda) frame.getPaneles()[5]).getTablaResultadosBusqueda().getValueAt(0, 0));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,7 +89,7 @@ public class Principal extends CustomJFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Constructor por defecto
 	 */
 	public Principal() {
 		super(600, 700);
@@ -63,14 +97,25 @@ public class Principal extends CustomJFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getMainPanel().setBackground(Color.DARK_GRAY);
 		getMainPanel().setBorder(new EmptyBorder(0, 0, 0, 0));
+		
+		panelesPrincipales = new JPanel[7];
+		panelUsuario = new PanelPerfilUsuario();
+		panelInferior = new PanelEnviarTweet();
+		panelBusqueda = new PanelBusqueda();
+		
 		getMainPanel().setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelIzq = new JPanel();
+		panelIzq.setFocusTraversalKeysEnabled(false);
+		panelIzq.setFocusable(false);
+		panelIzq.setRequestFocusEnabled(false);
 		panelIzq.setBackground(Color.DARK_GRAY);
 		getMainPanel().add(panelIzq, BorderLayout.WEST);
 		panelIzq.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblImagen = new JLabel("Nombre Apellidos");
+		lblImagen = new JLabel("@JeyTuiter");
+		lblImagen.setOpaque(true);
+		lblImagen.setBorder(new MatteBorder(11, 4, 4, 4, COLOR_PANEL));
 		lblImagen.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblImagen.setForeground(Color.WHITE);
 		lblImagen.setBackground(Color.DARK_GRAY);
@@ -79,8 +124,12 @@ public class Principal extends CustomJFrame {
 		lblImagen.setVerticalTextPosition(SwingConstants.BOTTOM);
 		lblImagen.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImagen.setIcon(new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")));
+		lblImagen.setIcon(Util.getImagenRedondeada(new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")), 50));
+		lblImagen.setSize(130,130);
+		lblImagen.setIcon(Util.escalarImagen(lblImagen));
 		panelIzq.add(lblImagen, BorderLayout.NORTH);
+		
+		lblImagen.addMouseListener(new EventoClickFotoUsuario(this));
 		
 		tablaMenu = new JTable();
 		tablaMenu.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -90,8 +139,15 @@ public class Principal extends CustomJFrame {
 		tablaMenu.setBackground(Color.DARK_GRAY);
 		tablaMenu.setRowHeight(40);
 		tablaMenu.setModel(new ModeloTablaPrincipal());
-		tablaMenu.addMouseListener(new EventoCambiarPrincipal(this));
 		tablaMenu.getColumnModel().getColumn(0).setCellRenderer(new UIButtonRenderer());
+		
+		//Eventos tabla izquierda
+		tablaMenu.addMouseListener(new EventoCambiarColoBoton(this));
+		tablaMenu.addMouseListener(new EventoCambiarPanelClick(this));
+		
+		//Evento ventana
+		addMouseListener(new EventoMaximizarVerticalmente(this));
+		addMouseMotionListener(new EventoMaximizarVerticalmente(this));
 		
 		panelIzq.add(tablaMenu, BorderLayout.CENTER);
 		
@@ -140,42 +196,44 @@ public class Principal extends CustomJFrame {
 		lblAbout.addMouseListener(new EventoClickAcercaDe(this));
 		
 		JPanel panelApp = new JPanel();
+		panelApp.setDoubleBuffered(false);
+		panelApp.setEnabled(false);
+		panelApp.setFocusTraversalKeysEnabled(false);
+		panelApp.setFocusable(false);
+		panelApp.setRequestFocusEnabled(false);
 		panelApp.setBorder(new LineBorder(new Color(0, 0, 0)));
-		getMainPanel().add(panelApp, BorderLayout.CENTER);
+		getMainPanel().add(panelApp);
 		panelApp.setLayout(new BorderLayout(0, 0));
-		
-		JPanel panelInferior = new JPanel();
+
 		panelApp.add(panelInferior, BorderLayout.SOUTH);
-		panelInferior.setLayout(new BorderLayout(0, 0));
 		
-		JTextPane txtMensaje = new JTextPane();
-		txtMensaje.setText("escribe aqui tu tweet");
-		panelInferior.add(txtMensaje, BorderLayout.CENTER);
+		panelVista = new JPanel();
+		panelApp.add(panelVista, BorderLayout.CENTER);
+		panelVista.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton = new JButton("Enviar");
-		panelInferior.add(btnNewButton, BorderLayout.EAST);
+		generarDatos();
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBackground(Color.LIGHT_GRAY);
-		panelApp.add(tabbedPane, BorderLayout.CENTER);
+		JPanel panel_stats = new JPanel();
 		
-		JPanel panel_inicio = new JPanel();
-		tabbedPane.addTab("panel_inicio", null, panel_inicio, null);
-		
-		JPanel panel_timeLine = new JPanel();
-		tabbedPane.addTab("panel_timeLine", null, panel_timeLine, null);
-		
-		JPanel panel_Menciones = new JPanel();
-		tabbedPane.addTab("panel_Menciones", null, panel_Menciones, null);
-		
-		JPanel panel_reTweets = new JPanel();
-		tabbedPane.addTab("panel_reTweets", null, panel_reTweets, null);
-		
-		JPanel panel_favoritos = new JPanel();
-		tabbedPane.addTab("panel_favoritos", null, panel_favoritos, null);
-		
-		JPanel panel_busqueda = new JPanel();
-		tabbedPane.addTab("panel_busqueda", null, panel_busqueda, null);
+		panelesPrincipales[0] = panelUsuario;
+		panelesPrincipales[1] = timeLine;
+		panelesPrincipales[2] = menciones;
+		panelesPrincipales[3] = retweets;
+		panelesPrincipales[4] = favoritos;
+		panelesPrincipales[5] = panelBusqueda;
+		panelesPrincipales[6] = panel_stats;
+	}
+
+	/**
+	 * 
+	 */
+	private void generarDatos() {
+		//genera el mismo tweet  n veces
+		//para probar
+		timeLine = new PanelTablaTweets(new TablaTweet(10));
+		menciones = new PanelTablaTweets(new TablaTweet(3));
+		retweets  = new PanelTablaTweets(new TablaTweet(2));
+		favoritos = new PanelTablaTweets(new TablaTweet(1));
 	}
 
 	/**
@@ -190,5 +248,40 @@ public class Principal extends CustomJFrame {
 	 */
 	public void setTablaMenu(JTable tablaMenu) {
 		this.tablaMenu = tablaMenu;
+	}
+	
+	public void ocultarBotonSeguir(){
+		btnDejarDeSeguir.setVisible(false);
+	}
+	
+	public void mostrarBotonSeguir(){
+		btnDejarDeSeguir.setVisible(true);
+	}
+	
+	public JPanel[] getPaneles(){
+		return panelesPrincipales;
+	}
+	
+	public void setPanelActual(final JPanel p){
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				if(panelMostrandoActual!=null)
+					panelVista.remove(panelMostrandoActual);
+				panelMostrandoActual = p;
+				if(panelMostrandoActual==null)
+					panelMostrandoActual = new JPanel();
+				//panelMostrandoActual.setBounds(81, 0, 449, 567);
+				panelVista.add(panelMostrandoActual, BorderLayout.CENTER);
+				//Es posible que algunas de las siguientes sobren
+				getContentPane().revalidate();
+				getContentPane().repaint();
+				panelVista.revalidate();
+				panelVista.repaint();
+				revalidate();
+				repaint();
+			}
+		}).start();
 	}
 }

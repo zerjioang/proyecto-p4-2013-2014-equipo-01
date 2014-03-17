@@ -1,7 +1,7 @@
 package view.ventanas;
 
 import util.Util;
-import view.eventos.barraMenu.EventoCerrar;
+import view.eventos.barraMenu.EventoDispose;
 import view.eventos.barraMenu.EventosDeBarra;
 import view.parents.CustomJDialog;
 import view.parents.CustomJFrame;
@@ -17,11 +17,15 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import java.awt.Cursor;
-
+/**
+ * Muestra un mensaje pop up al usuario con informacion.
+ * @author Sergio Anguita
+ *
+ */
 public class MensajeWindow extends CustomJDialog {
 
 	/**
-	 * Launch the application.
+	 * Metodo main de prueba
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -43,32 +47,32 @@ public class MensajeWindow extends CustomJDialog {
 	}
 
 	/**
-	 * Create the frame.
+	 * Contructor por defecto
+	 * @param parent	ventana padre
 	 */
 	public MensajeWindow(CustomJFrame parent) {
+		super();
 		initMensajeWindow();
 		ventanaPadre = parent;
 		iniciarElementos();
 	}
-	
-	public MensajeWindow(CustomJFrame parent, String tipo){
+	/**
+	 * 
+	 * @param parent	ventana padre
+	 * @param textoPositivo		texto del boton 'cancelar'	
+	 * @param textoNegativo		texto del boton 'aceptar'
+	 */
+	public MensajeWindow(CustomJFrame parent, String textoPositivo, String textoNegativo){
+		super();
 		initMensajeWindow();
 		ventanaPadre = parent;
-		imagenBackground = tipo;
-		iniciarElementos();
-	}
-	
-	public MensajeWindow(CustomJFrame parent, String tipo, String textoPositivo, String textoNegativo){
-		initMensajeWindow();
-		ventanaPadre = parent;
-		imagenBackground = tipo;
 		setBotonNegativo(textoNegativo);
 		setBotonPositivo(textoPositivo);
 		iniciarElementos();
 	}
 	
 	/**
-	 * Create the frame.
+	 * Contructor por defecto
 	 */
 	public MensajeWindow() {
 		initMensajeWindow();
@@ -78,8 +82,7 @@ public class MensajeWindow extends CustomJDialog {
 	}
 
 	/**
-	* Construye los elementos de la ventana
-	 * @throws SecurityException
+	 * Inicializa los elementos de la ventana
 	 */
 	private void iniciarElementos() {
 		
@@ -92,7 +95,7 @@ public class MensajeWindow extends CustomJDialog {
 		//Construccion de objetos
 		JLabel lblFondo = new JLabel();
 		
-		//COnfiguracion de los objetos
+		//Configuracion de los objetos
 		
 		btnAceptar.setLocation(315, 125);
 		btnCancelar.setLocation(212, 125);
@@ -118,18 +121,17 @@ public class MensajeWindow extends CustomJDialog {
 		lblArrastrar .setBounds(10, 12, 373, 23);
 		lblArrastrar.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));	
 		
-		//Se a�aden al panel principal que tiene layout null
+		//Listeners
+		lblCerrar.addMouseListener(new EventoDispose(this));
+		lblArrastrar.addMouseListener(new EventosDeBarra(this));
+		lblArrastrar.addMouseMotionListener(new EventosDeBarra(this));
 		
+		//Se añaden al panel principal que tiene layout null
 		getContentPane().add(lblArrastrar);	
 		getContentPane().add(lblMensajeAMostrar);
 		getContentPane().add(lblTitulodeLaVentana);
 		getContentPane().add(lblCerrar);
 		getContentPane().add(lblFondo);
-		
-		//Listeners
-		lblCerrar.addMouseListener(new EventoCerrar(this));
-		lblArrastrar.addMouseListener(new EventosDeBarra(this));
-		lblArrastrar.addMouseMotionListener(new EventosDeBarra(this));
 		
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f)); //Lo hace transparente el ultimo valor es el nivel de transparencia

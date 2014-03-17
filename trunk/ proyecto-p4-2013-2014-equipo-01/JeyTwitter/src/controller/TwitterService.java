@@ -5,8 +5,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
 
-import com.apple.jobjc.ID;
-
 import twitter4j.IDs;
 import twitter4j.PagableResponseList;
 import twitter4j.ResponseList;
@@ -28,7 +26,7 @@ public class TwitterService {
 	private AccessToken accessToken = null;
 	RequestToken requestToken = null;
 	private Twitter tw;
-	
+
 	/**
 	 * Crea un nuevo servicio de Twitter
 	 * @param key Constante clave dada por el panel de la api
@@ -38,7 +36,7 @@ public class TwitterService {
 		tw = new TwitterFactory().getInstance();
 		tw.setOAuthConsumer(key, keySecret);
 	}
-	
+
 	/**
 	 * Inicia el proceso de autenticación y recupera el token para 
 	 * usar Twitter.
@@ -46,9 +44,9 @@ public class TwitterService {
 	 */
 	public void requestToken() throws Exception {
 		requestToken = tw.getOAuthRequestToken();
-		
+
 		if(Desktop.isDesktopSupported()){
-		  Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
+			Desktop.getDesktop().browse(new URI(requestToken.getAuthorizationURL()));
 		}
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -56,24 +54,16 @@ public class TwitterService {
 			try {
 				System.out.print("Input PIN here: ");
 				String pin = br.readLine();
-
 				accessToken = tw.getOAuthAccessToken(requestToken, pin);
-
 			} catch (TwitterException te) {
-
-				System.out.println("Failed to get access token, caused by: "
-						+ te.getMessage());
-
+				System.out.println("Failed to get access token, caused by: "+ te.getMessage());
 				System.out.println("Retry input PIN");
-
 			}
 		}
-
 		System.out.println("Access Token: " + accessToken.getToken());
-		System.out.println("Access Token Secret: "
-				+ accessToken.getTokenSecret());
+		System.out.println("Access Token Secret: "+ accessToken.getTokenSecret());
 	}
-	
+
 	public void setAccessToken(String pin) throws TwitterException {
 		try {
 			accessToken = tw.getOAuthAccessToken(requestToken, pin);
@@ -82,7 +72,7 @@ public class TwitterService {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * Se obtiene el timeline (20 últimos pero se puede parametrizar mas)
 	 * @return
@@ -90,14 +80,13 @@ public class TwitterService {
 	 */
 	public ResponseList<Status> getTimeline() throws TwitterException {
 		ResponseList<Status> list = null;
-		
+
 		if (tw != null) {
 			list = tw.getHomeTimeline();						
 		}
-		
 		return list;
 	}
-	
+
 	/**
 	 * Recupera el Timeline de menciones
 	 * @return
@@ -105,14 +94,13 @@ public class TwitterService {
 	 */
 	public ResponseList<Status> getMentions() throws TwitterException {
 		ResponseList<Status> list = null;
-		
+
 		if (tw != null) {
 			list = tw.getMentionsTimeline();						
 		}
-		
 		return list;
 	}
-	
+
 	/**
 	 * Recupera todos nuestros Tweets retwitteados por otros
 	 * @return
@@ -120,14 +108,13 @@ public class TwitterService {
 	 */
 	public ResponseList<Status> getRetweetsOfMe() throws TwitterException {
 		ResponseList<Status> list = null;
-		
+
 		if (tw != null) {
 			list = tw.getRetweetsOfMe();						
 		}
-		
 		return list;
 	}
-	
+
 	/**
 	 * Tuitea el mensaje por parámetro
 	 * @param message
@@ -136,18 +123,11 @@ public class TwitterService {
 	public void tweet(String message) throws TwitterException {
 		tw.updateStatus(message);
 	}
-	
-	
-	
-	
+
 	public void retweet(){
-		
+
 	}
-	
-	
-	
-	
-	
+
 	/**
 	 * Obtiene la lista de seguidores de un usuario
 	 * 
@@ -156,12 +136,11 @@ public class TwitterService {
 	 * @author sergio
 	 */
 	public void siguiendo(String username, Long cursor) throws TwitterException{
-		
+
 		//EN IMPLEMENTACION
 		//tw.getFriendssIDs(username, cursor);
-		
 	}
-	
+
 
 	/**
 	 * Obtiene la personas que está siguiendo un usuario
@@ -172,63 +151,42 @@ public class TwitterService {
 	 */
 	public void seguidores(String username, Long cursor) throws TwitterException{
 		
+		IDs ids;
+
+		PagableResponseList<User> usuarios;
+		usuarios = tw.getFollowersList(username, -1);
+
+		System.out.println(" ");
+		System.out.println(" ");
+		/* System.out.println("Con el cursor a -1: ");
+		 * System.out.println("el numero de usuarios es de: " + usuarios.size());
+		 * System.out.println("el usuario numero 20 es: " + usuarios.get(19).getScreenName());
+		 * System.out.println(" ");
+		 * System.out.println(" ");
+		 * usuarios = tw.getFollowersList(username, -2);
+		 * System.out.println("Con el cursor a -2: ");
+		 * System.out.println("el numero de usuarios es de: " + usuarios.size());
+		 * System.out.println("el usuario numero 20 es: " + usuarios.get(19).getScreenName());
+		 */
+
+		for (int i=-1; i>-3; i--){
+			System.out.println(" ");
+
+			usuarios = tw.getFollowersList(username, i);
+
+			System.out.println("Con el cursor a " +i +": ");
+			System.out.println("el numero de usuarios es de: " + usuarios.size());
+
+			for(int j=0; j<20; j++){
+				System.out.println("el usuario numero "+j + " es: " + usuarios.get(j).getScreenName());
+			}
+		}
 		
-	            IDs ids;
-	           
-	            
-	            PagableResponseList<User> usuarios;
-	            usuarios = tw.getFollowersList(username, -1);
-
-	            System.out.println(" ");
-	            System.out.println(" ");
-	           /* System.out.println("Con el cursor a -1: ");
-	            System.out.println("el numero de usuarios es de: " + usuarios.size());
-	            System.out.println("el usuario numero 20 es: " + usuarios.get(19).getScreenName());
-	            
-	            System.out.println(" ");
-	            System.out.println(" ");
-
-	            usuarios = tw.getFollowersList(username, -2);
-
-	            System.out.println("Con el cursor a -2: ");
-	            System.out.println("el numero de usuarios es de: " + usuarios.size());
-	            System.out.println("el usuario numero 20 es: " + usuarios.get(19).getScreenName());
-	*/
-	              
-	            for (int i=-1; i>-3; i--){
-	            	System.out.println(" ");
-
-		            usuarios = tw.getFollowersList(username, i);
-
-		            System.out.println("Con el cursor a " +i +": ");
-		            System.out.println("el numero de usuarios es de: " + usuarios.size());
-
-		            for(int j=0; j<20; j++){
-		            System.out.println("el usuario numero "+j + " es: " + usuarios.get(j).getScreenName());
-		            }
-	            	
-		           
-		            
-	            }
-	           
-	            
-	            usuarios = tw.getFollowersList(username, -3);
-
-	            System.out.println("Con el cursor a -3: ");
-	            System.out.println("el numero de usuarios es de: " + usuarios.size());
-	            for(int j=0; j<19; j++){
-		            System.out.println("el usuario numero "+j + " es: " + usuarios.get(j).getScreenName());
-		            }
-	            
-	            
-	            
-		 		}
-		 
-	
-	
-	
-	
-	
-	
-	
+		usuarios = tw.getFollowersList(username, -3);
+		System.out.println("Con el cursor a -3: ");
+		System.out.println("el numero de usuarios es de: " + usuarios.size());
+		for(int j=0; j<19; j++){
+			System.out.println("el usuario numero "+j + " es: " + usuarios.get(j).getScreenName());
+		}
+	}
 }

@@ -22,10 +22,13 @@ public class ModeloTablaPrincipal extends ModeloTablaLateral implements DataGene
 		datos[0][0]= prim;
 		
 		for (int i = 1; i < nombresSetting.length; i++) {
-			System.out.println(nombresSetting[i]);
 			MenuButton b = new MenuButton(nombresSetting[i]);
 			datos[i][0]= b;
 		}
 		return datos;
+	}
+	
+	public Class getColumnClass(int column) {
+		return MenuButton.class;
 	}
 }

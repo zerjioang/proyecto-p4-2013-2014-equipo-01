@@ -1,5 +1,9 @@
 package view.eventos.barraMenu;
 
+/**
+ * Evento que controla la accion a realizar cuando el usuario clica en el boton minimizar de la barra superior
+ * @author Sergio Anguita
+ */
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Point;

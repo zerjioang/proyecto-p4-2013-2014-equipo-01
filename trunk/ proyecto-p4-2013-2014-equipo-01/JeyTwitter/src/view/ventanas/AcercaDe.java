@@ -15,13 +15,16 @@ import javax.swing.SwingConstants;
 
 import java.awt.Color;
 import java.awt.Font;
-
+/**
+ * Ventana de acerca de que muestra la infomacion sobre los desarrolladores de la aplicacion
+ * @author Sergio Anguita
+ */
 public class AcercaDe extends CustomJDialogWithBar {
 
 	private static final Color COLOR_FONDO = Color.BLACK;
 	private static final String TITULO = "Acerca de "+Util.APP_TITULO;
 	/**
-	 * Launch the application.
+	 * Metodo main de prueba
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -37,7 +40,7 @@ public class AcercaDe extends CustomJDialogWithBar {
 	}
 
 	/**
-	 * Create the frame.
+	 * Contructor por defecto
 	 */
 	public AcercaDe() {
 		super(315,418); //315,418
@@ -49,6 +52,9 @@ public class AcercaDe extends CustomJDialogWithBar {
 		setLocationRelativeTo(principal);
 	}
 
+	/**
+	 * Inicializa los elementos de la ventana
+	 */
 	private void init() {
 		setDisposeWindow(true);
 		setAlwaysOnTop(true);

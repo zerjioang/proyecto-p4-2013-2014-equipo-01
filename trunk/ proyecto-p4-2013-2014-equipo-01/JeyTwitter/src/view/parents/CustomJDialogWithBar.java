@@ -66,7 +66,7 @@ public class CustomJDialogWithBar extends JDialog {
 	 * Create the frame.
 	 */
 	public CustomJDialogWithBar(int ancho, int alto) {
-		Util.asignarNimbus();
+		Util.asignarLFSO();
 		setBounds(0, 0, ancho, alto);
 		init();
 		initBarra();
@@ -75,6 +75,7 @@ public class CustomJDialogWithBar extends JDialog {
 
 	private void init() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CustomJDialogWithBar.class.getResource(RUTA_ICONO)));
+		//Application.getApplication().setDockIconImage(new ImageIcon("Football.png").getImage());
 		setUndecorated(true);
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

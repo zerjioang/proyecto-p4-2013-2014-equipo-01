@@ -4,7 +4,7 @@ import util.Util;
 import view.elementos.botones.CoolBlueButton;
 import view.eventos.config.EventoCerrarConfig;
 import view.eventos.config.EventoConfirmarConfig;
-import view.eventos.settings.EventoTablaSettings;
+import view.eventos.config.EventoTablaSettings;
 import view.models.ModeloTablaSettings;
 import view.models.tablasConfig.EventoCambiarSettings;
 import view.models.tablasConfig.ModeloTablaConfigGeneral;
@@ -30,15 +30,22 @@ import java.awt.BorderLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
+/**
+ * Ventana de configuracion que permite personalizar varios parametros del programa
+ * @author Sergio Anguita
+ */
 public class Config extends CustomJDialogWithBar{
-	
+
 	//Constantes
 	private static final Color COLOR_FONDO = new Color(24,22,23);
-	
+
 	private JTable tablaDer;
 	private JTable tablaIzq;
 
+	/**
+	 * Metodo main de prueba
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -51,12 +58,18 @@ public class Config extends CustomJDialogWithBar{
 			}
 		});
 	}
-	
+	/**
+	 * Constructor
+	 * @param ancho	ancho de la ventan
+	 * @param alto	alto de la ventana
+	 */
 	public Config(int ancho, int alto) {
 		super(ancho, alto);
 		init();
 	}
-	
+	/**
+	 * Contructor por defecto
+	 */
 	public Config() {
 		super(567,600);
 		setTitle("Configuración de "+Util.APP_TITULO);
@@ -68,24 +81,31 @@ public class Config extends CustomJDialogWithBar{
 		this();
 		setLocationRelativeTo(principal);
 	}
-
+	/**
+	 * Define el ancho de la columna especificada	
+	 * @param i	indice de la columna qu se va a redimensionar. el indice va de 0 a N-1
+	 * @param j		nuevo ancho de la columna
+	 * @param table	tabla que contiene la columna a redimensionar
+	 */
 	public static void definirColumnas(int i, int j, JTable table) {
 		table.getColumnModel().getColumn(i).setPreferredWidth(j);
 		table.getColumnModel().getColumn(i).setMinWidth(j);
 		table.getColumnModel().getColumn(i).setMaxWidth(j);
 	}
-
+	/**
+	 * Inicializa los elementos de la ventana
+	 */
 	private void init() {
-		
+
 		setDisposeWindow(true);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(168, 0, 393, 543);
 		scrollPane.setBackground(COLOR_FONDO);
 		scrollPane.getViewport().setBackground(COLOR_FONDO); 
 		scrollPane.setViewportBorder(null);
 		scrollPane.setBorder(null);
-		
+
 		tablaDer = new JTable();
 		tablaDer.setFocusable(false);
 		tablaDer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -100,21 +120,21 @@ public class Config extends CustomJDialogWithBar{
 		tablaDer.setBackground(COLOR_FONDO);
 		tablaDer.setBorder(null);
 		tablaDer.setModel(new ModeloTablaConfigGeneral());
-		
+
 		//se define el render de la tabla
 		tablaDer.getColumnModel().getColumn(1).setCellRenderer(new BinaryButtonRenderer());
 		definirColumnas(1, 100, tablaDer);
 		scrollPane.setViewportView(tablaDer);
-		
+
 		//se define el listener de la tabla
 		tablaDer.addMouseListener(new EventoTablaSettings(tablaDer));
-		
+
 		JScrollPane panelLateral = new JScrollPane();
 		panelLateral.setBackground(COLOR_FONDO);
 		panelLateral.getViewport().setBackground(COLOR_FONDO);
 		panelLateral.setBorder(null);
 		panelLateral.setBounds(0, 0, 162, 543);
-		
+
 		tablaIzq = new JTable();
 		tablaIzq.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		tablaIzq.setShowHorizontalLines(false);
@@ -129,14 +149,14 @@ public class Config extends CustomJDialogWithBar{
 		tablaIzq.setTableHeader(null);
 		panelLateral.add(tablaIzq);
 		panelLateral.setViewportView(tablaIzq);
-		
+
 		//se define el render de la tabla
 		tablaIzq.getColumnModel().getColumn(0).setCellRenderer(new MenuButtonRenderer());
-		
+
 		//se define el listener de la tabla de la izquierda 
 		// que cambia la tabla de opciones
 		tablaIzq.addMouseListener(new EventoCambiarSettings(this));
-		
+
 		JPanel panelInferior = new JPanel();
 		panelInferior.setBounds(10, 549, 551, 24);
 		panelInferior.setBackground(COLOR_FONDO);
@@ -144,57 +164,68 @@ public class Config extends CustomJDialogWithBar{
 		getMainPanel().add(panelLateral);
 		getMainPanel().add(scrollPane);
 		getMainPanel().add(panelInferior);
-		
+
 		JPanel panelInferiorBotones = new JPanel();
 		panelInferiorBotones.setBackground(COLOR_FONDO);
 		panelInferiorBotones.setLayout(new BorderLayout(0, 0));
-		
+
 		CoolBlueButton lblCancelar = new CoolBlueButton("Cancelar");
 		CoolBlueButton lblAceptar = new CoolBlueButton("Aceptar");
-		
+
 		panelInferiorBotones.add(lblCancelar, BorderLayout.WEST);
 		panelInferiorBotones.add(lblAceptar, BorderLayout.EAST);
-		
+
 		//Evento del boton cancelar
 		lblCancelar.addMouseListener(new EventoCerrarConfig(this));
 		//Evento del boton aceptar
 		lblCancelar.addMouseListener(new EventoConfirmarConfig(this));
-		
+
 		JLabel lblResize = new JLabel("");
 		lblResize.setIcon(new ImageIcon(Config.class.getResource("/res/images/miniResizeIcon.png")));
 		GroupLayout gl_panelInferior = new GroupLayout(panelInferior);
 		gl_panelInferior.setHorizontalGroup(
-			gl_panelInferior.createParallelGroup(Alignment.LEADING)
+				gl_panelInferior.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_panelInferior.createSequentialGroup()
-					.addComponent(panelInferiorBotones, GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblResize))
-		);
+						.addComponent(panelInferiorBotones, GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(lblResize))
+				);
 		gl_panelInferior.setVerticalGroup(
-			gl_panelInferior.createParallelGroup(Alignment.LEADING)
+				gl_panelInferior.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelInferior.createSequentialGroup()
-					.addGroup(gl_panelInferior.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(panelInferiorBotones, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_panelInferior.createSequentialGroup()
-							.addGap(5)
-							.addComponent(lblResize)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
+						.addGroup(gl_panelInferior.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(panelInferiorBotones, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(Alignment.LEADING, gl_panelInferior.createSequentialGroup()
+										.addGap(5)
+										.addComponent(lblResize)))
+										.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				);
 		panelInferior.setLayout(gl_panelInferior);
 	}
-
+	/**
+	 * @return	devuelve la tabla donde el usuario puede configurar las opciones
+	 */
 	public JTable getTableConfigDerecha() {
 		return tablaDer;
 	}
-
+	/**
+	 * Asigna una tabla a la tabla de configuracion
+	 * @param table	tabla a asignar
+	 */
 	public void setTableConfigDerecha(JTable table) {
 		this.tablaDer = table;
 	}
 
+	/**
+	 * @return	devuelve la tabla situada a la izquierda que contiene las principales areas de configuracion
+	 */
 	public JTable getTablaOpcionesIzq() {
 		return tablaIzq;
 	}
-
+	/**
+	 * Asigna una tabla a la tabla de areas
+	 * @param tablaOpciones tabla a asignar
+	 */
 	public void setTablaOpcionesIzq(JTable tablaOpciones) {
 		this.tablaIzq = tablaOpciones;
 	}

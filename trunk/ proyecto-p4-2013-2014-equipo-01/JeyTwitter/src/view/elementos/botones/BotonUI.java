@@ -22,7 +22,9 @@ public class BotonUI extends Button{
 		super(texto);
 		init();
 	}
-
+	/**
+	 * Inicializa el contenido
+	 */
 	private void init() {
 		anchoBoton = 164;
 		altoBoton = 43;
@@ -46,13 +48,22 @@ public class BotonUI extends Button{
 		addMouseListener(new EventosButton(this));
 	}
 
+	/**
+	 * Establece el estado del boton en modo click
+	 */
 	public void click() {
 		System.out.println(getImagenClick());
 		setIcon(new ImageIcon(MensajeWindow.class.getResource(getImagenClick())));
 	}
+	/**
+	 * Establece el estado del boton en modo entered
+	 */
 	public void entered() {
 		setIcon(new ImageIcon(MensajeWindow.class.getResource(getImagenHover())));
 	}
+	/**
+	 * Establece el estado del boton en modo exited
+	 */
 	public void exited() {
 		setIcon(new ImageIcon(MensajeWindow.class.getResource(getImagenNormal())));
 	}

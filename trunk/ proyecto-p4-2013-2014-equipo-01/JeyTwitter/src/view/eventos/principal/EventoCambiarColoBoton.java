@@ -8,11 +8,11 @@ import javax.swing.JTable;
 import view.elementos.botones.MenuButton;
 import view.ventanas.Principal;
 
-public class EventoCambiarPrincipal implements MouseListener {
+public class EventoCambiarColoBoton implements MouseListener {
 
 	private final JTable tablaGeneral;
 
-	public EventoCambiarPrincipal(Principal principal) {
+	public EventoCambiarColoBoton(Principal principal) {
 		tablaGeneral = principal.getTablaMenu();
 	}
 

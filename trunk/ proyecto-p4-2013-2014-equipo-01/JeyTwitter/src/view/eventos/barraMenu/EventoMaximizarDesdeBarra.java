@@ -5,7 +5,11 @@ import view.parents.CustomJFrame;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
+/**
+ * Evento que controla la accion a realizar cuando el usuario maximiza de nuevo la aplicacion
+ * @author Sergio Anguita
+ *
+ */
 public class EventoMaximizarDesdeBarra implements WindowListener {
 
 	private final Window ventana;

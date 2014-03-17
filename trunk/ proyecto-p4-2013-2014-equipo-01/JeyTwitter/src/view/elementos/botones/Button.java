@@ -9,7 +9,7 @@ public class Button extends JLabel{
 	protected int anchoBoton;
 	protected  int altoBoton;
 	
-	private String imagenNormal, imagenClick, imagenHover;
+	protected String imagenNormal, imagenClick, imagenHover;
 	
 	public Button(String texto) {
 		super(texto);
@@ -21,26 +21,47 @@ public class Button extends JLabel{
 		addMouseListener(new EventosButton(this));
 	}
 
+	/**
+	 * @return Devuelve la ruta en el path de la aplicacion de la imagen asociada al estado normal del boton
+	 */
 	public String getImagenNormal() {
 		return imagenNormal;
 	}
 
+	/**
+	 * Establece la imagen normal del boton
+	 * @param imagenNormal	ruta donde reside la imagen normal del boton
+	 */
 	public void setImagenNormal(String imagenNormal) {
 		this.imagenNormal = imagenNormal;
 	}
 
+	/**
+	 * @return Devuelve la ruta en el path de la aplicacion de la imagen asociada al estado click del boton
+	 */
 	public String getImagenClick() {
 		return imagenClick;
 	}
 
+	/**
+	 * Establece la imagen normal del boton
+	 * @param imagenClick	ruta donde reside la imagen click del boton
+	 */
 	public void setImagenClick(String imagenClick) {
 		this.imagenClick = imagenClick;
 	}
 
+	/**
+	 * @return Devuelve la ruta en el path de la aplicacion de la imagen asociada al estado hover del boton
+	 */
 	public String getImagenHover() {
 		return imagenHover;
 	}
 
+	/**
+	 * Establece la imagen normal del boton
+	 * @param imagenHover	ruta donde reside la imagen hover del boton
+	 */
 	public void setImagenHover(String imagenHover) {
 		this.imagenHover = imagenHover;
 	}

@@ -3,7 +3,6 @@ package view.models.tablasConfig;
 import view.elementos.botones.BinaryButton;
 import view.models.DataGenerate;
 import view.models.ModeloTablaLateral;
-
 import util.Util;
 
 public class ModeloTablaConfigCuenta extends ModeloTablaLateral implements DataGenerate{
@@ -25,6 +24,11 @@ public class ModeloTablaConfigCuenta extends ModeloTablaLateral implements DataG
 			datos[i][1]= new BinaryButton();
 		}
 		return datos;
+	}
+
+	@Override
+	public Class getColumnClass(int column) {
+		return BinaryButton.class;
 	}
 
 }

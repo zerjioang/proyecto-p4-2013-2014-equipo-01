@@ -1,19 +1,15 @@
 package view.elementos.input;
 
 import java.awt.Color;
-import java.awt.Font;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import util.Util;
-
 public abstract class InputField extends JLabel{
 
-	private JTextField inputCode;
-	private JLabel imagenFondo;
-	
+	protected JTextField inputCode;
+	protected JLabel imagenFondo;
+
 	/**
 	 * 
 	 */
@@ -29,62 +25,41 @@ public abstract class InputField extends JLabel{
 	private void init() {
 		inputCode.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		inputCode.setOpaque(false);
-		inputCode.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 40));
 		inputCode.setBorder(null);
 		inputCode.setAutoscrolls(false);
-		inputCode.setBounds(88, 165, 300, 48);
-		
-		imagenFondo.setIcon(new ImageIcon(InputField.class.getResource("/res/images/textInput/IntroCodeField_Normal.png")));
-		imagenFondo.setBounds(80, 155, 308, 58);
-		
-		inputCode.addKeyListener(new EventoKeyListenerAuthCode(this));
-	}
-	@Override
-	public void setBounds(int x, int y, int w, int h){
-		super.setBounds(x, y, 308, 58); //300, 48
-		inputCode.setBounds(x+10, y+5, 300, 48);
-		imagenFondo.setBounds(x, y, 308, 58);
-	}
-	@Override
-	public void setLocation(int x, int y){
-		super.setLocation(x, y);
-		inputCode.setLocation(x+10, y+5);
-		imagenFondo.setLocation(x, y);
 	}
 
 	/**
-	 * @return the inputCode
+	 * @return devuelve un objeto de tipo JTextField
 	 */
 	public JTextField getInputField() {
 		return inputCode;
 	}
 
 	/**
-	 * @param inputCode the inputCode to set
+	 * @param asigna un objeto de tipo Jtextfield al actual
 	 */
 	public void setInputField(JTextField inputCode) {
 		this.inputCode = inputCode;
 	}
-	
+
+	/**
+	 * 
+	 * @return devuelve el objeto JLabel que tiene la imagen de fondo
+	 */
 	public JLabel getImagenFondo() {
 		return imagenFondo;
 	}
-	
+	/**
+	 * Asigna un nuevo objeto jlabel que se encargará de cambiar la imagen de fondo
+	 * @param imagenFondo	JLabel a usar como imagen de fondo
+	 */
 	public void setImagenFondo(JLabel imagenFondo) {
 		this.imagenFondo = imagenFondo;
 	}
-	
-	public void setModoError(){
-		getImagenFondo().setIcon(new ImageIcon(InputField.class.getResource("/res/images/textInput/IntroCodeField_Error.png")));
-	}
-	
-	public void setModoCorrecto(){
-		getImagenFondo().setIcon(new ImageIcon(InputField.class.getResource("/res/images/textInput/IntroCodeField_Ok.png")));
-	}
-	
-	public void setModoNormal(){
-		getImagenFondo().setIcon(new ImageIcon(InputField.class.getResource("/res/images/textInput/IntroCodeField_Normal.png")));
-	}
-
+	/**
+	 * Evalua el campo de entrada en base a una condicion definida.
+	 * @return devuelve true si el contenido cumple la condicion y false si no la cumple
+	 */
 	public abstract boolean evaluate();
 }
