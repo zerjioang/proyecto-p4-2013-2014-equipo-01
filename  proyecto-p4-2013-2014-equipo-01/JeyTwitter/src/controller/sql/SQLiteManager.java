@@ -27,6 +27,7 @@ public class SQLiteManager
 	public SQLiteManager()
 	{
 		this.dir = Util.SQLITE_NOMBRE_BBDD;
+		connect();
 	}
 	
 	private synchronized static void createInstance() {
@@ -69,20 +70,15 @@ public class SQLiteManager
 	}
 	public boolean consulta(String sql){
 		boolean funciona = true;
-		connect();	 
 		try {
 			query.executeUpdate(sql);
 		} catch (SQLException e) {
 			funciona = false;
 			System.out.print(e.getMessage());
 		}
-		finally{  
-			disconnet();
-		}
 		return funciona;
 	}
 	public ResultSet select(String sql){
-		connect();
 		ResultSet resultado = null;
 		try {
 			resultado = query.executeQuery(sql);
@@ -105,7 +101,7 @@ public class SQLiteManager
 	 */
 	public synchronized boolean enviarComando(String comando){
 		try {
-			connect();
+			System.out.println(conectado);
 			if(conectado){
 				if(comando.toLowerCase().startsWith("insert") 
 						|| comando.toLowerCase().startsWith("update")
@@ -129,8 +125,7 @@ public class SQLiteManager
 		}		
 	}
 	public boolean enviarImagen(String sql, byte [] image){
-		boolean funciona = true;
-		connect();	 
+		boolean funciona = true; 
 		try {
 			PreparedStatement consultaPreparada = connection.prepareStatement(sql);
             consultaPreparada.setBytes(1, image);
@@ -139,15 +134,11 @@ public class SQLiteManager
 			funciona = false;
 			System.out.print(e.getMessage());
 		}
-		finally{  
-			disconnet();
-		}
 		return funciona;
 	}
 	public Image getImage(String name){
 		Image img=null;
 		String query="SELECT imagen FROM Usuarios WHERE nombreUsuario='"+name+"'";
-		connect();
 		Statement stmt=null;
 		try{
 			stmt=connection.createStatement();
@@ -158,12 +149,6 @@ public class SQLiteManager
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-		}finally{
-			try {
-				connection.close();
-				stmt.close();
-			} catch (Exception e) {
-			}
 		}
 		return img;
 	}

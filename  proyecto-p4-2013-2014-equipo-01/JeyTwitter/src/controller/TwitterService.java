@@ -75,6 +75,7 @@ public class TwitterService {
 	 */
 	public AccessToken setCodigoAcceso(String codigo) throws TwitterException {
 		System.out.println("Paso por aqui");
+		System.out.println(peticionDeCodigo+" "+codigo);
 		accessToken = tw.getOAuthAccessToken(peticionDeCodigo, codigo);
 		
 		return accessToken;

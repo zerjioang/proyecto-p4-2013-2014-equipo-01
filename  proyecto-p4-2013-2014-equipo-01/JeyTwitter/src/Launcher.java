@@ -15,7 +15,6 @@ public class Launcher {
 		spl.mostrar(5);
 		Util.pausar(800);
 		spl.dispose();
-
 		if (GUIController.getInstance().esTokenValido()) {
 			// Tenemos token, lanzamos la ventana principal
 			Principal p = new Principal();
