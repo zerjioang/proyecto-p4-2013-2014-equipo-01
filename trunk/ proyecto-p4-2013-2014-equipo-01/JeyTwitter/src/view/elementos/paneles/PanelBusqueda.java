@@ -6,12 +6,11 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
 
 import view.elementos.botones.BotonBuscar;
 import view.elementos.input.CampoBusqueda;
 import view.eventos.principal.EventoClickBuscar;
-import view.models.tablasPrincipal.TablaTweet;
-import view.models.tablasPrincipal.ModeloTablaTweetUsuarios;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 
 public class PanelBusqueda extends JPanel {
@@ -29,11 +28,14 @@ public class PanelBusqueda extends JPanel {
 		
 		JPanel panel_sup = new JPanel();
 		add(panel_sup, BorderLayout.NORTH);
-		panel_sup.setLayout(new BorderLayout(0, 0));
+		panel_sup.setLayout(new BorderLayout(0,0));
+		panel_sup.setBorder(new LineBorder(Color.WHITE, 5));
+		panel_sup.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		
 		BotonBuscar lblBusqueda = new BotonBuscar();
 		lblBusqueda.setIcon(new ImageIcon(PanelBusqueda.class.getResource("/res/images/principal/botonBusqueda_normal.png")));
 		panel_sup.add(lblBusqueda, BorderLayout.EAST);
+		lblBusqueda.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		lblBusqueda.addMouseListener(new EventoClickBuscar(this));
 		
 		JPanel panel_BusquedaSup = new JPanel();
