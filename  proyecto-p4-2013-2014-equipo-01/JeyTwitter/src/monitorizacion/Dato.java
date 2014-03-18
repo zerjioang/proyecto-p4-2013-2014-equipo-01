@@ -39,10 +39,10 @@ public class Dato {
 	public void setMes(int mes) {
 		this.mes = mes;
 	}
-	public int getAño() {
+	public int getAno() {
 		return ano;
 	}
-	public void setAño(int ano) {
+	public void setAno(int ano) {
 		this.ano = ano;
 	}
 	
