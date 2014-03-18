@@ -1,19 +1,14 @@
 package controller.sql;
 
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import model.Usuario;
 /**
@@ -57,7 +52,6 @@ public class Interaccion {
 				Usuario tempUsuario = new Usuario(extraidos.getString("nombreUsuario"), extraidos.getString("token"), extraidos.getString("secretToken"));
 				temporal.add(tempUsuario);
 			}
-			gestor.disconnet();
 			return temporal;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -123,7 +117,6 @@ public class Interaccion {
 						extraidos.getInt("numeroSeguidores"));
 				temporal.add(tempUsuario);
 			}
-			gestor.disconnet();
 			cargarImagenes(temporal);
 			return temporal;
 		} catch (SQLException e) {

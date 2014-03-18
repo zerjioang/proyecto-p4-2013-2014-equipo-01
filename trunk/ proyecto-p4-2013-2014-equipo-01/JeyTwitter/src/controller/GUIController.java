@@ -115,15 +115,14 @@ public class GUIController {
 	 */
 	public boolean esTokenValido() {
 		LinkedList<Usuario> credenciales = Interaccion.extraerCredenciales();
-		
 		if (credenciales.size() > 0) {
 			// Hay resultados, aunque solo esperamos una fila.
 			// Asignamos el token y a otra cosa
 			System.out.println("El token de la BBDD es "+credenciales.get(0).getToken());
 			t.reusarCodigoAcceso(credenciales.get(0).getToken(), credenciales.get(0).getTokenSecreto());
-			
 			return true;
-		} else {
+			}
+		else {
 			try {
 				AccessToken accessToken = t.setCodigoAcceso(codigo);
 				// ESTO ES LO QUE HAY QUE GUARDAR!!!!!!!!!!!!!!
