@@ -111,13 +111,11 @@ public class SQLiteManager
 						|| comando.toLowerCase().startsWith("drop")
 					){
 					query.executeUpdate(comando);
-				}
-				else{
+				}else{
 					resultadoDeConsulta = query.executeQuery(comando);
 				}
 				return true;
-			}
-			else{
+			}else{
 				return false;
 			}
 		} catch (SQLException e) {

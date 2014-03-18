@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 import model.Usuario;
 /**
- * Clase con métodos estáticos para facilitar la interacción con la base de datos.
+ * Clase con m��todos est��ticos para facilitar la interacci��n con la base de datos.
  * @author Fiser
  *
  */
@@ -38,7 +38,7 @@ public class Interaccion {
 		return 	gestor.enviarComando("DELETE FROM Usuarios WHERE nombreUsuario = '"+usuario+"'");
 	}
 	/**
-	 * Extrae de la base de datos todos los credenciales de los usuarios registrados en la aplicación
+	 * Extrae de la base de datos todos los credenciales de los usuarios registrados en la aplicaci��n
 	 * @return
 	 */
 	public static LinkedList<Usuario> extraerCredenciales()
@@ -47,11 +47,13 @@ public class Interaccion {
 		try {
 			ResultSet extraidos = gestor.getResultSet();
 			LinkedList<Usuario> temporal = new LinkedList<Usuario>();
+			
 			while(extraidos.next())
 			{
 				Usuario tempUsuario = new Usuario(extraidos.getString("nombreUsuario"), extraidos.getString("token"), extraidos.getString("secretToken"));
 				temporal.add(tempUsuario);
-			}
+			}				
+
 			return temporal;
 		} catch (SQLException e) {
 			e.printStackTrace();
