@@ -13,15 +13,15 @@ public class Launcher {
 	public static void main(String[] args) {
 		Splash spl = new Splash();
 		spl.mostrar(5);
-		Util.pausar(800);
-		spl.dispose();
 		if (GUIController.getInstance().esTokenValido()) {
 			// Tenemos token, lanzamos la ventana principal
 			Principal p = new Principal();
+			p.setPanelActual(p.getPaneles()[1]);
 			p.setVisible(true);
 		} else {
 			Welcome wc = new Welcome();
 			wc.setVisible(true);			
 		}
+		spl.dispose();
 	}
 }

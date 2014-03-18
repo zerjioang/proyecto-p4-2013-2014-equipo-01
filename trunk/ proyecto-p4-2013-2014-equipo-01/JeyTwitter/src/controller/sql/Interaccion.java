@@ -136,6 +136,8 @@ public class Interaccion {
 	}
 	public static void main(String[]args) throws IOException
 	{
+		Interaccion.introducirCredenciales("Usuario1", "asfbhsjd", "secret43jitgu34ygt34");
+		System.out.println(Interaccion.extraerUsuarios().size());
 		/*
 		LinkedList<Usuario> temp = extraerUsuarios();
 		System.out.println(temp.get(1).getImagen().toString());
