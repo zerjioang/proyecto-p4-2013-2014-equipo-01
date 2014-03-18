@@ -266,10 +266,10 @@ public class Principal extends CustomJFrame {
 				//Es posible que algunas de las siguientes sobren
 				getContentPane().revalidate();
 				getContentPane().repaint();
-				panelVista.revalidate();
-				panelVista.repaint();
-				revalidate();
-				repaint();
+				//panelVista.revalidate();
+				//panelVista.repaint();
+				//revalidate();
+				//repaint();
 			}
 		}).start();
 	}
