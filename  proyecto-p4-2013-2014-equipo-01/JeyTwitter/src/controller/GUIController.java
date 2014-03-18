@@ -43,7 +43,7 @@ public class GUIController {
     }
 	
 	/**
-	 * Recupera el nombre del usuario que está autenticado en este momento
+	 * Recupera el nombre del usuario que est�� autenticado en este momento
 	 * @return
 	 */
 	public String dimeNombre() {
@@ -59,7 +59,7 @@ public class GUIController {
 	}
 	
 	/**
-	 * Devuelve la única instancia de esta clase que permanece al mismo tiempo
+	 * Devuelve la ��nica instancia de esta clase que permanece al mismo tiempo
 	 * en memoria, en caso de no existir, se crea.
 	 * @return
 	 */
@@ -89,8 +89,8 @@ public class GUIController {
 	}
 	
 	/**
-	 * Crea la sesión en Twitter y recupera de la base de datos el token en caso
-	 * de que exista, si no, solo crea la sesión.
+	 * Crea la sesi��n en Twitter y recupera de la base de datos el token en caso
+	 * de que exista, si no, solo crea la sesi��n.
 	 * @throws Exception
 	 */
 	public void autenticar() throws Exception {
@@ -115,14 +115,16 @@ public class GUIController {
 	 */
 	public boolean esTokenValido() {
 		LinkedList<Usuario> credenciales = Interaccion.extraerCredenciales();
+		System.out.println("El tamaño de credenciales es: "+credenciales.size());
 		if (credenciales.size() > 0) {
 			// Hay resultados, aunque solo esperamos una fila.
 			// Asignamos el token y a otra cosa
 			System.out.println("El token de la BBDD es "+credenciales.get(0).getToken());
 			t.reusarCodigoAcceso(credenciales.get(0).getToken(), credenciales.get(0).getTokenSecreto());
+			
 			return true;
-			}
-		else {
+			} else {
+			/*
 			try {
 				AccessToken accessToken = t.setCodigoAcceso(codigo);
 				// ESTO ES LO QUE HAY QUE GUARDAR!!!!!!!!!!!!!!
@@ -135,7 +137,7 @@ public class GUIController {
 				System.out.println("Error al autenticarse");
 				e.printStackTrace();
 			}
-			
+			*/
 			return false;
 		}
 	}
@@ -144,6 +146,7 @@ public class GUIController {
 		try {
 			AccessToken accessToken = t.setCodigoAcceso(codigo);
 			// Guardar en la BBDD
+			System.out.println(t.getNombreUsuario()+accessToken.getToken()+accessToken.getTokenSecret());
 			Interaccion.introducirCredenciales(t.getNombreUsuario(), accessToken.getToken(), accessToken.getTokenSecret());			
 		} catch (TwitterException e) {
 			System.out.println("Error al autenticarse");
@@ -165,7 +168,7 @@ public class GUIController {
 	}
 	
 	/**
-	 * Muestra un menú interactivo en la consola que permite usar ciertas funciones
+	 * Muestra un men�� interactivo en la consola que permite usar ciertas funciones
 	 * del cliente, solo lo usamos para depurar.
 	 */
 	public void menuConsola() {
@@ -191,7 +194,7 @@ public class GUIController {
 			System.out.println("");
 			System.out.println("Pulsa 'q' para salir.");
 			System.out.println();
-			System.out.print("Seleciona una opción:");
+			System.out.print("Seleciona una opci��n:");
 			try {
 				input = reader.readLine();
 				switch(input) {
