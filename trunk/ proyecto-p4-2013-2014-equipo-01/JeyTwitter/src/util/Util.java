@@ -41,7 +41,7 @@ public class Util {
 	APP_ICONO = "/res/images/icon.png",
 	FICHERO_LOG = "log.txt",
 	FICHERO_XML = "config.xml",
-	SQLITE_NOMBRE_BBDD = "src/controller/sql/baseDeDatos/JeyTuiterSQL.sqlite";
+	SQLITE_NOMBRE_BBDD = "JeyTuiterSQL.sqlite";
 
 	//Este array representa las diferentes areas de configuracion
 	public static String[] settings =
