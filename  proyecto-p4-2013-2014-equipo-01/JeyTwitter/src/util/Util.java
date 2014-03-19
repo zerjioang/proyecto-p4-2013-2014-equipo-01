@@ -140,7 +140,7 @@ public class Util {
 	 */
 	public static ImageIcon escalarImagen(Component comp){
 		ImageIcon fot = (ImageIcon) ( (JLabel) comp ).getIcon();
-		Icon icono = new ImageIcon(fot.getImage().getScaledInstance(comp.getWidth(), comp.getHeight(), Image.SCALE_DEFAULT));
+		Icon icono = new ImageIcon(fot.getImage().getScaledInstance(comp.getWidth(), comp.getHeight(), Image.SCALE_SMOOTH));
 		return (ImageIcon) icono;
 	}
 
