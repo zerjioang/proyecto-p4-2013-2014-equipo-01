@@ -100,6 +100,7 @@ public class Contador extends InvisibleJFrame {
 		cantidad.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(cantidad);
 		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		contentPane.add(fondo);
 	}
 }
