@@ -1,5 +1,6 @@
 package view.ventanas;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import util.Util;
@@ -34,5 +35,6 @@ public class Splash extends InvisibleJFrame {
 		super(IMG_SPLASH);
 		setTitle(TITULO);
 		contentPane.add(fondo);
+		contentPane.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 	}
 }
