@@ -9,14 +9,17 @@ import view.ventanas.Principal;
 
 public class EventoClickEnviarTweet implements MouseListener {
 
+	private PanelEnviarTweet panel;
+	
 	public EventoClickEnviarTweet(PanelEnviarTweet panelEnviarTweet) {
-		// TODO Auto-generated constructor stub
+		panel = panelEnviarTweet;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		System.out.println("Tu nombre de usuario es: "+GUIController.getInstance().dimeNombre());
+		String tweet = panel.getMensaje();
 	}
 
 	@Override
