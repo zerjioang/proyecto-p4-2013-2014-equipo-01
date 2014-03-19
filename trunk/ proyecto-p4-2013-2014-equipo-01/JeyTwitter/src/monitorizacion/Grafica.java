@@ -26,7 +26,6 @@ public class Grafica {
 	 */
 	public static void crearGrafica(Vector<Dato> vector) {
 		
-	@SuppressWarnings("deprecation")
 	org.jfree.data.time.TimeSeries pop = new org.jfree.data.time.TimeSeries("Linea de Crecimiento", Day.class);
 	
 	/*
@@ -51,7 +50,9 @@ public class Grafica {
 				
 	}
 	
-	
+	pop.add(new Day(1, 4, 114), 1);			
+	pop.add(new Day(2, 4, 114), 2);			
+
 
 	
 	String nom = vector.firstElement().getNom();
@@ -74,13 +75,15 @@ public class Grafica {
 	
 	public static void main(String[] args){
 
-		@SuppressWarnings("deprecation")
 		org.jfree.data.time.TimeSeries pop = new org.jfree.data.time.TimeSeries("Linea de Crecimiento", Day.class);
 		
 		
 
-					pop.addOrUpdate(new Day(1, 2, 2000), 1);
-					
+		pop.addOrUpdate(new Day(1, 2, 2014), 1);
+		pop.addOrUpdate(new Day(2, 2, 2014), 2);
+		pop.addOrUpdate(new Day(3, 2, 2014), 5);
+		pop.addOrUpdate(new Day(4, 2, 2014), 2);
+
 
 		TimeSeriesCollection dataset = new TimeSeriesCollection();
 		dataset.addSeries(pop);
