@@ -1,5 +1,4 @@
 import controller.GUIController;
-import util.Util;
 import view.ventanas.Principal;
 import view.ventanas.Splash;
 import view.ventanas.Welcome;

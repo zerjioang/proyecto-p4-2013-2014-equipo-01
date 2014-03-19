@@ -70,6 +70,7 @@ public class Principal extends CustomJFrame {
 					Principal frame = new Principal();
 					frame.setPanelActual(frame.getPaneles()[1]);
 					frame.setVisible(true);
+					frame.getPanelInferior().getMensaje();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -272,5 +273,47 @@ public class Principal extends CustomJFrame {
 				//repaint();
 			}
 		}).start();
+	}
+
+	/**
+	 * @return the panelInferior
+	 */
+	public PanelEnviarTweet getPanelInferior() {
+		return panelInferior;
+	}
+
+	/**
+	 * @param panelInferior the panelInferior to set
+	 */
+	public void setPanelInferior(PanelEnviarTweet panelInferior) {
+		this.panelInferior = panelInferior;
+	}
+
+	/**
+	 * @return the panelBusqueda
+	 */
+	public PanelBusqueda getPanelBusqueda() {
+		return panelBusqueda;
+	}
+
+	/**
+	 * @param panelBusqueda the panelBusqueda to set
+	 */
+	public void setPanelBusqueda(PanelBusqueda panelBusqueda) {
+		this.panelBusqueda = panelBusqueda;
+	}
+
+	/**
+	 * @return the lblImagen
+	 */
+	public JLabel getLblImagen() {
+		return lblImagen;
+	}
+
+	/**
+	 * @param lblImagen the lblImagen to set
+	 */
+	public void setLblImagen(JLabel lblImagen) {
+		this.lblImagen = lblImagen;
 	}
 }
