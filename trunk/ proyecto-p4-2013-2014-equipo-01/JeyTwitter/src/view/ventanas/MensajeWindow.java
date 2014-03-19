@@ -55,6 +55,7 @@ public class MensajeWindow extends CustomJDialog {
 		initMensajeWindow();
 		ventanaPadre = parent;
 		iniciarElementos();
+		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 	}
 	/**
 	 * 
