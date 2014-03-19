@@ -17,9 +17,8 @@ public class EventoClickEnviarTweet implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		GUIController.getInstance().enviarTweet(panel.getMensaje());
 		System.out.println("Tu nombre de usuario es: "+GUIController.getInstance().dimeNombre());
-		String tweet = panel.getMensaje();
 	}
 
 	@Override
