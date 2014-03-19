@@ -140,6 +140,9 @@ public class Interaccion {
 	{
 		Interaccion.introducirCredenciales("Usuario1", "asfbhsjd", "secret43jitgu34ygt34");
 		System.out.println(Interaccion.extraerUsuarios().size());
+		System.out.println(Interaccion.extraerUsuarios().get(0).getNombreUsuario());
+		System.out.println(Interaccion.extraerUsuarios().get(1).getNombreUsuario());
+
 		/*
 		LinkedList<Usuario> temp = extraerUsuarios();
 		System.out.println(temp.get(1).getImagen().toString());
@@ -149,7 +152,7 @@ public class Interaccion {
 		temp2.setIcon(new ImageIcon(temp.get(1).getImagen()));
 		ventana.add(temp2);
 		ventana.setVisible(true);*/
-		
+		// prueba
 		//borrarTodosLosCredenciales();
 	}
 	

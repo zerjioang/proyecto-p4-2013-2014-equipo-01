@@ -146,7 +146,7 @@ public class SQLiteManager
 				img=Toolkit.getDefaultToolkit().createImage(imgArr);
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			System.out.println("No hay imagen");
 		}
 		return img;
 	}
