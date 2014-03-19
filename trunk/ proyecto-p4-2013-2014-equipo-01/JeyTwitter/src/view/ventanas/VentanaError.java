@@ -80,8 +80,6 @@ public class VentanaError extends CustomJDialog {
 		lblImagenFondo.setIcon(imagen);
 		setBounds(100, 100, imagen.getIconWidth(), imagen.getIconHeight());
 		getContentPane().setLayout(null);
-		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		JLabel lblAceptar = new JLabel("");
 		JLabel lblCancelar = new JLabel("");
 		
@@ -128,6 +126,9 @@ public class VentanaError extends CustomJDialog {
 		lblCerrar.addMouseListener(new EventoDispose(this));
 		lblTitulodeLaVentana.addMouseListener(new EventosDeBarra(this));
 		lblTitulodeLaVentana.addMouseMotionListener(new EventosDeBarra(this));
+		
+		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		
 		lblCancelar.addMouseListener(new MouseAdapter() {
 			@Override

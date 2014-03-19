@@ -99,6 +99,9 @@ public class FastTuit extends InvisibleJFrame {
 
 		contentPane.add(fondo);
 		getContentPane().setLayout(null);
+		
+		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 	}
 
 	/**
