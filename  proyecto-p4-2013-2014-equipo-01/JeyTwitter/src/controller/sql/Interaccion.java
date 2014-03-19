@@ -150,7 +150,7 @@ public class Interaccion {
 		ventana.add(temp2);
 		ventana.setVisible(true);*/
 		// prueba
-		//borrarTodosLosCredenciales();
+		borrarTodosLosCredenciales();
 	}
 	
 }
