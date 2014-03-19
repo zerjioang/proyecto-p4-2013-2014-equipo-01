@@ -93,7 +93,7 @@ public class TwitterService {
 			tw.verifyCredentials();
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 	
