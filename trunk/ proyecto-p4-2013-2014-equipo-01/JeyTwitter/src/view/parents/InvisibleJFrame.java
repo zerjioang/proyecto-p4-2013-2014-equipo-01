@@ -62,6 +62,8 @@ public class InvisibleJFrame extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(InvisibleJFrame.class.getResource(IMG_ICON)));
 		//Application.getApplication().setDockIconImage(new ImageIcon("Football.png").getImage());
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f)); //Lo hace transparente el ultimo valor es el nivel de transparencia
+		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		fondo.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		ajustarImagen();
 	}
 
