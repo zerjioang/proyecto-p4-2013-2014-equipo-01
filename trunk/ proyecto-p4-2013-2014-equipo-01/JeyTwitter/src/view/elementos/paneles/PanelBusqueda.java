@@ -2,24 +2,35 @@ package view.elementos.paneles;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
+import model.Tweets;
+import model.Usuario;
 import view.elementos.botones.BotonBuscar;
 import view.elementos.input.CampoBusqueda;
 import view.eventos.principal.EventoClickBuscar;
+import view.models.tablasPrincipal.ModeloTablaTweetUsuarios;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 
 public class PanelBusqueda extends JPanel {
 	
 	private CampoBusqueda busq;
 	private TablaTweetsUsuarios tablaBusqueda;
+	private ArrayList<ObjetoCelda> objeto;
 
 	public PanelBusqueda(){
 		super();
+		init();
+	}
+	
+	public PanelBusqueda(ArrayList<ObjetoCelda> lista){
+		super();
+		objeto = lista;
 		init();
 	}
 
@@ -57,7 +68,7 @@ public class PanelBusqueda extends JPanel {
 		JScrollPane scrollPaneTablaBusqueda = new JScrollPane();
 		panelBusquedaTabla.add(scrollPaneTablaBusqueda, BorderLayout.CENTER);
 		
-		tablaBusqueda = new TablaTweetsUsuarios(5, TablaTweetsUsuarios.SOLO_USUARIOS);
+		tablaBusqueda = new TablaTweetsUsuarios();
 		scrollPaneTablaBusqueda.setViewportView(tablaBusqueda);
 	}
 
@@ -91,5 +102,28 @@ public class PanelBusqueda extends JPanel {
 	 */
 	public void setTablaResultadosBusqueda(TablaTweetsUsuarios tablaBusqueda) {
 		this.tablaBusqueda = tablaBusqueda;
+	}
+	
+	/**
+	 * @param busq the busq to set
+	 */
+	public void actualizarTabla() {
+		if(objeto!=null && objeto.size()>0)
+			tablaBusqueda.setModel(new ModeloTablaTweetUsuarios(objeto));
+		tablaBusqueda.repaint();
+	}
+
+	/**
+	 * @return the objeto
+	 */
+	public ArrayList<ObjetoCelda> getObjeto() {
+		return objeto;
+	}
+
+	/**
+	 * @param objeto the objeto to set
+	 */
+	public void setObjeto(ArrayList<ObjetoCelda> objeto) {
+		this.objeto = objeto;
 	}
 }

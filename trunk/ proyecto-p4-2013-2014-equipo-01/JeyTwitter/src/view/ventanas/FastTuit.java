@@ -47,7 +47,7 @@ public class FastTuit extends InvisibleJFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FastTuit frame = new FastTuit();
+					FastTuit frame = new FastTuit("@Usuario");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,8 +59,24 @@ public class FastTuit extends InvisibleJFrame {
 	/**
 	 * Create the frame.
 	 */
+	public FastTuit(String nombreUsuario) {
+		super("/res/images/fastTweet/FastTuit.png");
+		init();
+		setNombre(nombreUsuario);
+	}
+	
+	/**
+	 * Create the frame.
+	 */
 	public FastTuit() {
 		super("/res/images/fastTweet/FastTuit.png");
+		init();
+	}
+	
+	/**
+	 * Inicializa el contenido de la ventana
+	 */
+	public void init(){
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle(TITULO);
 
@@ -102,6 +118,7 @@ public class FastTuit extends InvisibleJFrame {
 		
 		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+	
 	}
 
 	/**

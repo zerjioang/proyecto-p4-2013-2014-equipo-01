@@ -6,7 +6,7 @@ import javax.swing.AbstractCellEditor;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
-import view.models.tablasPrincipal.GUITweet;
+import view.elementos.paneles.GUITweet;
 
 public class TweetEditor extends AbstractCellEditor implements TableCellEditor{
 

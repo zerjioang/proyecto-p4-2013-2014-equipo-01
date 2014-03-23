@@ -6,7 +6,7 @@ import javax.swing.AbstractCellEditor;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
-import view.models.tablasPrincipal.GuiTwitterUsuario;
+import view.elementos.paneles.GuiTwitterUsuario;
 
 public class UsuarioEditor extends AbstractCellEditor implements TableCellEditor{
 

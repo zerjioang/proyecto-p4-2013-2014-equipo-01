@@ -3,11 +3,15 @@ package view.models.tablasPrincipal;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import util.Util;
+import view.elementos.paneles.GUITweet;
+import view.elementos.paneles.GuiTwitterUsuario;
+import view.elementos.paneles.ObjetoCelda;
 import view.renderers.TweetEditor;
 import view.renderers.TweetRenderer;
 import view.renderers.UsuarioEditor;
@@ -18,20 +22,17 @@ public class TablaTweetsUsuarios extends JTable {
 	//Constantes
 	public static final int SOLO_USUARIOS = 0;
 	public static final int SOLO_TWEETS = 1;
-
-	private int total;
-	private int tipo;
 	
-	public TablaTweetsUsuarios(){
+	private ArrayList<ObjetoCelda> listaObjetos;
+
+	public TablaTweetsUsuarios() {
 		super();
-		total = 2; //por default
 		init();
 	}
-
-	public TablaTweetsUsuarios(int i, int tipo) {
+	
+	public TablaTweetsUsuarios(ArrayList<ObjetoCelda> objeto) {
 		super();
-		total = i;
-		this.tipo = tipo;
+		this.listaObjetos = objeto;
 		init();
 	}
 
@@ -54,15 +55,18 @@ public class TablaTweetsUsuarios extends JTable {
 		setBackground(Color.BLACK);
 		setShowGrid(false);
 		setBorder(null);
-		setModel(new ModeloTablaTweetUsuarios(total, tipo));
-		System.out.println("tipo "+tipo);
-		if(tipo == SOLO_TWEETS){
-			setDefaultRenderer(GUITweet.class, new TweetRenderer());
-			setDefaultEditor(GUITweet.class, new TweetEditor());
-		}
-		if(tipo == SOLO_USUARIOS){
-			setDefaultRenderer(GuiTwitterUsuario.class, new UsuarioRenderer());
-			setDefaultEditor(GuiTwitterUsuario.class, new UsuarioEditor());
+		
+		if(listaObjetos!=null && listaObjetos.size()>0){
+			setModel(new ModeloTablaTweetUsuarios(listaObjetos));
+			int tipo = listaObjetos.get(0).tipoObjeto();
+			if(tipo == SOLO_TWEETS){
+				setDefaultRenderer(GUITweet.class, new TweetRenderer());
+				setDefaultEditor(GUITweet.class, new TweetEditor());
+			}
+			if(tipo == SOLO_USUARIOS){
+				setDefaultRenderer(GuiTwitterUsuario.class, new UsuarioRenderer());
+				setDefaultEditor(GuiTwitterUsuario.class, new UsuarioEditor());
+			}
 		}
 	}
 	

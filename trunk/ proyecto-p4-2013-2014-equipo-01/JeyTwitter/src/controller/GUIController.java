@@ -11,7 +11,6 @@ import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
-import util.Util;
 
 /**
  * Clase encargada de intermediar entre la GUI y la API de Twitter
@@ -25,7 +24,6 @@ public class GUIController {
 	private static GUIController instancia = null; 
 	
 	private TwitterService t;
-	private String codigo;
 	
 	/* Metodos para el funcionamiento del singleton */
 	public GUIController() {}

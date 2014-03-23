@@ -1,17 +1,18 @@
-package view.models.tablasPrincipal;
+package view.elementos.paneles;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import view.models.tablasPrincipal.TablaTweetsUsuarios;
+
 public class PanelTablaTweets extends JPanel {
 	
 	private JScrollPane scrollpane;
-	private TablaTweet tabla;
+	private TablaTweetsUsuarios tabla;
 
-	public PanelTablaTweets(TablaTweet tabla){
+	public PanelTablaTweets(TablaTweetsUsuarios tabla){
 		super();
 		scrollpane = new JScrollPane();
 		this.tabla = tabla;
@@ -34,14 +35,14 @@ public class PanelTablaTweets extends JPanel {
 	/**
 	 * @return the tabla
 	 */
-	public TablaTweet getTabla() {
+	public TablaTweetsUsuarios getTabla() {
 		return tabla;
 	}
 
 	/**
 	 * @param tabla the tabla to set
 	 */
-	public void setTabla(TablaTweet tabla) {
+	public void setTabla(TablaTweetsUsuarios tabla) {
 		this.tabla = tabla;
 	}
 }

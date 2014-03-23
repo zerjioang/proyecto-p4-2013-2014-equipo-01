@@ -1,4 +1,4 @@
-package view.models.tablasPrincipal;
+package view.elementos.paneles;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,26 +18,44 @@ import view.elementos.botones.Button;
 import view.eventos.celdaTweet.EventoClickBtnFavorito;
 import view.eventos.celdaTweet.EventoClickBtnReTweet;
 import view.eventos.celdaTweet.EventoClickBtnResponder;
+import view.models.tablasPrincipal.TablaTweetsUsuarios;
 
-public class GUITweet extends JPanel{
+public class GUITweet extends JPanel implements ObjetoCelda{
 	
 	private JLabel lblTiempo, lblImagenusuario, lblNombreReal, lblnombreUsuario;
 	private Button btnResponder, btnRetweet, btnFavorito;
 	private JTextArea txtMensaje;
 	
-	public GUITweet(){
+	
+	
+	/**
+	 * @param lblTiempo
+	 * @param lblImagenusuario
+	 * @param lblNombreReal
+	 * @param lblnombreUsuario
+	 * @param txtMensaje
+	 */
+	public GUITweet(String lblTiempo, String lblImagenusuario,String lblNombreReal, String lblnombreUsuario, String txtMensaje) {
 		super();
-		lblImagenusuario = new JLabel();
-		lblNombreReal = new JLabel("Cliente de Twitter");
-		lblnombreUsuario = new JLabel("@JeyTuiter");
-		txtMensaje = new JTextArea("Este es un mensaje de prueba en el nuevo cliente @JeyTuiter. La visualizacion de Tweet todavia es beta");
-		lblTiempo = new JLabel("1d");
+		this.lblImagenusuario = new JLabel();
+		this.lblNombreReal = new JLabel();
+		this.lblnombreUsuario = new JLabel();
+		this.txtMensaje = new JTextArea();
+		this.lblTiempo = new JLabel();
+		
+		this.lblTiempo.setText(lblTiempo);
+		this.lblImagenusuario.setText(lblImagenusuario);
+		this.lblNombreReal.setText(lblNombreReal);
+		this.lblnombreUsuario.setText(lblnombreUsuario);
+		this.txtMensaje.setText(txtMensaje);
+		
 		btnRetweet = new Button();
 		btnFavorito = new Button();
 		btnResponder = new Button();
 		
 		init();
 	}
+	
 	/**
 	 * Inicializa el contenido del tweet
 	 */
@@ -76,9 +94,7 @@ public class GUITweet extends JPanel{
 
 		
 		lblImagenusuario.setSize(100, 100);
-		lblImagenusuario.setIcon(Util.getImagenRedondeada(new ImageIcon(GUITweet.class.getResource("/res/images/userTest.jpg")), 50));
 		lblImagenusuario.setBorder(new MatteBorder(0, 5, 0, 5, new Color(1.0f,1.0f,1.0f,0.0f)));
-		lblImagenusuario.setIcon(Util.escalarImagen(lblImagenusuario));
 		add(lblImagenusuario, BorderLayout.WEST);
 		
 		JPanel panelCentro = new JPanel();
@@ -106,7 +122,6 @@ public class GUITweet extends JPanel{
 		panelCentro.add(panelInferior, BorderLayout.SOUTH);
 		
 		panelInferior.add(btnResponder);
-		System.out.println(btnResponder.getSize());
 		panelInferior.add(btnRetweet);
 		panelInferior.add(btnFavorito);
 		
@@ -195,14 +210,14 @@ public class GUITweet extends JPanel{
 	/**
 	 * @return devuelve la imagen del usuario en forma de un objeto Icon
 	 */
-	public Icon getImagenusuario() {
+	public Icon getImagenUsuario() {
 		return lblImagenusuario.getIcon();
 	}
 
 	/**
 	 * @param establece la imagen del usuario
 	 */
-	public void setImagenusuario(ImageIcon imagenUsuario) {
+	public void setImagenUsuario(ImageIcon imagenUsuario) {
 		lblImagenusuario.setIcon(Util.getImagenRedondeada(imagenUsuario, 50));
 		lblImagenusuario.setBorder(new MatteBorder(0, 5, 0, 5, new Color(1.0f,1.0f,1.0f,0.0f)));
 		lblImagenusuario.setIcon(Util.escalarImagen(lblImagenusuario));
@@ -234,5 +249,10 @@ public class GUITweet extends JPanel{
 	 */
 	public void setNombreUsuario(String nombreUsuario) {
 		this.lblnombreUsuario.setText(nombreUsuario);
+	}
+
+	@Override
+	public int tipoObjeto() {
+		return TablaTweetsUsuarios.SOLO_TWEETS;
 	}
 }

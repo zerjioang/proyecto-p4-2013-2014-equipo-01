@@ -5,7 +5,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import view.elementos.paneles.PanelPerfilUsuario;
-import view.ventanas.Principal;
 
 public class EventoBotonFavoritosUsuario implements MouseListener, MouseMotionListener {
 

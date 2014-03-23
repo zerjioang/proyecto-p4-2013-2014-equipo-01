@@ -4,7 +4,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import view.elementos.paneles.PanelBusqueda;
-import view.ventanas.Principal;
 
 public class EventoClickBuscar implements MouseListener {
 

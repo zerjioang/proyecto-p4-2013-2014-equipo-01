@@ -1,3 +1,4 @@
+import model.Usuario;
 import controller.GUIController;
 import view.ventanas.Principal;
 import view.ventanas.Splash;
@@ -14,7 +15,9 @@ public class Launcher {
 		spl.mostrar(5);
 		if (GUIController.getInstance().esTokenValido()) {
 			// Tenemos token, lanzamos la ventana principal
-			Principal p = new Principal();
+			Usuario u = new Usuario("", "", "", "", "", null, null, 0, 0, 0);
+			//Como el usuario no existe el programa da error de ejecucion.
+			Principal p = new Principal(u);
 			p.setPanelActual(p.getPaneles()[1]);
 			p.setVisible(true);
 		} else {
