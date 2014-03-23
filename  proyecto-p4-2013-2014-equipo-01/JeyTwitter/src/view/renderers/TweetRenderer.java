@@ -1,6 +1,6 @@
 package view.renderers;
 
-import view.models.tablasPrincipal.GUITweet;
+import view.elementos.paneles.GUITweet;
 
 import java.awt.Component;
 

@@ -22,7 +22,10 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
+import model.Tweets;
+
 import java.awt.Cursor;
+import java.sql.Date;
 
 public class Notificacion extends InvisibleJFrame {
 	
@@ -46,7 +49,7 @@ public class Notificacion extends InvisibleJFrame {
 			public void run() {
 				try {
 					Notificacion frame = new Notificacion();
-					frame.setTipoNotificacion(Notificacion.RETWEET);
+					frame.setTipoNotificacion(Notificacion.TWEET);
 					frame.ajustarApantalla();
 					frame.mostrar(0);
 				} catch (Exception e) {
@@ -61,6 +64,19 @@ public class Notificacion extends InvisibleJFrame {
 	 */
 	public Notificacion() {
 		super("/res/images/notif/notification_tweet.png");
+		init();
+	}
+	
+	public Notificacion(Tweets tweet) {
+		super("/res/images/notif/notification_tweet.png");
+		init();
+		setMensaje(tweet.getTexto());
+		setHora(tweet.getUltimaFechaActualizacion().toString());
+		setUsuario(tweet.getNombreUsuario());
+		setImagenUsuario(new ImageIcon(tweet.getImagenUsuario()));
+	}
+	
+	public void init(){
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 		contentPane = new JPanel();
@@ -87,7 +103,9 @@ public class Notificacion extends InvisibleJFrame {
 		txtMensaje.setForeground(Color.WHITE);
 		txtMensaje.setLineWrap(true);
 		txtMensaje.setWrapStyleWord(true);
-		txtMensaje.setFont(Util.getFont("mirda", Font.PLAIN, 16));
+		txtMensaje.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 14));
+		//Util.getFont("mirda", Font.PLAIN, 16)
+		
 		txtMensaje.setText("Este es un comentario de prueba en una notificacion de JeyTuiter");
 		txtMensaje.setBounds(114, 41, 301, 91);
 		contentPane.add(txtMensaje);
@@ -99,7 +117,7 @@ public class Notificacion extends InvisibleJFrame {
 		contentPane.add(lblHora);
 		
 		lblusuario = new JLabel("@Usuario");
-		lblusuario.setFont(Util.getFont("mirda", Font.PLAIN, 18));
+		lblusuario.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 18));
 		lblusuario.setForeground(Color.WHITE);
 		lblusuario.setBounds(10, 14, 316, 22);
 		contentPane.add(lblusuario);
@@ -111,68 +129,72 @@ public class Notificacion extends InvisibleJFrame {
 		contentPane.add(lblImagenUsuario);
 
 		contentPane.add(fondo);
-		
-		JPanel EstePanelEsSoloParaQueElFondoSeVea = new JPanel();
+		//panel para que el fondo se vea en window builder
+		/*JPanel EstePanelEsSoloParaQueElFondoSeVea = new JPanel();
 		EstePanelEsSoloParaQueElFondoSeVea.setBackground(Color.DARK_GRAY);
 		EstePanelEsSoloParaQueElFondoSeVea.setBounds(0, 0, 425, 143);
-		contentPane.add(EstePanelEsSoloParaQueElFondoSeVea);
+		contentPane.add(EstePanelEsSoloParaQueElFondoSeVea);*/
 
+	
 	}
 
 	/**
 	 * @return the txtMensaje
 	 */
-	public String getTxtMensaje() {
+	public String getMensaje() {
 		return txtMensaje.getText();
 	}
 
 	/**
 	 * @param txtMensaje the txtMensaje to set
 	 */
-	public void setTxtMensaje(String txtMensaje) {
+	public void setMensaje(String txtMensaje) {
 		this.txtMensaje.setText(txtMensaje);
 	}
 
 	/**
 	 * @return the lblHora
 	 */
-	public JLabel getLblHora() {
+	public JLabel getHora() {
 		return lblHora;
 	}
 
 	/**
 	 * @param lblHora the lblHora to set
 	 */
-	public void setLblHora(String lblHora) {
+	public void setHora(String lblHora) {
 		this.lblHora.setText(lblHora);
 	}
 
 	/**
 	 * @return the lblusuario
 	 */
-	public String getLblusuario() {
+	public String getUsuario() {
 		return lblusuario.getText();
 	}
 
 	/**
 	 * @param lblusuario the lblusuario to set
 	 */
-	public void setLblusuario(String lblusuario) {
+	public void setUsuario(String lblusuario) {
 		this.lblusuario.setText(lblusuario);
 	}
 
 	/**
 	 * @return the lblImagenUsuario
 	 */
-	public Icon getLblImagenUsuario() {
+	public Icon getImagenUsuario() {
 		return lblImagenUsuario.getIcon();
 	}
 
 	/**
-	 * @param lblImagenUsuario the lblImagenUsuario to set
+	 * @param ImagenUsuario the lblImagenUsuario to set
 	 */
-	public void setLblImagenUsuario(ImageIcon lblImagenUsuario) {
-		this.lblImagenUsuario.setIcon(lblImagenUsuario);
+	public void setImagenUsuario(ImageIcon imagenUsuario) {
+		if(imagenUsuario!=null){
+			lblImagenUsuario.setIcon(Util.getImagenRedondeada(imagenUsuario, 20));
+			lblImagenUsuario.setIcon(Util.escalarImagen(lblImagenUsuario));
+		}
 	}
 	
 	public void setTipoNotificacion(int tipo) throws Exception{
@@ -184,35 +206,35 @@ public class Notificacion extends InvisibleJFrame {
 			public static final int FOLLOW = 3;
 			public static final int UNFOLLOW = 4;
 		 */
-		switch (tipo) {
-		case 0:
-			setImagenFondo("/res/images/notif/notification_tweet.png");
-			break;
-		case 1:
-			setImagenFondo("/res/images/notif/notification_retweet.png");
-			break;
-		case 2:
-			setImagenFondo("/res/images/notif/notification_mencion.png");
-			break;
-		case 3:
-			setImagenFondo("/res/images/notif/notification_follower.png");
-			break;
-		case 4:
-			setImagenFondo("/res/images/notif/notification_unfollow.png");
-			break;
-		default:
-			throw new Exception("El tipo de notificacion no es valido");
-		}
+		String[] imagenes = new String[5];
+		imagenes[0] = "/res/images/notif/notification_tweet.png";
+		imagenes[1] = "/res/images/notif/notification_retweet.png";
+		imagenes[2] = "/res/images/notif/notification_mencion.png";
+		imagenes[3] = "/res/images/notif/notification_follower.png";
+		imagenes[4] = "/res/images/notif/notification_unfollow.png";
+		
+		setImagenFondo(imagenes[tipo]);
 	}
 	
 	public void ajustarApantalla(){
 		//valores para windows
-		int offsetX = 10; //cantidad de pixeles de margen vertical derecho
-		int offsetY = 50; //cantidad de pixeles de margen horizontal inferior
-		setBounds(
-				Util.anchoPantalla-getImagenFondo().getIconWidth()-offsetX,
-				Util.altoPantalla-getImagenFondo().getIconHeight()-offsetY, 
-				getImagenFondo().getIconWidth(), getImagenFondo().getIconHeight()
-				);
+		if(Util.isWin()){
+			int offsetX = 10; //cantidad de pixeles de margen vertical derecho
+			int offsetY = 50; //cantidad de pixeles de margen horizontal inferior
+			setBounds(
+					Util.anchoPantalla-getImagenFondo().getIconWidth()-offsetX,
+					Util.altoPantalla-getImagenFondo().getIconHeight()-offsetY, 
+					getImagenFondo().getIconWidth(), getImagenFondo().getIconHeight()
+					);
+		}
+		else{
+			int offsetX = 10; //cantidad de pixeles de margen vertical derecho
+			int offsetY = 50; //cantidad de pixeles de margen horizontal inferior
+			setBounds(
+					Util.anchoPantalla-getImagenFondo().getIconWidth()-offsetX,
+					0+offsetY, 
+					getImagenFondo().getIconWidth(), getImagenFondo().getIconHeight()
+					);
+		}
 	}
 }

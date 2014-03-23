@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -16,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
+import model.Usuario;
 import util.Util;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.botones.CoolBlueButton;
@@ -23,7 +25,6 @@ import view.eventos.principal.EventoBotonFavoritosUsuario;
 import view.eventos.principal.EventoBotonSeguidoresUsuario;
 import view.eventos.principal.EventoBotonSiguiendoUsuario;
 import view.eventos.principal.EventoBotonTweetsUsuario;
-import view.models.tablasPrincipal.TablaTweet;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 
 public class PanelPerfilUsuario extends JPanel {
@@ -42,8 +43,10 @@ public class PanelPerfilUsuario extends JPanel {
 	private CoolBlueButton btnSeguidores;
 	private CoolBlueButton btnSiguiendo;
 	private TablaTweetsUsuarios tablaTweetsUsuario;
+	private ArrayList<ObjetoCelda> listaObjetos;
+	private Usuario us;
 
-	public PanelPerfilUsuario(){
+	/*public PanelPerfilUsuario(){
 		super();
 		
 		lblImagenUsuario = new JLabel("");
@@ -59,7 +62,29 @@ public class PanelPerfilUsuario extends JPanel {
 		btnSeguidores = new CoolBlueButton("Seguidores");
 		btnSiguiendo = new CoolBlueButton("Siguiendo");
 		
-		tablaTweetsUsuario = new TablaTweetsUsuarios(5, TablaTweetsUsuarios.SOLO_USUARIOS);
+		tablaTweetsUsuario = new TablaTweetsUsuarios();
+		
+		init();
+	}*/
+	
+	public PanelPerfilUsuario(Usuario u, ArrayList<ObjetoCelda> listaObjetos){
+		super();
+		us = u;
+		this.listaObjetos = listaObjetos;
+		lblImagenUsuario = new JLabel(new ImageIcon(us.getImagen()));
+		lblImagenFondo = new JLabel("");
+		lbluser = new JLabel(us.getNombreUsuario());
+		lblNombreApellidos = new JLabel(us.getNombreReal());
+		lblBiografia = new JTextArea(us.getBiografia());
+		
+		btnDejarDeSeguir = new BotonSeguir();
+		
+		btnTweets = new CoolBlueButton("Tweets");
+		btnFavoritos = new CoolBlueButton("Favoritos");
+		btnSeguidores = new CoolBlueButton("Seguidores");
+		btnSiguiendo = new CoolBlueButton("Siguiendo");
+		
+		tablaTweetsUsuario = new TablaTweetsUsuarios(listaObjetos);
 		
 		init();
 	}
@@ -274,6 +299,10 @@ public class PanelPerfilUsuario extends JPanel {
 	 */
 	public void setTablaTweetsUsuario(TablaTweetsUsuarios tablaTweetsUsuario) {
 		this.tablaTweetsUsuario = tablaTweetsUsuario;
+	}
+	
+	public void actualizarTabla(){
+		
 	}
 
 }

@@ -8,7 +8,6 @@ import view.parents.InvisibleJFrame;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-import java.awt.Window.Type;
 /**
  * Ventana que muestra un contador con el numero de seguidores/tweets... de un usuario
  * @author Sergio Anguita

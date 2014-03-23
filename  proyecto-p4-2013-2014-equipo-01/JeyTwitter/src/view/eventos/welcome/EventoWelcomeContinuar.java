@@ -3,6 +3,7 @@ package view.eventos.welcome;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import model.Usuario;
 import controller.GUIController;
 import twitter4j.TwitterException;
 import util.Util;
@@ -22,12 +23,13 @@ public class EventoWelcomeContinuar implements MouseListener {
 		if(ventana.getCodeField().evaluate()){
 			try {
 				GUIController.getInstance().setCodigo(ventana.getCodigo());
-				Principal p = new Principal();
+				Usuario u = null;
+				Principal p = new Principal(u);
 				p.setLocationRelativeTo(ventana);
 				p.setVisible(true);
 				ventana.cerrar();
 			} catch (IllegalStateException e) {
-				Util.showError(ventana, "Error de autentificaci�n", "No Token available", "Cancelar", "Aceptar");
+				Util.showError(ventana, "Error de autentificacion", "No Token available", "Cancelar", "Aceptar");
 			}
 		}
 	}

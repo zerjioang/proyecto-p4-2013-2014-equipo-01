@@ -39,7 +39,6 @@ public class Util {
 	APP_TITULO = "JeyTuiter",
 	APP_VERSION = "1.0",
 	APP_ICONO = "/res/images/icon.png",
-	FICHERO_LOG = "log.txt",
 	FICHERO_XML = "config.xml",
 	SQLITE_NOMBRE_BBDD = "JeyTuiterSQL.sqlite";
 
@@ -57,7 +56,7 @@ public class Util {
 	public static String[] settingsGeneral =
 		{
 		"Activar modo silencio",
-		"No mostrar splash al iniciar",
+		"Mostrar splash al iniciar",
 		"Minimizar a la barra de tareas",
 		"Frecuencia de actualizacion",
 		"Personalizar fuente",
@@ -77,8 +76,8 @@ public class Util {
 
 	public static String[] settingsNotif =
 		{
-		"Deshabilitar notificaciones",
-		"Deshabilitar sonido de notificacion",
+		"Habilitar notificaciones",
+		"Habilitar sonido de notificacion",
 		"Personalizar posicion",
 		"Traer notificaciones al frente",
 		"Definir tiempo de espera"

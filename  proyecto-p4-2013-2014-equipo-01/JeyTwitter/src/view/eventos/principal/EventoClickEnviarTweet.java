@@ -5,7 +5,6 @@ import java.awt.event.MouseListener;
 
 import controller.GUIController;
 import view.elementos.paneles.PanelEnviarTweet;
-import view.ventanas.Principal;
 
 public class EventoClickEnviarTweet implements MouseListener {
 

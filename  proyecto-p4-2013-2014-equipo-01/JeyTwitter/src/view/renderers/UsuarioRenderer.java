@@ -1,6 +1,6 @@
 package view.renderers;
 
-import view.models.tablasPrincipal.GuiTwitterUsuario;
+import view.elementos.paneles.GuiTwitterUsuario;
 
 import java.awt.Component;
 

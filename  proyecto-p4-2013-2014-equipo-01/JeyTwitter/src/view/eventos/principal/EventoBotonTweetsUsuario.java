@@ -6,7 +6,6 @@ import java.awt.event.MouseMotionListener;
 
 import view.elementos.paneles.PanelPerfilUsuario;
 import view.ventanas.Contador;
-import view.ventanas.Principal;
 
 public class EventoBotonTweetsUsuario implements MouseListener, MouseMotionListener {
 

@@ -16,11 +16,11 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
 import util.Util;
-
 import view.elementos.botones.BotonSeguir;
 import view.elementos.paneles.PanelBusqueda;
 import view.elementos.paneles.PanelEnviarTweet;
 import view.elementos.paneles.PanelPerfilUsuario;
+import view.elementos.paneles.PanelTablaTweets;
 import view.eventos.principal.EventoCambiarColoBoton;
 import view.eventos.principal.EventoCambiarPanelClick;
 import view.eventos.principal.EventoClickAcercaDe;
@@ -29,8 +29,7 @@ import view.eventos.principal.EventoClickFotoUsuario;
 import view.eventos.principal.EventoClickHelp;
 import view.eventos.principal.EventoMaximizarVerticalmente;
 import view.models.ModeloTablaPrincipal;
-import view.models.tablasPrincipal.PanelTablaTweets;
-import view.models.tablasPrincipal.TablaTweet;
+import view.models.tablasPrincipal.TablaTweetsUsuarios;
 import view.parents.CustomJFrame;
 import view.renderers.UIButtonRenderer;
 
@@ -38,13 +37,13 @@ import java.awt.Font;
 import java.awt.Cursor;
 
 import javax.swing.border.LineBorder;
-
 import javax.swing.border.MatteBorder;
+
+import model.Usuario;
 
 public class Principal extends CustomJFrame {
 
 	//Constantes
-	private static final Color COLOR_FONDO = new Color(24,22,23);
 	private static final Color COLOR_PANEL = new Color(64, 64, 64);
 	
 	private JTable tablaMenu;
@@ -55,19 +54,22 @@ public class Principal extends CustomJFrame {
 	private PanelPerfilUsuario panelUsuario;
 	private PanelEnviarTweet panelInferior;
 	private PanelBusqueda panelBusqueda;
+	private JPanel panel_stats;
 	
 	private JPanel panelMostrandoActual;
 	private JPanel panelVista;
 	private JLabel lblImagen;
+	
+	private Usuario usuarioActual;
 
 	/**
 	 * Main de prueba
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Principal frame = new Principal();
+					Principal frame = new Principal(new Usuario(...));
 					frame.setPanelActual(frame.getPaneles()[1]);
 					frame.setVisible(true);
 					frame.getPanelInferior().getMensaje();
@@ -76,22 +78,32 @@ public class Principal extends CustomJFrame {
 				}
 			}
 		});
-	}
-
+	}*/
+	
 	/**
 	 * Constructor por defecto
 	 */
-	public Principal() {
+	public Principal(Usuario usuario) {
 		super(600, 700);
+		usuarioActual = usuario;
+		
+		panelesPrincipales = new JPanel[7];
+		panelUsuario = new PanelPerfilUsuario(usuarioActual, null);
+		panelInferior = new PanelEnviarTweet();
+		panelBusqueda = new PanelBusqueda();
+		panel_stats = new JPanel();
+		
+		lblImagen = new JLabel(usuarioActual.getNombreUsuario());
+		
+		init();
+		generarDatos();
+	}
+	
+	public void init(){
 		setTitle(Util.APP_TITULO);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getMainPanel().setBackground(Color.DARK_GRAY);
 		getMainPanel().setBorder(new EmptyBorder(0, 0, 0, 0));
-		
-		panelesPrincipales = new JPanel[7];
-		panelUsuario = new PanelPerfilUsuario();
-		panelInferior = new PanelEnviarTweet();
-		panelBusqueda = new PanelBusqueda();
 		
 		getMainPanel().setLayout(new BorderLayout(0, 0));
 		
@@ -103,7 +115,6 @@ public class Principal extends CustomJFrame {
 		getMainPanel().add(panelIzq, BorderLayout.WEST);
 		panelIzq.setLayout(new BorderLayout(0, 0));
 		
-		lblImagen = new JLabel("@JeyTuiter");
 		lblImagen.setOpaque(true);
 		lblImagen.setBorder(new MatteBorder(11, 4, 4, 4, COLOR_PANEL));
 		lblImagen.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -114,9 +125,7 @@ public class Principal extends CustomJFrame {
 		lblImagen.setVerticalTextPosition(SwingConstants.BOTTOM);
 		lblImagen.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImagen.setIcon(Util.getImagenRedondeada(new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")), 50));
 		lblImagen.setSize(130,130);
-		lblImagen.setIcon(Util.escalarImagen(lblImagen));
 		panelIzq.add(lblImagen, BorderLayout.NORTH);
 		
 		lblImagen.addMouseListener(new EventoClickFotoUsuario(this));
@@ -200,18 +209,6 @@ public class Principal extends CustomJFrame {
 		panelVista = new JPanel();
 		panelApp.add(panelVista, BorderLayout.CENTER);
 		panelVista.setLayout(new BorderLayout(0, 0));
-		
-		generarDatos();
-		
-		JPanel panel_stats = new JPanel();
-		
-		panelesPrincipales[0] = panelUsuario;
-		panelesPrincipales[1] = timeLine;
-		panelesPrincipales[2] = menciones;
-		panelesPrincipales[3] = retweets;
-		panelesPrincipales[4] = favoritos;
-		panelesPrincipales[5] = panelBusqueda;
-		panelesPrincipales[6] = panel_stats;
 	}
 
 	/**
@@ -220,10 +217,18 @@ public class Principal extends CustomJFrame {
 	private void generarDatos() {
 		//genera el mismo tweet  n veces
 		//para probar
-		timeLine = new PanelTablaTweets(new TablaTweet(10));
-		menciones = new PanelTablaTweets(new TablaTweet(3));
-		retweets  = new PanelTablaTweets(new TablaTweet(2));
-		favoritos = new PanelTablaTweets(new TablaTweet(1));
+		timeLine = new PanelTablaTweets(new TablaTweetsUsuarios());
+		menciones = new PanelTablaTweets(new TablaTweetsUsuarios());
+		retweets  = new PanelTablaTweets(new TablaTweetsUsuarios());
+		favoritos = new PanelTablaTweets(new TablaTweetsUsuarios());
+		
+		panelesPrincipales[0] = panelUsuario;
+		panelesPrincipales[1] = timeLine;
+		panelesPrincipales[2] = menciones;
+		panelesPrincipales[3] = retweets;
+		panelesPrincipales[4] = favoritos;
+		panelesPrincipales[5] = panelBusqueda;
+		panelesPrincipales[6] = panel_stats;
 	}
 
 	/**
@@ -306,14 +311,15 @@ public class Principal extends CustomJFrame {
 	/**
 	 * @return the lblImagen
 	 */
-	public JLabel getLblImagen() {
+	public JLabel geImagenUsuario() {
 		return lblImagen;
 	}
 
 	/**
 	 * @param lblImagen the lblImagen to set
 	 */
-	public void setLblImagen(JLabel lblImagen) {
-		this.lblImagen = lblImagen;
+	public void setImagenUsuario(ImageIcon imagen) {
+		lblImagen.setIcon(Util.getImagenRedondeada(imagen, 50));
+		lblImagen.setIcon(Util.escalarImagen(lblImagen));
 	}
 }
