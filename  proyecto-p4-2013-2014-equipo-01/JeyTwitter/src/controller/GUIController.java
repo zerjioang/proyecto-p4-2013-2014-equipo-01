@@ -3,6 +3,8 @@ package controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.LinkedList;
 
 import controller.sql.Interaccion;
@@ -24,6 +26,8 @@ public class GUIController {
 	private static GUIController instancia = null; 
 	
 	private TwitterService t;
+	@SuppressWarnings("unused")
+	private boolean online;
 	
 	/* Metodos para el funcionamiento del singleton */
 	public GUIController() {}
@@ -31,7 +35,7 @@ public class GUIController {
 	private synchronized static void crearInstancia() {
         if (instancia == null) { 
             instancia = new GUIController();
-            try {
+            try {        	
 				instancia.autenticar();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -93,6 +97,21 @@ public class GUIController {
 	 */
 	public void autenticar() throws Exception {
 		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
+	}
+	
+	public boolean hayConexion() {
+		@SuppressWarnings("unused")
+		InetAddress address;
+		try {
+			address = InetAddress.getByName("www.twitter.com");
+			online = true;
+			return true;
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			online = false;
+			e.printStackTrace();
+			return false;
+		} 
 	}
 	
 	/**

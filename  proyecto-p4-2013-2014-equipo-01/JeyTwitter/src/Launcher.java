@@ -1,5 +1,6 @@
 import model.Usuario;
 import controller.GUIController;
+import util.Util;
 import view.ventanas.Principal;
 import view.ventanas.Splash;
 import view.ventanas.Welcome;
@@ -21,8 +22,12 @@ public class Launcher {
 			p.setPanelActual(p.getPaneles()[1]);
 			p.setVisible(true);
 		} else {
-			Welcome wc = new Welcome();
-			wc.setVisible(true);			
+			if (GUIController.getInstance().hayConexion()) {
+				Welcome wc = new Welcome();
+				wc.setVisible(true);							
+			} else {
+				Util.showError(null, "Error de conexión", "Para poder usar JeyTuiter necesitas estar conectado a internet.", "Aceptar", "Cerrar");
+			}
 		}
 		spl.dispose();
 	}
