@@ -110,7 +110,7 @@ public class Util {
 	 * Ademas la interfaz visual no viene determinada por swing
 	 * @param parent	Ventana padre desde la que se ha llamado. Null en caso de no ser ninguna
 	 * @param titulo	Titulo principal de la ventana
-	 * @param mensaje	Mensaje que monstrará la ventana en su interior
+	 * @param mensaje	Mensaje que monstrar�� la ventana en su interior
 	 * @param textoAceptar	Texto del boton aceptar
 	 * @param textoCancelar Texto del boton cancelar
 	 * @return	devuelve un valor booleano dependiendo de la accion realizada. Devuelve true si se ha pulsado el
@@ -133,7 +133,7 @@ public class Util {
 	}
 
 	/**
-	 * Redimensiona el tamaño de una imagen al tamaño del componente que recibe
+	 * Redimensiona el tama��o de una imagen al tama��o del componente que recibe
 	 * @param comp	componente que tiene la imagen original no escalada
 	 * @return devuelve un objeto imageIcon que contiene la imagen redimensionada
 	 */
@@ -158,7 +158,7 @@ public class Util {
 	 * Ademas puede configurar la velocidad con el parametro time
 	 * @param comp	componente al que se le aplicara el efecto de difusion
 	 * @param time	tiempo de espera entre los grados de opacidad.
-	 * A mayor tiempo, mas tardará en visualizarse la ventana
+	 * A mayor tiempo, mas tardar�� en visualizarse la ventana
 	 */
 	public static void mostrarImagenDifuso(Component comp, int time) {
 		comp.setVisible(false);
@@ -189,7 +189,7 @@ public class Util {
 	 * Ademas puede configurar la velocidad con el parametro time
 	 * @param comp	componente al que se le aplicara el efecto de difusion
 	 * @param time	tiempo de espera entre los grados de opacidad.
-	 * A mayor tiempo, mas tardará en desvanecerse la ventana
+	 * A mayor tiempo, mas tardar�� en desvanecerse la ventana
 	 */
 	public static void ocultarImagenDifuso(Component comp, int time) {
 		float opacidad=1.0f;
@@ -234,7 +234,7 @@ public class Util {
 	 * Carga una fuente que no esta instalada en el sistema para usarla
 	 * @param name	nombre de la fuente a cargar situada en la carpeta /res/fonts. omitir la extension
 	 * @param tipo	tipo de fuente: normal, negrita, cursiva
-	 * @param tamano	tamaño de la fuente
+	 * @param tamano	tama��o de la fuente
 	 * @return devuelve un objeto fuente con la fuente seleccionada
 	 */
 	public static Font getFont(String name, int tipo, float tamano) {
@@ -351,7 +351,7 @@ public class Util {
 	 * Null si no se ha pulsado ninguno de los dos.
 	 */
 	public static Boolean showError(Component parent, String lblTitulodeLaVentana, String lblMensajeAMostrar, String textoBotonBlanco, String textoBotonRojo) {
-		VentanaError error = new VentanaError(parent, lblTitulodeLaVentana,lblMensajeAMostrar,"Cancelar","Reiniciar");
+		VentanaError error = new VentanaError(parent, lblTitulodeLaVentana,lblMensajeAMostrar,textoBotonBlanco,textoBotonRojo);
 		error.getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		error.setVisible(true);
 		return error.getEstado();
