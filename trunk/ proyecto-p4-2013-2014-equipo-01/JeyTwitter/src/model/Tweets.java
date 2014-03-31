@@ -79,16 +79,22 @@ public class Tweets {
 		this.texto = texto;
 	}
 
-	public boolean isEsRetweet() {
-		return esRetweet;
+	public int esRetweet() {
+		if(esRetweet)
+			return 1;
+		else
+			return 0;
 	}
 
 	public void setEsRetweet(boolean esRetweet) {
 		this.esRetweet = esRetweet;
 	}
 
-	public boolean isEsFavorito() {
-		return esFavorito;
+	public int esFavorito() {
+		if(esFavorito)
+			return 1;
+		else
+			return 0;
 	}
 
 	public void setEsFavorito(boolean esFavorito) {
