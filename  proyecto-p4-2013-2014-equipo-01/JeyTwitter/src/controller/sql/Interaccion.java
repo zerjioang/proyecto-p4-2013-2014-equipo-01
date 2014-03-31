@@ -10,9 +10,10 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
+import model.Tweets;
 import model.Usuario;
 /**
- * Clase con m��todos est��ticos para facilitar la interacci��n con la base de datos.
+ * Clase con metodos estaticos para facilitar la interaccion con la base de datos.
  * @author Fiser
  *
  */
@@ -38,7 +39,7 @@ public class Interaccion {
 		return 	gestor.enviarComando("DELETE FROM Usuarios WHERE nombreUsuario = '"+usuario+"'");
 	}
 	/**
-	 * Extrae de la base de datos todos los credenciales de los usuarios registrados en la aplicaci��n
+	 * Extrae de la base de datos todos los credenciales de los usuarios registrados en la aplicacion
 	 * @return
 	 */
 	public static LinkedList<Usuario> extraerCredenciales()
@@ -135,6 +136,38 @@ public class Interaccion {
 			}catch(Exception e){
 			}
 		}
+	}
+	/**
+	 * Permite introducir un nuevo Tweet en la base de datos para una cuenta
+	 * @param usuario
+	 * @param codigo
+	 * @return
+	 */
+	public static boolean insertarTweet(Tweets añadir, String nombreUsuario, String formatoImagen)
+	{
+		//Repensar
+		if(gestor.enviarComando("INSERT INTO Tweets(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ('"+añadir.getCodigo()+"','"+añadir.getUltimaFechaActualizacion().toString()+"','"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+añadir.esRetweet()+","+añadir.esFavorito()))
+		{
+			gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"','"+añadir.getCodigo()+"')");
+			return actualizarImagenTweet(nombreUsuario, añadir.getImagenUsuario(), formatoImagen, añadir.getCodigo());			 
+		}
+		else //puede fallar la insercción porque ya esté dentro, en cuyo caso significa que está con otro usuario y hay solo que asociarlo
+			if(gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"','"+añadir.getCodigo()+"')")){
+				return true;
+			}
+			else
+				return false;
+	}
+	public static boolean actualizarImagenTweet(String nombreUsuario, Image imagen, String formato, String codTweet)
+	{
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+        try {
+			ImageIO.write((RenderedImage)imagen, formato, baos);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  
+        byte[] data = baos.toByteArray(); 
+        return gestor.enviarImagen("UPDATE Tweets SET imagen = ? WHERE nombreUsuario = '"+nombreUsuario+"' AND codigo = '"+codTweet+"'", data);
 	}
 	public static void main(String[]args) throws IOException
 	{
