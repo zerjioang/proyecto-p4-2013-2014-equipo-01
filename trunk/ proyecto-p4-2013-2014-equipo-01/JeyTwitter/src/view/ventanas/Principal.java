@@ -1,7 +1,5 @@
 package view.ventanas;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -17,6 +17,7 @@ import javax.swing.JTable;
 
 import util.Util;
 import view.elementos.botones.BotonSeguir;
+import view.elementos.paneles.GUITweet;
 import view.elementos.paneles.PanelBusqueda;
 import view.elementos.paneles.PanelEnviarTweet;
 import view.elementos.paneles.PanelPerfilUsuario;
@@ -35,6 +36,7 @@ import view.renderers.UIButtonRenderer;
 
 import java.awt.Font;
 import java.awt.Cursor;
+import java.sql.Date;
 
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
@@ -65,11 +67,15 @@ public class Principal extends CustomJFrame {
 	/**
 	 * Main de prueba
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Principal frame = new Principal(new Usuario(...));
+					Principal frame = new Principal(new Usuario("Usuario J", "5768745", "9864598", "Jey", "Hola me yamo J y mi padr me puso el nombre en onor a los ombres de nejro.", new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), new Date(1L), 10, 0, 2));
+					PanelTablaTweets p = (PanelTablaTweets) (frame.getPaneles()[1]);
+					//Si solo se inserta un elemento no se establece el render de la celda. Hay que mirarlo 
+					p.insertarNuevo();
+					p.insertarNuevo();
 					frame.setPanelActual(frame.getPaneles()[1]);
 					frame.setVisible(true);
 					frame.getPanelInferior().getMensaje();
@@ -78,7 +84,7 @@ public class Principal extends CustomJFrame {
 				}
 			}
 		});
-	}*/
+	}
 	
 	/**
 	 * Constructor por defecto
@@ -94,7 +100,6 @@ public class Principal extends CustomJFrame {
 		panel_stats = new JPanel();
 		
 		lblImagen = new JLabel(usuarioActual.getNombreUsuario());
-		
 		init();
 		generarDatos();
 	}
@@ -126,6 +131,7 @@ public class Principal extends CustomJFrame {
 		lblImagen.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagen.setSize(130,130);
+		setImagenUsuario(new ImageIcon(usuarioActual.getImagen()));
 		panelIzq.add(lblImagen, BorderLayout.NORTH);
 		
 		lblImagen.addMouseListener(new EventoClickFotoUsuario(this));

@@ -3,13 +3,13 @@ package view.eventos.fastTweet;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import view.ventanas.FastTuit;
+import view.ventanas.TweetRapido;
 
 public class EventoEnviarFastTuit implements MouseListener {
 
-	private final FastTuit fastTuit;
+	private final TweetRapido fastTuit;
 
-	public EventoEnviarFastTuit(FastTuit fastTuit) {
+	public EventoEnviarFastTuit(TweetRapido fastTuit) {
 		this.fastTuit = fastTuit;
 	}
 

@@ -78,6 +78,7 @@ public class Notificacion extends InvisibleJFrame {
 	
 	public void init(){
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setAlwaysOnTop(true);
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
@@ -135,7 +136,9 @@ public class Notificacion extends InvisibleJFrame {
 		EstePanelEsSoloParaQueElFondoSeVea.setBounds(0, 0, 425, 143);
 		contentPane.add(EstePanelEsSoloParaQueElFondoSeVea);*/
 
-	
+		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		addMouseListener(new EventoCerrarNotificacion(this));
+		txtMensaje.addMouseListener(new EventoCerrarNotificacion(this));
 	}
 
 	/**

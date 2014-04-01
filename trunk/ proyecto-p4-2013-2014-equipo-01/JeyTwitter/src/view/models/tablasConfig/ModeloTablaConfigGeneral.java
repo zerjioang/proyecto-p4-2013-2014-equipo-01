@@ -31,4 +31,14 @@ public class ModeloTablaConfigGeneral extends ModeloTablaLateral implements Data
 		return BinaryButton.class;
 	}
 
+	@Override
+	public int getRowCount() {
+		return rowData.length;
+	}
+
+	@Override
+	public Object getValueAt(int row, int column) {
+		return rowData[row][column];
+	}
+
 }

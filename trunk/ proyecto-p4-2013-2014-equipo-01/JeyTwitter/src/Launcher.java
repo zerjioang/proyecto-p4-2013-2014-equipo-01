@@ -26,7 +26,7 @@ public class Launcher {
 				Welcome wc = new Welcome();
 				wc.setVisible(true);							
 			} else {
-				Util.showError(null, "Error de conexión", "Para poder usar JeyTuiter necesitas estar conectado a internet.", "Aceptar", "Cerrar");
+				Util.showError(null, "Error de conexion", "Para poder usar JeyTuiter necesitas estar conectado a internet.", "Aceptar", "Cerrar");
 			}
 		}
 		spl.dispose();

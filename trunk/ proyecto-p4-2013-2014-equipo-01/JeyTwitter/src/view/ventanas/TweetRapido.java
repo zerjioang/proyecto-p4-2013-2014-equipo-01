@@ -29,7 +29,7 @@ import javax.swing.SwingConstants;
  * Muestra una ventana flotante que se encarga de mostrar un panel donde introducir un tweet de forma rapida
  * @author Sergio Anguita
  */
-public class FastTuit extends InvisibleJFrame {
+public class TweetRapido extends InvisibleJFrame {
 
 	//Constantes
 	private static final String TITULO = "Enviar Tweet";
@@ -47,7 +47,7 @@ public class FastTuit extends InvisibleJFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FastTuit frame = new FastTuit("@Usuario");
+					TweetRapido frame = new TweetRapido("@Usuario");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,7 +59,7 @@ public class FastTuit extends InvisibleJFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FastTuit(String nombreUsuario) {
+	public TweetRapido(String nombreUsuario) {
 		super("/res/images/fastTweet/FastTuit.png");
 		init();
 		setNombre(nombreUsuario);
@@ -68,7 +68,7 @@ public class FastTuit extends InvisibleJFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FastTuit() {
+	public TweetRapido() {
 		super("/res/images/fastTweet/FastTuit.png");
 		init();
 	}
