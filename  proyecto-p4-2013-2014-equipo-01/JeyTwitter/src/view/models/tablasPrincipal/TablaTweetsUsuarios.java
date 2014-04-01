@@ -12,6 +12,7 @@ import util.Util;
 import view.elementos.paneles.GUITweet;
 import view.elementos.paneles.GuiTwitterUsuario;
 import view.elementos.paneles.ObjetoCelda;
+import view.models.ModeloTablaLateral;
 import view.renderers.TweetEditor;
 import view.renderers.TweetRenderer;
 import view.renderers.UsuarioEditor;
@@ -57,20 +58,37 @@ public class TablaTweetsUsuarios extends JTable {
 		setBorder(null);
 		
 		if(listaObjetos!=null && listaObjetos.size()>0){
-			setModel(new ModeloTablaTweetUsuarios(listaObjetos));
-			int tipo = listaObjetos.get(0).tipoObjeto();
-			if(tipo == SOLO_TWEETS){
-				setDefaultRenderer(GUITweet.class, new TweetRenderer());
-				setDefaultEditor(GUITweet.class, new TweetEditor());
-			}
-			if(tipo == SOLO_USUARIOS){
-				setDefaultRenderer(GuiTwitterUsuario.class, new UsuarioRenderer());
-				setDefaultEditor(GuiTwitterUsuario.class, new UsuarioEditor());
-			}
+			actualizarTabla(new ModeloTablaTweetUsuarios(listaObjetos));
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void actualizarTabla(ModeloTablaTweetUsuarios modeloTabla) {
+		setModel(modeloTabla);
+		int tipo = listaObjetos.get(0).tipoObjeto();
+		if(tipo == SOLO_TWEETS){
+			setDefaultRenderer(GUITweet.class, new TweetRenderer());
+			setDefaultEditor(GUITweet.class, new TweetEditor());
+		}
+		if(tipo == SOLO_USUARIOS){
+			setDefaultRenderer(GuiTwitterUsuario.class, new UsuarioRenderer());
+			setDefaultEditor(GuiTwitterUsuario.class, new UsuarioEditor());
 		}
 	}
 	
 	public boolean isCellEditable(int row, int column){
 		return true;
+	}
+	
+	public void insertarNuevo(ObjetoCelda o){
+		ModeloTablaTweetUsuarios modelo;
+		modelo = new ModeloTablaTweetUsuarios(listaObjetos);
+		System.out.println(modelo.getRowCount());
+		modelo.insertarElemento(o);
+		listaObjetos = modelo.getLista();
+		System.out.println(modelo.getRowCount());
+		actualizarTabla(modelo);
 	}
 }

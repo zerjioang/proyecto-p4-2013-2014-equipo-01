@@ -106,52 +106,13 @@ public class XML {
 	public void setProperties(Properties pr) {
 		this.pr = pr;
 	}
-
-	/**
-	 * A���ade un dato al fichero config.XML
-	 * @param id	nombre de la clave quq se va a a���adir
-	 * @param o		dato que se va a a���adir
-	 */
-	public static void anadirDato(String id, Object o){
-		String dato = o.toString();
-		if(config==null)
-			config = new XML(Util.FICHERO_XML);
-		else if(new File(Util.FICHERO_XML).exists() && new File(Util.FICHERO_XML).length() > 0);
-			config.leerXML();
-			
-		config.anadir(id, dato);
-		config.guardarXML();
-	}
-	
-	/**
-	 * Lee un dato del fichero config.XML
-	 * @param id	clave del dato que se quiere leer
-	 * @return devuelve el dato asociado a la clave id
-	 */
-	public static String leerDato(String id){
-		if(config==null)
-			config = new XML(Util.FICHERO_XML);
-		if(new File(Util.FICHERO_XML).exists() && new File(Util.FICHERO_XML).length() > 0);
-			config.leerXML();
-			String str = config.getProperties().getProperty(id);
-		if(str==null)
-			return null;
-		else
-			return str;
-	}
-	
-	/**
-	 * 
-	 * @return devuelve el n��� de datos guardados en el fichero
-	 */
-	public static int size(){
-		return config.getProperties().size();
-	}
 	
 	/**
 	 * @return deuelve un objeto XML asociado al fichero config.xml
 	 */
-	public static XML file(){
+	public static XML getInstance(){
+		if(config==null)
+			config = new XML(Util.FICHERO_XML);
 		return config;
 	}
 	

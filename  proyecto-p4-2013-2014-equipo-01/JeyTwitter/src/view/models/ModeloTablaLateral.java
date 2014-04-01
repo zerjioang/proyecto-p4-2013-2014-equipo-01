@@ -1,9 +1,12 @@
 package view.models;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
+
+import view.elementos.paneles.ObjetoCelda;
 
 
 public abstract class ModeloTablaLateral extends AbstractTableModel{
@@ -11,7 +14,7 @@ public abstract class ModeloTablaLateral extends AbstractTableModel{
 	protected String[] nombresSetting;
 	protected Object rowData[][];
 	protected String columnNames[];
-	protected LinkedList<JPanel> lista;
+	protected ArrayList<ObjetoCelda> lista;
 
 	public ModeloTablaLateral() {
 	}
@@ -24,13 +27,9 @@ public abstract class ModeloTablaLateral extends AbstractTableModel{
 		return columnNames[column];
 	}
 
-	public int getRowCount() {
-		return rowData.length;
-	}
+	public abstract int getRowCount();
 
-	public Object getValueAt(int row, int column) {
-		return rowData[row][column];
-	}
+	public abstract Object getValueAt(int row, int column);
 
 	public abstract Class getColumnClass(int column);
 
@@ -42,17 +41,17 @@ public abstract class ModeloTablaLateral extends AbstractTableModel{
 		return false;
 	}
 	
-	public void insertarElemento(JPanel e) {
+	public void insertarElemento(ObjetoCelda e) {
         // Añade un elemento en la primera posicion de la tabla
-		lista.addFirst(e);
+		lista.add(0, e);
         fireTableRowsInserted(0, lista.size()-1);
     }
 	
-	public LinkedList<JPanel> getLista(){
+	public ArrayList<ObjetoCelda> getLista(){
 		return lista;
 	}
 	
-	public void setLista(LinkedList<JPanel> l){
+	public void setLista(LinkedList<ObjetoCelda> l){
 		lista.clear();
 		lista.addAll(l);
 		fireTableRowsInserted(0, lista.size()-1);

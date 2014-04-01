@@ -2,10 +2,12 @@ package view.elementos.paneles;
 
 import java.awt.BorderLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
+import view.ventanas.Principal;
 
 public class PanelTablaTweets extends JPanel {
 	
@@ -44,5 +46,10 @@ public class PanelTablaTweets extends JPanel {
 	 */
 	public void setTabla(TablaTweetsUsuarios tabla) {
 		this.tabla = tabla;
+	}
+
+	public void insertarNuevo() {
+		TablaTweetsUsuarios t = getTabla();
+		t.insertarNuevo(new GUITweet("2d", new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")), "Fernando lu", "El colgao", "Esto es una fiezzzta"));
 	}
 }

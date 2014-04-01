@@ -35,19 +35,20 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	 * @param lblnombreUsuario
 	 * @param txtMensaje
 	 */
-	public GUITweet(String lblTiempo, String lblImagenusuario,String lblNombreReal, String lblnombreUsuario, String txtMensaje) {
+	public GUITweet(String tiempo, ImageIcon imagenusuario,String nombreReal, String nombreUsuario, String mensaje) {
 		super();
 		this.lblImagenusuario = new JLabel();
+		lblImagenusuario.setSize(75, 75);
 		this.lblNombreReal = new JLabel();
 		this.lblnombreUsuario = new JLabel();
 		this.txtMensaje = new JTextArea();
 		this.lblTiempo = new JLabel();
 		
-		this.lblTiempo.setText(lblTiempo);
-		this.lblImagenusuario.setText(lblImagenusuario);
-		this.lblNombreReal.setText(lblNombreReal);
-		this.lblnombreUsuario.setText(lblnombreUsuario);
-		this.txtMensaje.setText(txtMensaje);
+		this.lblTiempo.setText(tiempo);
+		this.lblImagenusuario.setIcon(imagenusuario);
+		this.lblNombreReal.setText(nombreReal);
+		this.lblnombreUsuario.setText(nombreUsuario);
+		this.txtMensaje.setText(mensaje);
 		
 		btnRetweet = new Button();
 		btnFavorito = new Button();
@@ -94,6 +95,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 
 		
 		lblImagenusuario.setSize(100, 100);
+		setImagenUsuario((ImageIcon)lblImagenusuario.getIcon());
 		lblImagenusuario.setBorder(new MatteBorder(0, 5, 0, 5, new Color(1.0f,1.0f,1.0f,0.0f)));
 		add(lblImagenusuario, BorderLayout.WEST);
 		

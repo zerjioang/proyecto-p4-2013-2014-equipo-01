@@ -7,7 +7,7 @@ import view.ventanas.Notificacion;
 
 public class EventoCerrarNotificacion implements MouseListener {
 	
-	private Notificacion not;
+	private final Notificacion not;
 
 	public EventoCerrarNotificacion(Notificacion notificacion) {
 		not = notificacion;

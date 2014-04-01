@@ -3,13 +3,13 @@ package view.eventos.fastTweet;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import view.ventanas.FastTuit;
+import view.ventanas.TweetRapido;
 
 public class EventoContador140 implements KeyListener {
 
-	private FastTuit fastTuit;
+	private TweetRapido fastTuit;
 
-	public EventoContador140(FastTuit fastTuit) {
+	public EventoContador140(TweetRapido fastTuit) {
 		this.fastTuit = fastTuit;
 	}
 	@Override

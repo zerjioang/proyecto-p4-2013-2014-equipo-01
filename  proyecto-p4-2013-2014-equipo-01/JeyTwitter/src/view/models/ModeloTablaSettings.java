@@ -30,4 +30,14 @@ public class ModeloTablaSettings extends ModeloTablaLateral implements DataGener
 	public Class getColumnClass(int column) {
 		return MenuButton.class;
 	}
+
+	@Override
+	public int getRowCount() {
+		return rowData.length;
+	}
+
+	@Override
+	public Object getValueAt(int row, int column) {
+		return rowData[row][column];
+	}
 }

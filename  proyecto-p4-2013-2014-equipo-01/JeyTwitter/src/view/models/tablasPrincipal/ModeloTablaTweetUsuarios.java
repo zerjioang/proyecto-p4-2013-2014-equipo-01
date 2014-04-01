@@ -12,7 +12,6 @@ public class ModeloTablaTweetUsuarios extends ModeloTablaLateral implements Data
 
 	private int total;
 	private int tipo;
-	private ArrayList<ObjetoCelda> objeto;
 	
 	public ModeloTablaTweetUsuarios() {
 		super();
@@ -26,9 +25,15 @@ public class ModeloTablaTweetUsuarios extends ModeloTablaLateral implements Data
 		super();
 		columnNames = new String[1];
 		columnNames[0] = "Resultados";
-		this.objeto = listaObjetos;
-		total = listaObjetos.size();
-		rowData=generarDatos();
+		if(listaObjetos == null){
+			lista = new ArrayList<ObjetoCelda>();
+			total = 0;
+		}
+		else{
+			lista = listaObjetos;
+			total = listaObjetos.size();
+			rowData=generarDatos();
+		}
 	}
 
 	@Override
@@ -37,7 +42,7 @@ public class ModeloTablaTweetUsuarios extends ModeloTablaLateral implements Data
 	 */
 	public Object[][] generarDatos() {
 		Object[][] datos = new Object[total][1];	//Una sola columna en la tabla con 'total' filas
-		tipo = objeto.get(0).tipoObjeto();
+		tipo = lista.get(0).tipoObjeto();
 		/*if(tipo == TablaTweetsUsuarios.SOLO_TWEETS){
 			for (int i = 0; i < total; i++) {
 				//datos[i][0]= new GUITweet();
@@ -51,7 +56,7 @@ public class ModeloTablaTweetUsuarios extends ModeloTablaLateral implements Data
 			}
 		}*/
 		for (int i = 0; i < total; i++) {
-			datos[i][0]= objeto.get(i);
+			datos[i][0]= lista.get(i);
 		}
 
 		return datos;
@@ -61,5 +66,15 @@ public class ModeloTablaTweetUsuarios extends ModeloTablaLateral implements Data
 		if(tipo == TablaTweetsUsuarios.SOLO_TWEETS)
 			return GUITweet.class;
 		return GuiTwitterUsuario.class;
+	}
+
+	@Override
+	public int getRowCount() {
+		return lista.size();
+	}
+
+	@Override
+	public Object getValueAt(int row, int column) {
+		return lista.get(row);
 	}
 }

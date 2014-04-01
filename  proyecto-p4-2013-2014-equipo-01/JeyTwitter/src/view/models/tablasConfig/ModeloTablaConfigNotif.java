@@ -31,4 +31,14 @@ public class ModeloTablaConfigNotif extends ModeloTablaLateral implements DataGe
 		return BinaryButton.class;
 	}
 
+	@Override
+	public int getRowCount() {
+		return rowData.length;
+	}
+
+	@Override
+	public Object getValueAt(int row, int column) {
+		return rowData[row][column];
+	}
+
 }
