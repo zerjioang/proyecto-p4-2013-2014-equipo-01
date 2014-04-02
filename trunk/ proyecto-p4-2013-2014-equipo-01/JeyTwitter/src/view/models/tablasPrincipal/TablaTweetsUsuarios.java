@@ -23,11 +23,14 @@ public class TablaTweetsUsuarios extends JTable {
 	//Constantes
 	public static final int SOLO_USUARIOS = 0;
 	public static final int SOLO_TWEETS = 1;
+	public static final int ALTO_FILA = 90;
 	
 	private ArrayList<ObjetoCelda> listaObjetos;
+	private int tipoTabla;
 
-	public TablaTweetsUsuarios() {
+	public TablaTweetsUsuarios(int tipo) {
 		super();
+		tipoTabla = tipo;
 		init();
 	}
 	
@@ -46,7 +49,7 @@ public class TablaTweetsUsuarios extends JTable {
 		setShowVerticalLines(false);
 		setCellSelectionEnabled(true);
 		setShowGrid(false);
-		setRowHeight(110);
+		setRowHeight(ALTO_FILA);
 		setFont(Util.getFont("Roboto-Light", Font.PLAIN, 18));
 		setBorder(null);
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -54,12 +57,13 @@ public class TablaTweetsUsuarios extends JTable {
 		setFocusCycleRoot(true);
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		setBackground(Color.BLACK);
-		setShowGrid(false);
-		setBorder(null);
+		System.out.println(listaObjetos!=null && listaObjetos.size()>0);
 		
 		if(listaObjetos!=null && listaObjetos.size()>0){
 			actualizarTabla(new ModeloTablaTweetUsuarios(listaObjetos));
 		}
+		else
+			setRenderCelda();
 	}
 
 	/**
@@ -67,15 +71,20 @@ public class TablaTweetsUsuarios extends JTable {
 	 */
 	private void actualizarTabla(ModeloTablaTweetUsuarios modeloTabla) {
 		setModel(modeloTabla);
-		int tipo = listaObjetos.get(0).tipoObjeto();
-		if(tipo == SOLO_TWEETS){
+		tipoTabla = listaObjetos.get(0).tipoObjeto();
+		setRenderCelda();
+	}
+	
+	private void setRenderCelda(){
+		if(tipoTabla == SOLO_TWEETS){
 			setDefaultRenderer(GUITweet.class, new TweetRenderer());
 			setDefaultEditor(GUITweet.class, new TweetEditor());
 		}
-		if(tipo == SOLO_USUARIOS){
+		else if(tipoTabla == SOLO_USUARIOS){
 			setDefaultRenderer(GuiTwitterUsuario.class, new UsuarioRenderer());
 			setDefaultEditor(GuiTwitterUsuario.class, new UsuarioEditor());
 		}
+		repaint();
 	}
 	
 	public boolean isCellEditable(int row, int column){
@@ -85,10 +94,24 @@ public class TablaTweetsUsuarios extends JTable {
 	public void insertarNuevo(ObjetoCelda o){
 		ModeloTablaTweetUsuarios modelo;
 		modelo = new ModeloTablaTweetUsuarios(listaObjetos);
-		System.out.println(modelo.getRowCount());
+		
 		modelo.insertarElemento(o);
+		
 		listaObjetos = modelo.getLista();
-		System.out.println(modelo.getRowCount());
+		actualizarTabla(modelo);
+	}
+
+	public void insertarLista(ArrayList<ObjetoCelda> l) {
+		ModeloTablaTweetUsuarios modelo;
+		modelo = new ModeloTablaTweetUsuarios(listaObjetos);
+		
+		for (ObjetoCelda o : l) {
+			modelo.insertarElemento(o);
+			modelo.actualizarContenidoTabla();
+		}
+		
+		
+		listaObjetos = modelo.getLista();
 		actualizarTabla(modelo);
 	}
 }

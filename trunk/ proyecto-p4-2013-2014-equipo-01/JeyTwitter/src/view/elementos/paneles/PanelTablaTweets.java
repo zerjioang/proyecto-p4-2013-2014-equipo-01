@@ -1,6 +1,7 @@
 package view.elementos.paneles;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -23,8 +24,6 @@ public class PanelTablaTweets extends JPanel {
 
 	private void init() {
 		scrollpane = new JScrollPane();
-		//scrollpane.setBackground(COLOR_FONDO);
-		//scrollpane.getViewport().setBackground(COLOR_FONDO); 
 		scrollpane.setViewportBorder(null);
 		setLayout(new BorderLayout(0, 0));
 		scrollpane.setBorder(null);
@@ -48,8 +47,11 @@ public class PanelTablaTweets extends JPanel {
 		this.tabla = tabla;
 	}
 
-	public void insertarNuevo() {
-		TablaTweetsUsuarios t = getTabla();
-		t.insertarNuevo(new GUITweet("2d", new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")), "Fernando lu", "El colgao", "Esto es una fiezzzta"));
+	public void insertarNuevo(ObjetoCelda o) {
+		tabla.insertarNuevo(o);
+	}
+	
+	public void insertarLista(ArrayList<ObjetoCelda> l) {
+		tabla.insertarLista(l);
 	}
 }
