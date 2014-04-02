@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import util.Util;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.paneles.GUITweet;
+import view.elementos.paneles.ObjetoCelda;
 import view.elementos.paneles.PanelBusqueda;
 import view.elementos.paneles.PanelEnviarTweet;
 import view.elementos.paneles.PanelPerfilUsuario;
@@ -37,6 +38,7 @@ import view.renderers.UIButtonRenderer;
 import java.awt.Font;
 import java.awt.Cursor;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
@@ -71,11 +73,13 @@ public class Principal extends CustomJFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Principal frame = new Principal(new Usuario("Usuario J", "5768745", "9864598", "Jey", "Hola me yamo J y mi padr me puso el nombre en onor a los ombres de nejro.", new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), new Date(1L), 10, 0, 2));
+					Principal frame = new Principal(new Usuario("Nombre Apellido1 Apellido2", "5768745", "9864598", "Jey", "Hola me yamo J y mi padr me puso el nombre en onor a los ombres de nejro.", new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), new Date(1L), 10, 0, 2));
 					PanelTablaTweets p = (PanelTablaTweets) (frame.getPaneles()[1]);
 					//Si solo se inserta un elemento no se establece el render de la celda. Hay que mirarlo 
-					p.insertarNuevo();
-					p.insertarNuevo();
+					GUITweet a = new GUITweet("2d", new ImageIcon(Principal.class.getResource("/res/images/a.jpg")), "@FernandoLu", "El colgao", "Esto es una fiezzzta");
+					GUITweet b = new GUITweet("3d", new ImageIcon(Principal.class.getResource("/res/images/b.jpg")), "@JeyTuiter", "Jeytuiter", "@tweetbot do you can see the text of a image tweet within the image viewer?Like official app or the 2 version?");
+					p.insertarNuevo(a);
+					p.insertarNuevo(b);
 					frame.setPanelActual(frame.getPaneles()[1]);
 					frame.setVisible(true);
 					frame.getPanelInferior().getMensaje();
@@ -130,7 +134,8 @@ public class Principal extends CustomJFrame {
 		lblImagen.setVerticalTextPosition(SwingConstants.BOTTOM);
 		lblImagen.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImagen.setSize(130,130);
+		lblImagen.setSize(100,100);
+		System.out.println(panelIzq.getBounds());
 		setImagenUsuario(new ImageIcon(usuarioActual.getImagen()));
 		panelIzq.add(lblImagen, BorderLayout.NORTH);
 		
@@ -223,10 +228,10 @@ public class Principal extends CustomJFrame {
 	private void generarDatos() {
 		//genera el mismo tweet  n veces
 		//para probar
-		timeLine = new PanelTablaTweets(new TablaTweetsUsuarios());
-		menciones = new PanelTablaTweets(new TablaTweetsUsuarios());
-		retweets  = new PanelTablaTweets(new TablaTweetsUsuarios());
-		favoritos = new PanelTablaTweets(new TablaTweetsUsuarios());
+		timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(TablaTweetsUsuarios.SOLO_TWEETS));
+		menciones = new PanelTablaTweets(new TablaTweetsUsuarios(TablaTweetsUsuarios.SOLO_TWEETS));
+		retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(TablaTweetsUsuarios.SOLO_TWEETS));
+		favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(TablaTweetsUsuarios.SOLO_TWEETS));
 		
 		panelesPrincipales[0] = panelUsuario;
 		panelesPrincipales[1] = timeLine;

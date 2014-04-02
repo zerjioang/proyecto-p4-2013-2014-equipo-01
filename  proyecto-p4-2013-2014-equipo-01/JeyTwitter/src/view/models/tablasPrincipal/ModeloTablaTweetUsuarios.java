@@ -27,6 +27,7 @@ public class ModeloTablaTweetUsuarios extends ModeloTablaLateral implements Data
 		columnNames[0] = "Resultados";
 		if(listaObjetos == null){
 			lista = new ArrayList<ObjetoCelda>();
+			tipo = TablaTweetsUsuarios.SOLO_TWEETS; // se establece un tipo por defecto
 			total = 0;
 		}
 		else{

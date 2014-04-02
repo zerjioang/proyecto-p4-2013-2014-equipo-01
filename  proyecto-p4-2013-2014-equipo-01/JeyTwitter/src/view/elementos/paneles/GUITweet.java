@@ -22,11 +22,11 @@ import view.models.tablasPrincipal.TablaTweetsUsuarios;
 
 public class GUITweet extends JPanel implements ObjetoCelda{
 	
+	private static final int ALTO = 70;
+	private static final int REDONDEO = 15;
 	private JLabel lblTiempo, lblImagenusuario, lblNombreReal, lblnombreUsuario;
 	private Button btnResponder, btnRetweet, btnFavorito;
 	private JTextArea txtMensaje;
-	
-	
 	
 	/**
 	 * @param lblTiempo
@@ -36,9 +36,10 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	 * @param txtMensaje
 	 */
 	public GUITweet(String tiempo, ImageIcon imagenusuario,String nombreReal, String nombreUsuario, String mensaje) {
+		
 		super();
+		
 		this.lblImagenusuario = new JLabel();
-		lblImagenusuario.setSize(75, 75);
 		this.lblNombreReal = new JLabel();
 		this.lblnombreUsuario = new JLabel();
 		this.txtMensaje = new JTextArea();
@@ -94,7 +95,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		txtMensaje.setFont(Util.getFont("roboto-light", Font.PLAIN, 12));
 
 		
-		lblImagenusuario.setSize(100, 100);
+		lblImagenusuario.setSize(ALTO, ALTO);
 		setImagenUsuario((ImageIcon)lblImagenusuario.getIcon());
 		lblImagenusuario.setBorder(new MatteBorder(0, 5, 0, 5, new Color(1.0f,1.0f,1.0f,0.0f)));
 		add(lblImagenusuario, BorderLayout.WEST);
@@ -137,6 +138,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		txtMensaje.setOpaque(false);
 		txtMensaje.setBorder(null);
 		panelCentroMensaje.add(txtMensaje,BorderLayout.CENTER);
+		panelCentroMensaje.setBorder(new MatteBorder(0, 0, 0, 1, new Color(1.0f,1.0f,1.0f,0.0f)));
 	}
 
 	/**
@@ -220,7 +222,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	 * @param establece la imagen del usuario
 	 */
 	public void setImagenUsuario(ImageIcon imagenUsuario) {
-		lblImagenusuario.setIcon(Util.getImagenRedondeada(imagenUsuario, 50));
+		lblImagenusuario.setIcon(Util.getImagenRedondeada(imagenUsuario, REDONDEO));
 		lblImagenusuario.setBorder(new MatteBorder(0, 5, 0, 5, new Color(1.0f,1.0f,1.0f,0.0f)));
 		lblImagenusuario.setIcon(Util.escalarImagen(lblImagenusuario));
 	}

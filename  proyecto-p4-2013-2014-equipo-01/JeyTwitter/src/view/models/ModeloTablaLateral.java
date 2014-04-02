@@ -44,8 +44,15 @@ public abstract class ModeloTablaLateral extends AbstractTableModel{
 	public void insertarElemento(ObjetoCelda e) {
         // Añade un elemento en la primera posicion de la tabla
 		lista.add(0, e);
-        fireTableRowsInserted(0, lista.size()-1);
+		actualizarContenidoTabla();
     }
+	public void insertarElementoLista(ObjetoCelda e) {
+        // Añade un elemento en la primera posicion de la tabla
+		lista.add(0, e);
+    }
+	public void actualizarContenidoTabla(){
+		fireTableRowsInserted(0, lista.size()-1);
+	}
 	
 	public ArrayList<ObjetoCelda> getLista(){
 		return lista;
