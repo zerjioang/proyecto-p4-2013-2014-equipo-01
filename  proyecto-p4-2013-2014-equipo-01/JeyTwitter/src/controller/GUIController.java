@@ -102,8 +102,10 @@ public class GUIController {
 	public boolean hayConexion() {
 		@SuppressWarnings("unused")
 		InetAddress address;
+		System.out.println("Comprobando conexion...");
 		try {
 			address = InetAddress.getByName("www.twitter.com");
+			System.out.println("Comprobado. Esperando resultado...");
 			online = true;
 			return true;
 		} catch (UnknownHostException e) {

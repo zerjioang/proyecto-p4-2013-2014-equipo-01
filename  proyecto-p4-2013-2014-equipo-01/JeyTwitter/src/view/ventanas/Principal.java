@@ -73,13 +73,23 @@ public class Principal extends CustomJFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Principal frame = new Principal(new Usuario("Nombre Apellido1 Apellido2", "5768745", "9864598", "Jey", "Hola me yamo J y mi padr me puso el nombre en onor a los ombres de nejro.", new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), new Date(1L), 10, 0, 2));
+					Principal frame = new Principal(new Usuario("@JeyTuiter", "5768745", "9864598", "Jey", "Hola me yamo J y mi padr me puso el nombre en onor a los ombres de nejro.", new ImageIcon(Principal.class.getResource("/res/images/a.jpg")).getImage(), new Date(1L), 10, 0, 2));
 					PanelTablaTweets p = (PanelTablaTweets) (frame.getPaneles()[1]);
-					//Si solo se inserta un elemento no se establece el render de la celda. Hay que mirarlo 
+					
 					GUITweet a = new GUITweet("2d", new ImageIcon(Principal.class.getResource("/res/images/a.jpg")), "@FernandoLu", "El colgao", "Esto es una fiezzzta");
 					GUITweet b = new GUITweet("3d", new ImageIcon(Principal.class.getResource("/res/images/b.jpg")), "@JeyTuiter", "Jeytuiter", "@tweetbot do you can see the text of a image tweet within the image viewer?Like official app or the 2 version?");
+					
 					p.insertarNuevo(a);
 					p.insertarNuevo(b);
+					p.insertarNuevo(a);
+					p.insertarNuevo(b);
+					p.insertarNuevo(a);
+					p.insertarNuevo(b);
+					p.insertarNuevo(a);
+					p.insertarNuevo(b);
+					p.insertarNuevo(a);
+					p.insertarNuevo(b);
+					
 					frame.setPanelActual(frame.getPaneles()[1]);
 					frame.setVisible(true);
 					frame.getPanelInferior().getMensaje();
@@ -98,7 +108,20 @@ public class Principal extends CustomJFrame {
 		usuarioActual = usuario;
 		
 		panelesPrincipales = new JPanel[7];
-		panelUsuario = new PanelPerfilUsuario(usuarioActual, null);
+		//He puesto unos tweets de prueba
+		GUITweet a = new GUITweet("2d", new ImageIcon(Principal.class.getResource("/res/images/a.jpg")), "@FernandoLu", "El colgao", "Esto es una fiezzzta");
+		GUITweet b = new GUITweet("3d", new ImageIcon(Principal.class.getResource("/res/images/b.jpg")), "@JeyTuiter", "Jeytuiter", "@tweetbot do you can see the text of a image tweet within the image viewer?Like official app or the 2 version?");
+		ArrayList<ObjetoCelda> lista = new ArrayList<ObjetoCelda>();
+		lista.add(0, a);
+		lista.add(0, b);
+		lista.add(0, a);
+		lista.add(0, b);
+		lista.add(0, a);
+		lista.add(0, b);
+		lista.add(0, a);
+		lista.add(0, b);
+		
+		panelUsuario = new PanelPerfilUsuario(usuarioActual, lista);
 		panelInferior = new PanelEnviarTweet();
 		panelBusqueda = new PanelBusqueda();
 		panel_stats = new JPanel();
@@ -278,15 +301,10 @@ public class Principal extends CustomJFrame {
 				panelMostrandoActual = p;
 				if(panelMostrandoActual==null)
 					panelMostrandoActual = new JPanel();
-				//panelMostrandoActual.setBounds(81, 0, 449, 567);
+				
 				panelVista.add(panelMostrandoActual, BorderLayout.CENTER);
-				//Es posible que algunas de las siguientes sobren
 				getContentPane().revalidate();
 				getContentPane().repaint();
-				//panelVista.revalidate();
-				//panelVista.repaint();
-				//revalidate();
-				//repaint();
 			}
 		}).start();
 	}
@@ -330,7 +348,7 @@ public class Principal extends CustomJFrame {
 	 * @param lblImagen the lblImagen to set
 	 */
 	public void setImagenUsuario(ImageIcon imagen) {
-		lblImagen.setIcon(Util.getImagenRedondeada(imagen, 50));
+		lblImagen.setIcon(Util.getImagenRedondeada(imagen, 15));
 		lblImagen.setIcon(Util.escalarImagen(lblImagen));
 	}
 }
