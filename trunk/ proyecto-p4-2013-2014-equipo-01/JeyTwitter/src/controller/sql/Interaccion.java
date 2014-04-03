@@ -4,12 +4,11 @@ import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
 import javax.imageio.ImageIO;
-
 import model.Tweets;
 import model.Usuario;
 /**
@@ -61,26 +60,63 @@ public class Interaccion {
 			return null;
 		}
 	}
+	/**
+	 * Permite cambiar el nombre real del usuario en la BD
+	 * @param nombreUsuario
+	 * @param nombreReal
+	 * @return
+	 */
 	public static boolean actualizarNombreReal(String nombreUsuario, String nombreReal)
 	{
 		return 	gestor.enviarComando("UPDATE Usuarios SET nombreReal = '"+nombreReal+"' WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
+	/**
+	 * Permite actualizar la biografía del usuario en la BD
+	 * @param nombreUsuario
+	 * @param biografia
+	 * @return
+	 */
 	public static boolean actualizarBiografia(String nombreUsuario, String biografia)
 	{
 		return 	gestor.enviarComando("UPDATE Usuarios SET biografia = '"+biografia+"' WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
+	/**
+	 * Permite actualizar el numero de seguidores en la BD
+	 * @param nombreUsuario
+	 * @param numSeguidores
+	 * @return
+	 */
 	public static boolean actualizarNumSeguidores(String nombreUsuario, int numSeguidores)
 	{
 		return 	gestor.enviarComando("UPDATE Usuarios SET numeroSeguidores = "+numSeguidores+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
+	/**
+	 * Permite actualizar el numero de seguidos en la BD
+	 * @param nombreUsuario
+	 * @param numSeguidos
+	 * @return
+	 */
 	public static boolean actualizarNumSeguidos(String nombreUsuario, int numSeguidos)
 	{
 		return 	gestor.enviarComando("UPDATE Usuarios SET numeroSeguidos = "+numSeguidos+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
+	/**
+	 * Permite actualizar el numero de tweets que dispone la cuenta.
+	 * @param nombreUsuario
+	 * @param numTweets
+	 * @return
+	 */
 	public static boolean actualizarNumTweets(String nombreUsuario, int numTweets)
 	{
 		return 	gestor.enviarComando("UPDATE Usuarios SET numeroTweets = "+numTweets+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
+	/**
+	 * Permite cambiar la imagen del perfil del usuario
+	 * @param nombreUsuario
+	 * @param imagen
+	 * @param formato
+	 * @return
+	 */
 	public static boolean actualizarImagenPerfil(String nombreUsuario, Image imagen, String formato)
 	{
         ByteArrayOutputStream baos = new ByteArrayOutputStream();  
@@ -100,6 +136,10 @@ public class Interaccion {
 	public static boolean borrarTodosLosCredenciales() {
 		return 	gestor.enviarComando("DELETE FROM Usuarios");
 	}
+	/**
+	 * Extrae todos los usuarios de la base de datos
+	 * @return
+	 */
 	public static LinkedList<Usuario> extraerUsuarios()
 	{
 		gestor.enviarComando("SELECT * FROM Usuarios");
@@ -145,20 +185,44 @@ public class Interaccion {
 	 */
 	public static boolean insertarTweet(Tweets añadir, String nombreUsuario, String formatoImagen)
 	{
-		//Repensar
-		if(gestor.enviarComando("INSERT INTO Tweets(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ('"+añadir.getCodigo()+"','"+añadir.getUltimaFechaActualizacion().toString()+"','"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+añadir.esRetweet()+","+añadir.esFavorito()))
+		boolean correcto = true;
+		
+		correcto = correcto && gestor.enviarComando("INSERT INTO Tweets(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ('"+añadir.getCodigo()+"','"+añadir.getUltimaFechaActualizacion()+"','"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+añadir.esRetweet()+","+añadir.esFavorito()+")");
+		correcto = correcto && gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"','"+añadir.getCodigo()+"')");
+		try{
+		actualizarImagenTweet(añadir.getImagenUsuario(), formatoImagen, añadir.getCodigo());
+		}catch(IllegalArgumentException E)
 		{
-			gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"','"+añadir.getCodigo()+"')");
-			return actualizarImagenTweet(nombreUsuario, añadir.getImagenUsuario(), formatoImagen, añadir.getCodigo());			 
+			return correcto;
 		}
-		else //puede fallar la insercción porque ya esté dentro, en cuyo caso significa que está con otro usuario y hay solo que asociarlo
-			if(gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"','"+añadir.getCodigo()+"')")){
-				return true;
-			}
-			else
-				return false;
+		return correcto;
 	}
-	public static boolean actualizarImagenTweet(String nombreUsuario, Image imagen, String formato, String codTweet)
+	/**
+	 * Permite insertar una lista de Tweets, pero el formato de las imagenes debe de ser siempre el mismo, aun no he probado que sucede si se le indica cualquier tipo de formato.
+	 * Devuelve true si se han insertado todos correctamente.
+	 * @param añadir
+	 * @param nombreUsuario
+	 * @param formatosImagenes
+	 * @return
+	 */
+	public static boolean insertarTweets(LinkedList<Tweets> añadir, String nombreUsuario, String formatosImagenes)
+	{
+		boolean correcto = true;
+		for(Tweets temp: añadir)
+		{
+			correcto = correcto && insertarTweet(temp, nombreUsuario, formatosImagenes);
+		}
+		return correcto;
+	}
+	/**
+	 * Permite actualizar la imagen del tweet
+	 * @param nombreUsuario
+	 * @param imagen
+	 * @param formato
+	 * @param codTweet
+	 * @return
+	 */
+	public static boolean actualizarImagenTweet(Image imagen, String formato, String codTweet)
 	{
         ByteArrayOutputStream baos = new ByteArrayOutputStream();  
         try {
@@ -167,23 +231,12 @@ public class Interaccion {
 			e.printStackTrace();
 		}  
         byte[] data = baos.toByteArray(); 
-        return gestor.enviarImagen("UPDATE Tweets SET imagen = ? WHERE nombreUsuario = '"+nombreUsuario+"' AND codigo = '"+codTweet+"'", data);
+        return gestor.enviarImagen("UPDATE Tweets SET imagen = ? WHERE codigo = '"+codTweet+"'", data);
 	}
 	public static void main(String[]args) throws IOException
 	{
-		System.out.println(Interaccion.extraerUsuarios());
+		Interaccion.insertarTweet(new Tweets("sdads", "hjjnjk", "ijjijji", new Date(1220227200), null, "asdfasfasdfaf", true, true), "Fiser", "");
 
-		/*
-		LinkedList<Usuario> temp = extraerUsuarios();
-		System.out.println(temp.get(1).getImagen().toString());
-		JFrame ventana = new JFrame();
-		ventana.setSize(new Dimension(400, 200));
-		JLabel temp2 = new JLabel();
-		temp2.setIcon(new ImageIcon(temp.get(1).getImagen()));
-		ventana.add(temp2);
-		ventana.setVisible(true);*/
-		// prueba
-		borrarTodosLosCredenciales();
 	}
 	
 }
