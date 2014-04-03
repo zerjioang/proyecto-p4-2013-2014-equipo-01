@@ -193,8 +193,6 @@ public class PanelPerfilUsuario extends JPanel {
 		btnSiguiendo.addMouseMotionListener(new EventoBotonSiguiendoUsuario(this));
 
 		JScrollPane scrollPaneUsuario = new JScrollPane();
-		scrollPaneUsuario.setBackground(COLOR_FONDO);
-		scrollPaneUsuario.getViewport().setBackground(COLOR_FONDO); 
 		scrollPaneUsuario.setViewportBorder(null);
 		scrollPaneUsuario.setBorder(null);
 
