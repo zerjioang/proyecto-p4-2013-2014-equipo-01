@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//JeyTwitter/src/Launcher.java=UTF-8
 encoding//JeyTwitter/src/controller/GUIController.java=UTF-8
+encoding//JeyTwitter/src/controller/TwitterService.java=UTF-8
 encoding//JeyTwitter/src/controller/sql/Interaccion.java=UTF-8
 encoding//JeyTwitter/src/monitorizacion/Grafica.java=UTF-8
 encoding//JeyTwitter/src/util/Util.java=UTF-8

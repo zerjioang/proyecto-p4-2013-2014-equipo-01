@@ -1,17 +1,26 @@
 package controller;
 
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.UnknownHostException;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
+
 import controller.sql.Interaccion;
+import model.Tweet;
 import model.Usuario;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.TwitterException;
+import twitter4j.User;
 import twitter4j.auth.AccessToken;
 
 /**
@@ -73,21 +82,51 @@ public class GUIController {
 	
 	/**
 	 * Muestra el TL en el elemento de la GUI correspondiente
+	 * @return 
 	 */
-	public void mostrarTimeline() {
+	public ArrayList<Tweet> mostrarTimeline() {
 		ResponseList<Status> listaTL;
+		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+		
 		try {
 			listaTL = t.getTimeline();
 			for (Status each : listaTL) {
+				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getOriginalProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
+				timeline.add(t);
 				
 				System.out.println("Sent by: @" + each.getUser().getScreenName()
 						+ " - " + each.getUser().getName() + "\n" + each.getText()
 						+ "\n");
 			}
+			
 		} catch (TwitterException e) {
 			// Error al recuperar el timeline
 			e.printStackTrace();
 		}
+		return timeline;
+	}
+	
+	/**
+	 * Traduce a nuestra clase modelo Usuario la clase User que maneja la API
+	 * @return
+	 */
+	public Usuario getUsuarioRegistrado() {
+		User user = null;
+		Usuario u = null;
+		try {
+			user = t.getUsuarioRegistrado();
+			
+			URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
+			Image imageProfile = ImageIO.read(urlImage);
+			
+			System.out.println(user.toString());
+			u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFriendsCount(), user.getFollowersCount());
+		} catch (IllegalStateException | TwitterException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return u;
 	}
 	
 	/**
@@ -166,8 +205,12 @@ public class GUIController {
 			AccessToken accessToken = t.setCodigoAcceso(codigo);
 			// Guardar en la BBDD
 			System.out.println(t.getNombreUsuario()+accessToken.getToken()+accessToken.getTokenSecret());
-			Interaccion.introducirCredenciales(t.getNombreUsuario(), accessToken.getToken(), accessToken.getTokenSecret());			
-		} catch (TwitterException e) {
+			URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
+			Image imageProfile = ImageIO.read(urlImage);
+			
+			Usuario u = new Usuario(t.getUsuarioRegistrado().getScreenName(), accessToken.getToken(), accessToken.getTokenSecret(), t.getUsuarioRegistrado().getName(), t.getUsuarioRegistrado().getDescription(), imageProfile, t.getUsuarioRegistrado().getCreatedAt(), t.getUsuarioRegistrado().getStatusesCount(), t.getUsuarioRegistrado().getFriendsCount(), t.getUsuarioRegistrado().getFollowersCount());
+			Interaccion.introducirUsuario(u);		
+		} catch (TwitterException | IOException e) {
 			System.out.println("Error al autenticarse");
 			e.printStackTrace();
 		}
