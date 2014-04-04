@@ -1,7 +1,7 @@
 package model;
 
 import java.awt.Image;
-import java.sql.Date;
+import java.util.Date;
 /**
  * Clase que representa a un usuario en la base de datos
  * @author Fiser

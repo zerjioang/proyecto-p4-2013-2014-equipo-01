@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
-import model.Tweets;
+import model.Tweet;
 import model.Usuario;
 /**
  * Clase con metodos estaticos para facilitar la interaccion con la base de datos.
@@ -27,6 +27,19 @@ public class Interaccion {
 	public static boolean introducirCredenciales(String usuario, String codigo, String codigoSecreto)
 	{
 		return 	gestor.enviarComando("INSERT INTO Usuarios (nombreUsuario, token, secretToken) VALUES ('"+usuario+"','"+codigo+"','"+codigoSecreto+"')");
+	}
+	/**
+	 * Permite introducir un nuevo credencial en la base de datos
+	 * @param usuario
+	 * @param codigo
+	 * @return
+	 */
+	public static boolean introducirUsuario(Usuario introducir)
+	{
+		boolean comprobar = true;
+		comprobar = comprobar && gestor.enviarComando("INSERT INTO Usuarios(nombreUsuario, nombreReal, token, secretToken, biografia, numeroSeguidos, numeroSeguidores, numeroTweets, fechaActualizacion) VALUES ('"+introducir.getNombreUsuario()+"','"+introducir.getNombreReal()+"','"+introducir.getToken()+"','"+introducir.getTokenSecreto()+"','"+introducir.getBiografia()+"',"+introducir.getNumeroSiguiendo()+","+introducir.getNumeroSeguidores()+","+introducir.getNumeroTweets()+",'"+introducir.getUltimaFechaActualizacion().toString()+"')");
+		comprobar = comprobar && actualizarImagenPerfil(introducir.getNombreUsuario(), introducir.getImagen(), "png");
+		return comprobar;
 	}
 	/**
 	 * Borra el credencial de la base de datos
@@ -183,7 +196,7 @@ public class Interaccion {
 	 * @param codigo
 	 * @return
 	 */
-	public static boolean insertarTweet(Tweets añadir, String nombreUsuario, String formatoImagen)
+	public static boolean insertarTweet(Tweet añadir, String nombreUsuario, String formatoImagen)
 	{
 		boolean correcto = true;
 		
@@ -205,10 +218,10 @@ public class Interaccion {
 	 * @param formatosImagenes
 	 * @return
 	 */
-	public static boolean insertarTweets(LinkedList<Tweets> añadir, String nombreUsuario, String formatosImagenes)
+	public static boolean insertarTweets(LinkedList<Tweet> añadir, String nombreUsuario, String formatosImagenes)
 	{
 		boolean correcto = true;
-		for(Tweets temp: añadir)
+		for(Tweet temp: añadir)
 		{
 			correcto = correcto && insertarTweet(temp, nombreUsuario, formatosImagenes);
 		}
@@ -235,7 +248,8 @@ public class Interaccion {
 	}
 	public static void main(String[]args) throws IOException
 	{
-		Interaccion.insertarTweet(new Tweets("sdads", "hjjnjk", "ijjijji", new Date(1220227200), null, "asdfasfasdfaf", true, true), "Fiser", "");
+		//Interaccion.insertarTweet(new Tweet("sdads", "hjjnjk", "ijjijji", new Date(1220227200), null, "asdfasfasdfaf", true, true), "Fiser", "");
+		//borrarTodosLosCredenciales();
 
 	}
 	

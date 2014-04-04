@@ -65,9 +65,10 @@ public class Launcher {
 		// Tenemos token, lanzamos la ventana principal
 		//Este usuario es el usuario que tiene la sesion de twitter abierta y que tiene que ser cargado
 		//de la bd o online dependiendo de si esta conectado o no
-		Usuario u = new Usuario("@JeyTuiter", "5768745", "9864598", "Jey", "Hola me yamo J y mi padr me puso el nombre en onor a los ombres de nejro.", new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), new Date(1L), 10, 0, 2);
+		//Usuario u = new Usuario("@JeyTuiter", "5768745", "9864598", "Jey", "Hola me yamo J y mi padr me puso el nombre en onor a los ombres de nejro.", new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), new Date(1L), 10, 0, 2);
+		
 		//Como el usuario no existe el programa da error de ejecucion.
-		Principal p = new Principal(u);
+		Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 		p.setPanelActual(p.getPaneles()[1]);
 		p.setVisible(true);
 	}

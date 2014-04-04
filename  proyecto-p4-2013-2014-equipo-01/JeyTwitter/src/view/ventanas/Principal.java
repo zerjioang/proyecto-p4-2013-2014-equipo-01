@@ -15,6 +15,8 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
+import sun.swing.ImageIconUIResource;
+import twitter4j.Status;
 import util.Util;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.paneles.GUITweet;
@@ -43,12 +45,20 @@ import java.util.ArrayList;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
+import controller.GUIController;
+import model.Tweet;
 import model.Usuario;
 
 public class Principal extends CustomJFrame {
 
 	//Constantes
 	private static final Color COLOR_PANEL = new Color(64, 64, 64);
+	private static final int TIMELINE = 0;
+	private static final int MENCIONES = 1;
+	private static final int FAVORITOS = 2;
+	private static final int RETUITS = 3;
+	private static final int TUITSUSUARIO = 4;
+	private static final int BUSQUEDA = 5;
 	
 	private JTable tablaMenu;
 	private BotonSeguir btnDejarDeSeguir;
@@ -73,7 +83,7 @@ public class Principal extends CustomJFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Principal frame = new Principal(new Usuario("@JeyTuiter", "5768745", "9864598", "Jey", "Hola me yamo J y mi padr me puso el nombre en onor a los ombres de nejro.", new ImageIcon(Principal.class.getResource("/res/images/a.jpg")).getImage(), new Date(1L), 10, 0, 2));
+					Principal frame = new Principal(new Usuario("@JeyTuiter", "5768745", "9864598", "Jey", "Hola me yamo J y mi padr me puso el nombre en onor a los ombres de nejro.", "/res/images/a.jpg", new Date(1L), 10, 0, 2));
 					PanelTablaTweets p = (PanelTablaTweets) (frame.getPaneles()[1]);
 					
 					GUITweet a = new GUITweet("2d", new ImageIcon(Principal.class.getResource("/res/images/a.jpg")), "@FernandoLu", "El colgao", "Esto es una fiezzzta");
@@ -108,20 +118,15 @@ public class Principal extends CustomJFrame {
 		usuarioActual = usuario;
 		
 		panelesPrincipales = new JPanel[7];
-		//He puesto unos tweets de prueba
-		GUITweet a = new GUITweet("2d", new ImageIcon(Principal.class.getResource("/res/images/a.jpg")), "@FernandoLu", "El colgao", "Esto es una fiezzzta");
-		GUITweet b = new GUITweet("3d", new ImageIcon(Principal.class.getResource("/res/images/b.jpg")), "@JeyTuiter", "Jeytuiter", "@tweetbot do you can see the text of a image tweet within the image viewer?Like official app or the 2 version?");
-		ArrayList<ObjetoCelda> lista = new ArrayList<ObjetoCelda>();
-		lista.add(0, a);
-		lista.add(0, b);
-		lista.add(0, a);
-		lista.add(0, b);
-		lista.add(0, a);
-		lista.add(0, b);
-		lista.add(0, a);
-		lista.add(0, b);
 		
-		panelUsuario = new PanelPerfilUsuario(usuarioActual, lista);
+		panelUsuario = new PanelPerfilUsuario(usuarioActual, recargarTweets(TUITSUSUARIO));
+		
+		timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(TIMELINE)));
+		menciones = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(MENCIONES)));
+		retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(RETUITS)));
+		favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(FAVORITOS)));
+		
+		
 		panelInferior = new PanelEnviarTweet();
 		panelBusqueda = new PanelBusqueda();
 		panel_stats = new JPanel();
@@ -244,6 +249,37 @@ public class Principal extends CustomJFrame {
 		panelApp.add(panelVista, BorderLayout.CENTER);
 		panelVista.setLayout(new BorderLayout(0, 0));
 	}
+	
+	public ArrayList<ObjetoCelda> recargarTweets(int tipo) {
+		ArrayList<Tweet> listaTuits = null;
+		switch (tipo){
+		case 0:
+			listaTuits = GUIController.getInstance().mostrarTimeline();
+			break;
+		case 1:
+			listaTuits = GUIController.getInstance().mostrarTimeline();
+			break;
+		case 2:
+			listaTuits = GUIController.getInstance().mostrarTimeline();
+			break;
+		case 3:
+			listaTuits = GUIController.getInstance().mostrarTimeline();
+			break;
+		case 4:
+			listaTuits = GUIController.getInstance().mostrarTimeline();
+			break;
+		case 5:
+			listaTuits = GUIController.getInstance().mostrarTimeline();
+			break;
+		}
+		ArrayList<ObjetoCelda> lista = new ArrayList<ObjetoCelda>();
+		
+		for(Tweet each : listaTuits){
+			GUITweet guiTweet = new GUITweet("2d", new ImageIcon(Principal.class.getResource("/res/images/a.jpg")), each.getNombreUsuario(), each.getNombreReal(), each.getTexto());
+			lista.add(0, guiTweet);
+		}
+		return lista;
+	}
 
 	/**
 	 * 
@@ -251,10 +287,7 @@ public class Principal extends CustomJFrame {
 	private void generarDatos() {
 		//genera el mismo tweet  n veces
 		//para probar
-		timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(TablaTweetsUsuarios.SOLO_TWEETS));
-		menciones = new PanelTablaTweets(new TablaTweetsUsuarios(TablaTweetsUsuarios.SOLO_TWEETS));
-		retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(TablaTweetsUsuarios.SOLO_TWEETS));
-		favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(TablaTweetsUsuarios.SOLO_TWEETS));
+		//timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(TablaTweetsUsuarios.SOLO_TWEETS));
 		
 		panelesPrincipales[0] = panelUsuario;
 		panelesPrincipales[1] = timeLine;
@@ -340,7 +373,7 @@ public class Principal extends CustomJFrame {
 	/**
 	 * @return the lblImagen
 	 */
-	public JLabel geImagenUsuario() {
+	public JLabel getImagenUsuario() {
 		return lblImagen;
 	}
 
@@ -348,6 +381,7 @@ public class Principal extends CustomJFrame {
 	 * @param lblImagen the lblImagen to set
 	 */
 	public void setImagenUsuario(ImageIcon imagen) {
+		// Para pruebas
 		lblImagen.setIcon(Util.getImagenRedondeada(imagen, 15));
 		lblImagen.setIcon(Util.escalarImagen(lblImagen));
 	}

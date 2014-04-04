@@ -48,7 +48,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		this.lblTiempo.setText(tiempo);
 		this.lblImagenusuario.setIcon(imagenusuario);
 		this.lblNombreReal.setText(nombreReal);
-		this.lblnombreUsuario.setText(nombreUsuario);
+		setNombreUsuario(nombreUsuario);
 		this.txtMensaje.setText(mensaje);
 		
 		btnRetweet = new Button();
@@ -252,7 +252,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	 * @param establece el nombre del usuario
 	 */
 	public void setNombreUsuario(String nombreUsuario) {
-		this.lblnombreUsuario.setText(nombreUsuario);
+		this.lblnombreUsuario.setText("@"+nombreUsuario);
 	}
 
 	@Override

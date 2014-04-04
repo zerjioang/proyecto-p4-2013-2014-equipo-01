@@ -46,7 +46,7 @@ public class PanelPerfilUsuario extends JPanel {
 	private ArrayList<ObjetoCelda> listaObjetos;
 	private Usuario us;
 
-	/*public PanelPerfilUsuario(){
+	public PanelPerfilUsuario(){
 		super();
 		
 		lblImagenUsuario = new JLabel("");
@@ -62,18 +62,19 @@ public class PanelPerfilUsuario extends JPanel {
 		btnSeguidores = new CoolBlueButton("Seguidores");
 		btnSiguiendo = new CoolBlueButton("Siguiendo");
 		
-		tablaTweetsUsuario = new TablaTweetsUsuarios();
+		tablaTweetsUsuario = new TablaTweetsUsuarios(0);
 		
 		init();
-	}*/
+	}
 	
 	public PanelPerfilUsuario(Usuario u, ArrayList<ObjetoCelda> listaObjetos){
 		super();
+		System.out.println("Hola ke ase"+u.getNombreUsuario());
 		us = u;
-		this.listaObjetos = listaObjetos;
 		lblImagenUsuario = new JLabel(new ImageIcon(us.getImagen()));
 		lblImagenFondo = new JLabel("");
-		lbluser = new JLabel(us.getNombreUsuario());
+		lbluser = new JLabel();
+		setUser(us.getNombreUsuario());
 		lblNombreApellidos = new JLabel(us.getNombreReal());
 		lblBiografia = new JTextArea(us.getBiografia());
 		
@@ -83,6 +84,7 @@ public class PanelPerfilUsuario extends JPanel {
 		btnFavoritos = new CoolBlueButton("Favoritos");
 		btnSeguidores = new CoolBlueButton("Seguidores");
 		btnSiguiendo = new CoolBlueButton("Siguiendo");
+		this.listaObjetos = listaObjetos;
 		
 		tablaTweetsUsuario = new TablaTweetsUsuarios(listaObjetos);
 		
@@ -123,7 +125,7 @@ public class PanelPerfilUsuario extends JPanel {
 		
 		panel_perfilImagen.add(lblImagenUsuario);
 		lblImagenUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImagenUsuario.setIcon(Util.getImagenRedondeada(new ImageIcon(PanelPerfilUsuario.class.getResource("/res/images/userTest.jpg")), 150));
+		lblImagenUsuario.setIcon(Util.getImagenRedondeada(new ImageIcon(us.getImagen()), 150));
 		
 		panel_perfilImagen.add(lblImagenFondo);
 		
@@ -240,7 +242,7 @@ public class PanelPerfilUsuario extends JPanel {
 	 * @param lbluser the lbluser to set
 	 */
 	public void setUser(String user) {
-		this.lbluser.setText(user);
+		this.lbluser.setText("@"+user);
 	}
 
 	/**

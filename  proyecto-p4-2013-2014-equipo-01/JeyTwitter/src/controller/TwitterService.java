@@ -68,7 +68,7 @@ public class TwitterService {
 	
 	/**
 	 * Se crea un token con el codigo que el usuario ha recibido al autorizar
-	 * la aplicación en la web
+	 * la aplicaci��n en la web
 	 * @param codigo
 	 * @return
 	 * @throws TwitterException
@@ -82,7 +82,7 @@ public class TwitterService {
 	}
 	
 	/**
-	 * Se crea un token en función de uno que está previamente almacenado y se configura
+	 * Se crea un token en funci��n de uno que est�� previamente almacenado y se configura
 	 * @param token
 	 * @param tokenSecret
 	 */
@@ -108,7 +108,7 @@ public class TwitterService {
 	}
 
 	/**
-	 * Se obtiene el timeline (20 últimos pero se puede parametrizar mas)
+	 * Se obtiene el timeline (20 ��ltimos pero se puede parametrizar mas)
 	 * @return
 	 * @throws TwitterException
 	 */
@@ -119,6 +119,15 @@ public class TwitterService {
 			list = tw.getHomeTimeline();						
 		}
 		return list;
+	}
+	/**
+	 * Se obtiene el usuario actual
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws TwitterException
+	 */
+	public User getUsuarioRegistrado() throws IllegalStateException, TwitterException {
+		return tw.showUser(tw.getId());
 	}
 
 	/**
@@ -150,7 +159,7 @@ public class TwitterService {
 	}
 
 	/**
-	 * Tuitea el mensaje por parámetro
+	 * Tuitea el mensaje por par��metro
 	 * @param message
 	 * @throws TwitterException 
 	 */
@@ -177,7 +186,7 @@ public class TwitterService {
 
 
 	/**
-	 * Obtiene la personas que está siguiendo un usuario
+	 * Obtiene la personas que est�� siguiendo un usuario
 	 * 
 	 * @param String usuario, Long cursor
 	 * @throws TwitterException 

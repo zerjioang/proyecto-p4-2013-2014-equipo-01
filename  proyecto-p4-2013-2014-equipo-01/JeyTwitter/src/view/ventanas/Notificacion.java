@@ -22,7 +22,7 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
-import model.Tweets;
+import model.Tweet;
 
 import java.awt.Cursor;
 import java.sql.Date;
@@ -67,7 +67,7 @@ public class Notificacion extends InvisibleJFrame {
 		init();
 	}
 	
-	public Notificacion(Tweets tweet) {
+	public Notificacion(Tweet tweet) {
 		super("/res/images/notif/notification_tweet.png");
 		init();
 		setMensaje(tweet.getTexto());

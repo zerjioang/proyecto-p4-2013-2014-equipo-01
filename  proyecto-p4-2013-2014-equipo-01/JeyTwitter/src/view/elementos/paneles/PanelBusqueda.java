@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
-import model.Tweets;
+import model.Tweet;
 import model.Usuario;
 import view.elementos.botones.BotonBuscar;
 import view.elementos.input.CampoBusqueda;
