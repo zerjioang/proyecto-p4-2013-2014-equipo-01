@@ -19,7 +19,6 @@ public class EventoClickBinaryButton implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		boolean isOn = bbuton.getEstado();
-		System.out.println(isOn);
 		if(isOn){
 			bbuton.setEstado(false);
 			bbuton.setIcon(bbuton.getImagenOff());

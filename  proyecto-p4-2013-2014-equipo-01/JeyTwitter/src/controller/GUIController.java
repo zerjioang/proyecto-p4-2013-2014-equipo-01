@@ -5,10 +5,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -33,42 +31,26 @@ public class GUIController {
 	private final static String CONSUMER_KEY = "KRiUVHsXKNRDHVIGxYJ7w";
 	private final static String CONSUMER_KEY_SECRET = "BDwwg2NBUjY48OcTB2818sp7E7L32AzhNLdgt82ZVQ";
 	private static GUIController instancia = null; 
-	
+
 	private TwitterService t;
 	@SuppressWarnings("unused")
 	private boolean online;
-	
+
 	/* Metodos para el funcionamiento del singleton */
 	public GUIController() {}
-	
+
 	private synchronized static void crearInstancia() {
-        if (instancia == null) { 
-            instancia = new GUIController();
-            try {        	
+		if (instancia == null) { 
+			instancia = new GUIController();
+			try {        	
 				instancia.autenticar();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }
-    }
-	
-	/**
-	 * Recupera el nombre del usuario que est�� autenticado en este momento
-	 * @return
-	 */
-	public String dimeNombre() {
-		String nombre = null;
-		try {
-			nombre = t.getNombreUsuario();
-		} catch (IllegalStateException | TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
-		return nombre;
 	}
-	
+
 	/**
 	 * Devuelve la ��nica instancia de esta clase que permanece al mismo tiempo
 	 * en memoria, en caso de no existir, se crea.
@@ -79,7 +61,16 @@ public class GUIController {
 		return instancia;
 	}
 	/* Fin de los metodos para el funcionamiento del singleton */
-	
+
+	/**
+	 * Crea la sesi��n en Twitter y recupera de la base de datos el token en caso
+	 * de que exista, si no, solo crea la sesi��n.
+	 * @throws Exception
+	 */
+	public void autenticar() throws Exception {
+		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
+	}
+
 	/**
 	 * Muestra el TL en el elemento de la GUI correspondiente
 	 * @return 
@@ -87,25 +78,20 @@ public class GUIController {
 	public ArrayList<Tweet> mostrarTimeline() {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-		
+
 		try {
 			listaTL = t.getTimeline();
 			for (Status each : listaTL) {
 				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getOriginalProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
 				timeline.add(t);
-				
-				System.out.println("Sent by: @" + each.getUser().getScreenName()
-						+ " - " + each.getUser().getName() + "\n" + each.getText()
-						+ "\n");
 			}
-			
 		} catch (TwitterException e) {
 			// Error al recuperar el timeline
 			e.printStackTrace();
 		}
 		return timeline;
 	}
-	
+
 	/**
 	 * Traduce a nuestra clase modelo Usuario la clase User que maneja la API
 	 * @return
@@ -115,29 +101,20 @@ public class GUIController {
 		Usuario u = null;
 		try {
 			user = t.getUsuarioRegistrado();
-			
+
 			URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
 			Image imageProfile = ImageIO.read(urlImage);
-			
+
 			System.out.println(user.toString());
 			u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFriendsCount(), user.getFollowersCount());
 		} catch (IllegalStateException | TwitterException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return u;
 	}
-	
-	/**
-	 * Crea la sesi��n en Twitter y recupera de la base de datos el token en caso
-	 * de que exista, si no, solo crea la sesi��n.
-	 * @throws Exception
-	 */
-	public void autenticar() throws Exception {
-		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
-	}
-	
+
 	public boolean hayConexion() {
 		@SuppressWarnings("unused")
 		InetAddress address;
@@ -154,7 +131,7 @@ public class GUIController {
 			return false;
 		} 
 	}
-	
+
 	/**
 	 * Hace que se abra el navegador para que el usuario autorice a JeyTuiter
 	 */
@@ -166,69 +143,61 @@ public class GUIController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Comprueba si existe el codigo del usuario
+	 * Comprueba si el token es válido
 	 * @return
 	 */
-	public boolean esTokenValido() {
+	public boolean recuperarTokenUsuarioGuardado() {
 		LinkedList<Usuario> credenciales = Interaccion.extraerCredenciales();
-		System.out.println("El tamaño de credenciales es: "+credenciales.size());
+		System.out.println("El tamaño de la tabla usuarios es: "+credenciales.size());
+
 		if (credenciales.size() > 0) {
 			// Hay resultados, aunque solo esperamos una fila.
 			// Asignamos el token y a otra cosa
 			System.out.println("El token de la BBDD es "+credenciales.get(0).getToken());
-			t.reusarCodigoAcceso(credenciales.get(0).getToken(), credenciales.get(0).getTokenSecreto());
-			
+			t.recuperarToken(credenciales.get(0).getToken(), credenciales.get(0).getTokenSecreto());
+
 			return true;
-			} else {
-			/*
-			try {
-				AccessToken accessToken = t.setCodigoAcceso(codigo);
-				// ESTO ES LO QUE HAY QUE GUARDAR!!!!!!!!!!!!!!
-				System.out.println("Access Token: " + accessToken.getToken());
-				System.out.println("Access Token Secret: "+ accessToken.getTokenSecret());
-				// ---------------------------
-				// Guardar en la BBDD
-				Interaccion.introducirCredenciales(t.getNombreUsuario(), accessToken.getToken(), accessToken.getTokenSecret());			
-			} catch (TwitterException e) {
-				System.out.println("Error al autenticarse");
-				e.printStackTrace();
-			}
-			*/
+		} else {
+			System.out.println("No hay usuarios guardados.");
+
 			return false;
 		}
+
 	}
-	
-	public void setCodigo(String codigo){
+
+	public void guardarUsuario(String codigo){
 		try {
-			AccessToken accessToken = t.setCodigoAcceso(codigo);
-			// Guardar en la BBDD
-			System.out.println(t.getNombreUsuario()+accessToken.getToken()+accessToken.getTokenSecret());
+			AccessToken accessToken = t.crearToken(codigo);
 			URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
 			Image imageProfile = ImageIO.read(urlImage);
-			
+
 			Usuario u = new Usuario(t.getUsuarioRegistrado().getScreenName(), accessToken.getToken(), accessToken.getTokenSecret(), t.getUsuarioRegistrado().getName(), t.getUsuarioRegistrado().getDescription(), imageProfile, t.getUsuarioRegistrado().getCreatedAt(), t.getUsuarioRegistrado().getStatusesCount(), t.getUsuarioRegistrado().getFriendsCount(), t.getUsuarioRegistrado().getFollowersCount());
+			// Guardar en la BBDD
 			Interaccion.introducirUsuario(u);		
 		} catch (TwitterException | IOException e) {
 			System.out.println("Error al autenticarse");
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Tuitea usando el texto de el componente de la GUI correspondiente
 	 */
-	public void enviarTweet(String texto) {
+	public boolean enviarTweet(String texto) {
 		// Se supone que recoge el texto de el textfield de turno
 		try {
 			t.tweet(texto);
+			
+			return true;
 		} catch (TwitterException e) {
 			// Error al tuitear, mostrar mensaje
 			e.printStackTrace();
+			return false;
 		}
 	}
-	
+
 	/**
 	 * Muestra un men�� interactivo en la consola que permite usar ciertas funciones
 	 * del cliente, solo lo usamos para depurar.
@@ -247,7 +216,7 @@ public class GUIController {
 			System.out.println();
 			System.out.println();
 			System.out.println("1. Ver mi Timeline");
-//			System.out.println("2. Ver mis menciones");
+			//			System.out.println("2. Ver mis menciones");
 			System.out.println("2. PRUEBA  FOLLOWERS");
 
 			System.out.println("3. Ver tweets que he retwitteado");
@@ -260,29 +229,29 @@ public class GUIController {
 			try {
 				input = reader.readLine();
 				switch(input) {
-					case "1":mostrarTimeline();
+				case "1":mostrarTimeline();
+				break;
+
+				case "2": //System.out.println("adios");
+
 					break;
-					
-					case "2": //System.out.println("adios");
-						
-					break;
-					
-					case "3":System.out.println("adios");
-					break;
-					
-					case "4":System.out.println("adios");
-					break;
-					
-					case "5":
-						System.out.print("Introduce el tweet: ");
-						String texto = reader.readLine();
-						enviarTweet(texto);
+
+				case "3":System.out.println("adios");
+				break;
+
+				case "4":System.out.println("adios");
+				break;
+
+				case "5":
+					System.out.print("Introduce el tweet: ");
+					String texto = reader.readLine();
+					enviarTweet(texto);
 					break;
 				}
-				
+
 			} catch(IOException e) {
 				System.out.println("Error leyendo desde System.in");
-			    System.exit(1);
+				System.exit(1);
 			}
 		} while (!input.equals("q"));
 	}

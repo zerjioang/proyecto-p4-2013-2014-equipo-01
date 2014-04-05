@@ -57,7 +57,6 @@ public class TablaTweetsUsuarios extends JTable {
 		setFocusCycleRoot(true);
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		setBackground(Color.BLACK);
-		System.out.println(listaObjetos!=null && listaObjetos.size()>0);
 		
 		if(listaObjetos!=null && listaObjetos.size()>0){
 			actualizarTabla(new ModeloTablaTweetUsuarios(listaObjetos));
