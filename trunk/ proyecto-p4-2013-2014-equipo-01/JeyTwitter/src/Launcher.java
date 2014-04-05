@@ -42,7 +42,7 @@ public class Launcher {
 		else{
 			//Si hay conexion a internet
 			//Se evalua el token de acceso
-			if (GUIController.getInstance().esTokenValido())
+			if (GUIController.getInstance().recuperarTokenUsuarioGuardado())
 				mostrarPrincipal();
 			else
 				mostrarBienvenida();

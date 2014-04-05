@@ -163,7 +163,6 @@ public class Principal extends CustomJFrame {
 		lblImagen.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagen.setSize(100,100);
-		System.out.println(panelIzq.getBounds());
 		setImagenUsuario(new ImageIcon(usuarioActual.getImagen()));
 		panelIzq.add(lblImagen, BorderLayout.NORTH);
 		

@@ -51,11 +51,9 @@ public class SQLiteManager
 				conectado = true;
 			}catch (SQLException e1) {
 				conectado = false;
-				System.out.print(e1.getMessage());
 			}
 		}catch (ClassNotFoundException e) {
 			conectado = false;
-			System.out.print(e.getMessage());
 		}
 	}
 	public void disconnet()
@@ -74,7 +72,6 @@ public class SQLiteManager
 			query.executeUpdate(sql);
 		} catch (SQLException e) {
 			funciona = false;
-			System.out.print(e.getMessage());
 		}
 		return funciona;
 	}
@@ -83,7 +80,6 @@ public class SQLiteManager
 		try {
 			resultado = query.executeQuery(sql);
 		}catch (SQLException e) {
-			System.out.print(e.getMessage());
 		}
 		return resultado;
 	}
@@ -101,7 +97,6 @@ public class SQLiteManager
 	 */
 	public synchronized boolean enviarComando(String comando){
 		try {
-			System.out.println(conectado);
 			if(conectado){
 				if(comando.toLowerCase().startsWith("insert") 
 						|| comando.toLowerCase().startsWith("update")
@@ -130,7 +125,6 @@ public class SQLiteManager
 			consultaPreparada.executeUpdate();
 		} catch (SQLException e) {
 			funciona = false;
-			System.out.print(e.getMessage());
 		}
 		return funciona;
 	}

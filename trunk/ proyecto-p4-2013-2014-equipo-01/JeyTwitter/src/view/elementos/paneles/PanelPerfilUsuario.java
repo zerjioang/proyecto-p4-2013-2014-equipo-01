@@ -69,7 +69,6 @@ public class PanelPerfilUsuario extends JPanel {
 	
 	public PanelPerfilUsuario(Usuario u, ArrayList<ObjetoCelda> listaObjetos){
 		super();
-		System.out.println("Hola ke ase"+u.getNombreUsuario());
 		us = u;
 		lblImagenUsuario = new JLabel(new ImageIcon(us.getImagen()));
 		lblImagenFondo = new JLabel("");

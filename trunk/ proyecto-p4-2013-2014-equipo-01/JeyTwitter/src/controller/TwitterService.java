@@ -25,6 +25,7 @@ import util.Util;
 public class TwitterService {
 	private AccessToken accessToken = null;
 	private RequestToken peticionDeCodigo = null;
+	
 	private Twitter tw;
 
 	/**
@@ -73,9 +74,7 @@ public class TwitterService {
 	 * @return
 	 * @throws TwitterException
 	 */
-	public AccessToken setCodigoAcceso(String codigo) throws TwitterException {
-		System.out.println("Paso por aqui");
-		System.out.println(peticionDeCodigo+" "+codigo);
+	public AccessToken crearToken(String codigo) throws TwitterException {
 		accessToken = tw.getOAuthAccessToken(peticionDeCodigo, codigo);
 		
 		return accessToken;
@@ -86,7 +85,7 @@ public class TwitterService {
 	 * @param token
 	 * @param tokenSecret
 	 */
-	public void reusarCodigoAcceso(String token, String tokenSecret) {
+	public void recuperarToken(String token, String tokenSecret) {
 		AccessToken t = new AccessToken(token, tokenSecret);
 		tw.setOAuthAccessToken(t);
 		try {
@@ -98,13 +97,13 @@ public class TwitterService {
 	}
 	
 	/**
-	 * Recupera el nombre del usuario que se encuentra autenticado
+	 * Se obtiene el usuario actual
 	 * @return
 	 * @throws IllegalStateException
 	 * @throws TwitterException
 	 */
-	public String getNombreUsuario() throws IllegalStateException, TwitterException {
-		return tw.getScreenName();
+	public User getUsuarioRegistrado() throws IllegalStateException, TwitterException {
+		return tw.showUser(tw.getId());
 	}
 
 	/**
@@ -120,15 +119,7 @@ public class TwitterService {
 		}
 		return list;
 	}
-	/**
-	 * Se obtiene el usuario actual
-	 * @return
-	 * @throws IllegalStateException
-	 * @throws TwitterException
-	 */
-	public User getUsuarioRegistrado() throws IllegalStateException, TwitterException {
-		return tw.showUser(tw.getId());
-	}
+	
 
 	/**
 	 * Recupera el Timeline de menciones
@@ -145,7 +136,7 @@ public class TwitterService {
 	}
 
 	/**
-	 * Recupera todos nuestros Tweets retwitteados por otros
+	 * Recupera todos nuestros Tweets retwitteados por mi
 	 * @return
 	 * @throws TwitterException
 	 */
@@ -167,10 +158,6 @@ public class TwitterService {
 		tw.updateStatus(message);
 	}
 
-	public void retweet(){
-
-	}
-
 	/**
 	 * Obtiene la lista de seguidores de un usuario
 	 * 
@@ -178,12 +165,11 @@ public class TwitterService {
 	 * @throws TwitterException 
 	 * @author sergio
 	 */
-	public void siguiendo(String username, Long cursor) throws TwitterException{
+	public void getSiguiendo(String username, Long cursor) throws TwitterException{
 
 		//EN IMPLEMENTACION
 		//tw.getFriendssIDs(username, cursor);
 	}
-
 
 	/**
 	 * Obtiene la personas que est�� siguiendo un usuario
@@ -192,8 +178,7 @@ public class TwitterService {
 	 * @throws TwitterException 
 	 * @author sergio
 	 */
-	public void seguidores(String username, Long cursor) throws TwitterException{
-		
+	public void getSeguidores(String username, Long cursor) throws TwitterException{
 		//IDs ids;
 
 		PagableResponseList<User> usuarios;

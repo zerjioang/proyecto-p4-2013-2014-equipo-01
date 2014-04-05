@@ -22,10 +22,9 @@ public class EventoWelcomeContinuar implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		System.out.println(ventana.getCodigo());
 		if(ventana.getCodeField().evaluate()){
 			try {
-				GUIController.getInstance().setCodigo(ventana.getCodigo());
+				GUIController.getInstance().guardarUsuario(ventana.getCodigo());
 				Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 				p.setLocationRelativeTo(ventana);
 				p.setVisible(true);
