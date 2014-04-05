@@ -1,4 +1,4 @@
-package controller.io;
+package controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,10 +25,10 @@ public class XML {
 	 */
 	public static void main(String []args){
 		XML x = new XML("prueba.xml");
-		x.anadir("tamaño", "10");
-		x.anadir("tamaño2", "100");
-		x.mostrarProp("ó");
-		x.eliminar("tamaño2");
+		x.anadir("tama??o", "10");
+		x.anadir("tama??o2", "100");
+		x.mostrarProp("??");
+		x.eliminar("tama??o2");
 		x.guardarXML();
 	}
 	
@@ -38,13 +38,13 @@ public class XML {
 	}
 	
 	/**
-	 * A���ade un dato al fichero
+	 * A?????????ade un dato al fichero
 	 * @param nombre	nombre del dato (clave)
-	 * @param dato		dato a a���adir
+	 * @param dato		dato a a?????????adir
 	 */
 	public void anadir(String nombre, String dato){
 		pr.setProperty(nombre, dato);
-		Util.debug("Clave ("+nombre+") a���adida correctamente");
+		Util.debug("Clave ("+nombre+") a?????????adida correctamente");
 	}
 	
 	/**
