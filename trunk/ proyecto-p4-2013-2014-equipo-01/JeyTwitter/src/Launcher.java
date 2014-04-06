@@ -25,10 +25,12 @@ public class Launcher {
 			//No hay conexion a internet
 			boolean resp = Util.showError(null, "Error de conexion", Util.APP_TITULO+" se mostrara en modo offline", "Cancelar", "Aceptar");
 			if(resp){
-				if(resp /*Se debe comprobar que el usuario tiene los credenciales guardados en la bd*/)
+				/*Se debe comprobar que el usuario tiene los credenciales guardados en la bd*/
+				if(GUIController.getInstance().recuperarTokenUsuarioGuardado())
 					mostrarPrincipal();
 				else{
 					//El usuario no existe y no tiene Internet para autentificarse por lo tanto salir
+					Util.showError(null, Util.APP_TITULO+" se cerrara", "No tiene sesión iniciada en "+Util.APP_TITULO, "Cancelar", "Aceptar");
 					spl.dispose();
 					System.exit(1);
 				}

@@ -1,6 +1,7 @@
 package view.models.tablasPrincipal;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class TablaTweetsUsuarios extends JTable {
 		super();
 		this.listaObjetos = objeto;
 		init();
+		actualizarAltoFilas();
 	}
 
 	private void init() {;
@@ -49,7 +51,7 @@ public class TablaTweetsUsuarios extends JTable {
 		setShowVerticalLines(false);
 		setCellSelectionEnabled(true);
 		setShowGrid(false);
-		setRowHeight(ALTO_FILA);
+		//setRowHeight(ALTO_FILA);
 		setFont(Util.getFont("Roboto-Light", Font.PLAIN, 18));
 		setBorder(null);
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -93,10 +95,9 @@ public class TablaTweetsUsuarios extends JTable {
 	public void insertarNuevo(ObjetoCelda o){
 		ModeloTablaTweetUsuarios modelo;
 		modelo = new ModeloTablaTweetUsuarios(listaObjetos);
-		
 		modelo.insertarElemento(o);
-		
 		listaObjetos = modelo.getLista();
+		actualizarAltoFila(0);
 		actualizarTabla(modelo);
 	}
 
@@ -106,11 +107,32 @@ public class TablaTweetsUsuarios extends JTable {
 		
 		for (ObjetoCelda o : l) {
 			modelo.insertarElemento(o);
-			modelo.actualizarContenidoTabla();
+			actualizarAltoFila(0);
 		}
-		
-		
+		modelo.actualizarContenidoTabla();
 		listaObjetos = modelo.getLista();
 		actualizarTabla(modelo);
+	}
+	public void actualizarAltoFila(int fila){
+		int altoFinal = getHeight();
+		System.out.println(altoFinal);
+		for (int column = 0; column < getColumnCount(); column++)
+        {
+            Component comp = prepareRenderer(getCellRenderer(fila, column), fila, column);
+            altoFinal = Math.max(altoFinal, comp.getPreferredSize().height);
+            System.out.println(comp.getPreferredSize().height);
+        }
+		System.out.println("Estableciendo alto de la fila "+fila+" en "+altoFinal);
+		setRowHeight(fila, (altoFinal+30));
+	}
+	
+	public void actualizarFilas(){
+		actualizarAltoFilas();
+	}
+	
+	private void actualizarAltoFilas(){
+		for (int row = 0; row < getRowCount(); row++){
+			actualizarAltoFila(row);
+		}
 	}
 }

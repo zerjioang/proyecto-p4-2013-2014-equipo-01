@@ -12,7 +12,7 @@ public class ModeloTablaTweetUsuarios extends ModeloTablaLateral implements Data
 
 	private int total;
 	private int tipo;
-	
+
 	public ModeloTablaTweetUsuarios() {
 		super();
 		columnNames = new String[1];
@@ -44,18 +44,7 @@ public class ModeloTablaTweetUsuarios extends ModeloTablaLateral implements Data
 	public Object[][] generarDatos() {
 		Object[][] datos = new Object[total][1];	//Una sola columna en la tabla con 'total' filas
 		tipo = lista.get(0).tipoObjeto();
-		/*if(tipo == TablaTweetsUsuarios.SOLO_TWEETS){
-			for (int i = 0; i < total; i++) {
-				//datos[i][0]= new GUITweet();
-				datos[i][0]= objeto.get(i);
-			}
-		}
-		else if(tipo == TablaTweetsUsuarios.SOLO_USUARIOS){
-			for (int i = 0; i < total; i++) {
-				//datos[i][0]= new GuiTwitterUsuario(objeto.get(i));
-				datos[i][0]= objeto.get(i);
-			}
-		}*/
+
 		for (int i = 0; i < total; i++) {
 			datos[i][0]= lista.get(i);
 		}

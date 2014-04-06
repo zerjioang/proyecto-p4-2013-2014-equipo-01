@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 import util.Util;
@@ -97,7 +98,13 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		
 		lblImagenusuario.setSize(ALTO, ALTO);
 		setImagenUsuario((ImageIcon)lblImagenusuario.getIcon());
-		lblImagenusuario.setBorder(new MatteBorder(0, 5, 0, 5, new Color(1.0f,1.0f,1.0f,0.0f)));
+		lblImagenusuario.setBorder(new MatteBorder(5, 5, 0, 5, new Color(1.0f,1.0f,1.0f,0.0f)));
+
+		lblImagenusuario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagenusuario.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblImagenusuario.setVerticalAlignment(SwingConstants.TOP);
+		lblImagenusuario.setVerticalTextPosition(SwingConstants.BOTTOM);
+		
 		add(lblImagenusuario, BorderLayout.WEST);
 		
 		JPanel panelCentro = new JPanel();
