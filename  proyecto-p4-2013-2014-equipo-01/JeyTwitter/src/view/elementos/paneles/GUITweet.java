@@ -141,7 +141,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		txtMensaje.setWrapStyleWord(true);
 		txtMensaje.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		txtMensaje.setEditable(false);
-		txtMensaje.setFocusable(false);
+		txtMensaje.setFocusable(true);
 		txtMensaje.setOpaque(false);
 		txtMensaje.setBorder(null);
 		panelCentroMensaje.add(txtMensaje,BorderLayout.CENTER);

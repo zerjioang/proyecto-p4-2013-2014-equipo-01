@@ -40,7 +40,6 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 		panelmagen.setLayout(new BorderLayout(0, 0));
 		
 		lblImagenUsuario = new JLabel("");
-
 		lblImagenUsuario.setSize(ALTO, ALTO);
 		lblImagenUsuario.setIcon(Util.getImagenRedondeada(new ImageIcon(GuiTwitterUsuario.class.getResource("/res/images/userTest.jpg")), 20));
 		lblImagenUsuario.setIcon(Util.escalarImagen(lblImagenUsuario));
@@ -63,25 +62,24 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 		panel_supDer.setLayout(new BorderLayout(0, 0));
 		
 		btnSeguir = new BotonSeguir();
-		panel_supDer.add(btnSeguir, BorderLayout.CENTER);
 		btnSeguir.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(1.0f,1.0f,1.0f,0.0f)));
+		panel_supDer.add(btnSeguir, BorderLayout.CENTER);
 		
 		JPanel panel_supIzq = new JPanel();
 		panel_Superior.add(panel_supIzq, BorderLayout.WEST);
 		panel_supIzq.setLayout(new BorderLayout(0, 0));
 		
 		lblusuario = new JLabel("@Usuario");
-		panel_supIzq.add(lblusuario, BorderLayout.NORTH);
 		lblusuario.setBorder(new MatteBorder(4, 4, 4, 0, (Color) new Color(1.0f,1.0f,1.0f,0.0f)));
 		lblusuario.setFont(Util.getFont("mirda", Font.BOLD, 14));
+		panel_supIzq.add(lblusuario, BorderLayout.NORTH);
 		
 		lblNombreReal = new JLabel("Nombre Real");
-		panel_supIzq.add(lblNombreReal, BorderLayout.SOUTH);
 		lblNombreReal.setBorder(new MatteBorder(0, 4, 4, 0, (Color) new Color(1.0f,1.0f,1.0f,0.0f)));
 		lblNombreReal.setFont(Util.getFont("mirda", Font.PLAIN, 14));
+		panel_supIzq.add(lblNombreReal, BorderLayout.SOUTH);
 		
 		txtrBiografia = new JTextArea();
-		panelTexto.add(txtrBiografia, BorderLayout.CENTER);
 		txtrBiografia.setBorder(new MatteBorder(0,5,5,0, new Color(1.0f,1.0f,1.0f,0.0f)));
 		txtrBiografia.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		txtrBiografia.setOpaque(false);
@@ -91,6 +89,7 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 		txtrBiografia.setFocusable(false);
 		txtrBiografia.setFont(Util.getFont("mirda", Font.PLAIN, 12));
 		txtrBiografia.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et felis vestibulum, laoreet ipsum vel. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et felis vestibulum, laoreet ipsum vel");
+		panelTexto.add(txtrBiografia, BorderLayout.CENTER);
 	}
 
 	@Override

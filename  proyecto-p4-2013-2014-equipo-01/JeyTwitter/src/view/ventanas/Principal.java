@@ -20,6 +20,7 @@ import twitter4j.Status;
 import util.Util;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.paneles.GUITweet;
+import view.elementos.paneles.GuiTwitterUsuario;
 import view.elementos.paneles.ObjetoCelda;
 import view.elementos.paneles.PanelBusqueda;
 import view.elementos.paneles.PanelEnviarTweet;
@@ -86,15 +87,19 @@ public class Principal extends CustomJFrame {
 		panelesPrincipales = new JPanel[7];
 		
 		panelUsuario = new PanelPerfilUsuario(usuarioActual, recargarTweets(TUITSUSUARIO));
-		
 		timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(TIMELINE)));
 		menciones = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(MENCIONES)));
 		retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(RETUITS)));
 		favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(FAVORITOS)));
-		
-		
 		panelInferior = new PanelEnviarTweet();
-		panelBusqueda = new PanelBusqueda();
+		
+		ArrayList<ObjetoCelda> o = new ArrayList<ObjetoCelda>();
+		o.add(0, new GuiTwitterUsuario());
+		o.add(0, new GuiTwitterUsuario());
+		o.add(0, new GuiTwitterUsuario());
+		o.add(0, new GuiTwitterUsuario());
+		
+		panelBusqueda = new PanelBusqueda(o);
 		panel_stats = new JPanel();
 		
 		lblImagen = new JLabel(usuarioActual.getNombreUsuario());
