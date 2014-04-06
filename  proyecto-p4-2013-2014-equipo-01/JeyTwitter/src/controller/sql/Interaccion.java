@@ -60,7 +60,7 @@ public class Interaccion {
 		try {
 			ResultSet extraidos = gestor.getResultSet();
 			LinkedList<Usuario> temporal = new LinkedList<Usuario>();
-			
+
 			while(extraidos.next())
 			{
 				Usuario tempUsuario = new Usuario(extraidos.getString("nombreUsuario"), extraidos.getString("token"), extraidos.getString("secretToken"));
@@ -132,14 +132,14 @@ public class Interaccion {
 	 */
 	public static boolean actualizarImagenPerfil(String nombreUsuario, Image imagen, String formato)
 	{
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-        try {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+		try {
 			ImageIO.write((RenderedImage)imagen, formato, baos);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
-        byte[] data = baos.toByteArray(); 
-        return gestor.enviarImagen("UPDATE Usuarios SET imagen = ? WHERE nombreUsuario = '"+nombreUsuario+"'", data);
+		byte[] data = baos.toByteArray(); 
+		return gestor.enviarImagen("UPDATE Usuarios SET imagen = ? WHERE nombreUsuario = '"+nombreUsuario+"'", data);
 	}
 	/**
 	 * Elimina todos los contenidos de la tabla Usuarios para poder simular
@@ -185,7 +185,7 @@ public class Interaccion {
 		for(Usuario temp: usuarios)
 		{
 			try{
-			temp.setImagen(gestor.getImage(temp.getNombreUsuario()));
+				temp.setImagen(gestor.getImage(temp.getNombreUsuario()));
 			}catch(Exception e){
 			}
 		}
@@ -199,11 +199,11 @@ public class Interaccion {
 	public static boolean insertarTweet(Tweet añadir, String nombreUsuario, String formatoImagen)
 	{
 		boolean correcto = true;
-		
+
 		correcto = correcto && gestor.enviarComando("INSERT INTO Tweets(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ('"+añadir.getCodigo()+"','"+añadir.getUltimaFechaActualizacion()+"','"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+añadir.esRetweet()+","+añadir.esFavorito()+")");
 		correcto = correcto && gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"','"+añadir.getCodigo()+"')");
 		try{
-		actualizarImagenTweet(añadir.getImagenUsuario(), formatoImagen, añadir.getCodigo());
+			actualizarImagenTweet(añadir.getImagenUsuario(), formatoImagen, añadir.getCodigo());
 		}catch(IllegalArgumentException E)
 		{
 			return correcto;
@@ -237,14 +237,14 @@ public class Interaccion {
 	 */
 	public static boolean actualizarImagenTweet(Image imagen, String formato, String codTweet)
 	{
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-        try {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+		try {
 			ImageIO.write((RenderedImage)imagen, formato, baos);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
-        byte[] data = baos.toByteArray(); 
-        return gestor.enviarImagen("UPDATE Tweets SET imagen = ? WHERE codigo = '"+codTweet+"'", data);
+		byte[] data = baos.toByteArray(); 
+		return gestor.enviarImagen("UPDATE Tweets SET imagen = ? WHERE codigo = '"+codTweet+"'", data);
 	}
 	public static void main(String[]args) throws IOException
 	{
@@ -252,5 +252,5 @@ public class Interaccion {
 		//borrarTodosLosCredenciales();
 
 	}
-	
+
 }
