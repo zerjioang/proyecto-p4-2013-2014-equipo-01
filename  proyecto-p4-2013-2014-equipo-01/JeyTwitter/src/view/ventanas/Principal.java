@@ -75,7 +75,7 @@ public class Principal extends CustomJFrame {
 	private JPanel panelVista;
 	private JLabel lblImagen;
 	
-	private Usuario usuarioActual;
+	private static Usuario usuarioActual;
 	
 	/**
 	 * Constructor por defecto
@@ -360,5 +360,13 @@ public class Principal extends CustomJFrame {
 		// Para pruebas
 		lblImagen.setIcon(Util.getImagenRedondeada(imagen, 15));
 		lblImagen.setIcon(Util.escalarImagen(lblImagen));
+	}
+
+	public static Usuario getUsuarioActual() {
+		return usuarioActual;
+	}
+
+	public static void setUsuarioActual(Usuario usuarioActual) {
+		Principal.usuarioActual = usuarioActual;
 	}
 }
