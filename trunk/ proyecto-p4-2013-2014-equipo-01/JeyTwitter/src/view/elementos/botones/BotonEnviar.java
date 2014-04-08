@@ -22,4 +22,6 @@ public class BotonEnviar extends BotonUI{
 		
 		setIcon(new ImageIcon(MensajeWindow.class.getResource(getImagenNormal())));
 	}
+	
+	
 }

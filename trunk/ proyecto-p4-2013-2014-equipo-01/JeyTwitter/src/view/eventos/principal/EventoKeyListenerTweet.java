@@ -4,8 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JTextArea;
-
-import view.elementos.input.CampoTweet;
 import view.elementos.paneles.PanelEnviarTweet;
 
 public class EventoKeyListenerTweet implements KeyListener {
