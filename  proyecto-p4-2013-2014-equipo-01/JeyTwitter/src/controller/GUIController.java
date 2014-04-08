@@ -85,7 +85,7 @@ public class GUIController {
 		try {
 			listaTL = t.getTimeline();
 			for (Status each : listaTL) {
-				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getOriginalProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
+				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getBiggerProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
 				timeline.add(t);
 			}
 		} catch (TwitterException e) {
@@ -94,7 +94,91 @@ public class GUIController {
 		}
 		return timeline;
 	}
+	
+	/**
+	 * Muestra las menciones en el elemento de la GUI correspondiente
+	 * @return 
+	 */
+	public ArrayList<Tweet> mostrarMenciones() {
+		ResponseList<Status> listaTL;
+		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 
+		try {
+			listaTL = t.getMentions();
+			for (Status each : listaTL) {
+				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getBiggerProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
+				timeline.add(t);
+			}
+		} catch (TwitterException e) {
+			// Error al recuperar el timeline
+			e.printStackTrace();
+		}
+		return timeline;
+	}
+	
+	/**
+	 * Muestra mis retweets en el elemento de la GUI correspondiente
+	 * @return 
+	 */
+	public ArrayList<Tweet> mostrarRetuits() {
+		ResponseList<Status> listaTL;
+		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+
+		try {
+			listaTL = t.getRetweetsOfMe();
+			for (Status each : listaTL) {
+				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getBiggerProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
+				timeline.add(t);
+			}
+		} catch (TwitterException e) {
+			// Error al recuperar el timeline
+			e.printStackTrace();
+		}
+		return timeline;
+	}
+	
+	/**
+	 * Muestra mis tuits en el elemento de la GUI correspondiente
+	 * @return 
+	 */
+	public ArrayList<Tweet> mostrarPerfil() {
+		ResponseList<Status> listaTL;
+		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+
+		try {
+			listaTL = t.getProfileTuits();
+			for (Status each : listaTL) {
+				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getBiggerProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
+				timeline.add(t);
+			}
+		} catch (TwitterException e) {
+			// Error al recuperar el timeline
+			e.printStackTrace();
+		}
+		return timeline;
+	}
+	
+	/**
+	 * Muestra favoritos en el elemento de la GUI correspondiente
+	 * @return 
+	 */
+	public ArrayList<Tweet> mostrarFavoritos() {
+		ResponseList<Status> listaTL;
+		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+
+		try {
+			listaTL = t.getFavorites();
+			for (Status each : listaTL) {
+				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getBiggerProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
+				timeline.add(t);
+			}
+		} catch (TwitterException e) {
+			// Error al recuperar el timeline
+			e.printStackTrace();
+		}
+		return timeline;
+	}
+	
 	/**
 	 * Traduce a nuestra clase modelo Usuario la clase User que maneja la API
 	 * @return
@@ -123,22 +207,7 @@ public class GUIController {
 		InetAddress address;
 		System.out.println("Comprobando conexion...");
 		
-		try {
-			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-			while (interfaces.hasMoreElements()) {
-				System.out.println(interfaces);
-				NetworkInterface interf = interfaces.nextElement();
-				if (interf.isUp() && !interf.isLoopback())
-					return true;
-			}
-			return false;
-		} catch (SocketException e1) {
-			// TODO Auto-generated catch block
-			online = false;
-			e1.printStackTrace();
-			return false;
-		}
-		/*
+		
 		try {
 			address = InetAddress.getByName("www.twitter.com");
 			System.out.println("Comprobado. Esperando resultado...");
@@ -150,7 +219,7 @@ public class GUIController {
 			e2.printStackTrace();
 			return false;
 		}
-		*/
+		
 	}
 
 	/**
