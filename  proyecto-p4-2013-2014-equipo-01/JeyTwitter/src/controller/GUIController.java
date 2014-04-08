@@ -5,9 +5,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
@@ -119,17 +122,35 @@ public class GUIController {
 		@SuppressWarnings("unused")
 		InetAddress address;
 		System.out.println("Comprobando conexion...");
+		
+		try {
+			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+			while (interfaces.hasMoreElements()) {
+				System.out.println(interfaces);
+				NetworkInterface interf = interfaces.nextElement();
+				if (interf.isUp() && !interf.isLoopback())
+					return true;
+			}
+			return false;
+		} catch (SocketException e1) {
+			// TODO Auto-generated catch block
+			online = false;
+			e1.printStackTrace();
+			return false;
+		}
+		/*
 		try {
 			address = InetAddress.getByName("www.twitter.com");
 			System.out.println("Comprobado. Esperando resultado...");
 			online = true;
 			return true;
-		} catch (UnknownHostException e) {
+		} catch (UnknownHostException e2) {
 			// TODO Auto-generated catch block
 			online = false;
-			e.printStackTrace();
+			e2.printStackTrace();
 			return false;
-		} 
+		}
+		*/
 	}
 
 	/**
