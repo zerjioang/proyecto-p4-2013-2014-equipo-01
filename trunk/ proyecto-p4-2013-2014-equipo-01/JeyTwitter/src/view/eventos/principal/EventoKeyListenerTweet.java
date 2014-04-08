@@ -1,9 +1,9 @@
 package view.eventos.principal;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JTextArea;
 import view.elementos.paneles.PanelEnviarTweet;
 
 public class EventoKeyListenerTweet implements KeyListener {
@@ -17,19 +17,27 @@ public class EventoKeyListenerTweet implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		panel.setContador(String.valueOf(140 - panel.getMensaje().length()));
+		if (panel.getMensaje().length()>140){
+			panel.getBtnEnviar().setEnabled(false);
+			panel.getLblContador().setForeground(Color.RED);
+			
+		} else {
+			panel.getBtnEnviar().setEnabled(true);
+			panel.getLblContador().setForeground(Color.BLACK);
 
+		}
+		
 	}
 
 }
