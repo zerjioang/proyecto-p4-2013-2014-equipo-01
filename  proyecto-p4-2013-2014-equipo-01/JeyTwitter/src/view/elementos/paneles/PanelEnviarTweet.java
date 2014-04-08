@@ -17,6 +17,7 @@ import javax.swing.border.TitledBorder;
 import util.Util;
 import view.elementos.botones.BotonEnviar;
 import view.eventos.principal.EventoClickEnviarTweet;
+import view.eventos.principal.EventoKeyListenerTweet;
 
 public class PanelEnviarTweet extends JPanel {
 	
@@ -36,7 +37,6 @@ public class PanelEnviarTweet extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnEnviar.addMouseListener(new EventoClickEnviarTweet(this));
 		
 		JScrollPane scrollPaneMensaje = new JScrollPane();
 		scrollPaneMensaje.setBorder(null);
@@ -46,6 +46,7 @@ public class PanelEnviarTweet extends JPanel {
 		txtMensaje.setLineWrap(true);
 		txtMensaje.setWrapStyleWord(true);
 		txtMensaje.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 16));
+		
 		
 		lblContador.setBorder(null);
 		lblContador.setBackground(Color.WHITE);
@@ -57,6 +58,10 @@ public class PanelEnviarTweet extends JPanel {
 		add(lblContador, BorderLayout.SOUTH);
 		add(scrollPaneMensaje, BorderLayout.CENTER);
 		scrollPaneMensaje.setViewportView(txtMensaje);
+		
+		//Eventos
+		btnEnviar.addMouseListener(new EventoClickEnviarTweet(this));
+		txtMensaje.addKeyListener(new EventoKeyListenerTweet(this));
 	}
 
 	/**

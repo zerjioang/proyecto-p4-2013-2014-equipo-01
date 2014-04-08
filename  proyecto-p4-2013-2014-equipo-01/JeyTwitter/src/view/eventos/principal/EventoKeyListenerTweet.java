@@ -3,12 +3,17 @@ package view.eventos.principal;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JTextArea;
+
 import view.elementos.input.CampoTweet;
+import view.elementos.paneles.PanelEnviarTweet;
 
 public class EventoKeyListenerTweet implements KeyListener {
-
-	public EventoKeyListenerTweet(CampoTweet campoTweet) {
-		// TODO Auto-generated constructor stub
+	
+	private final PanelEnviarTweet panel;
+	
+	public EventoKeyListenerTweet(PanelEnviarTweet panelEnviarTweet) {
+		panel = panelEnviarTweet;
 	}
 
 	@Override

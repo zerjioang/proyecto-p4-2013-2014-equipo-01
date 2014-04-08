@@ -17,7 +17,7 @@ public class EventoClickEnviarTweet implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		if(GUIController.getInstance().enviarTweet(panel.getMensaje())) {
-			System.out.println("Tweet enviado con éxito.");
+			System.out.println("Tweet enviado con exito.");
 		} else {
 			System.out.println("Ha ocurrido un error al enviar el tweet.");
 		}
