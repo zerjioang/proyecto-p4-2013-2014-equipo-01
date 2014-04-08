@@ -8,16 +8,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Image;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
-import sun.swing.ImageIconUIResource;
-import twitter4j.Status;
 import util.Util;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.paneles.GUITweet;
@@ -58,12 +54,12 @@ public class Principal extends CustomJFrame {
 
 	//Constantes
 	private static final Color COLOR_PANEL = new Color(64, 64, 64);
-	private static final int TIMELINE = 0;
-	private static final int MENCIONES = 1;
-	private static final int FAVORITOS = 2;
-	private static final int RETUITS = 3;
-	private static final int TUITSUSUARIO = 4;
-	private static final int BUSQUEDA = 5;
+	public static final int TIMELINE = 0;
+	public static final int MENCIONES = 1;
+	public static final int FAVORITOS = 2;
+	public static final int RETUITS = 3;
+	public static final int TUITSUSUARIO = 4;
+	public static final int BUSQUEDA = 5;
 	
 	private JTable tablaMenu;
 	private BotonSeguir btnDejarDeSeguir;

@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 
 import controller.GUIController;
 import view.elementos.paneles.PanelEnviarTweet;
+import view.ventanas.Principal;
 
 public class EventoClickEnviarTweet implements MouseListener {
 
@@ -16,10 +17,14 @@ public class EventoClickEnviarTweet implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if(GUIController.getInstance().enviarTweet(panel.getMensaje())) {
-			System.out.println("Tweet enviado con exito.");
-		} else {
-			System.out.println("Ha ocurrido un error al enviar el tweet.");
+		if(panel.getMensaje().length()<140) {
+			if(GUIController.getInstance().enviarTweet(panel.getMensaje())) {
+				System.out.println("Tweet enviado con exito.");
+				panel.setMensaje("");
+				panel.getVentanaPadre().recargarTweets(Principal.TIMELINE);
+			} else {
+				System.out.println("Ha ocurrido un error al enviar el tweet.");
+			}			
 		}
 	}
 
