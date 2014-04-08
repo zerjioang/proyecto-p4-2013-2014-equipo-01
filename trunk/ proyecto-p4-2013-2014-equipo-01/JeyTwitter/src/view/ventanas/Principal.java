@@ -1,5 +1,6 @@
 package view.ventanas;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -40,6 +41,9 @@ import view.renderers.UIButtonRenderer;
 
 import java.awt.Font;
 import java.awt.Cursor;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -227,16 +231,16 @@ public class Principal extends CustomJFrame {
 			listaTuits = GUIController.getInstance().mostrarTimeline();
 			break;
 		case 1:
-			listaTuits = GUIController.getInstance().mostrarTimeline();
+			listaTuits = GUIController.getInstance().mostrarMenciones();
 			break;
 		case 2:
-			listaTuits = GUIController.getInstance().mostrarTimeline();
+			listaTuits = GUIController.getInstance().mostrarFavoritos();
 			break;
 		case 3:
-			listaTuits = GUIController.getInstance().mostrarTimeline();
+			listaTuits = GUIController.getInstance().mostrarRetuits();
 			break;
 		case 4:
-			listaTuits = GUIController.getInstance().mostrarTimeline();
+			listaTuits = GUIController.getInstance().mostrarPerfil();
 			break;
 		case 5:
 			listaTuits = GUIController.getInstance().mostrarTimeline();
@@ -245,8 +249,14 @@ public class Principal extends CustomJFrame {
 		ArrayList<ObjetoCelda> lista = new ArrayList<ObjetoCelda>();
 		
 		for(Tweet each : listaTuits){
-			GUITweet guiTweet = new GUITweet("2d", new ImageIcon(Principal.class.getResource("/res/images/a.jpg")), each.getNombreUsuario(), each.getNombreReal(), each.getTexto());
-			lista.add(0, guiTweet);
+			GUITweet guiTweet;
+			try {
+				guiTweet = new GUITweet("2d", new ImageIcon(ImageIO.read(new URL(each.getImagenUsuario()))), each.getNombreUsuario(), each.getNombreReal(), each.getTexto());
+				lista.add(lista.size(), guiTweet);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return lista;
 	}

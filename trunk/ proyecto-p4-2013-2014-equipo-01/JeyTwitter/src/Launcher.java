@@ -1,8 +1,3 @@
-import java.sql.Date;
-
-import javax.swing.ImageIcon;
-
-import model.Usuario;
 import controller.GUIController;
 import util.Util;
 import view.ventanas.Principal;
@@ -30,7 +25,7 @@ public class Launcher {
 					mostrarPrincipal();
 				else{
 					//El usuario no existe y no tiene Internet para autentificarse por lo tanto salir
-					Util.showError(null, Util.APP_TITULO+" se cerrara", "No tiene sesión iniciada en "+Util.APP_TITULO, "Cancelar", "Aceptar");
+					Util.showError(null, Util.APP_TITULO+" se cerrara", "No tiene sesiï¿½n iniciada en "+Util.APP_TITULO, "Cancelar", "Aceptar");
 					spl.dispose();
 					System.exit(1);
 				}

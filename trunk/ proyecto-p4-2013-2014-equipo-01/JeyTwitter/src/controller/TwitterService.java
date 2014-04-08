@@ -134,6 +134,34 @@ public class TwitterService {
 		}
 		return list;
 	}
+	
+	/**
+	 * Recupera el Timeline de mi perfil
+	 * @return
+	 * @throws TwitterException
+	 */
+	public ResponseList<Status> getProfileTuits() throws TwitterException {
+		ResponseList<Status> list = null;
+
+		if (tw != null) {
+			list = tw.getUserTimeline();						
+		}
+		return list;
+	}
+	
+	/**
+	 * Recupera mis favotritos
+	 * @return
+	 * @throws TwitterException
+	 */
+	public ResponseList<Status> getFavorites() throws TwitterException {
+		ResponseList<Status> list = null;
+
+		if (tw != null) {
+			list = tw.getFavorites();						
+		}
+		return list;
+	}
 
 	/**
 	 * Recupera todos nuestros Tweets retwitteados por mi
