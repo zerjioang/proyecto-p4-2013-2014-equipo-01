@@ -33,7 +33,8 @@ public class Button extends JLabel{
 	 * @param imagenNormal	ruta donde reside la imagen normal del boton
 	 */
 	public void setImagenNormal(String imagenNormal) {
-		this.imagenNormal = imagenNormal;
+		if(isEnabled())
+			this.imagenNormal = imagenNormal;
 	}
 
 	/**
@@ -48,7 +49,8 @@ public class Button extends JLabel{
 	 * @param imagenClick	ruta donde reside la imagen click del boton
 	 */
 	public void setImagenClick(String imagenClick) {
-		this.imagenClick = imagenClick;
+		if(isEnabled())
+			this.imagenClick = imagenClick;
 	}
 
 	/**
@@ -63,6 +65,7 @@ public class Button extends JLabel{
 	 * @param imagenHover	ruta donde reside la imagen hover del boton
 	 */
 	public void setImagenHover(String imagenHover) {
-		this.imagenHover = imagenHover;
+		if(isEnabled())
+			this.imagenHover = imagenHover;
 	}
 }

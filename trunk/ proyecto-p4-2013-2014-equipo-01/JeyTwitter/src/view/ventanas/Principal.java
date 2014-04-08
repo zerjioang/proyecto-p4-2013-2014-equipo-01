@@ -95,7 +95,7 @@ public class Principal extends CustomJFrame {
 		menciones = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(MENCIONES)));
 		retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(RETUITS)));
 		favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(FAVORITOS)));
-		panelInferior = new PanelEnviarTweet();
+		panelInferior = new PanelEnviarTweet(this);
 		
 		ArrayList<ObjetoCelda> o = new ArrayList<ObjetoCelda>();
 		o.add(0, new GuiTwitterUsuario());
