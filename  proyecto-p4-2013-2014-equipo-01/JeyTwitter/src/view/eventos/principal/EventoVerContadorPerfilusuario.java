@@ -5,11 +5,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import view.elementos.paneles.PanelPerfilUsuario;
+import view.ventanas.Contador;
 
-public class EventoBotonSiguiendoUsuario implements MouseListener, MouseMotionListener {
+public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotionListener {
 
-	public EventoBotonSiguiendoUsuario(PanelPerfilUsuario panelPerfilUsuario) {
-		// TODO Auto-generated constructor stub
+	private final PanelPerfilUsuario p;
+	private static Contador c;
+
+	public EventoVerContadorPerfilusuario(PanelPerfilUsuario panelPerfilUsuario, Contador c) {
+		p = panelPerfilUsuario;
+		this.c = c;
 	}
 
 	@Override
@@ -20,14 +25,14 @@ public class EventoBotonSiguiendoUsuario implements MouseListener, MouseMotionLi
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		c.setCantidad(500);
+		mover(e);
+		c.setVisible(true);
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		c.setVisible(false);
 	}
 
 	@Override
@@ -50,8 +55,16 @@ public class EventoBotonSiguiendoUsuario implements MouseListener, MouseMotionLi
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		mover(e);
+	}
+
+	/**
+	 * @param e
+	 */
+	private void mover(MouseEvent e) {
+		int x = e.getXOnScreen();
+		int y = e.getYOnScreen();
+		c.setLocation(x-30, y-c.getHeight());
 	}
 
 }

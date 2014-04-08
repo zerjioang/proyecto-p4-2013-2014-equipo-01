@@ -21,11 +21,9 @@ import model.Usuario;
 import util.Util;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.botones.CoolBlueButton;
-import view.eventos.principal.EventoBotonFavoritosUsuario;
-import view.eventos.principal.EventoBotonSeguidoresUsuario;
-import view.eventos.principal.EventoBotonSiguiendoUsuario;
-import view.eventos.principal.EventoBotonTweetsUsuario;
+import view.eventos.principal.EventoVerContadorPerfilusuario;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
+import view.ventanas.Contador;
 
 public class PanelPerfilUsuario extends JPanel {
 	
@@ -44,10 +42,16 @@ public class PanelPerfilUsuario extends JPanel {
 	private CoolBlueButton btnSiguiendo;
 	private TablaTweetsUsuarios tablaTweetsUsuario;
 	private ArrayList<ObjetoCelda> listaObjetos;
+	
+	private Contador cTweets, cFavoritos, cSiguiendo, cSeguidores;
 	private Usuario us;
 
 	public PanelPerfilUsuario(){
 		super();
+		cTweets = new Contador();
+		cFavoritos = new Contador();
+		cSiguiendo = new Contador();
+		cSeguidores = new Contador();
 		
 		lblImagenUsuario = new JLabel("");
 		lblImagenFondo = new JLabel("");
@@ -183,15 +187,10 @@ public class PanelPerfilUsuario extends JPanel {
 		btnSiguiendo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		//Eventos botones usuario
-		btnTweets.addMouseListener(new EventoBotonTweetsUsuario(this));
-		btnFavoritos.addMouseListener(new EventoBotonFavoritosUsuario(this));
-		btnSeguidores.addMouseListener(new EventoBotonSeguidoresUsuario(this));
-		btnSiguiendo.addMouseListener(new EventoBotonSiguiendoUsuario(this));
-		
-		btnTweets.addMouseMotionListener(new EventoBotonTweetsUsuario(this));
-		btnFavoritos.addMouseMotionListener(new EventoBotonFavoritosUsuario(this));
-		btnSeguidores.addMouseMotionListener(new EventoBotonSeguidoresUsuario(this));
-		btnSiguiendo.addMouseMotionListener(new EventoBotonSiguiendoUsuario(this));
+		btnTweets.addMouseListener(new EventoVerContadorPerfilusuario(this, cTweets));
+		btnFavoritos.addMouseListener(new EventoVerContadorPerfilusuario(this, cFavoritos));
+		btnSeguidores.addMouseListener(new EventoVerContadorPerfilusuario(this, cSiguiendo));
+		btnSiguiendo.addMouseListener(new EventoVerContadorPerfilusuario(this, cSeguidores));
 
 		JScrollPane scrollPaneUsuario = new JScrollPane();
 		scrollPaneUsuario.setViewportBorder(null);
