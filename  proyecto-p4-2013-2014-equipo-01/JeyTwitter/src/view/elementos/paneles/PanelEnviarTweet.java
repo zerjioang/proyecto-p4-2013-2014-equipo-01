@@ -92,4 +92,12 @@ public class PanelEnviarTweet extends JPanel {
 		this.lblContador.setText(lblContador);
 	}
 
+	public BotonEnviar getBtnEnviar() {
+		return btnEnviar;
+	}
+
+	public void setBtnEnviar(BotonEnviar btnEnviar) {
+		this.btnEnviar = btnEnviar;
+	}
+
 }
