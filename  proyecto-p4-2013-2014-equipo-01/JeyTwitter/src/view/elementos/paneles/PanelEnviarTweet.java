@@ -18,15 +18,18 @@ import util.Util;
 import view.elementos.botones.BotonEnviar;
 import view.eventos.principal.EventoClickEnviarTweet;
 import view.eventos.principal.EventoKeyListenerTweet;
+import view.ventanas.Principal;
 
 public class PanelEnviarTweet extends JPanel {
 	
+	private final Principal ventanaPadre;
 	private BotonEnviar btnEnviar;
 	private JTextArea txtMensaje;
 	private JLabel lblContador;
 	
-	public PanelEnviarTweet(){
+	public PanelEnviarTweet(Principal ventanaPadre){
 		super();
+		this.ventanaPadre = ventanaPadre;
 		btnEnviar = new BotonEnviar();
 		txtMensaje = new JTextArea();
 		lblContador = new JLabel("140");
@@ -106,6 +109,10 @@ public class PanelEnviarTweet extends JPanel {
 
 	public void setLblContador(JLabel lblContador) {
 		this.lblContador = lblContador;
+	}
+
+	public Principal getVentanaPadre() {
+		return ventanaPadre;
 	}
 
 }
