@@ -1,41 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.5" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <class id="1" language="java" name="view.elementos.input.CampoBusqueda" project="JeyTuiter" 
-    file="/JeyTuiter/src/view/elementos/input/CampoBusqueda.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="189" width="162" x="243" y="302"/>    
+  <class id="1" language="java" name="model.Usuario" project="JeyTuiter" file="/JeyTuiter/src/model/Usuario.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="675" width="321" x="41" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="view.elementos.input.CampoCodeAuth" project="JeyTuiter" 
-    file="/JeyTuiter/src/view/elementos/input/CampoCodeAuth.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="189" width="162" x="41" y="302"/>    
+  <class id="2" language="java" name="model.Tweet" project="JeyTuiter" file="/JeyTuiter/src/model/Tweet.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="513" width="315" x="402" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="view.elementos.input.InputField" project="JeyTuiter" 
-    file="/JeyTuiter/src/view/elementos/input/InputField.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="225" width="167" x="142" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <generalization id="4">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <generalization id="5">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
