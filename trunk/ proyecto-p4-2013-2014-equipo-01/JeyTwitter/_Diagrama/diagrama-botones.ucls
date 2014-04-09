@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
   <class id="1" language="java" name="view.elementos.botones.Button" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/Button.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="297" width="167" x="495" y="1094"/>    
+    <position height="-1" width="-1" x="608" y="452"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="view.elementos.botones.BotonUI" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/BotonUI.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="171" width="129" x="418" y="1499"/>    
+    <position height="171" width="129" x="448" y="709"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="view.elementos.botones.BotonNegroCuadrado" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/BotonNegroCuadrado.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1029" y="1557"/>    
+    <position height="-1" width="-1" x="1059" y="767"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="view.elementos.botones.BotonEnviar" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/BotonEnviar.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="139" x="228" y="1822"/>    
+    <position height="99" width="139" x="258" y="1032"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="view.elementos.botones.BinaryButton" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/BinaryButton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="662" y="1620"/>    
+    <position height="-1" width="-1" x="692" y="830"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="view.elementos.botones.MenuButton" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/MenuButton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="131" x="407" y="1822"/>    
+    <position height="117" width="131" x="437" y="1032"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="view.elementos.botones.BotonId" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/BotonId.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="841" y="1548"/>    
+    <position height="-1" width="-1" x="871" y="758"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,7 +66,7 @@
   </class>  
   <class id="8" language="java" name="view.elementos.botones.BotonSeguir" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/BotonSeguir.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="225" width="181" x="274" y="1094"/>    
+    <position height="-1" width="-1" x="394" y="416"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -75,7 +75,7 @@
   </class>  
   <class id="9" language="java" name="view.elementos.botones.BotonEmpezar" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/BotonEmpezar.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="150" x="578" y="1822"/>    
+    <position height="99" width="150" x="608" y="1032"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -84,7 +84,7 @@
   </class>  
   <class id="10" language="java" name="view.elementos.botones.BotonBuscar" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/BotonBuscar.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="162" x="26" y="1822"/>    
+    <position height="99" width="162" x="56" y="1032"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -93,7 +93,7 @@
   </class>  
   <class id="11" language="java" name="view.elementos.botones.BotonAzulCuadrado" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/BotonAzulCuadrado.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="298" y="1557"/>    
+    <position height="-1" width="-1" x="328" y="767"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -102,7 +102,7 @@
   </class>  
   <class id="12" language="java" name="view.elementos.botones.CoolBlueButton" project="JeyTuiter" 
     file="/JeyTuiter/src/view/elementos/botones/CoolBlueButton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="111" y="1557"/>    
+    <position height="-1" width="-1" x="141" y="767"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -111,7 +111,7 @@
   </class>  
   <class id="13" language="java" name="javax.swing.JLabel" project="JeyTuiter" 
     file="C:/Program Files/Java/jre7/lib/rt.jar" binary="true" corner="BOTTOM_RIGHT">    
-    <position height="96" width="143" x="412" y="872"/>    
+    <position height="96" width="143" x="442" y="82"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -119,52 +119,52 @@
     </display>  
   </class>  
   <generalization id="14">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="15">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <generalization id="16">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <generalization id="17">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="18">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="19">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="20">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="21">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="2"/>  
   </generalization>  
-  <generalization id="22">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="2"/>  
+  <generalization id="15">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
   </generalization>  
-  <generalization id="23">    
+  <generalization id="16">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="17">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="18">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <generalization id="19">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="20">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <generalization id="24">    
+  <generalization id="21">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <generalization id="23">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="2"/>  
   </generalization>  
+  <generalization id="24">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
   <generalization id="25">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="2"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
