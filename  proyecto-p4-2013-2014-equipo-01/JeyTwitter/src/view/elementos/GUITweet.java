@@ -1,4 +1,4 @@
-package view.elementos.paneles;
+package view.elementos;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

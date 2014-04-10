@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
 
-import view.elementos.paneles.ObjetoCelda;
+import view.elementos.ObjetoCelda;
 
 
 public abstract class ModeloTablaLateral extends AbstractTableModel{

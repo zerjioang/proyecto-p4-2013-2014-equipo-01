@@ -1,6 +1,6 @@
 package view.renderers;
 
-import view.elementos.paneles.GUITweet;
+import view.elementos.GUITweet;
 
 import java.awt.Component;
 

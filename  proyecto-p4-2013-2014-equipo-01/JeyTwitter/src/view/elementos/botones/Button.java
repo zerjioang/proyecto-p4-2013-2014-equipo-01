@@ -2,7 +2,7 @@ package view.elementos.botones;
 
 import javax.swing.JLabel;
 
-import view.eventos.EventosButton;
+import view.eventos.botonesGenericos.EventosButton;
 
 public class Button extends JLabel{
 

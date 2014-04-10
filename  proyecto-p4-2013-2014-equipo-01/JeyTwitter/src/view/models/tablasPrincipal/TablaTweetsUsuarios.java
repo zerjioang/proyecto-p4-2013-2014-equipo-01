@@ -10,9 +10,9 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import util.Util;
-import view.elementos.paneles.GUITweet;
-import view.elementos.paneles.GuiTwitterUsuario;
-import view.elementos.paneles.ObjetoCelda;
+import view.elementos.GUITweet;
+import view.elementos.GuiTwitterUsuario;
+import view.elementos.ObjetoCelda;
 import view.models.ModeloTablaLateral;
 import view.renderers.TweetEditor;
 import view.renderers.TweetRenderer;

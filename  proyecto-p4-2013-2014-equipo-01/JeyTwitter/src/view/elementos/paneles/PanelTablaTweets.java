@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import view.elementos.ObjetoCelda;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 import view.ventanas.Principal;
 

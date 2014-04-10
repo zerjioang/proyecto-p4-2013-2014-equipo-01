@@ -15,10 +15,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
 import util.Util;
+import view.elementos.GUITweet;
+import view.elementos.GuiTwitterUsuario;
+import view.elementos.ObjetoCelda;
 import view.elementos.botones.BotonSeguir;
-import view.elementos.paneles.GUITweet;
-import view.elementos.paneles.GuiTwitterUsuario;
-import view.elementos.paneles.ObjetoCelda;
 import view.elementos.paneles.PanelBusqueda;
 import view.elementos.paneles.PanelEnviarTweet;
 import view.elementos.paneles.PanelPerfilUsuario;

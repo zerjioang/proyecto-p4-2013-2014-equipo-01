@@ -1,4 +1,4 @@
-package view.eventos;
+package view.eventos.botonesGenericos;
 /**
  * Evento que controla el cambio de estado del boton binario (on off)
  * @author Sergio Anguita

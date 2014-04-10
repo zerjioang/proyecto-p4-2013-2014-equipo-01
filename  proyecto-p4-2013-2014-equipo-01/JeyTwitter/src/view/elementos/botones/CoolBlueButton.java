@@ -1,7 +1,7 @@
 package view.elementos.botones;
 
 import util.Util;
-import view.eventos.EventosButton;
+import view.eventos.botonesGenericos.EventosButton;
 
 import java.awt.Color;
 import java.awt.Cursor;

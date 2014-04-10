@@ -42,6 +42,8 @@ public class Util {
 	FICHERO_XML = "config.xml",
 	SQLITE_NOMBRE_BBDD = "JeyTuiterSQL.sqlite";
 
+	public static final String URL_SVN = "https://code.google.com/p/proyecto-p4-2013-2014-equipo-01/";
+
 	//Este array representa las diferentes areas de configuracion
 	public static String[] settings =
 		{

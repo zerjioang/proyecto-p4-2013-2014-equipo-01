@@ -5,7 +5,7 @@ import java.awt.Cursor;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
-import view.eventos.EventosButton;
+import view.eventos.botonesGenericos.EventosButton;
 import view.ventanas.MensajeWindow;
 
 public class BotonId extends Button {
