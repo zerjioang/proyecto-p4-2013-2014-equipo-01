@@ -5,15 +5,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import controller.sql.Interaccion;
 import model.Tweet;
@@ -23,6 +26,7 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.User;
 import twitter4j.auth.AccessToken;
+import view.ventanas.Principal;
 
 /**
  * Clase encargada de intermediar entre la GUI y la API de Twitter
@@ -81,16 +85,29 @@ public class GUIController {
 	public ArrayList<Tweet> mostrarTimeline() {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-
-		try {
-			listaTL = t.getTimeline();
-			for (Status each : listaTL) {
-				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getBiggerProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
+		
+		if (hayConexion()) {
+			try {
+				listaTL = t.getTimeline();
+				for (Status each : listaTL) {
+					Tweet t;
+					try {
+						t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						timeline.add(t);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} catch (TwitterException e) {
+				// Error al recuperar el timeline
+				e.printStackTrace();
+			}
+		} else {
+			for (int i = 0; i<20; i++) {
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
 				timeline.add(t);
 			}
-		} catch (TwitterException e) {
-			// Error al recuperar el timeline
-			e.printStackTrace();
 		}
 		return timeline;
 	}
@@ -99,19 +116,32 @@ public class GUIController {
 	 * Muestra las menciones en el elemento de la GUI correspondiente
 	 * @return 
 	 */
-	public ArrayList<Tweet> mostrarMenciones() {
+	public ArrayList<Tweet> mostrarMenciones() throws MalformedURLException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-
-		try {
-			listaTL = t.getMentions();
-			for (Status each : listaTL) {
-				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getBiggerProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
+		
+		if (hayConexion()) {
+			try {
+				listaTL = t.getMentions();
+				for (Status each : listaTL) {
+					Tweet t;
+					try {
+						t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						timeline.add(t);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} catch (TwitterException e) {
+				// Error al recuperar el timeline
+				e.printStackTrace();
+			}
+		} else {
+			for (int i = 0; i<20; i++) {
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
 				timeline.add(t);
 			}
-		} catch (TwitterException e) {
-			// Error al recuperar el timeline
-			e.printStackTrace();
 		}
 		return timeline;
 	}
@@ -123,16 +153,29 @@ public class GUIController {
 	public ArrayList<Tweet> mostrarRetuits() {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-
-		try {
-			listaTL = t.getRetweetsOfMe();
-			for (Status each : listaTL) {
-				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getBiggerProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
+		
+		if (hayConexion()) {
+			try {
+				listaTL = t.getRetweetsOfMe();
+				for (Status each : listaTL) {
+					Tweet t;
+					try {
+						t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						timeline.add(t);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} catch (TwitterException e) {
+				// Error al recuperar el timeline
+				e.printStackTrace();
+			}
+		} else {
+			for (int i = 0; i<20; i++) {
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
 				timeline.add(t);
 			}
-		} catch (TwitterException e) {
-			// Error al recuperar el timeline
-			e.printStackTrace();
 		}
 		return timeline;
 	}
@@ -144,16 +187,29 @@ public class GUIController {
 	public ArrayList<Tweet> mostrarPerfil() {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-
-		try {
-			listaTL = t.getProfileTuits();
-			for (Status each : listaTL) {
-				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getBiggerProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
+		
+		if (hayConexion()) {
+			try {
+				listaTL = t.getProfileTuits();
+				for (Status each : listaTL) {
+					Tweet t;
+					try {
+						t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						timeline.add(t);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} catch (TwitterException e) {
+				// Error al recuperar el timeline
+				e.printStackTrace();
+			}
+		} else {
+			for (int i = 0; i<20; i++) {
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
 				timeline.add(t);
 			}
-		} catch (TwitterException e) {
-			// Error al recuperar el timeline
-			e.printStackTrace();
 		}
 		return timeline;
 	}
@@ -165,16 +221,29 @@ public class GUIController {
 	public ArrayList<Tweet> mostrarFavoritos() {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-
-		try {
-			listaTL = t.getFavorites();
-			for (Status each : listaTL) {
-				Tweet t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , each.getUser().getBiggerProfileImageURL(), each.getText(), each.isRetweet(), each.isFavorited());
+		
+		if (hayConexion()) {
+			try {
+				listaTL = t.getFavorites();
+				for (Status each : listaTL) {
+					Tweet t;
+					try {
+						t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						timeline.add(t);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} catch (TwitterException e) {
+				// Error al recuperar el timeline
+				e.printStackTrace();
+			}
+		} else {
+			for (int i = 0; i<20; i++) {
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
 				timeline.add(t);
 			}
-		} catch (TwitterException e) {
-			// Error al recuperar el timeline
-			e.printStackTrace();
 		}
 		return timeline;
 	}
@@ -188,12 +257,17 @@ public class GUIController {
 		Usuario u = null;
 		try {
 			user = t.getUsuarioRegistrado();
-
-			URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
-			Image imageProfile = ImageIO.read(urlImage);
-
-			System.out.println(user.toString());
-			u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFriendsCount(), user.getFollowersCount());
+			
+			if (hayConexion()) {
+				URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
+				Image imageProfile = ImageIO.read(urlImage);
+				
+				System.out.println(user.toString());
+				u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFriendsCount(), user.getFollowersCount());
+			} else {
+				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
+				u = (Usuario)credenciales.getFirst();
+			}
 		} catch (IllegalStateException | TwitterException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -239,7 +313,7 @@ public class GUIController {
 	 * @return
 	 */
 	public boolean recuperarTokenUsuarioGuardado() {
-		LinkedList<Usuario> credenciales = Interaccion.extraerCredenciales();
+		LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
 		System.out.println("El tamaño de la tabla usuarios es: "+credenciales.size());
 
 		if (credenciales.size() > 0) {

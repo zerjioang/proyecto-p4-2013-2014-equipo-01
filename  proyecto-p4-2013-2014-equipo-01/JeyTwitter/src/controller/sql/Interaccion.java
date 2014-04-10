@@ -323,9 +323,10 @@ public class Interaccion {
 //		Tweet temp = new Tweet("6554667", "jejfkef", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
 //		insertarTweet(temp, "Fiser12", "png");
 //		System.out.println(extraerTweets("Fiser").size());
-		JFrame temp2 = new JFrame();
-		temp2.add(new JLabel(new ImageIcon(extraerTweets("Fiser").get(0).getImagenUsuario())));
-		temp2.setVisible(true);
+		//JFrame temp2 = new JFrame();
+		//temp2.add(new JLabel(new ImageIcon(extraerTweets("Fiser").get(0).getImagenUsuario())));
+		//temp2.setVisible(true);
+		borrarTodosLosCredenciales();
 	}
 
 }

@@ -87,11 +87,16 @@ public class Principal extends CustomJFrame {
 		
 		panelesPrincipales = new JPanel[7];
 		
-		panelUsuario = new PanelPerfilUsuario(usuarioActual, recargarTweets(TUITSUSUARIO));
-		timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(TIMELINE)));
-		menciones = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(MENCIONES)));
-		retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(RETUITS)));
-		favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(FAVORITOS)));
+		try {
+			panelUsuario = new PanelPerfilUsuario(usuarioActual, recargarTweets(TUITSUSUARIO));
+			timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(TIMELINE)));
+			menciones = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(MENCIONES)));
+			retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(RETUITS)));
+			favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(FAVORITOS)));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		panelInferior = new PanelEnviarTweet(this);
 		System.out.println(panelInferior.getBounds());
 		ArrayList<ObjetoCelda> o = new ArrayList<ObjetoCelda>();
@@ -221,7 +226,7 @@ public class Principal extends CustomJFrame {
 		panelVista.setLayout(new BorderLayout(0, 0));
 	}
 	
-	public ArrayList<ObjetoCelda> recargarTweets(int tipo) {
+	public ArrayList<ObjetoCelda> recargarTweets(int tipo) throws IOException {
 		ArrayList<Tweet> listaTuits = null;
 		switch (tipo){
 		case 0:
@@ -247,13 +252,8 @@ public class Principal extends CustomJFrame {
 		
 		for(Tweet each : listaTuits){
 			GUITweet guiTweet;
-			try {
-				guiTweet = new GUITweet("2d", new ImageIcon(ImageIO.read(new URL(each.getImagenUsuario()))), each.getNombreUsuario(), each.getNombreReal(), each.getTexto());
-				lista.add(lista.size(), guiTweet);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			guiTweet = new GUITweet("2d", new ImageIcon(each.getImagenUsuario()), each.getNombreUsuario(), each.getNombreReal(), each.getTexto());
+			lista.add(lista.size(), guiTweet);
 		}
 		return lista;
 	}
