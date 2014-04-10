@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
 import util.Util;
-import view.eventos.EventosButton;
+import view.eventos.botonesGenericos.EventosButton;
 import view.ventanas.MensajeWindow;
 
 public class BotonUI extends Button{

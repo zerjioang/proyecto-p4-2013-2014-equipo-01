@@ -1,6 +1,6 @@
 package view.renderers;
 
-import view.elementos.paneles.GuiTwitterUsuario;
+import view.elementos.GuiTwitterUsuario;
 
 import java.awt.Component;
 

@@ -64,8 +64,8 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <interface id="8" language="java" name="view.elementos.paneles.ObjetoCelda" project="JeyTuiter" 
-    file="/JeyTuiter/src/view/elementos/paneles/ObjetoCelda.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="8" language="java" name="view.elementos.ObjetoCelda" project="JeyTuiter" 
+    file="/JeyTuiter/src/view/elementos/ObjetoCelda.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="577" y="318"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -73,8 +73,8 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </interface>  
-  <class id="9" language="java" name="view.elementos.paneles.GuiTwitterUsuario" project="JeyTuiter" 
-    file="/JeyTuiter/src/view/elementos/paneles/GuiTwitterUsuario.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="9" language="java" name="view.elementos.GuiTwitterUsuario" project="JeyTuiter" 
+    file="/JeyTuiter/src/view/elementos/GuiTwitterUsuario.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="717" y="198"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -82,8 +82,8 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="view.elementos.paneles.GUITweet" project="JeyTuiter" 
-    file="/JeyTuiter/src/view/elementos/paneles/GUITweet.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="10" language="java" name="view.elementos.GUITweet" project="JeyTuiter" 
+    file="/JeyTuiter/src/view/elementos/GUITweet.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="462" y="197"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

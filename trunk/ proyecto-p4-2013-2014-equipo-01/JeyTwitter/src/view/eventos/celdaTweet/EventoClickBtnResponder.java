@@ -3,7 +3,7 @@ package view.eventos.celdaTweet;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import view.elementos.paneles.GUITweet;
+import view.elementos.GUITweet;
 
 public class EventoClickBtnResponder implements MouseListener {
 

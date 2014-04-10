@@ -11,6 +11,7 @@ import javax.swing.border.LineBorder;
 
 import model.Tweet;
 import model.Usuario;
+import view.elementos.ObjetoCelda;
 import view.elementos.botones.BotonBuscar;
 import view.elementos.input.CampoBusqueda;
 import view.eventos.principal.EventoClickBuscar;

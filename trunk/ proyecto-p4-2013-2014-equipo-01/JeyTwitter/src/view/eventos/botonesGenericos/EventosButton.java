@@ -1,4 +1,4 @@
-package view.eventos;
+package view.eventos.botonesGenericos;
 
 /**
  * Evento que controla las acciones a realizar en los diferentes estado de un boton (normal - click - hover)

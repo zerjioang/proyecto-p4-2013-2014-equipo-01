@@ -1,7 +1,9 @@
 package view.elementos.botones;
 
-import view.eventos.EventoClickBinaryButton;
+import view.eventos.botonesGenericos.EventoClickBinaryButton;
+
 import java.awt.Cursor;
+
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 

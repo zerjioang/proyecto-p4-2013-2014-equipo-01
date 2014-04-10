@@ -1,4 +1,4 @@
-package view.eventos;
+package view.eventos.botonesGenericos;
 /**
  * Evento que controla las acciones a realizar en un objeto 'Boton del menu'
  * @author Sergio Anguita

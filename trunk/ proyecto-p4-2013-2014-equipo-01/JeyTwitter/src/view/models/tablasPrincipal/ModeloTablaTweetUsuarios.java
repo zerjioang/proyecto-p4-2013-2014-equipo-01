@@ -2,9 +2,9 @@ package view.models.tablasPrincipal;
 
 import java.util.ArrayList;
 
-import view.elementos.paneles.GUITweet;
-import view.elementos.paneles.GuiTwitterUsuario;
-import view.elementos.paneles.ObjetoCelda;
+import view.elementos.GUITweet;
+import view.elementos.GuiTwitterUsuario;
+import view.elementos.ObjetoCelda;
 import view.models.DataGenerate;
 import view.models.ModeloTablaLateral;
 

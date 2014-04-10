@@ -1,5 +1,6 @@
 package view.ventanas;
 
+import view.elementos.URLLabel;
 import util.Util;
 import view.elementos.botones.BotonId;
 import view.parents.CustomJDialogWithBar;
@@ -65,10 +66,10 @@ public class AcercaDe extends CustomJDialogWithBar {
 		lblDev.setForeground(Color.LIGHT_GRAY);
 		lblDev.setHorizontalAlignment(SwingConstants.CENTER);
 		getMainPanel().add(lblDev, BorderLayout.NORTH);
-		
-		JLabel lblJeytwitterV = new JLabel(Util.APP_TITULO+" v"+Util.APP_VERSION+" - Licencia GPL3");
+		//lblUrl = new URLLabel("pagina web de deusto","www.deusto.es");
+		URLLabel lblJeytwitterV = new URLLabel(Util.APP_TITULO+" v"+Util.APP_VERSION+" - Licencia GPL3", Util.URL_SVN);
 		lblJeytwitterV.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 18));
-		lblJeytwitterV.setForeground(Color.LIGHT_GRAY);
+		lblJeytwitterV.setForeground(Color.ORANGE);
 		lblJeytwitterV.setHorizontalAlignment(SwingConstants.CENTER);
 		getMainPanel().add(lblJeytwitterV, BorderLayout.SOUTH);
 		

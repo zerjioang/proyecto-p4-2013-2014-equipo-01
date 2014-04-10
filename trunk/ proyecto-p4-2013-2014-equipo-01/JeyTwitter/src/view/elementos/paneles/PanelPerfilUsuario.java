@@ -19,6 +19,7 @@ import javax.swing.border.MatteBorder;
 
 import model.Usuario;
 import util.Util;
+import view.elementos.ObjetoCelda;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.botones.CoolBlueButton;
 import view.eventos.principal.EventoVerContadorPerfilusuario;
