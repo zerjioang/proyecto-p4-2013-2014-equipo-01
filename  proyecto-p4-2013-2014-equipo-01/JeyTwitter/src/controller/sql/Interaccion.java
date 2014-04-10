@@ -3,12 +3,19 @@ package controller.sql;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
+
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import model.Tweet;
 import model.Usuario;
 /**
@@ -49,6 +56,15 @@ public class Interaccion {
 	public static boolean borrarCredenciales(String usuario)
 	{
 		return 	gestor.enviarComando("DELETE FROM Usuarios WHERE nombreUsuario = '"+usuario+"'");
+	}
+	/**
+	 * Borra los Tweets del usuario indicado
+	 * @param usuario
+	 * @return
+	 */
+	public static boolean borrarTweets(String usuario)
+	{
+		return 	gestor.enviarComando("DELETE FROM Tienen WHERE nombreUsuario = '"+usuario+"'");
 	}
 	/**
 	 * Extrae de la base de datos todos los credenciales de los usuarios registrados en la aplicacion
@@ -173,19 +189,67 @@ public class Interaccion {
 						extraidos.getInt("numeroSeguidores"));
 				temporal.add(tempUsuario);
 			}
-			cargarImagenes(temporal);
+			cargarImagenesUsuarios(temporal);
 			return temporal;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	private static void cargarImagenes(LinkedList<Usuario> usuarios)
+	/**
+	 * Método que extrae los tweets de la base de datos almacenados para una cuenta en cuestión
+	 * @param cuenta
+	 * @return
+	 */
+	public static LinkedList<Tweet> extraerTweets(String cuenta)
+	{
+		gestor.enviarComando("SELECT T.* FROM Tweets T, Tienen TI WHERE T.codigo=TI.codigo AND TI.nombreUsuario='"+cuenta+"'");
+		try {
+			ResultSet extraidos = gestor.getResultSet();
+			LinkedList<Tweet> temporal = new LinkedList<Tweet>();
+			while(extraidos.next())
+			{
+				boolean esRetweet = false;
+				boolean esFav = false;
+				if(extraidos.getInt("esRetweet")==1)
+					esRetweet = true;
+				if(extraidos.getInt("esFavorito")==1)
+					esFav = true;
+				
+				Tweet tempTweet = new Tweet(extraidos.getString("codigo"),
+						extraidos.getString("nombreUsuario"),
+						extraidos.getString("nombreReal"),
+						extraidos.getDate("fechaActualizacion"),	
+						null,	
+						extraidos.getString("texto"),	
+						esRetweet,	
+						esFav);
+				System.out.println(tempTweet.getCodigo());
+				temporal.add(tempTweet);
+				cargarImagenesTweets(temporal);
+			}
+			return temporal;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	private static void cargarImagenesUsuarios(LinkedList<Usuario> usuarios)
 	{
 		for(Usuario temp: usuarios)
 		{
 			try{
-				temp.setImagen(gestor.getImage(temp.getNombreUsuario()));
+				temp.setImagen(gestor.getImageUsuario(temp.getNombreUsuario()));
+			}catch(Exception e){
+			}
+		}
+	}
+	private static void cargarImagenesTweets(LinkedList<Tweet> tweets)
+	{
+		for(Tweet temp: tweets)
+		{
+			try{
+				temp.setImagenUsuario(gestor.getImageTweet(temp.getCodigo()));
 			}catch(Exception e){
 			}
 		}
@@ -198,17 +262,16 @@ public class Interaccion {
 	 */
 	public static boolean insertarTweet(Tweet añadir, String nombreUsuario, String formatoImagen)
 	{
-		boolean correcto = true;
-
-		correcto = correcto && gestor.enviarComando("INSERT INTO Tweets(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ('"+añadir.getCodigo()+"','"+añadir.getUltimaFechaActualizacion()+"','"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+añadir.esRetweet()+","+añadir.esFavorito()+")");
-		correcto = correcto && gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"','"+añadir.getCodigo()+"')");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		gestor.enviarComando("INSERT INTO Tweets(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ('"+añadir.getCodigo()+"',datetime('"+sdf.format(añadir.getUltimaFechaActualizacion())+"'), '"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+añadir.esRetweet()+","+añadir.esFavorito()+")");
+		gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"','"+añadir.getCodigo()+"')");
 		try{
 			actualizarImagenTweet(añadir.getImagenUsuario(), formatoImagen, añadir.getCodigo());
 		}catch(IllegalArgumentException E)
 		{
-			return correcto;
+			return true;
 		}
-		return correcto;
+		return true;
 	}
 	/**
 	 * Permite insertar una lista de Tweets, pero el formato de las imagenes debe de ser siempre el mismo, aun no he probado que sucede si se le indica cualquier tipo de formato.
@@ -244,13 +307,25 @@ public class Interaccion {
 			e.printStackTrace();
 		}  
 		byte[] data = baos.toByteArray(); 
-		return gestor.enviarImagen("UPDATE Tweets SET imagen = ? WHERE codigo = '"+codTweet+"'", data);
+		return gestor.enviarImagen("UPDATE Tweets SET imagenUsuario = ? WHERE codigo = '"+codTweet+"'", data);
 	}
 	public static void main(String[]args) throws IOException
 	{
-		//Interaccion.insertarTweet(new Tweet("sdads", "hjjnjk", "ijjijji", new Date(1220227200), null, "asdfasfasdfaf", true, true), "Fiser", "");
-		//borrarTodosLosCredenciales();
-
+//Esta parte del código prueba la inserción de usuarios y extracción de los mismos con la imagen
+//		Usuario temp = new Usuario("Fiser12", "21323", "dfasdf", "Fiser", "bibliografia", ImageIO.read(new File("src/res/images/notif/notification_follower.png")), new Date(12122012), 4, 2, 2);
+//		System.out.println(introducirUsuario(temp));
+		
+//		JFrame temp2 = new JFrame();
+//		temp2.add(new JLabel(new ImageIcon(extraerUsuarios().get(0).getImagen())));
+//		temp2.setVisible(true);
+/////////////////////----------------------------------------//////////////////////
+//Esta parte de cóidgo prueba la insercción un tweet en la bd
+//		Tweet temp = new Tweet("6554667", "jejfkef", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
+//		insertarTweet(temp, "Fiser12", "png");
+//		System.out.println(extraerTweets("Fiser").size());
+		JFrame temp2 = new JFrame();
+		temp2.add(new JLabel(new ImageIcon(extraerTweets("Fiser").get(0).getImagenUsuario())));
+		temp2.setVisible(true);
 	}
 
 }

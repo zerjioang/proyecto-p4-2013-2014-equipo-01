@@ -114,6 +114,7 @@ public class SQLiteManager
 				return false;
 			}
 		} catch (SQLException e) {
+			System.out.println(e.toString());
 			return false;
 		}		
 	}
@@ -128,7 +129,7 @@ public class SQLiteManager
 		}
 		return funciona;
 	}
-	public Image getImage(String name){
+	public Image getImageUsuario(String name){
 		Image img=null;
 		String query="SELECT imagen FROM Usuarios WHERE nombreUsuario='"+name+"'";
 		Statement stmt=null;
@@ -137,6 +138,22 @@ public class SQLiteManager
 			ResultSet rslt=stmt.executeQuery(query);
 			if(rslt.next()){
 				byte[] imgArr= rslt.getBytes("imagen");
+				img=Toolkit.getDefaultToolkit().createImage(imgArr);
+			}
+		}catch(Exception e){
+			System.out.println("No hay imagen");
+		}
+		return img;
+	}
+	public Image getImageTweet(String codigo){
+		Image img=null;
+		String query="SELECT imagenUsuario FROM Tweets WHERE codigo='"+codigo+"'";
+		Statement stmt=null;
+		try{
+			stmt=connection.createStatement();
+			ResultSet rslt=stmt.executeQuery(query);
+			if(rslt.next()){
+				byte[] imgArr= rslt.getBytes("imagenUsuario");
 				img=Toolkit.getDefaultToolkit().createImage(imgArr);
 			}
 		}catch(Exception e){

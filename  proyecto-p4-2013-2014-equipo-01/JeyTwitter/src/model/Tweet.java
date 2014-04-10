@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Image;
 import java.util.Date;
 /**
  * Clase que representa un tweet en la base de datos
@@ -7,17 +8,17 @@ import java.util.Date;
  *
  */
 public class Tweet {
-	private long codigo;
+	private String codigo;
 	private String nombreUsuario;
 	private String nombreReal;
 	private Date ultimaFechaActualizacion;
-	private String imagenUsuario;
+	private Image imagenUsuario;
 	private String texto;
 	private boolean esRetweet;
 	private boolean esFavorito;
 	
-	public Tweet(long codigo, String nombreUsuario, String nombreReal,
-			Date ultimaFechaActualizacion, String imagenUsuario, String texto,
+	public Tweet(String codigo, String nombreUsuario, String nombreReal,
+			Date ultimaFechaActualizacion, Image imagenUsuario, String texto,
 			boolean esRetweet, boolean esFavorito) {
 		super();
 		this.codigo = codigo;
@@ -30,11 +31,11 @@ public class Tweet {
 		this.esFavorito = esFavorito;
 	}
 
-	public long getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(long codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
@@ -62,11 +63,11 @@ public class Tweet {
 		this.ultimaFechaActualizacion = ultimaFechaActualizacion;
 	}
 
-	public String getImagenUsuario() {
+	public Image getImagenUsuario() {
 		return imagenUsuario;
 	}
 
-	public void setImagenUsuario(String imagenUsuario) {
+	public void setImagenUsuario(Image imagenUsuario) {
 		this.imagenUsuario = imagenUsuario;
 	}
 
