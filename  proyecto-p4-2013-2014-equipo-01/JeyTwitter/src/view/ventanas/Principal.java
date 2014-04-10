@@ -21,6 +21,7 @@ import view.elementos.ObjetoCelda;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.paneles.PanelBusqueda;
 import view.elementos.paneles.PanelEnviarTweet;
+import view.elementos.paneles.PanelEstadistica;
 import view.elementos.paneles.PanelPerfilUsuario;
 import view.elementos.paneles.PanelTablaTweets;
 import view.eventos.principal.EventoCambiarColoBoton;
@@ -69,7 +70,7 @@ public class Principal extends CustomJFrame {
 	private PanelPerfilUsuario panelUsuario;
 	private PanelEnviarTweet panelInferior;
 	private PanelBusqueda panelBusqueda;
-	private JPanel panel_stats;
+	private PanelEstadistica panel_stats;
 	
 	private JPanel panelMostrandoActual;
 	private JPanel panelVista;
@@ -92,7 +93,7 @@ public class Principal extends CustomJFrame {
 		retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(RETUITS)));
 		favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(FAVORITOS)));
 		panelInferior = new PanelEnviarTweet(this);
-		
+		System.out.println(panelInferior.getBounds());
 		ArrayList<ObjetoCelda> o = new ArrayList<ObjetoCelda>();
 		o.add(0, new GuiTwitterUsuario());
 		o.add(0, new GuiTwitterUsuario());
@@ -100,7 +101,7 @@ public class Principal extends CustomJFrame {
 		o.add(0, new GuiTwitterUsuario());
 		
 		panelBusqueda = new PanelBusqueda(o);
-		panel_stats = new JPanel();
+		panel_stats = new PanelEstadistica();
 		
 		lblImagen = new JLabel(usuarioActual.getNombreUsuario());
 		init();
