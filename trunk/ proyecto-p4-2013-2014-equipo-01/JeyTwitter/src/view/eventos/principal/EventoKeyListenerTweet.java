@@ -28,10 +28,9 @@ public class EventoKeyListenerTweet implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		panel.setContador(String.valueOf(140 - panel.getMensaje().length()));
-		if (panel.getMensaje().length()>140){
+		if (panel.getMensaje().length()>140 || panel.getMensaje().length() == 0){
 			panel.getBtnEnviar().setEnabled(false);
 			panel.getLblContador().setForeground(Color.RED);
-			
 		} else {
 			panel.getBtnEnviar().setEnabled(true);
 			panel.getLblContador().setForeground(Color.BLACK);

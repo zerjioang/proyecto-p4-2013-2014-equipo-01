@@ -8,7 +8,7 @@ import java.util.Date;
  *
  */
 public class Tweet {
-	private String codigo;
+	private long codigo;
 	private String nombreUsuario;
 	private String nombreReal;
 	private Date ultimaFechaActualizacion;
@@ -17,7 +17,7 @@ public class Tweet {
 	private boolean esRetweet;
 	private boolean esFavorito;
 	
-	public Tweet(String codigo, String nombreUsuario, String nombreReal,
+	public Tweet(long codigo, String nombreUsuario, String nombreReal,
 			Date ultimaFechaActualizacion, Image imagenUsuario, String texto,
 			boolean esRetweet, boolean esFavorito) {
 		super();
@@ -31,11 +31,11 @@ public class Tweet {
 		this.esFavorito = esFavorito;
 	}
 
-	public String getCodigo() {
+	public long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(long codigo) {
 		this.codigo = codigo;
 	}
 
