@@ -131,7 +131,7 @@ public class SQLiteManager
 	}
 	public Image getImageUsuario(String name){
 		Image img=null;
-		String query="SELECT imagen FROM Usuarios WHERE nombreUsuario='"+name+"'";
+		String query="SELECT imagen FROM Usuario WHERE nombreUsuario='"+name+"'";
 		Statement stmt=null;
 		try{
 			stmt=connection.createStatement();
@@ -145,9 +145,9 @@ public class SQLiteManager
 		}
 		return img;
 	}
-	public Image getImageTweet(String codigo){
+	public Image getImageTweet(long codigo){
 		Image img=null;
-		String query="SELECT imagenUsuario FROM Tweets WHERE codigo='"+codigo+"'";
+		String query="SELECT imagenUsuario FROM Tweet WHERE codigo="+codigo;
 		Statement stmt=null;
 		try{
 			stmt=connection.createStatement();
