@@ -33,7 +33,7 @@ public class Interaccion {
 	 */
 	public static boolean introducirCredenciales(String usuario, String codigo, String codigoSecreto)
 	{
-		return 	gestor.enviarComando("INSERT INTO Usuarios (nombreUsuario, token, secretToken) VALUES ('"+usuario+"','"+codigo+"','"+codigoSecreto+"')");
+		return 	gestor.enviarComando("INSERT INTO Usuario (nombreUsuario, token, secretToken) VALUES ('"+usuario+"','"+codigo+"','"+codigoSecreto+"')");
 	}
 	/**
 	 * Permite introducir un nuevo credencial en la base de datos
@@ -44,7 +44,7 @@ public class Interaccion {
 	public static boolean introducirUsuario(Usuario introducir)
 	{
 		boolean comprobar = true;
-		comprobar = comprobar && gestor.enviarComando("INSERT INTO Usuarios(nombreUsuario, nombreReal, token, secretToken, biografia, numeroSeguidos, numeroSeguidores, numeroTweets, fechaActualizacion) VALUES ('"+introducir.getNombreUsuario()+"','"+introducir.getNombreReal()+"','"+introducir.getToken()+"','"+introducir.getTokenSecreto()+"','"+introducir.getBiografia()+"',"+introducir.getNumeroSiguiendo()+","+introducir.getNumeroSeguidores()+","+introducir.getNumeroTweets()+",'"+introducir.getUltimaFechaActualizacion().toString()+"')");
+		comprobar = comprobar && gestor.enviarComando("INSERT INTO Usuario(nombreUsuario, nombreReal, token, secretToken, biografia, numeroSeguidos, numeroSeguidores, numeroTweets, fechaActualizacion) VALUES ('"+introducir.getNombreUsuario()+"','"+introducir.getNombreReal()+"','"+introducir.getToken()+"','"+introducir.getTokenSecreto()+"','"+introducir.getBiografia()+"',"+introducir.getNumeroSiguiendo()+","+introducir.getNumeroSeguidores()+","+introducir.getNumeroTweets()+",'"+introducir.getUltimaFechaActualizacion().toString()+"')");
 		comprobar = comprobar && actualizarImagenPerfil(introducir.getNombreUsuario(), introducir.getImagen(), "png");
 		return comprobar;
 	}
@@ -55,7 +55,7 @@ public class Interaccion {
 	 */
 	public static boolean borrarCredenciales(String usuario)
 	{
-		return 	gestor.enviarComando("DELETE FROM Usuarios WHERE nombreUsuario = '"+usuario+"'");
+		return 	gestor.enviarComando("DELETE FROM Usuario WHERE nombreUsuario = '"+usuario+"'");
 	}
 	/**
 	 * Borra los Tweets del usuario indicado
@@ -72,7 +72,7 @@ public class Interaccion {
 	 */
 	public static LinkedList<Usuario> extraerCredenciales()
 	{
-		gestor.enviarComando("SELECT * FROM Usuarios");
+		gestor.enviarComando("SELECT * FROM Usuario");
 		try {
 			ResultSet extraidos = gestor.getResultSet();
 			LinkedList<Usuario> temporal = new LinkedList<Usuario>();
@@ -97,7 +97,7 @@ public class Interaccion {
 	 */
 	public static boolean actualizarNombreReal(String nombreUsuario, String nombreReal)
 	{
-		return 	gestor.enviarComando("UPDATE Usuarios SET nombreReal = '"+nombreReal+"' WHERE nombreUsuario = '"+nombreUsuario+"'");
+		return 	gestor.enviarComando("UPDATE Usuario SET nombreReal = '"+nombreReal+"' WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
 	/**
 	 * Permite actualizar la biografía del usuario en la BD
@@ -107,7 +107,7 @@ public class Interaccion {
 	 */
 	public static boolean actualizarBiografia(String nombreUsuario, String biografia)
 	{
-		return 	gestor.enviarComando("UPDATE Usuarios SET biografia = '"+biografia+"' WHERE nombreUsuario = '"+nombreUsuario+"'");
+		return 	gestor.enviarComando("UPDATE Usuario SET biografia = '"+biografia+"' WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
 	/**
 	 * Permite actualizar el numero de seguidores en la BD
@@ -117,7 +117,7 @@ public class Interaccion {
 	 */
 	public static boolean actualizarNumSeguidores(String nombreUsuario, int numSeguidores)
 	{
-		return 	gestor.enviarComando("UPDATE Usuarios SET numeroSeguidores = "+numSeguidores+" WHERE nombreUsuario = '"+nombreUsuario+"'");
+		return 	gestor.enviarComando("UPDATE Usuario SET numeroSeguidores = "+numSeguidores+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
 	/**
 	 * Permite actualizar el numero de seguidos en la BD
@@ -127,7 +127,7 @@ public class Interaccion {
 	 */
 	public static boolean actualizarNumSeguidos(String nombreUsuario, int numSeguidos)
 	{
-		return 	gestor.enviarComando("UPDATE Usuarios SET numeroSeguidos = "+numSeguidos+" WHERE nombreUsuario = '"+nombreUsuario+"'");
+		return 	gestor.enviarComando("UPDATE Usuario SET numeroSeguidos = "+numSeguidos+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
 	/**
 	 * Permite actualizar el numero de tweets que dispone la cuenta.
@@ -137,7 +137,7 @@ public class Interaccion {
 	 */
 	public static boolean actualizarNumTweets(String nombreUsuario, int numTweets)
 	{
-		return 	gestor.enviarComando("UPDATE Usuarios SET numeroTweets = "+numTweets+" WHERE nombreUsuario = '"+nombreUsuario+"'");
+		return 	gestor.enviarComando("UPDATE Usuario SET numeroTweets = "+numTweets+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
 	/**
 	 * Permite cambiar la imagen del perfil del usuario
@@ -155,7 +155,7 @@ public class Interaccion {
 			e.printStackTrace();
 		}  
 		byte[] data = baos.toByteArray(); 
-		return gestor.enviarImagen("UPDATE Usuarios SET imagen = ? WHERE nombreUsuario = '"+nombreUsuario+"'", data);
+		return gestor.enviarImagen("UPDATE Usuario SET imagen = ? WHERE nombreUsuario = '"+nombreUsuario+"'", data);
 	}
 	/**
 	 * Elimina todos los contenidos de la tabla Usuarios para poder simular
@@ -163,7 +163,7 @@ public class Interaccion {
 	 * @return
 	 */
 	public static boolean borrarTodosLosCredenciales() {
-		return 	gestor.enviarComando("DELETE FROM Usuarios");
+		return 	gestor.enviarComando("DELETE FROM Usuario");
 	}
 	/**
 	 * Extrae todos los usuarios de la base de datos
@@ -171,7 +171,7 @@ public class Interaccion {
 	 */
 	public static LinkedList<Usuario> extraerUsuarios()
 	{
-		gestor.enviarComando("SELECT * FROM Usuarios");
+		gestor.enviarComando("SELECT * FROM Usuario");
 		try {
 			ResultSet extraidos = gestor.getResultSet();
 			LinkedList<Usuario> temporal = new LinkedList<Usuario>();
@@ -203,7 +203,7 @@ public class Interaccion {
 	 */
 	public static LinkedList<Tweet> extraerTweets(String cuenta)
 	{
-		gestor.enviarComando("SELECT T.* FROM Tweets T, Tienen TI WHERE T.codigo=TI.codigo AND TI.nombreUsuario='"+cuenta+"'");
+		gestor.enviarComando("SELECT T.* FROM Tweet T, Tienen TI WHERE T.codigo=TI.codigo AND TI.nombreUsuario='"+cuenta+"'");
 		try {
 			ResultSet extraidos = gestor.getResultSet();
 			LinkedList<Tweet> temporal = new LinkedList<Tweet>();
@@ -216,7 +216,7 @@ public class Interaccion {
 				if(extraidos.getInt("esFavorito")==1)
 					esFav = true;
 				
-				Tweet tempTweet = new Tweet(extraidos.getString("codigo"),
+				Tweet tempTweet = new Tweet(extraidos.getLong("codigo"),
 						extraidos.getString("nombreUsuario"),
 						extraidos.getString("nombreReal"),
 						extraidos.getDate("fechaActualizacion"),	
@@ -224,7 +224,6 @@ public class Interaccion {
 						extraidos.getString("texto"),	
 						esRetweet,	
 						esFav);
-				System.out.println(tempTweet.getCodigo());
 				temporal.add(tempTweet);
 				cargarImagenesTweets(temporal);
 			}
@@ -263,8 +262,8 @@ public class Interaccion {
 	public static boolean insertarTweet(Tweet añadir, String nombreUsuario, String formatoImagen)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		gestor.enviarComando("INSERT INTO Tweets(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ('"+añadir.getCodigo()+"',datetime('"+sdf.format(añadir.getUltimaFechaActualizacion())+"'), '"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+añadir.esRetweet()+","+añadir.esFavorito()+")");
-		gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"','"+añadir.getCodigo()+"')");
+		gestor.enviarComando("INSERT INTO Tweet(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ("+añadir.getCodigo()+",datetime('"+sdf.format(añadir.getUltimaFechaActualizacion())+"'), '"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+añadir.esRetweet()+","+añadir.esFavorito()+")");
+		gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"',"+añadir.getCodigo()+")");
 		try{
 			actualizarImagenTweet(añadir.getImagenUsuario(), formatoImagen, añadir.getCodigo());
 		}catch(IllegalArgumentException E)
@@ -298,7 +297,7 @@ public class Interaccion {
 	 * @param codTweet
 	 * @return
 	 */
-	public static boolean actualizarImagenTweet(Image imagen, String formato, String codTweet)
+	public static boolean actualizarImagenTweet(Image imagen, String formato, long codTweet)
 	{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
 		try {
@@ -307,26 +306,26 @@ public class Interaccion {
 			e.printStackTrace();
 		}  
 		byte[] data = baos.toByteArray(); 
-		return gestor.enviarImagen("UPDATE Tweets SET imagenUsuario = ? WHERE codigo = '"+codTweet+"'", data);
+		return gestor.enviarImagen("UPDATE Tweet SET imagenUsuario = ? WHERE codigo = "+codTweet+"", data);
 	}
 	public static void main(String[]args) throws IOException
 	{
 //Esta parte del código prueba la inserción de usuarios y extracción de los mismos con la imagen
-//		Usuario temp = new Usuario("Fiser12", "21323", "dfasdf", "Fiser", "bibliografia", ImageIO.read(new File("src/res/images/notif/notification_follower.png")), new Date(12122012), 4, 2, 2);
-//		System.out.println(introducirUsuario(temp));
+/*		Usuario temp3 = new Usuario("Fiser12", "21323", "dfasdf", "Fiser", "bibliografia", ImageIO.read(new File("src/res/images/notif/notification_follower.png")), new Date(12122012), 4, 2, 2);
+		System.out.println(introducirUsuario(temp3));
 		
-//		JFrame temp2 = new JFrame();
-//		temp2.add(new JLabel(new ImageIcon(extraerUsuarios().get(0).getImagen())));
-//		temp2.setVisible(true);
+		JFrame temp2 = new JFrame();
+		temp2.add(new JLabel(new ImageIcon(extraerUsuarios().get(0).getImagen())));
+		temp2.setVisible(true);*/
 /////////////////////----------------------------------------//////////////////////
 //Esta parte de cóidgo prueba la insercción un tweet en la bd
-//		Tweet temp = new Tweet("6554667", "jejfkef", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
-//		insertarTweet(temp, "Fiser12", "png");
-//		System.out.println(extraerTweets("Fiser").size());
-		//JFrame temp2 = new JFrame();
-		//temp2.add(new JLabel(new ImageIcon(extraerTweets("Fiser").get(0).getImagenUsuario())));
-		//temp2.setVisible(true);
-		borrarTodosLosCredenciales();
+/*		Tweet temp = new Tweet(6554667, "jejfkef", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
+		System.out.println(insertarTweet(temp, "Fiser12", "png"));
+		System.out.println(extraerTweets("Fiser12").size());
+		JFrame temp2 = new JFrame();
+		temp2.add(new JLabel(new ImageIcon(extraerTweets("Fiser12").get(0).getImagenUsuario())));
+		temp2.setVisible(true);*/
+//		borrarTodosLosCredenciales();
 	}
 
 }
