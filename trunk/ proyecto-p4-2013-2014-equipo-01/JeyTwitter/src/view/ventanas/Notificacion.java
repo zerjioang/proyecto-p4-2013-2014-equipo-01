@@ -91,7 +91,7 @@ public class Notificacion extends InvisibleJFrame {
 		lblCerrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblCerrar.setBackground(Color.DARK_GRAY);
 		lblCerrar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCerrar.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 18));
+		lblCerrar.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 16));
 		lblCerrar.setForeground(Color.WHITE);
 		lblCerrar.setBounds(392, 11, 23, 22);
 		contentPane.add(lblCerrar);
@@ -99,28 +99,27 @@ public class Notificacion extends InvisibleJFrame {
 		txtMensaje = new JTextArea();
 		txtMensaje.setWrapStyleWord(true);
 		txtMensaje.setLineWrap(true);
-		txtMensaje.setFocusable(false);
 		txtMensaje.setEditable(false);
-		txtMensaje.setOpaque(false);
+		txtMensaje.setFocusable(false);
 		txtMensaje.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		txtMensaje.setForeground(Color.WHITE);
-		txtMensaje.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 14));
+		txtMensaje.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 12));
 		//Util.getFont("mirda", Font.PLAIN, 16)
 		
-		txtMensaje.setText("Este es un comentario de prueba en una notificacion de JeyTuiter\r\nEste es un comentario de prueba en una notificacion de JeyTuiter");
+		txtMensaje.setText("Este es un comentario de prueba en una notificacion de JeyTuiter. El comentario tiene que ser largo para ver como se muestra un mensaje cuando no entra en la notificacion. Pero por lo que veo todavia tengo que escribir mas para que entre");
 		txtMensaje.setBounds(114, 41, 301, 61);
 		contentPane.add(txtMensaje);
 		
 		lblHora = new JLabel("13:00");
-		lblHora.setFont(Util.getFont("mirda", Font.PLAIN, 18));
+		lblHora.setFont(Util.getFont("mirda", Font.PLAIN, 16));
 		lblHora.setForeground(Color.WHITE);
 		lblHora.setBounds(336, 11, 44, 22);
 		contentPane.add(lblHora);
 		
 		lblusuario = new JLabel("@Usuario");
-		lblusuario.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 18));
+		lblusuario.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 14));
 		lblusuario.setForeground(Color.WHITE);
-		lblusuario.setBounds(114, 14, 212, 22);
+		lblusuario.setBounds(114, 11, 212, 22);
 		contentPane.add(lblusuario);
 		
 		lblImagenUsuario = new JLabel("Imagen");
@@ -133,10 +132,10 @@ public class Notificacion extends InvisibleJFrame {
 
 		contentPane.add(fondo);
 		//panel para que el fondo se vea en window builder
-		/*JPanel EstePanelEsSoloParaQueElFondoSeVea = new JPanel();
+		JPanel EstePanelEsSoloParaQueElFondoSeVea = new JPanel();
 		EstePanelEsSoloParaQueElFondoSeVea.setBackground(Color.DARK_GRAY);
 		EstePanelEsSoloParaQueElFondoSeVea.setBounds(0, 0, 425, 143);
-		contentPane.add(EstePanelEsSoloParaQueElFondoSeVea);*/
+		contentPane.add(EstePanelEsSoloParaQueElFondoSeVea);
 
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		addMouseListener(new EventoCerrarNotificacion(this));
