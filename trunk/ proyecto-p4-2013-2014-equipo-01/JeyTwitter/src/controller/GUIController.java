@@ -26,6 +26,7 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.User;
 import twitter4j.auth.AccessToken;
+import util.Util;
 import view.ventanas.Principal;
 
 /**
@@ -287,10 +288,10 @@ public class GUIController {
 			System.out.println("Comprobado. Esperando resultado...");
 			online = true;
 			return true;
-		} catch (UnknownHostException e2) {
+		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			online = false;
-			e2.printStackTrace();
+			Util.debug("Internet Error: "+e.getMessage());
 			return false;
 		}
 		
