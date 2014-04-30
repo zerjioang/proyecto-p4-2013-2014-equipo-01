@@ -308,8 +308,18 @@ public class Interaccion {
 		byte[] data = baos.toByteArray(); 
 		return gestor.enviarImagen("UPDATE Tweet SET imagenUsuario = ? WHERE codigo = "+codTweet+"", data);
 	}
+	public static void reiniciarBase()
+	{
+		gestor.enviarComando("DROP TABLE IF EXISTS Usuario;");
+		gestor.enviarComando("CREATE TABLE Usuario (nombreUsuario text NOT NULL,nombreReal text, token text NOT NULL, secretToken text, biografia text, imagen blob, numeroSeguidos integer, numeroSeguidores integer, numeroTweets integer, fechaActualizacion Datetime,PRIMARY KEY(nombreUsuario));");		
+		gestor.enviarComando("DROP TABLE IF EXISTS Tweet;");
+		gestor.enviarComando("CREATE TABLE Tweet (codigo BIGINT NOT NULL, fechaActualizacion DATETIME, nombreUsuario TEXT, nombreReal TEXT, imagenUsuario blob, texto TEXT, esRetweet integer, esFavorito integer, PRIMARY KEY(codigo));");
+		gestor.enviarComando("DROP TABLE IF EXISTS Tienen;");
+		gestor.enviarComando("CREATE TABLE Tienen (nombreUsuario text NOT NULL,codigo text NOT NULL,PRIMARY KEY(nombreUsuario,codigo),CONSTRAINT nombreUsuario FOREIGN KEY (nombreUsuario) REFERENCES Usuario (nombreUsuario) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT codigo FOREIGN KEY (codigo) REFERENCES Tweet (codigo) ON DELETE CASCADE ON UPDATE CASCADE);");
+	}
 	public static void main(String[]args) throws IOException
 	{
+		reiniciarBase();
 //Esta parte del código prueba la inserción de usuarios y extracción de los mismos con la imagen
 /*		Usuario temp3 = new Usuario("Fiser12", "21323", "dfasdf", "Fiser", "bibliografia", ImageIO.read(new File("src/res/images/notif/notification_follower.png")), new Date(12122012), 4, 2, 2);
 		System.out.println(introducirUsuario(temp3));
