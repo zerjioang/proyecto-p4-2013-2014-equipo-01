@@ -30,7 +30,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Util {
 
-	public static boolean DEBUG = false;
+	public static boolean DEBUG = true;
 
 	public static final int anchoPantalla = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static final int altoPantalla = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -167,7 +167,7 @@ public class Util {
 		float opacidad=0.f;
 		((JFrame) comp).setOpacity(opacidad);
 		comp.setVisible(true);
-		for (opacidad = 0.f; opacidad < 1.0f; opacidad+=0.01f ) {
+		for (opacidad = 0.f; opacidad < 1.0f; opacidad+=0.1f ) {
 			pausar(time);
 			((JFrame) comp).setOpacity(opacidad);
 		}

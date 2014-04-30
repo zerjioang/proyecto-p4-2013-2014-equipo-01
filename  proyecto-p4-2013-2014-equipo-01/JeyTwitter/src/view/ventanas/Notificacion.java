@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import util.Util;
 import view.eventos.notificacion.EventoCerrarNotificacion;
+import view.eventos.notificacion.EventoClickImagenNotificacion;
 import view.parents.InvisibleJFrame;
 
 import java.awt.Color;
@@ -25,7 +26,6 @@ import javax.swing.SwingConstants;
 import model.Tweet;
 
 import java.awt.Cursor;
-import java.sql.Date;
 
 public class Notificacion extends InvisibleJFrame {
 	
@@ -97,18 +97,18 @@ public class Notificacion extends InvisibleJFrame {
 		contentPane.add(lblCerrar);
 		
 		txtMensaje = new JTextArea();
+		txtMensaje.setWrapStyleWord(true);
+		txtMensaje.setLineWrap(true);
 		txtMensaje.setFocusable(false);
 		txtMensaje.setEditable(false);
 		txtMensaje.setOpaque(false);
 		txtMensaje.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		txtMensaje.setForeground(Color.WHITE);
-		txtMensaje.setLineWrap(true);
-		txtMensaje.setWrapStyleWord(true);
 		txtMensaje.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 14));
 		//Util.getFont("mirda", Font.PLAIN, 16)
 		
-		txtMensaje.setText("Este es un comentario de prueba en una notificacion de JeyTuiter");
-		txtMensaje.setBounds(114, 41, 301, 91);
+		txtMensaje.setText("Este es un comentario de prueba en una notificacion de JeyTuiter\r\nEste es un comentario de prueba en una notificacion de JeyTuiter");
+		txtMensaje.setBounds(114, 41, 301, 61);
 		contentPane.add(txtMensaje);
 		
 		lblHora = new JLabel("13:00");
@@ -120,13 +120,15 @@ public class Notificacion extends InvisibleJFrame {
 		lblusuario = new JLabel("@Usuario");
 		lblusuario.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 18));
 		lblusuario.setForeground(Color.WHITE);
-		lblusuario.setBounds(10, 14, 316, 22);
+		lblusuario.setBounds(114, 14, 212, 22);
 		contentPane.add(lblusuario);
 		
 		lblImagenUsuario = new JLabel("Imagen");
-		lblImagenUsuario.setBounds(10, 41, 94, 91);
+		lblImagenUsuario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblImagenUsuario.setBounds(6, 11, 94, 91);
 		lblImagenUsuario.setIcon(Util.getImagenRedondeada(new ImageIcon(Notificacion.class.getResource("/res/images/userTest.jpg")), 20));
 		lblImagenUsuario.setIcon(Util.escalarImagen(lblImagenUsuario));
+		lblImagenUsuario.addMouseListener(new EventoClickImagenNotificacion(this));
 		contentPane.add(lblImagenUsuario);
 
 		contentPane.add(fondo);
