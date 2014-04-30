@@ -326,6 +326,7 @@ public class Interaccion {
 		temp2.add(new JLabel(new ImageIcon(extraerTweets("Fiser12").get(0).getImagenUsuario())));
 		temp2.setVisible(true);*/
 //		borrarTodosLosCredenciales();
+		
 	}
 
 }
