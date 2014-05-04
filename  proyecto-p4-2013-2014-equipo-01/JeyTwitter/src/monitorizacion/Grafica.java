@@ -29,7 +29,7 @@ public class Grafica {
 	@SuppressWarnings("deprecation")
 	public static void crearGrafica(String usuario, Twitter t, int ancho, int alto) throws TwitterException, FileNotFoundException, ParseException {
 
-		
+		new File("grafica").mkdir();
 		//Abrimos un txt
 		//PrintStream DDescritor = new PrintStream("tuits.txt");
 
@@ -81,9 +81,10 @@ public class Grafica {
 		JFreeChart chart = ChartFactory.createTimeSeriesChart("Historial de tuits de: " + usuario,"Fecha","Numero de Tuits",dataset,true,true,false);
 
 		try {
-			ChartUtilities.saveChartAsPNG(new File("grafica_de_@"+usuario+".jpg"), chart, ancho, alto);
+			ChartUtilities.saveChartAsPNG(new File("grafica/grafica.png"), chart, ancho, alto);
 		}catch (IOException e){
 			System.err.println("Error creando grafico.");
+			e.printStackTrace();
 		}
 	}
 

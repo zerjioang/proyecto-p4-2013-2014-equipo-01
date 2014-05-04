@@ -41,6 +41,14 @@ public class GUIController {
 	private static GUIController instancia = null; 
 
 	private TwitterService t;
+	public TwitterService getT() {
+		return t;
+	}
+
+	public void setT(TwitterService t) {
+		this.t = t;
+	}
+
 	@SuppressWarnings("unused")
 	private boolean online;
 
