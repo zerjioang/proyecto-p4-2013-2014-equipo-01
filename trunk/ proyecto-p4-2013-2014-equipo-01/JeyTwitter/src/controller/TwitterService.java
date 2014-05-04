@@ -28,6 +28,12 @@ public class TwitterService {
 	
 	private Twitter tw;
 
+	
+	
+	public Twitter getT(){
+		return tw;
+	}
+	
 	/**
 	 * Crea un nuevo servicio de Twitter
 	 * @param key Constante clave dada por el panel de la api
