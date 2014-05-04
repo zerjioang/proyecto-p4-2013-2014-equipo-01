@@ -9,9 +9,10 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import com.mortennobel.imagescaling.ResampleOp;
+import com.mortennobel.imagescaling.*;
 
 import util.Util;
 import view.parents.CustomJFrame;
@@ -27,7 +28,7 @@ public class VisorImagen extends JFrame{
 	private CustomJFrame ventanaPadre;
 	private ImageIcon img;
 	private static final Dimension tamanyoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
-	private static final int MARGEN = 20;
+	private static final int MARGEN = 200;
 	private static final int TAMANO_MINIMO = 200;//Minima cantidad de pixel que tiene que haber tanto en ancho como en alto
 	
 	public VisorImagen(CustomJFrame parent, String s) throws FileNotFoundException{
@@ -50,7 +51,7 @@ public class VisorImagen extends JFrame{
 		
 		//redimensionar la imagen hasta que entre en las dimensiones de la pantalla
 		Util.debug("Redimensionado imagen...");
-		//Margen minimo que debe haber desde el borde de la pantalla a la imagen. se mmultiplica por dos porque hay
+		//Margen minimo que debe haber desde el borde de la pantalla a la imagen. se multiplica por dos porque hay
 		//2 bordes horizontales y 2 verticales
 		int ancho = img.getIconWidth();
 		int alto = img.getIconHeight();
@@ -65,7 +66,7 @@ public class VisorImagen extends JFrame{
 			ancho +=10;
 			alto=(int)(ancho/ratio);
 		}
-		img = redimensionarImagen(ancho, alto);
+		redimensionarImagen(ancho, alto);
 		//Colocar el frame en el centro y ajustarlo al tamaño de la imagen
 		setSize(ancho, alto);
         setLocationRelativeTo(ventanaPadre);
@@ -76,9 +77,10 @@ public class VisorImagen extends JFrame{
 	 * @param factor	factor de redimensionado
 	 * @return			devuelve la imagen con las dimensiones apropiadas para que se vea en la pantalla
 	 */
-	private ImageIcon redimensionarImagen(int width, int height) {
+	@Deprecated
+	private ImageIcon redimensionarImg(int factor) {
 		//Este algoritmo scala las imagenes pero en algunos casos no quedan bien definidas, sobre todo los bordes o los textos.
-		/*
+		
 		Util.debug(img.getIconWidth()+" "+img.getIconHeight());
 		Util.debug(img.getIconWidth()*factor+" "+img.getIconHeight()*factor);
 		BufferedImage resizedImage = new BufferedImage((int)(img.getIconWidth()*factor), (int)(img.getIconHeight()*factor), BufferedImage.SCALE_SMOOTH);
@@ -87,16 +89,29 @@ public class VisorImagen extends JFrame{
 		g.dispose();
 		ImageIcon newImg = new ImageIcon(resizedImage);
 		setImg(newImg);
-		return getImg();*/
-		
+		return getImg();
+	}
+	/**
+	 * Redimensiona la imagen hasta que ésta tiene una resolucion inferior a la de la pantalla
+	 * @param width	ancho de la imagen final	
+	 * @param height alto de la imagen final
+	 * @return	devuelve un objeto imageIcon con el ancho y alto especificado por parametros
+	 */
+	private void redimensionarImagen(int width, int height) {
 		//Usando la libreria de http://code.google.com/p/java-image-scaling/wiki/Introduction
 		//al parecer el resutado es mucho mejor
 		System.out.println(width+" "+height); 
-		BufferedImage bufferedImg = new BufferedImage(width, height, BufferedImage.SCALE_SMOOTH);
+		Image source = img.getImage();
+		int w = img.getIconWidth();
+		int h = img.getIconHeight();
+		BufferedImage src = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d = (Graphics2D) src.getGraphics();
+		g2d.drawImage(source, 0, 0, null);
+		g2d.dispose();
+		BufferedImage dest = new BufferedImage(width, height, BufferedImage.SCALE_DEFAULT);
 		ResampleOp  resampleOp = new ResampleOp(width,height);
-		BufferedImage reescaled = resampleOp.filter(bufferedImg, null);
-		return new ImageIcon(reescaled);
-		
+		BufferedImage reescaled = resampleOp.doFilter(src, dest, width, height);
+		setImg(new ImageIcon(reescaled));
 	}
 
 	/**

@@ -2,13 +2,7 @@ package view.eventos.welcome;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.Date;
-
-import javax.swing.ImageIcon;
-
-import model.Usuario;
 import controller.GUIController;
-import twitter4j.TwitterException;
 import util.Util;
 import view.ventanas.Principal;
 import view.ventanas.Welcome;

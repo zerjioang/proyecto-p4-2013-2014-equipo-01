@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="SQLite/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="lib" path="freeChart/jcommon-1.0.21.jar"/>
 	<classpathentry kind="lib" path="freeChart/jfreechart-1.0.17.jar"/>
-	<classpathentry kind="lib" path="imageLibs/java-image-scaling-0.8.5.jar"/>
+	<classpathentry kind="lib" path="imageLibs/java-image-scaling-0.8.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
