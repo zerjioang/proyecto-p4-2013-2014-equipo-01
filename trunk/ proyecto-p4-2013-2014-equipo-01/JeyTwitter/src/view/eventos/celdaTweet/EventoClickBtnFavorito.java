@@ -14,7 +14,8 @@ public class EventoClickBtnFavorito implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		//NECESITO AQUÍ EL LONG DEL TWEET
+		//favorito(codigoTweet);
 	}
 
 	@Override
@@ -32,7 +33,6 @@ public class EventoClickBtnFavorito implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

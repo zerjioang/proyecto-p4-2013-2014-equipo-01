@@ -16,6 +16,7 @@ public class Launcher {
 		spl.mostrar(5);
 		
 		GUIController g = new GUIController();
+		Interaccion.crearEstructura();//Crea la estructura de la BD si no está el archivo
 		//Cuando no hay conexion el metodo g.hayConexion() tarda mucho en detectar si hay conexion o no
 		if(!g.hayConexion()){
 			//No hay conexion a internet
@@ -40,7 +41,6 @@ public class Launcher {
 		else{
 			//Si hay conexion a internet
 			//Se evalua el token de acceso
-			Interaccion.crearEstructura();
 			if (GUIController.getInstance().recuperarTokenUsuarioGuardado())
 				mostrarPrincipal();
 			else

@@ -14,7 +14,8 @@ public class EventoClickBtnReTweet implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-
+		//NECESITO AQUÍ EL LONG DEL TWEET
+		// retweetear(codigo);
 	}
 
 	@Override

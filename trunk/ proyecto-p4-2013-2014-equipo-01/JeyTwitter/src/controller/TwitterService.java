@@ -47,7 +47,22 @@ public class TwitterService {
 	public void verificarToken() throws TwitterException {
 		tw.verifyCredentials();
 	}
-
+	/**
+	 * Permite retweetear el tweet indicado por el código long
+	 * @param codigo Es el código identificativo del tweet
+	 */
+	public Status retweetear(long codigo) throws TwitterException
+	{
+		return tw.retweetStatus(codigo);
+	}
+	/**
+	 * Permite hacer fav al tweet indicado por el código long
+	 * @param codigo Es el código identificativo del tweet
+	 */
+	public Status favorito(long codigo) throws TwitterException
+	{
+		return tw.createFavorite(codigo);
+	}
 	/**
 	 * Abre una ventana del navegador en la que se le pide confirmacion al usuario 
 	 * @throws Exception
