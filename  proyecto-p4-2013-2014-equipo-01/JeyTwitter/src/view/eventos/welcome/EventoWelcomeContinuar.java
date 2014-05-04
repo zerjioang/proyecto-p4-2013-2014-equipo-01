@@ -27,6 +27,7 @@ public class EventoWelcomeContinuar implements MouseListener {
 				GUIController.getInstance().guardarUsuario(ventana.getCodigo());
 				Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 				p.setLocationRelativeTo(ventana);
+				p.setPanelActual(p.getPaneles()[1]);
 				p.setVisible(true);
 				ventana.cerrar();
 			} catch (IllegalStateException e) {
