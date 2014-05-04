@@ -1,4 +1,5 @@
 import controller.GUIController;
+import controller.sql.Interaccion;
 import util.Util;
 import view.ventanas.Principal;
 import view.ventanas.Splash;
@@ -39,6 +40,7 @@ public class Launcher {
 		else{
 			//Si hay conexion a internet
 			//Se evalua el token de acceso
+			Interaccion.crearEstructura();
 			if (GUIController.getInstance().recuperarTokenUsuarioGuardado())
 				mostrarPrincipal();
 			else
