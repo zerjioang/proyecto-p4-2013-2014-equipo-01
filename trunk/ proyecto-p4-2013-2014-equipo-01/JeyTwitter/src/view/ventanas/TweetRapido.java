@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-
 import javax.swing.JLabel;
 
 import util.Util;
@@ -25,6 +24,8 @@ import java.awt.SystemColor;
 
 import javax.swing.SwingConstants;
 
+import model.Tweet;
+
 /**
  * Muestra una ventana flotante que se encarga de mostrar un panel donde introducir un tweet de forma rapida
  * @author Sergio Anguita
@@ -39,6 +40,8 @@ public class TweetRapido extends InvisibleJFrame {
 	private JTextArea txtMensaje;
 	private BotonAzulCuadrado btnEnviar;
 	private BotonNegroCuadrado btnAtras;
+	
+	private Tweet responderA;
 
 	/**
 	 * Metodo main de prueba
@@ -60,8 +63,7 @@ public class TweetRapido extends InvisibleJFrame {
 	 * Create the frame.
 	 */
 	public TweetRapido(String nombreUsuario) {
-		super("/res/images/fastTweet/FastTuit.png");
-		init();
+		this();
 		setNombre(nombreUsuario);
 	}
 	
@@ -71,6 +73,11 @@ public class TweetRapido extends InvisibleJFrame {
 	public TweetRapido() {
 		super("/res/images/fastTweet/FastTuit.png");
 		init();
+	}
+	
+	public TweetRapido(Tweet t, String nombreUsuario) {
+		this(nombreUsuario);
+		responderA = t;
 	}
 	
 	/**
@@ -132,7 +139,7 @@ public class TweetRapido extends InvisibleJFrame {
 	 * @param nombre Asigna el nombre de usuario
 	 */
 	public void setNombre(String nombre) {
-		this.lblnombre.setText(nombre);
+		this.lblnombre.setText("Responder a "+nombre);
 	}
 
 	/**
