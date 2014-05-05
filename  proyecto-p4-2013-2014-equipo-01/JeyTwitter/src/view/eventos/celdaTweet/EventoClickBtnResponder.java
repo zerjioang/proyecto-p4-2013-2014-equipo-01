@@ -1,5 +1,6 @@
 package view.eventos.celdaTweet;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -20,8 +21,9 @@ public class EventoClickBtnResponder implements MouseListener {
 	public void mouseClicked(MouseEvent event) {
 		// TODO Auto-generated method stub
 		long codigo = t.getTweet().getCodigo();
-		TweetRapido tr = new TweetRapido(t.getTweet());
-		tr.setLocation(t.getLocation());
+		String usuario = t.getNombreUsuario();
+		TweetRapido tr = new TweetRapido(t.getTweet(), usuario);
+		tr.setLocation(new Point(event.getXOnScreen(), event.getYOnScreen()));
 		tr.setVisible(true);
 	}
 
