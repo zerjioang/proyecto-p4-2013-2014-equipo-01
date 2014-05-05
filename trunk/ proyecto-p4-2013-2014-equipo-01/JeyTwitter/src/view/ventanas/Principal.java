@@ -252,7 +252,7 @@ public class Principal extends CustomJFrame {
 		
 		for(Tweet each : listaTuits){
 			GUITweet guiTweet;
-			guiTweet = new GUITweet("2d", new ImageIcon(each.getImagenUsuario()), each.getNombreUsuario(), each.getNombreReal(), each.getTexto());
+			guiTweet = new GUITweet("2d", each);
 			lista.add(lista.size(), guiTweet);
 		}
 		return lista;
