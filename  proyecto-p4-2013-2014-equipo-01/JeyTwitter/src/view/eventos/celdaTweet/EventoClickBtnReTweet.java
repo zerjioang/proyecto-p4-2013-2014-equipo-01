@@ -17,13 +17,12 @@ public class EventoClickBtnReTweet implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent event) {
-		// TODO Auto-generated method stub
-		try {
-			long codigo = t.getTweet().getCodigo();
-			GUIController.getInstance().getT().retweetear(codigo);
-		} catch (TwitterException e) {
-			System.err.println("Ha ocurrido un error al procesar el tweet para retweetear");
-			System.err.println("Detalles: "+e.getMessage());
+		long codigo = t.getTweet().getCodigo();
+		
+		if(GUIController.getInstance().marcarRetuit(codigo)) {
+			System.out.println("Retuit con éxito");
+		} else {
+			System.out.println("Ha ocurrido un error al retuitear");
 		}
 	}
 

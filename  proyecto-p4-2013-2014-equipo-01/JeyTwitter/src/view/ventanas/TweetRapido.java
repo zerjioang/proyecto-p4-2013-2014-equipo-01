@@ -156,6 +156,10 @@ public class TweetRapido extends InvisibleJFrame {
 	public void setContador(int valor) {
 		lblContador.setText(String.valueOf(valor));
 	}
+	
+	public Tweet getTuit() {
+		return responderA;
+	}
 
 	/**
 	 * @return devuelve el mensaje introducido por el usuario

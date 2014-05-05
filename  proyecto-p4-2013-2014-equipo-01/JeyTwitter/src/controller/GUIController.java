@@ -25,8 +25,10 @@ import controller.sql.Interaccion;
 import model.Tweet;
 import model.Usuario;
 import sun.net.www.protocol.http.HttpURLConnection;
+import twitter4j.Paging;
 import twitter4j.ResponseList;
 import twitter4j.Status;
+import twitter4j.StatusUpdate;
 import twitter4j.TwitterException;
 import twitter4j.User;
 import twitter4j.auth.AccessToken;
@@ -46,13 +48,6 @@ public class GUIController {
 	private static GUIController instancia = null; 
 
 	private TwitterService t;
-	public TwitterService getT() {
-		return t;
-	}
-
-	public void setT(TwitterService t) {
-		this.t = t;
-	}
 
 	@SuppressWarnings("unused")
 	private boolean online;
@@ -124,6 +119,11 @@ public class GUIController {
 			}
 		}
 		return timeline;
+	}
+	
+	public ResponseList<Status> obtenerTimelineDeUsuario(String usuario, Paging paging) throws TwitterException {
+		
+		return t.getTimelineFromUser(usuario, paging);
 	}
 	
 	/**
@@ -262,6 +262,40 @@ public class GUIController {
 		return timeline;
 	}
 	
+	public boolean marcarRetuit(long codigo) {
+		try {
+			t.retweetear(codigo);
+			return true;
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean marcarFavorito(long codigo) {
+		try {
+			t.favorito(codigo);
+			return true;
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public void responderTuit(long codigo, String texto) {
+		StatusUpdate respuesta = new StatusUpdate(texto);
+		respuesta.setInReplyToStatusId(codigo);
+		
+		try {
+			t.tweet(respuesta);
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Traduce a nuestra clase modelo Usuario la clase User que maneja la API
 	 * @return
@@ -380,7 +414,9 @@ public class GUIController {
 	public boolean enviarTweet(String texto) {
 		// Se supone que recoge el texto de el textfield de turno
 		try {
-			t.tweet(texto);
+			StatusUpdate update = new StatusUpdate(texto);
+			
+			t.tweet(update);
 			
 			return true;
 		} catch (TwitterException e) {

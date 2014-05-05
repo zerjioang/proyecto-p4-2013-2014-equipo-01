@@ -17,13 +17,12 @@ public class EventoClickBtnFavorito implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent event) {
-		// TODO Auto-generated method stub
-		try {
-			long codigo = t.getTweet().getCodigo();
-			GUIController.getInstance().getT().favorito(codigo);
-		} catch (TwitterException e) {
-			System.err.println("Ha ocurrido un error al procesar el tweet para favorito");
-			System.err.println("Detalles: "+e.getMessage());
+		long codigo = t.getTweet().getCodigo();
+		
+		if(GUIController.getInstance().marcarFavorito(codigo)) {
+			System.out.println("Favorito marcado con éxito");
+		} else {
+			System.out.println("Ha ocurrido un error al marcar favorito");
 		}
 	}
 

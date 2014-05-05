@@ -19,11 +19,11 @@ public class EventoClickBtnResponder implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent event) {
-		// TODO Auto-generated method stub
-		long codigo = t.getTweet().getCodigo();
 		String usuario = t.getNombreUsuario();
+		
 		TweetRapido tr = new TweetRapido(t.getTweet(), usuario);
 		tr.setLocation(new Point(event.getXOnScreen(), event.getYOnScreen()));
+		tr.setMensaje(t.getNombreUsuario()+" ");
 		tr.setVisible(true);
 	}
 
