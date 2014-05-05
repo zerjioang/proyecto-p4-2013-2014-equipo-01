@@ -8,6 +8,7 @@ import java.awt.Font;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -19,15 +20,19 @@ import view.elementos.botones.Button;
 import view.eventos.celdaTweet.EventoClickBtnFavorito;
 import view.eventos.celdaTweet.EventoClickBtnReTweet;
 import view.eventos.celdaTweet.EventoClickBtnResponder;
+import view.eventos.celdaTweet.EventoClickImagenTweet;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 
 public class GUITweet extends JPanel implements ObjetoCelda{
 	
 	private static final int ALTO = 70;
+	private static final int SIZE_IMAGEN = 50;
 	private static final int REDONDEO = 15;
 	private JLabel lblTiempo, lblImagenusuario, lblNombreReal, lblnombreUsuario;
 	private Button btnResponder, btnRetweet, btnFavorito;
 	private JTextArea txtMensaje;
+	private JLabel lblImagenTweet;
+	private JPanel panelImagenTweet;
 	
 	/**
 	 * @param lblTiempo
@@ -39,7 +44,6 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	public GUITweet(String tiempo, ImageIcon imagenusuario,String nombreReal, String nombreUsuario, String mensaje) {
 		
 		super();
-		
 		this.lblImagenusuario = new JLabel();
 		this.lblNombreReal = new JLabel();
 		this.lblnombreUsuario = new JLabel();
@@ -95,7 +99,6 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		lblTiempo.setFont(Util.getFont("trebuc", Font.PLAIN, 12));
 		txtMensaje.setFont(Util.getFont("roboto-light", Font.PLAIN, 12));
 
-		
 		lblImagenusuario.setSize(ALTO, ALTO);
 		setImagenUsuario((ImageIcon)lblImagenusuario.getIcon());
 		lblImagenusuario.setBorder(new MatteBorder(5, 5, 0, 5, new Color(1.0f,1.0f,1.0f,0.0f)));
@@ -128,7 +131,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		
 		JPanel panelInferior = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panelInferior.getLayout();
-		flowLayout.setAlignment(FlowLayout.LEFT);
+		flowLayout.setAlignOnBaseline(true);
 		panelCentro.add(panelInferior, BorderLayout.SOUTH);
 		
 		panelInferior.add(btnResponder);
@@ -146,6 +149,24 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		txtMensaje.setBorder(null);
 		panelCentroMensaje.add(txtMensaje,BorderLayout.CENTER);
 		panelCentroMensaje.setBorder(new MatteBorder(0, 0, 0, 1, new Color(1.0f,1.0f,1.0f,0.0f)));
+		
+		if(/*hay imagen en el tweet*/true){
+			panelImagenTweet = new JPanel();
+			panelImagenTweet.setLayout(new BorderLayout(0, 0));
+			panelCentroMensaje.add(panelImagenTweet, BorderLayout.EAST);
+			
+			lblImagenTweet = new JLabel();
+			lblImagenTweet.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			lblImagenTweet.setSize(SIZE_IMAGEN, SIZE_IMAGEN);
+			lblImagenTweet.setHorizontalAlignment(SwingConstants.CENTER);
+			lblImagenTweet.setHorizontalTextPosition(SwingConstants.CENTER);
+			setBordeImagenTweet(3,3,3,3, new Color(255, 255, 255));
+			setImagenTweet(new ImageIcon(GUITweet.class.getResource("/res/images/a.jpg")));
+			panelImagenTweet.add(lblImagenTweet, BorderLayout.SOUTH);
+			
+			//evento al clickar encima de la imagen
+			lblImagenTweet.addMouseListener(new EventoClickImagenTweet(this));
+		}
 	}
 
 	/**
@@ -230,7 +251,6 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	 */
 	public void setImagenUsuario(ImageIcon imagenUsuario) {
 		lblImagenusuario.setIcon(Util.getImagenRedondeada(imagenUsuario, REDONDEO));
-		lblImagenusuario.setBorder(new MatteBorder(0, 5, 0, 5, new Color(1.0f,1.0f,1.0f,0.0f)));
 		lblImagenusuario.setIcon(Util.escalarImagen(lblImagenusuario));
 	}
 
@@ -265,5 +285,47 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	@Override
 	public int tipoObjeto() {
 		return TablaTweetsUsuarios.SOLO_TWEETS;
+	}
+
+	/**
+	 * @return the lblImagenTweet
+	 */
+	public Icon getImagenTweet() {
+		return lblImagenTweet.getIcon();
+	}
+
+	/**
+	 * @param lblImagenTweet the lblImagenTweet to set
+	 */
+	public void setImagenTweet(ImageIcon imagenTweet) {
+		lblImagenTweet.setIcon(imagenTweet);
+		lblImagenTweet.setIcon(Util.escalarImagen(lblImagenTweet));
+	}
+
+	/**
+	 * @return the lblImagenTweet
+	 */
+	public JLabel getLblImagenTweet() {
+		return lblImagenTweet;
+	}
+
+	/**
+	 * @param lblImagenTweet the lblImagenTweet to set
+	 */
+	public void setLblImagenTweet(JLabel lblImagenTweet) {
+		this.lblImagenTweet = lblImagenTweet;
+	}
+
+	public void setBordeImagenTweet(int i, int j, int k, int l, Color color) {
+		lblImagenTweet.setBorder(new MatteBorder(i,j,k,l, color));
+	}
+	
+	public static void main(String [] args){
+		JFrame j = new JFrame();
+		j.setSize(500, 500);
+		GUITweet g = new GUITweet("3d", new ImageIcon(GUITweet.class.getResource("/res/images/userTest.jpg")), "ElPaletoDelPueblo","Jezuzz","http://www.freelibros.org/videotutoriales/curso-de-backtrack-5.html#");
+		j.getContentPane().add(g);
+		j.setLocationRelativeTo(null);
+		j.setVisible(true);
 	}
 }

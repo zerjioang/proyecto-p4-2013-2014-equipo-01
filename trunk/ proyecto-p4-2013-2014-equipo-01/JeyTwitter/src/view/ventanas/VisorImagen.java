@@ -1,6 +1,7 @@
 package view.ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -25,21 +26,21 @@ import view.visorImagenes.EventoClickVisorImagen;
  */
 public class VisorImagen extends JFrame{
 	
-	private CustomJFrame ventanaPadre;
+	private Component ventanaPadre;
 	private ImageIcon img;
 	private static final Dimension tamanyoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
 	private static final int MARGEN = 200;
 	private static final int TAMANO_MINIMO = 200;//Minima cantidad de pixel que tiene que haber tanto en ancho como en alto
 	
-	public VisorImagen(CustomJFrame parent, String s) throws FileNotFoundException{
+	public VisorImagen(Component parent, String s) throws FileNotFoundException{
 		this(parent, new ImageIcon(VisorImagen.class.getResource(s)));
 	}
 	
-	public VisorImagen(CustomJFrame parent, Image image) throws FileNotFoundException{
+	public VisorImagen(Component parent, Image image) throws FileNotFoundException{
 		this(parent, new ImageIcon(image));
 	}
 	
-	public VisorImagen(CustomJFrame parent, ImageIcon img) throws FileNotFoundException{
+	public VisorImagen(Component parent, ImageIcon img) throws FileNotFoundException{
 		super(Util.APP_TITULO+" Images");
 		this.img = img;
 		ventanaPadre = parent;
@@ -122,13 +123,14 @@ public class VisorImagen extends JFrame{
 		JLabel imageLabel = new JLabel(img);
 		getContentPane().add(imageLabel, BorderLayout.CENTER);
         imageLabel.addMouseListener(new EventoClickVisorImagen(this));
+        setVisible(true);
         Util.mostrarImagenDifuso(this, 20);
 	}
 
 	/**
 	 * @return the ventanaPadre
 	 */
-	public CustomJFrame getVentanaPadre() {
+	public Component getVentanaPadre() {
 		return ventanaPadre;
 	}
 
