@@ -31,7 +31,7 @@ public class PanelEstadistica extends JPanel{
 		
 		
 		try {
-			Grafica.crearGrafica(GUIController.getInstance().getT().getT().getScreenName(),GUIController.getInstance().getT().getT(), 460, 600);
+			Grafica.crearGrafica(GUIController.getInstance().getUsuarioRegistrado().getNombreReal(), 460, 600);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -7,8 +7,10 @@ import java.net.URI;
 
 import twitter4j.IDs;
 import twitter4j.PagableResponseList;
+import twitter4j.Paging;
 import twitter4j.ResponseList;
 import twitter4j.Status;
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -27,8 +29,6 @@ public class TwitterService {
 	private RequestToken peticionDeCodigo = null;
 	
 	private Twitter tw;
-
-	
 	
 	public Twitter getT(){
 		return tw;
@@ -141,6 +141,11 @@ public class TwitterService {
 		return list;
 	}
 	
+	public ResponseList<Status> getTimelineFromUser(String usuario, Paging paging) throws TwitterException {
+		
+		return tw.getUserTimeline(usuario, new Paging(1));
+	}
+	
 
 	/**
 	 * Recupera el Timeline de menciones
@@ -203,7 +208,7 @@ public class TwitterService {
 	 * @param message
 	 * @throws TwitterException 
 	 */
-	public void tweet(String message) throws TwitterException {
+	public void tweet(StatusUpdate message) throws TwitterException {		
 		tw.updateStatus(message);
 	}
 

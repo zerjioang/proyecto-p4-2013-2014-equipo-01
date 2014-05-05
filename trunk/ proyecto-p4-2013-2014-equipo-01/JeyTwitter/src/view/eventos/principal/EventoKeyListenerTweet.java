@@ -34,7 +34,6 @@ public class EventoKeyListenerTweet implements KeyListener {
 		} else {
 			panel.getBtnEnviar().setEnabled(true);
 			panel.getLblContador().setForeground(Color.BLACK);
-
 		}
 		
 	}

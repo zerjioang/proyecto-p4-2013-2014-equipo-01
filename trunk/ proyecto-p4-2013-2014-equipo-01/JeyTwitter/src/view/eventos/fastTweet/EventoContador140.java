@@ -20,6 +20,12 @@ public class EventoContador140 implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		fastTuit.setContador(140-fastTuit.getMensaje().length());
+		
+		if(fastTuit.getMensaje().length()<140 && fastTuit.getMensaje().length()>0) {
+			fastTuit.getBtnEnviar().setEnabled(true);
+		} else {
+			fastTuit.getBtnEnviar().setEnabled(false);
+		}
 	}
 
 	@Override
