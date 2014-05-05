@@ -3,43 +3,40 @@ package view.eventos.celdaTweet;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import controller.GUIController;
+import twitter4j.TwitterException;
 import view.elementos.GUITweet;
 
 public class EventoClickBtnReTweet implements MouseListener {
 
+	private final GUITweet t;
+	
 	public EventoClickBtnReTweet(GUITweet guiTweet) {
-		// TODO Auto-generated constructor stub
+		t = guiTweet;
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent event) {
 		// TODO Auto-generated method stub
-		//NECESITO AQUÍ EL LONG DEL TWEET
-		// retweetear(codigo);
+		try {
+			long codigo = t.getTweet().getCodigo();
+			GUIController.getInstance().getT().retweetear(codigo);
+		} catch (TwitterException e) {
+			System.err.println("Ha ocurrido un error al procesar el tweet para retweetear");
+			System.err.println("Detalles: "+e.getMessage());
+		}
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseEntered(MouseEvent arg0) {}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseExited(MouseEvent arg0) {}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mousePressed(MouseEvent arg0) {}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseReleased(MouseEvent arg0) {}
 
 }
