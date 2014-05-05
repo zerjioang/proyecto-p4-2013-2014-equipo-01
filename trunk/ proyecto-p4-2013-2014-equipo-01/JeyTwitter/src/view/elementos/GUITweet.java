@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.util.Date;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -15,12 +16,14 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
+import model.Tweet;
 import util.Util;
 import view.elementos.botones.Button;
 import view.eventos.celdaTweet.EventoClickBtnFavorito;
 import view.eventos.celdaTweet.EventoClickBtnReTweet;
 import view.eventos.celdaTweet.EventoClickBtnResponder;
 import view.eventos.celdaTweet.EventoClickImagenTweet;
+import view.eventos.celdaTweet.EventoClickImagenUsuario;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 
 public class GUITweet extends JPanel implements ObjetoCelda{
@@ -33,7 +36,31 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	private JTextArea txtMensaje;
 	private JLabel lblImagenTweet;
 	private JPanel panelImagenTweet;
+	private Tweet tweet;
 	
+	public GUITweet(String fecha, Tweet t) {
+		super();
+		
+		this.lblImagenusuario = new JLabel();
+		this.lblNombreReal = new JLabel();
+		this.lblnombreUsuario = new JLabel();
+		this.txtMensaje = new JTextArea();
+		this.lblTiempo = new JLabel();
+		
+		setTiempo(fecha);
+		lblImagenusuario.setSize(ALTO, ALTO);
+		setImagenUsuario(new ImageIcon(t.getImagenUsuario()));
+		setNombreReal(t.getNombreReal());
+		setNombreUsuario(t.getNombreUsuario());
+		setMensaje(t.getTexto());
+		
+		btnRetweet = new Button();
+		btnFavorito = new Button();
+		btnResponder = new Button();
+		
+		tweet = t;
+		init();
+	}
 	/**
 	 * @param lblTiempo
 	 * @param lblImagenusuario
@@ -41,7 +68,8 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	 * @param lblnombreUsuario
 	 * @param txtMensaje
 	 */
-	public GUITweet(String tiempo, ImageIcon imagenusuario,String nombreReal, String nombreUsuario, String mensaje) {
+	@Deprecated
+	public GUITweet(String tiempo, ImageIcon imagenusuario,String nombreReal, String nombreUsuario, String mensaje, Tweet t) {
 		
 		super();
 		this.lblImagenusuario = new JLabel();
@@ -60,6 +88,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		btnFavorito = new Button();
 		btnResponder = new Button();
 		
+		tweet = t;
 		init();
 	}
 	
@@ -102,7 +131,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		lblImagenusuario.setSize(ALTO, ALTO);
 		setImagenUsuario((ImageIcon)lblImagenusuario.getIcon());
 		lblImagenusuario.setBorder(new MatteBorder(5, 5, 0, 5, new Color(1.0f,1.0f,1.0f,0.0f)));
-
+		lblImagenusuario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblImagenusuario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagenusuario.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblImagenusuario.setVerticalAlignment(SwingConstants.TOP);
@@ -164,8 +193,10 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 			setImagenTweet(new ImageIcon(GUITweet.class.getResource("/res/images/a.jpg")));
 			panelImagenTweet.add(lblImagenTweet, BorderLayout.SOUTH);
 			
-			//evento al clickar encima de la imagen
+			//evento al clicar encima de la imagen del tweet
 			lblImagenTweet.addMouseListener(new EventoClickImagenTweet(this));
+			//evento al clicar la imagen del usuario
+			lblImagenusuario.addMouseListener(new EventoClickImagenUsuario(this));
 		}
 	}
 
@@ -323,9 +354,21 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	public static void main(String [] args){
 		JFrame j = new JFrame();
 		j.setSize(500, 500);
-		GUITweet g = new GUITweet("3d", new ImageIcon(GUITweet.class.getResource("/res/images/userTest.jpg")), "ElPaletoDelPueblo","Jezuzz","http://www.freelibros.org/videotutoriales/curso-de-backtrack-5.html#");
+		GUITweet g = new GUITweet("3d", new Tweet(1L, "yo", "yomismo", new Date(3L), new ImageIcon(GUITweet.class.getResource("/res/images/usertest.jpg")).getImage(), "hola mundo", false, false));
 		j.getContentPane().add(g);
 		j.setLocationRelativeTo(null);
 		j.setVisible(true);
+	}
+	/**
+	 * @return the tweet
+	 */
+	public Tweet getTweet() {
+		return tweet;
+	}
+	/**
+	 * @param tweet the tweet to set
+	 */
+	public void setTweet(Tweet tweet) {
+		this.tweet = tweet;
 	}
 }
