@@ -16,8 +16,8 @@ import javax.swing.*;
 import com.mortennobel.imagescaling.*;
 
 import util.Util;
+import view.eventos.visorImagenes.EventoClickVisorImagen;
 import view.parents.CustomJFrame;
-import view.visorImagenes.EventoClickVisorImagen;
 
 /**
  * Clase que muestra en pantalla las imagenes guardadas en el disco duro o obtenidas a traves de internet
