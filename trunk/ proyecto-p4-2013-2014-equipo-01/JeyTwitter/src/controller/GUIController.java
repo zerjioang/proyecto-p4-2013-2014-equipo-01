@@ -9,11 +9,14 @@ import java.net.MalformedURLException;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -21,6 +24,7 @@ import javax.swing.ImageIcon;
 import controller.sql.Interaccion;
 import model.Tweet;
 import model.Usuario;
+import sun.net.www.protocol.http.HttpURLConnection;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.TwitterException;
@@ -38,6 +42,7 @@ public class GUIController {
 	// Keys de la API console
 	private final static String CONSUMER_KEY = "KRiUVHsXKNRDHVIGxYJ7w";
 	private final static String CONSUMER_KEY_SECRET = "BDwwg2NBUjY48OcTB2818sp7E7L32AzhNLdgt82ZVQ";
+	private static final String HOST = "http://www.twitter.com";
 	private static GUIController instancia = null; 
 
 	private TwitterService t;
@@ -289,20 +294,34 @@ public class GUIController {
 		@SuppressWarnings("unused")
 		InetAddress address;
 		System.out.println("Comprobando conexion...");
-		
-		
 		try {
-			address = InetAddress.getByName("www.twitter.com");
-			System.out.println("Comprobado. Esperando resultado...");
+			System.out.println("Comprobado mediante cabezera HTTP...");
+			URL obj = new URL(HOST);
+			URLConnection conn = obj.openConnection();
+		 
+			//get all headers
+			Map<String, List<String>> map = conn.getHeaderFields();
+			for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+				System.out.println("Key : " + entry.getKey() + 
+		                 " ,Value : " + entry.getValue());
+			}
+		 
+			//get header by 'key'
+			//String server = conn.getHeaderField("Server");
+            if(map.isEmpty()){
+            	System.err.println("Comprobacion de cabezera HTTP fallida");
+            	 System.out.println("Comprobando mediante resolucion de Host...");
+            	//try resolving host
+            	address = InetAddress.getByName(HOST);
+            }
 			online = true;
-			return true;
-		} catch (UnknownHostException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.err.println("Comprobacion de resolucion de Host fallida");
 			online = false;
-			Util.debug("Internet Error: "+e.getMessage());
-			return false;
 		}
-		
+		System.err.println("Conexion con twitter: "+online);
+		return online;
 	}
 
 	/**
