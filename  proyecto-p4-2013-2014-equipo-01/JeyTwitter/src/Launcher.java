@@ -1,9 +1,10 @@
+import java.io.File;
 import controller.GUIController;
 import controller.sql.Interaccion;
 import util.Util;
 import view.ventanas.Principal;
 import view.ventanas.Splash;
-import view.ventanas.Welcome;
+import view.ventanas.Bienvenida;
 /**
  * Clase principal que inicia el programa
  * @author JeyTuiter Dev Team
@@ -12,12 +13,17 @@ import view.ventanas.Welcome;
 public class Launcher {
 
 	public static void main(String[] args) {
+		
+		if(!new File(Util.SQLITE_NOMBRE_BBDD).exists()){
+			Terminos t = new Terminos();
+			t.setLocationRelativeTo(null);
+			t.setVisible(true);
+		}
 		Splash spl = new Splash();
 		spl.mostrar(5);
 		
 		GUIController g = new GUIController();
-		Interaccion.crearEstructura();//Crea la estructura de la BD si no está el archivo
-		//Cuando no hay conexion el metodo g.hayConexion() tarda mucho en detectar si hay conexion o no
+		Interaccion.crearEstructura();//Crea la estructura de la BD si no está el archivo *.sqlite
 		if(!g.hayConexion()){
 			//No hay conexion a internet
 			boolean resp = Util.showError(null, "Error de conexion", Util.APP_TITULO+" se mostrara en modo offline", "Cancelar", "Aceptar");
@@ -53,7 +59,7 @@ public class Launcher {
 	 * Muestra la ventana necesaria para introducir los datos de autentificacion
 	 */
 	private static void mostrarBienvenida() {
-		Welcome wc = new Welcome();
+		Bienvenida wc = new Bienvenida();
 		wc.setVisible(true);
 	}
 
@@ -64,9 +70,6 @@ public class Launcher {
 		// Tenemos token, lanzamos la ventana principal
 		//Este usuario es el usuario que tiene la sesion de twitter abierta y que tiene que ser cargado
 		//de la bd o online dependiendo de si esta conectado o no
-		//Usuario u = new Usuario("@JeyTuiter", "5768745", "9864598", "Jey", "Hola me yamo J y mi padr me puso el nombre en onor a los ombres de nejro.", new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), new Date(1L), 10, 0, 2);
-		
-		//Como el usuario no existe el programa da error de ejecucion.
 		Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 		p.setPanelActual(p.getPaneles()[1]);
 		p.setVisible(true);

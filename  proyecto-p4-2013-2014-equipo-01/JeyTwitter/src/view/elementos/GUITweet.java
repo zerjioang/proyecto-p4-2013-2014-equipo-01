@@ -18,6 +18,7 @@ import javax.swing.border.MatteBorder;
 
 import model.Tweet;
 import util.Util;
+import view.elementos.botones.BotonDosEstados;
 import view.elementos.botones.Button;
 import view.eventos.celdaTweet.EventoClickBtnFavorito;
 import view.eventos.celdaTweet.EventoClickBtnReTweet;
@@ -32,7 +33,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	private static final int SIZE_IMAGEN = 50;
 	private static final int REDONDEO = 15;
 	private JLabel lblTiempo, lblImagenusuario, lblNombreReal, lblnombreUsuario;
-	private Button btnResponder, btnRetweet, btnFavorito;
+	private BotonDosEstados btnResponder, btnRetweet, btnFavorito;
 	private JTextArea txtMensaje;
 	private JLabel lblImagenTweet;
 	private JPanel panelImagenTweet;
@@ -54,9 +55,9 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		setNombreUsuario(t.getNombreUsuario());
 		setMensaje(t.getTexto());
 		
-		btnRetweet = new Button();
-		btnFavorito = new Button();
-		btnResponder = new Button();
+		btnRetweet = new BotonDosEstados();
+		btnFavorito = new BotonDosEstados();
+		btnResponder = new BotonDosEstados();
 		
 		tweet = t;
 		init();
@@ -84,9 +85,9 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		setNombreUsuario(nombreUsuario);
 		this.txtMensaje.setText(mensaje);
 		
-		btnRetweet = new Button();
-		btnFavorito = new Button();
-		btnResponder = new Button();
+		btnRetweet = new BotonDosEstados();
+		btnFavorito = new BotonDosEstados();
+		btnResponder = new BotonDosEstados();
 		
 		tweet = t;
 		init();
@@ -101,14 +102,17 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		btnRetweet.setImagenClick("/res/botones/opcionesTweet/reTweetHover.png");
 		btnRetweet.setImagenHover("/res/botones/opcionesTweet/reTweetHover.png");
 		btnRetweet.setImagenNormal("/res/botones/opcionesTweet/reTweetNormal.png");
+		btnRetweet.setImagenClicado("/res/botones/opcionesTweet/reTweetClicked.png");
 		
 		btnFavorito.setImagenClick("/res/botones/opcionesTweet/favoritoHover.png");
 		btnFavorito.setImagenHover("/res/botones/opcionesTweet/favoritoHover.png");
 		btnFavorito.setImagenNormal("/res/botones/opcionesTweet/favoritoNormal.png");
+		btnFavorito.setImagenClicado("/res/botones/opcionesTweet/favoritoClicked.png");
 		
 		btnResponder.setImagenClick("/res/botones/opcionesTweet/responderHover.png");
 		btnResponder.setImagenHover("/res/botones/opcionesTweet/responderHover.png");
 		btnResponder.setImagenNormal("/res/botones/opcionesTweet/responderNormal.png");
+		btnResponder.setImagenClicado("/res/botones/opcionesTweet/responderClicked.png");
 		
 		btnRetweet.setIcon(new ImageIcon(GUITweet.class.getResource(btnRetweet.getImagenNormal())));
 		btnFavorito.setIcon(new ImageIcon(GUITweet.class.getResource(btnFavorito.getImagenNormal())));
@@ -231,42 +235,42 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	/**
 	 * @return devuelve el boton responder
 	 */
-	public Button getBtnResponder() {
+	public BotonDosEstados getBtnResponder() {
 		return btnResponder;
 	}
 
 	/**
 	 * @param establece el boton responder
 	 */
-	public void setBtnResponder(Button btnResponder) {
+	public void setBtnResponder(BotonDosEstados btnResponder) {
 		this.btnResponder = btnResponder;
 	}
 
 	/**
 	 * @return devuelve el boton btnRetweet
 	 */
-	public Button getBtnRetweet() {
+	public BotonDosEstados getBtnRetweet() {
 		return btnRetweet;
 	}
 
 	/**
 	 * @param establece el boton btnRetweet
 	 */
-	public void setBtnRetweet(Button btnRetweet) {
+	public void setBtnRetweet(BotonDosEstados btnRetweet) {
 		this.btnRetweet = btnRetweet;
 	}
 
 	/**
 	 * @return devuelve el boton btnFavorito
 	 */
-	public Button getBtnFavorito() {
+	public BotonDosEstados getBtnFavorito() {
 		return btnFavorito;
 	}
 
 	/**
 	 * @param establece el boton btnFavorito
 	 */
-	public void setBtnFavorito(Button btnFavorito) {
+	public void setBtnFavorito(BotonDosEstados btnFavorito) {
 		this.btnFavorito = btnFavorito;
 	}
 

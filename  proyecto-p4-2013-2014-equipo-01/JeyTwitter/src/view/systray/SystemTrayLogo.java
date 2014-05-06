@@ -8,6 +8,7 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 
 import javax.swing.ImageIcon;
+
 import util.Util;
 
 /**
@@ -17,11 +18,13 @@ import util.Util;
  */
 public class SystemTrayLogo {
 	
+	private static SystemTrayLogo bar;
 	private PopupMenu popup;
 	private TrayIcon trayIcon;
     private SystemTray tray;
     private Image icono;
 	private boolean existe;
+	private String titulo;
     
 	/**
 	 * Main de prueba
@@ -31,16 +34,27 @@ public class SystemTrayLogo {
 		SystemTrayLogo s = new SystemTrayLogo();
 		s.mostrar();
 		s.enviarError(Util.APP_TITULO+" "+Util.APP_VERSION, "Soy un mensaje emergente de prueba");
+		SystemTrayLogo l = SystemTrayLogo.getInstace();
+		l.mostrar();
+		l.enviarMensaje("Descargando datos", Util.APP_TITULO+" esta descargando los datos mas recientes");
+	}
+	
+	public static SystemTrayLogo getInstace(){
+		if(bar==null){
+			bar = new SystemTrayLogo();
+		}
+		return bar;
 	}
 	
 	/**
 	 * Constructor
 	 */
-	public SystemTrayLogo(){
+	private SystemTrayLogo(){
 		popup = new PopupMenu("Menu");
 	    tray = SystemTray.getSystemTray();
 	    icono = (new ImageIcon(SystemTrayLogo.class.getResource("/res/images/icon.png"))).getImage();
-	    trayIcon = new TrayIcon(icono, Util.APP_TITULO);
+	    titulo = Util.APP_TITULO;
+	    trayIcon = new TrayIcon(icono, titulo);
 	}
 	
 	public PopupMenu getPopup() {
@@ -81,6 +95,7 @@ public class SystemTrayLogo {
 	 * @param texto		Texto del globo emergente
 	 */
 	public void enviarAviso(String titulo, String texto) {
+		mostrar();
 		trayIcon.displayMessage(titulo, texto, TrayIcon.MessageType.WARNING);
 	}
 	
@@ -90,6 +105,7 @@ public class SystemTrayLogo {
 	 * @param texto		Texto del globo emergente
 	 */
 	public void enviarError(String titulo, String texto) {
+		mostrar();
 		trayIcon.displayMessage(titulo, texto, TrayIcon.MessageType.ERROR);
 	}
 	
@@ -98,14 +114,15 @@ public class SystemTrayLogo {
 	 * @param titulo	Titulo del globo emergente a mostrar
 	 * @param texto		Texto del globo emergente
 	 */
-	public void enviar(String titulo, String texto) {
+	public void enviarMensaje(String titulo, String texto) {
+		mostrar();
 		trayIcon.displayMessage(titulo, texto, TrayIcon.MessageType.INFO);
 	}
 	
 	/**
 	 * Añade el icono en la barra de tareas
 	 */
-	public void mostrar() {
+	private void mostrar() {
 		if(!existe){
 			//Check the SystemTray support
 			if (!SystemTray.isSupported()) {
@@ -139,5 +156,16 @@ public class SystemTrayLogo {
 	public void ocultar() {
 		tray.remove(trayIcon);
 		existe=false;
+	}
+
+	public void setTitulo(String desc) {
+		getTrayIcon().setToolTip(titulo+" - "+desc);
+	}
+
+	/**
+	 * @return the titulo
+	 */
+	public String getTitulo() {
+		return titulo;
 	}
 }

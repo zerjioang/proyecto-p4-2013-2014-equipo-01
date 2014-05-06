@@ -172,7 +172,7 @@ public class VisorImagen extends JFrame{
 			i = new VisorImagen(null, "/res/images/ppt.jpg");
 			i.open();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			Util.debug(e.getMessage());
 			Util.showError(null, "Imposible abrir","Imposible abrir la imagen seleccionada", "Cancelar", "Aceptar");
 		}
 	}

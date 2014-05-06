@@ -9,7 +9,6 @@ import javax.swing.JScrollPane;
 
 import view.eventos.URL.EventoEscucharClickURL;
 
-
 public class URL extends JFrame {
 
 	private JPanel contentPane;
@@ -49,7 +48,7 @@ public class URL extends JFrame {
 		editor.setFocusable(true);
 		editor.setContentType("text/html"); 
 		editor.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
-		editor.setText("<a href=\"www.deusto.es\"> deusto.es </a>");
+		editor.setText("Hola esto simula un tweet normal que tiene enlaces a <a href=\"www.deusto.es\"> deusto.es </a>. ¿Que te parece?");
 		
 		editor.addHyperlinkListener(new EventoEscucharClickURL());
 	    
