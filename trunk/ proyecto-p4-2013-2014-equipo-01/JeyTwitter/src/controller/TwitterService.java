@@ -28,9 +28,9 @@ public class TwitterService {
 	private AccessToken accessToken = null;
 	private RequestToken peticionDeCodigo = null;
 	
-	private Twitter tw;
+	private static Twitter tw;
 	
-	public Twitter getT(){
+	public static Twitter getT(){
 		return tw;
 	}
 	
