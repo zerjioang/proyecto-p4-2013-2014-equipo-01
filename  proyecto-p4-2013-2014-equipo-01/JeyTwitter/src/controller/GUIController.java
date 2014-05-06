@@ -498,69 +498,48 @@ public class GUIController {
 	}
 
 	public ArrayList<ObjetoCelda> buscarTweets(String str){
-		Twitter twitter = t.getT();
 		ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
-        try {
-            Query query = new Query(str);
-            QueryResult result;
-            do {
-                result = twitter.search(query);
-                List<Status> tweets = result.getTweets();
-                for (Status t : tweets) {
-                	listaTweets.add(0, new GUITweet("3d", new Tweet(t.getId(), t.getUser().getName(), t.getUser().getScreenName(), ultimaFechaActualizacion, imagenUsuario, texto, esRetweet, esFavorito)));
-                    //System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
-                }
-            } while ((query = result.nextQuery()) != null);
-        } catch (TwitterException te) {
-            te.printStackTrace();
-            System.out.println("Failed to search tweets: " + te.getMessage());
-            System.exit(-1);
-        }
+		
+		List<Status> tweets = t.buscarTuit(str);
+		for (Status t : tweets) {
+			try {
+				URL urlImagen = new URL(t.getUser().getBiggerProfileImageURL());
+				Image imagen = ImageIO.read(urlImagen);
+				listaTweets.add(0, new GUITweet("3d", new Tweet(t.getId(), t.getUser().getName(), t.getUser().getScreenName(), t.getCreatedAt(), imagen, t.getText(), t.isRetweet(), t.isFavorited())));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return listaTweets;
 	}
 	public ArrayList<ObjetoCelda> buscarUsuarios(String str, int maxPages) {
-		try {
-			Twitter twitter = t.getT();
-            int page = 1;
-            ResponseList<User> users;
-            ArrayList<ObjetoCelda> usuarios = new ArrayList<ObjetoCelda>();
-            Util.debug("iniciando busqueda de usuarios...");
-            do {
-            	Util.debug("Pagina "+page);
-                users = twitter.searchUsers(str, page);
-                Util.debug("encontrados: "+users.size());
-                for (User user : users) {
-                	ImageIcon i;
-                	URL urlImage = new URL(user.getBiggerProfileImageURL());
-    				Image imageProfile = ImageIO.read(urlImage);
-    				i = new ImageIcon(imageProfile);
-    				boolean isfriend = isAmigo(twitter.getScreenName(), user.getScreenName());
-					usuarios.add(0, new GuiTwitterUsuario(user.getName(), user.getScreenName(), i, user.getDescription(), isfriend));
-                	/* if (user.getStatus() != null) {
-                        System.out.println("@" + user.getScreenName() + " - " + user.getStatus().getText());
-                    } else {
-                        // the user is protected
-                        System.out.println("@" + user.getScreenName());
-                    }*/
-                }
-                page++;
-            } while (users.size() != 0 && page < maxPages);
-            Util.debug("busqueda de usuarios terminada");
-            return usuarios;
-        } catch (TwitterException | IOException e) {
-            e.printStackTrace();
-            Util.debug("Failed to search users: " + e.getMessage());
-            return null;
+        ArrayList<ObjetoCelda> usuarios = new ArrayList<ObjetoCelda>();
+        Util.debug("iniciando busqueda de usuarios...");
+        
+        ResponseList<User> users = t.buscarUsuario(str, maxPages);
+        for (User user : users) {
+        	ImageIcon i;
+        	URL urlImage;
+			try {
+				urlImage = new URL(user.getBiggerProfileImageURL());
+				Image imageProfile = ImageIO.read(urlImage);
+				i = new ImageIcon(imageProfile);
+				
+				boolean isfriend = isAmigo(t.getUsuarioRegistrado().getScreenName(), user.getScreenName());
+				usuarios.add(0, new GuiTwitterUsuario(user.getName(), user.getScreenName(), i, user.getDescription(), isfriend));
+			} catch (IOException | IllegalStateException | TwitterException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
+        
+        return usuarios;
 	}
 
 	public boolean isAmigo(String user1, String user2) {
-		try {
-			return t.getT().showFriendship(user1, user2).isTargetFollowedBySource();
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
+		return t.esSeguidor(user1, user2);
 	}
 
 }

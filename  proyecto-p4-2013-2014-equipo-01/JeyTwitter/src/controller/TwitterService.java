@@ -1,13 +1,24 @@
 package controller;
 
 import java.awt.Desktop;
+import java.awt.Image;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
+import model.Tweet;
 import twitter4j.IDs;
 import twitter4j.PagableResponseList;
 import twitter4j.Paging;
+import twitter4j.Query;
+import twitter4j.QueryResult;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
@@ -18,6 +29,9 @@ import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import util.Util;
+import view.elementos.GUITweet;
+import view.elementos.GuiTwitterUsuario;
+import view.elementos.ObjetoCelda;
 
 /**
  * Clase encargada de encapsular los usos de la API de Twitter
@@ -29,10 +43,6 @@ public class TwitterService {
 	private RequestToken peticionDeCodigo = null;
 	
 	private static Twitter tw;
-	
-	public static Twitter getT(){
-		return tw;
-	}
 	
 	/**
 	 * Crea un nuevo servicio de Twitter
@@ -201,6 +211,56 @@ public class TwitterService {
 			list = tw.getRetweetsOfMe();						
 		}
 		return list;
+	}
+	
+	public ResponseList<User> buscarUsuario(String busqueda, int maxPages){
+		try {
+            int page = 1;
+            ResponseList<User> users;
+            do {
+                users = tw.searchUsers(busqueda, page);
+                for (User user : users) {
+					users.add(0, user);
+                }
+                page++;
+            } while (users.size() != 0 && page < maxPages);
+            return users;
+        } catch (TwitterException e) {
+            e.printStackTrace();
+            Util.debug("Failed to search users: " + e.getMessage());
+            return null;
+        }
+	}
+	
+	public ArrayList<Status> buscarTuit(String busqueda){
+		ArrayList<Status> listaTweets = new ArrayList<Status>();
+        try {
+            Query query = new Query(busqueda);
+            QueryResult result;
+            do {
+                result = tw.search(query);
+                List<Status> tweets = result.getTweets();
+                for (Status t : tweets) {
+                	listaTweets.add(0, t);
+                }
+            } while ((query = result.nextQuery()) != null);
+            return listaTweets;
+        } catch (TwitterException te) {
+            te.printStackTrace();
+            System.out.println("Failed to search tweets: " + te.getMessage());
+            System.exit(-1);
+            return null;
+        }
+	}
+	
+	public boolean esSeguidor(String user1, String user2) {
+		try {
+			return tw.showFriendship(user1, user2).isTargetFollowedBySource();
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	/**
