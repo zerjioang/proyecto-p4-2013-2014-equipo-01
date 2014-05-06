@@ -143,7 +143,7 @@ public class TwitterService {
 	
 	public ResponseList<Status> getTimelineFromUser(String usuario, Paging paging) throws TwitterException {
 		
-		return tw.getUserTimeline(usuario, new Paging(1));
+		return tw.getUserTimeline(usuario, paging);
 	}
 	
 

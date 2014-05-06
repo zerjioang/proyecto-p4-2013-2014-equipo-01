@@ -26,7 +26,7 @@ import twitter4j.auth.AccessToken;
 
 public class Grafica {
 	@SuppressWarnings("deprecation")
-	public static void crearGrafica(Twitter t, String nombre, int alto, int ancho) throws TwitterException { 
+	public static void crearGrafica(String nombre, int alto, int ancho) throws TwitterException { 
 
 		
 		
@@ -35,12 +35,12 @@ public class Grafica {
 		TimeSeries pop = new TimeSeries("Tuits", Day.class);
 
 		//obtenemos la primera lista de tuits
-		ResponseList<Status> tuits = t.getUserTimeline("_somega", new Paging(1, 200));
+		ResponseList<Status> tuits = GUIController.obtenerTimelineDeUsuario(nombre, new Paging(1, 199));
 		System.out.println("El tamaño de la lista de tuits es de: "+ tuits.size());
 
 		
 		//calculo: obtener cuantas paginas hay (esto es aproximadamente)
-		ResponseList<Status> temporal = t.getUserTimeline("_somega", new Paging(1, 200));
+		ResponseList<Status> temporal = GUIController.obtenerTimelineDeUsuario(nombre, new Paging(1, 200));
 		int numT = temporal.get(1).getUser().getStatusesCount();
 		int div = (int) (numT/200) + 1;
 		
@@ -55,7 +55,7 @@ public class Grafica {
 		for(int i = 2; i<=div; i++){
 			Paging p = new Paging(i, 200);
 			System.out.println("Recibo por " + p.getPage() + " vez los tuits");
-			ResponseList<Status> timeline = t.getUserTimeline("_somega", p);
+			ResponseList<Status> timeline = GUIController.obtenerTimelineDeUsuario(nombre, p);
 			//System.out.println("El tamaño de la lista de tuits es de: "+ timeline.size());
 
 			//añadimos la timeline a la lista de tuits
