@@ -43,6 +43,11 @@ public class Grafica {
 		ResponseList<Status> temporal = t.getUserTimeline("_somega", new Paging(1, 200));
 		int numT = temporal.get(1).getUser().getStatusesCount();
 		int div = (int) (numT/200) + 1;
+		
+		//establecemos un tope
+		if(div>21){
+			div = 21;
+		}
 
 		
 		
