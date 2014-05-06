@@ -1,10 +1,12 @@
 import java.io.File;
+
 import controller.GUIController;
 import controller.sql.Interaccion;
 import util.Util;
 import view.ventanas.Principal;
 import view.ventanas.Splash;
 import view.ventanas.Bienvenida;
+import view.ventanas.TerminosCondiciones;
 /**
  * Clase principal que inicia el programa
  * @author JeyTuiter Dev Team
@@ -14,8 +16,8 @@ public class Launcher {
 
 	public static void main(String[] args) {
 		
-		if(!new File(Util.SQLITE_NOMBRE_BBDD).exists()){
-			Terminos t = new Terminos();
+		if(new File(Util.SQLITE_NOMBRE_BBDD).exists()){
+			TerminosCondiciones t = new TerminosCondiciones();
 			t.setLocationRelativeTo(null);
 			t.setVisible(true);
 		}

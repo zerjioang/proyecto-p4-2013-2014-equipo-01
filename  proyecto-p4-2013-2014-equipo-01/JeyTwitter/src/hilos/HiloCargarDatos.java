@@ -1,7 +1,5 @@
 package hilos;
 
-import javax.swing.JFrame;
-
 import util.InvalidInputException;
 import util.Util;
 import view.systray.SystemTrayLogo;
@@ -20,11 +18,11 @@ public class HiloCargarDatos extends Thread{
 	public void run(){
 		if(ventana.getCodeField().evaluate()){
 			try {
-				/*Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 				GUIController.getInstance().guardarUsuario(ventana.getCodigo());
+				Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 				p.setLocationRelativeTo(ventana);
 				p.setPanelActual(p.getPaneles()[1]);
-				p.setVisible(false);*/
+				p.setVisible(false);
 				//la ventana se minimiza y aparece un globo emergente
 				Util.showMessage(ventana, "Autentificacion OAuth", "Usuario autentificado correctamente", "Continuar", "Cancelar");
 				ventana.cerrar();
