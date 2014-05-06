@@ -47,7 +47,7 @@ public class GUIController {
 	private static final String HOST = "http://www.twitter.com";
 	private static GUIController instancia = null; 
 
-	private TwitterService t;
+	private static TwitterService t;
 
 	@SuppressWarnings("unused")
 	private boolean online;
@@ -121,7 +121,7 @@ public class GUIController {
 		return timeline;
 	}
 	
-	public ResponseList<Status> obtenerTimelineDeUsuario(String usuario, Paging paging) throws TwitterException {
+	public static  ResponseList<Status> obtenerTimelineDeUsuario(String usuario, Paging paging) throws TwitterException {
 		
 		return t.getTimelineFromUser(usuario, paging);
 	}

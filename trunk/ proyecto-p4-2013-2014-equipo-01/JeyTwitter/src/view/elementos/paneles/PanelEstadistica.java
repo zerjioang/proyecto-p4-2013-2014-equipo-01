@@ -31,7 +31,7 @@ public class PanelEstadistica extends JPanel{
 		
 		
 		try {
-			Grafica.crearGrafica(TwitterService.getT(), GUIController.getInstance().getUsuarioRegistrado().getNombreReal(), 460, 600);
+			Grafica.crearGrafica( GUIController.getInstance().getUsuarioRegistrado().getNombreReal(), 460, 600);
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
