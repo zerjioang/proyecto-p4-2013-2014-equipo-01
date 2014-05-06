@@ -16,7 +16,7 @@ public class Launcher {
 
 	public static void main(String[] args) {
 		
-		if(new File(Util.SQLITE_NOMBRE_BBDD).exists()){
+		if(!new File(Util.SQLITE_NOMBRE_BBDD).exists()){
 			TerminosCondiciones t = new TerminosCondiciones();
 			t.setLocationRelativeTo(null);
 			t.setVisible(true);
