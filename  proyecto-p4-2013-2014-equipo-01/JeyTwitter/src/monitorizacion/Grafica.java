@@ -131,7 +131,7 @@ public class Grafica {
 		JFreeChart chart = ChartFactory.createTimeSeriesChart("Historial de tuits de " + nombre ,"Fecha","Cantidad de tuits",dataset,true,true,false);
 
 		try {
-			ChartUtilities.saveChartAsPNG(new File("grafica.png"), chart, alto, ancho);
+			ChartUtilities.saveChartAsPNG(new File("grafica/grafica.png"), chart, alto, ancho);
 		} catch (IOException e) {
 			System.err.println("Problem occurred creating chart.");
 		}
