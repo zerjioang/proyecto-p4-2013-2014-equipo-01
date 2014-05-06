@@ -50,7 +50,7 @@ public class Grafica {
 				}else{
 					//DDescritor.println((primera.getDate())+"-"+(1 + primera.getMonth())+"-"+primera.getYear()+ ": " + contador);
 
-					pop.add(new Day(primera.getDate(), primera.getMonth()+1, primera.getYear()), contador);
+					pop.addOrUpdate(new Day(primera.getDate(), primera.getMonth()+1, primera.getYear()), contador);
 					contador = 1;
 				}
 			}
