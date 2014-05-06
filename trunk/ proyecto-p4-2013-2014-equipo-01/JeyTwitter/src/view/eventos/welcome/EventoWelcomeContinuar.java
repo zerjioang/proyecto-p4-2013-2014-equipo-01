@@ -5,29 +5,18 @@ import java.awt.event.MouseListener;
 import controller.GUIController;
 import util.Util;
 import view.ventanas.Principal;
-import view.ventanas.Welcome;
+import view.ventanas.Bienvenida;
 
 public class EventoWelcomeContinuar implements MouseListener {
 
-	private Welcome ventana;
-	public EventoWelcomeContinuar(Welcome welcome) {
+	private Bienvenida ventana;
+	public EventoWelcomeContinuar(Bienvenida welcome) {
 		ventana = welcome;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if(ventana.getCodeField().evaluate()){
-			try {
-				GUIController.getInstance().guardarUsuario(ventana.getCodigo());
-				Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
-				p.setLocationRelativeTo(ventana);
-				p.setPanelActual(p.getPaneles()[1]);
-				p.setVisible(true);
-				ventana.cerrar();
-			} catch (IllegalStateException e) {
-				Util.showError(ventana, "Error de autentificacion", "No Token available", "Cancelar", "Aceptar");
-			}
-		}
+		new HiloCargarDatos(ventana).start();
 	}
 
 	@Override

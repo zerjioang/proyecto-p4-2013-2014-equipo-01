@@ -204,6 +204,7 @@ public class Util {
 		pausar(time);
 		((Window) comp).setOpacity(0.0f);
 		((Window) comp).setVisible(false);
+		pausar(time);
 	}
 	/**
 	 * Pausa la ejecucion durante un tiempo determinado

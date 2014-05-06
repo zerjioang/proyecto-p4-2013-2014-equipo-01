@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import controller.GUIController;
 import util.Util;
 import view.parents.CustomJFrame;
-import view.ventanas.Welcome;
+import view.ventanas.Bienvenida;
 
 public class EventoClickEmpezar implements MouseListener {
 
@@ -40,8 +40,8 @@ public class EventoClickEmpezar implements MouseListener {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				JPanel panel = ( (Welcome) ventana ).getPanel(0);
-				JPanel panelMostrar = ( (Welcome) ventana ).getPanel(1);
+				JPanel panel = ( (Bienvenida) ventana ).getPanel(0);
+				JPanel panelMostrar = ( (Bienvenida) ventana ).getPanel(1);
 				panelMostrar.setVisible(true);
 				ventana.getMainPanel().add(panelMostrar);
 				int w = panel.getWidth(), h = panel.getHeight();

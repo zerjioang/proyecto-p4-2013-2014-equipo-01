@@ -2,11 +2,13 @@ package view.ventanas;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Point;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import util.Util;
+import view.elementos.GUITweet;
 import view.elementos.botones.BotonAzulCuadrado;
 import view.elementos.botones.BotonNegroCuadrado;
 import view.eventos.fastTweet.EventoAtrasFastTuit;
@@ -21,6 +23,7 @@ import java.awt.Font;
 import javax.swing.border.LineBorder;
 
 import java.awt.SystemColor;
+import java.awt.event.MouseEvent;
 
 import javax.swing.SwingConstants;
 
@@ -35,12 +38,15 @@ public class TweetRapido extends InvisibleJFrame {
 	//Constantes
 	private static final String TITULO = "Enviar Tweet";
 
+	private static final int MARGEN = 0;
+
 	private JLabel lblnombre;
 	private JLabel lblContador;
 	private JTextArea txtMensaje;
 	private BotonAzulCuadrado btnEnviar;
 	private BotonNegroCuadrado btnAtras;
 	
+	private GUITweet t;
 	private Tweet responderA;
 
 	/**
@@ -75,9 +81,10 @@ public class TweetRapido extends InvisibleJFrame {
 		init();
 	}
 	
-	public TweetRapido(Tweet t, String nombreUsuario) {
+	public TweetRapido(GUITweet t, String nombreUsuario) {
 		this(nombreUsuario);
-		responderA = t;
+		this.t = t;
+		responderA = t.getTweet();
 	}
 	
 	/**
@@ -126,6 +133,28 @@ public class TweetRapido extends InvisibleJFrame {
 		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 	
+	}
+	
+	public void colocarVentana(TweetRapido tr, int x, int y) {
+		//Hay que controlar que la ventana este dentro de la pantalla
+		tr.setLocation(new Point(x, y));
+		int anchoPantalla = Util.anchoPantalla;
+		int altoPantalla = Util.altoPantalla;
+		int xv = tr.getLocation().x;
+		int yv = tr.getLocation().y;
+		int anchoVentana = tr.getWidth();
+		int altoVentana = tr.getHeight();
+		System.out.println(xv+" "+anchoVentana+" "+anchoPantalla);
+		if(xv+anchoVentana>anchoPantalla){
+			int diferencia = xv+anchoVentana-anchoPantalla;
+			xv = xv - diferencia - MARGEN;
+		}
+		System.out.println(yv+" "+altoVentana+" "+altoPantalla);
+		if(yv+altoVentana>altoPantalla){
+			int diferencia = yv+altoVentana-altoPantalla;
+			yv = yv - diferencia - MARGEN;
+		}
+		tr.setLocation(xv, yv);
 	}
 
 	/**
@@ -201,5 +230,33 @@ public class TweetRapido extends InvisibleJFrame {
 	 */
 	public void setBtnAtras(BotonNegroCuadrado btnAtras) {
 		this.btnAtras = btnAtras;
+	}
+
+	/**
+	 * @return the t
+	 */
+	public GUITweet getCeldaTweet() {
+		return t;
+	}
+
+	/**
+	 * @param t the t to set
+	 */
+	public void setCeldaTweet(GUITweet t) {
+		this.t = t;
+	}
+
+	/**
+	 * @return the responderA
+	 */
+	public Tweet getResponderA() {
+		return responderA;
+	}
+
+	/**
+	 * @param responderA the responderA to set
+	 */
+	public void setResponderA(Tweet responderA) {
+		this.responderA = responderA;
 	}
 }

@@ -24,22 +24,22 @@ public class EventosButton implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		boton.setIcon(new ImageIcon(EventosButton.class.getResource(boton.getImagenHover())));
+		boton.setHover();
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		boton.setIcon(new ImageIcon(EventosButton.class.getResource(boton.getImagenNormal())));
+		boton.setNormal();
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		boton.setIcon(new ImageIcon(EventosButton.class.getResource(boton.getImagenClick())));
+		boton.setClick();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		boton.setIcon(new ImageIcon(EventosButton.class.getResource(boton.getImagenNormal())));
+		boton.setNormal();
 	}
 
 }

@@ -15,6 +15,7 @@ public class EventoAtrasFastTuit implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		fastTuit.getCeldaTweet().getBtnResponder().setClicado(false);
 		fastTuit.dispose();
 	}
 

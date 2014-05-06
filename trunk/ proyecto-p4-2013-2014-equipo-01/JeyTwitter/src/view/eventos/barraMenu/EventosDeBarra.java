@@ -42,15 +42,13 @@ public class EventosDeBarra implements MouseListener, MouseMotionListener {
 			if(ventana instanceof CustomJFrame){
 				((CustomJFrame) ventana).setInitialClick(e.getPoint());
 			}
-			else if(ventana instanceof CustomJDialog)
-				((CustomJDialog) ventana).setInitialClick(e.getPoint());
 			else if(ventana instanceof MensajeWindow)
 				((MensajeWindow) ventana).setInitialClick(e.getPoint());
+			else if(ventana instanceof CustomJDialog)
+				((CustomJDialog) ventana).setInitialClick(e.getPoint());
 			else if(ventana instanceof CustomJDialogWithBar)
 				((CustomJDialogWithBar) ventana).setInitialClick(e.getPoint());
 		}
-
-		
 	}
 
 	@Override
@@ -122,7 +120,7 @@ public class EventosDeBarra implements MouseListener, MouseMotionListener {
 				}
 			}}
 		}catch (ClassCastException ex){
-			System.out.println(ex.getMessage());
+			ex.printStackTrace();
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package view.elementos.botones;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import view.eventos.botonesGenericos.EventosButton;
@@ -67,5 +68,17 @@ public class Button extends JLabel{
 	public void setImagenHover(String imagenHover) {
 		if(isEnabled())
 			this.imagenHover = imagenHover;
+	}
+	
+	public void setNormal(){
+		setIcon(new ImageIcon(Button.class.getResource(getImagenNormal())));
+	}
+	
+	public void setClick(){
+		setIcon(new ImageIcon(Button.class.getResource(getImagenClick())));
+	}
+
+	public void setHover(){
+		setIcon(new ImageIcon(Button.class.getResource(getImagenHover())));
 	}
 }

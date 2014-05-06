@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
 
-public class Welcome extends CustomJFrame {
+public class Bienvenida extends CustomJFrame {
 
 	private JPanel panelCero;
 	private JPanel panelUno;
@@ -32,7 +32,7 @@ public class Welcome extends CustomJFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Welcome frame = new Welcome();
+					Bienvenida frame = new Bienvenida();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +44,7 @@ public class Welcome extends CustomJFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Welcome() {
+	public Bienvenida() {
 		super(468, 329);
 		init();
 	}
@@ -73,7 +73,7 @@ public class Welcome extends CustomJFrame {
 		panelUno.add(codeField);
 
 		JLabel lblAuthCodeTexto = new JLabel("");
-		lblAuthCodeTexto.setIcon(new ImageIcon(Welcome.class.getResource("/res/images/authCode_text.png")));
+		lblAuthCodeTexto.setIcon(new ImageIcon(Bienvenida.class.getResource("/res/images/authCode_text.png")));
 		lblAuthCodeTexto.setBounds(70, 19, 332, 109);
 		panelUno.add(lblAuthCodeTexto);
 
@@ -91,7 +91,7 @@ public class Welcome extends CustomJFrame {
 		getMainPanel().add(panelCero);
 
 		JLabel lblTextoBienvenida = new JLabel("");
-		lblTextoBienvenida.setIcon(new ImageIcon(Welcome.class.getResource("/res/images/textoBienvenida.png")));
+		lblTextoBienvenida.setIcon(new ImageIcon(Bienvenida.class.getResource("/res/images/textoBienvenida.png")));
 		lblTextoBienvenida.setBounds(21, 129, 406, 94);
 		panelCero.add(lblTextoBienvenida);
 
@@ -103,14 +103,14 @@ public class Welcome extends CustomJFrame {
 		JLabel lblWelcome = new JLabel("Bienvenido");
 		panelCero.add(lblWelcome);
 		lblWelcome.setBounds(21, 45, 257, 65);
-		lblWelcome.setFont(Util.getFont("Roboto-thin", Font.PLAIN, 55));
+		lblWelcome.setFont(Util.getFont("trebuc", Font.PLAIN, 50));
 		lblWelcome.setForeground(Color.LIGHT_GRAY);
 
 		final JLabel lblBackimg = new JLabel();
 		panelCero.add(lblBackimg);
 		lblBackimg.setBounds(0, 0, 468, 301);
 		lblBackimg.setLabelFor(lblBackimg);
-		ImageIcon imagen = new ImageIcon(Welcome.class.getResource("/res/images/bg_welcome.png"));
+		ImageIcon imagen = new ImageIcon(Bienvenida.class.getResource("/res/images/bg_welcome.png"));
 		lblBackimg.setIcon(imagen);
 
 		/*JPanel[] paneles = new JPanel[2];
