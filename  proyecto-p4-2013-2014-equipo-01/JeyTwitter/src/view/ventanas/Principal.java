@@ -99,13 +99,7 @@ public class Principal extends CustomJFrame {
 		}
 		panelInferior = new PanelEnviarTweet(this);
 		System.out.println(panelInferior.getBounds());
-		ArrayList<ObjetoCelda> o = new ArrayList<ObjetoCelda>();
-		o.add(0, new GuiTwitterUsuario());
-		o.add(0, new GuiTwitterUsuario());
-		o.add(0, new GuiTwitterUsuario());
-		o.add(0, new GuiTwitterUsuario());
-		
-		panelBusqueda = new PanelBusqueda(o);
+		panelBusqueda = new PanelBusqueda();
 		panel_stats = new PanelEstadistica();
 		
 		lblImagen = new JLabel(usuarioActual.getNombreUsuario());
