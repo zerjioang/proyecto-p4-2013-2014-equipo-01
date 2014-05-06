@@ -1,7 +1,10 @@
 package view.eventos.welcome;
 
+import hilos.HiloCargarDatos;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import controller.GUIController;
 import util.Util;
 import view.ventanas.Principal;
