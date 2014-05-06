@@ -53,14 +53,14 @@ public class BotonSeguir extends JLabel{
 	/**
 	 * @return devuelve el estado actual del boton: TRUE - FALSE, ON - OFF
 	 */
-	public boolean getEstado() {
+	public boolean isSiguiendo() {
 		return estado;
 	}
 
 	/**
 	 * @param establece el estado del boton
 	 */
-	public void setEstado(boolean estado) {
+	public void setSiguiendo(boolean estado) {
 		this.estado = estado;
 		if(estado)
 			setIcon(getImagenOn());

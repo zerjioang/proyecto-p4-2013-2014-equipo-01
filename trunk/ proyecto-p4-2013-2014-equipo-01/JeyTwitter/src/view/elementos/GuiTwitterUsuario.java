@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.MatteBorder;
 
+import twitter4j.User;
 import util.Util;
 import view.elementos.botones.BotonSeguir;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
@@ -19,15 +20,33 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 
 	private static final int ALTO = 70;
 	
-	private ObjetoCelda o;
-	JLabel lblImagenUsuario;
-	BotonSeguir btnSeguir;
-	JLabel lblNombreReal;
-	JTextArea txtrBiografia;
-	JLabel lblusuario;
+	private JLabel lblImagenUsuario;
+	private BotonSeguir btnSeguir;
+	private JLabel lblNombreReal;
+	private JTextArea txtrBiografia;
+	private JLabel lblusuario;
+	private boolean siguiendo;
 	
 	public GuiTwitterUsuario(){
 		super();
+		lblNombreReal = new JLabel();
+		txtrBiografia = new JTextArea();
+		lblusuario = new JLabel();
+		lblImagenUsuario = new JLabel();
+		siguiendo = false;
+		init();
+	}
+
+	public GuiTwitterUsuario(String name, String screenName, ImageIcon img, String description, boolean b) {
+		super();
+		lblImagenUsuario = new JLabel();
+		lblImagenUsuario.setSize(ALTO, ALTO);
+		lblImagenUsuario.setIcon(Util.getImagenRedondeada(img, 20));
+		lblImagenUsuario.setIcon(Util.escalarImagen(lblImagenUsuario));
+		lblNombreReal = new JLabel(name);
+		txtrBiografia = new JTextArea(description);
+		lblusuario = new JLabel(screenName);
+		siguiendo = b;
 		init();
 	}
 
@@ -38,11 +57,6 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 		JPanel panelmagen = new JPanel();
 		add(panelmagen, BorderLayout.WEST);
 		panelmagen.setLayout(new BorderLayout(0, 0));
-		
-		lblImagenUsuario = new JLabel("");
-		lblImagenUsuario.setSize(ALTO, ALTO);
-		lblImagenUsuario.setIcon(Util.getImagenRedondeada(new ImageIcon(GuiTwitterUsuario.class.getResource("/res/images/userTest.jpg")), 20));
-		lblImagenUsuario.setIcon(Util.escalarImagen(lblImagenUsuario));
 		panelmagen.add(lblImagenUsuario, BorderLayout.CENTER);
 		
 		JPanel panelTexto = new JPanel();
@@ -63,23 +77,23 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 		
 		btnSeguir = new BotonSeguir();
 		btnSeguir.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(1.0f,1.0f,1.0f,0.0f)));
+		btnSeguir.setSiguiendo(siguiendo);
 		panel_supDer.add(btnSeguir, BorderLayout.CENTER);
 		
 		JPanel panel_supIzq = new JPanel();
 		panel_Superior.add(panel_supIzq, BorderLayout.WEST);
 		panel_supIzq.setLayout(new BorderLayout(0, 0));
 		
-		lblusuario = new JLabel("@Usuario");
+		
 		lblusuario.setBorder(new MatteBorder(4, 4, 4, 0, (Color) new Color(1.0f,1.0f,1.0f,0.0f)));
 		lblusuario.setFont(Util.getFont("mirda", Font.BOLD, 14));
 		panel_supIzq.add(lblusuario, BorderLayout.NORTH);
 		
-		lblNombreReal = new JLabel("Nombre Real");
 		lblNombreReal.setBorder(new MatteBorder(0, 4, 4, 0, (Color) new Color(1.0f,1.0f,1.0f,0.0f)));
 		lblNombreReal.setFont(Util.getFont("mirda", Font.PLAIN, 14));
 		panel_supIzq.add(lblNombreReal, BorderLayout.SOUTH);
 		
-		txtrBiografia = new JTextArea();
+		
 		txtrBiografia.setBorder(new MatteBorder(0,5,5,0, new Color(1.0f,1.0f,1.0f,0.0f)));
 		txtrBiografia.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		txtrBiografia.setOpaque(false);
@@ -88,7 +102,6 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 		txtrBiografia.setLineWrap(true);
 		txtrBiografia.setFocusable(false);
 		txtrBiografia.setFont(Util.getFont("mirda", Font.PLAIN, 12));
-		txtrBiografia.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et felis vestibulum, laoreet ipsum vel. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et felis vestibulum, laoreet ipsum vel");
 		panelTexto.add(txtrBiografia, BorderLayout.CENTER);
 	}
 

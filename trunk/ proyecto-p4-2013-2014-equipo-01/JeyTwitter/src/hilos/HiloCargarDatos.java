@@ -22,15 +22,15 @@ public class HiloCargarDatos extends Thread{
 				Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 				p.setLocationRelativeTo(ventana);
 				p.setPanelActual(p.getPaneles()[1]);
-				p.setVisible(false);
+				p.setVisible(true);
 				//la ventana se minimiza y aparece un globo emergente
-				Util.showMessage(ventana, "Autentificacion OAuth", "Usuario autentificado correctamente", "Continuar", "Cancelar");
+				//Util.showMessage(ventana, "Autentificacion OAuth", "Usuario autentificado correctamente", "Continuar", "Cancelar");
 				ventana.cerrar();
 				//aparece el globo emergente
 				SystemTrayLogo l = SystemTrayLogo.getInstace();
 				l.enviarMensaje("Descargando datos", Util.APP_TITULO+" esta descargando los datos mas recientes");
 				l.setTitulo("descargando datos");
-			} catch (IllegalStateException | InvalidInputException e) {
+			} catch (IllegalStateException /*| InvalidInputException*/ e) {
 				ventana.setVisible(true);
 				Util.showError(ventana, "Error de autentificacion", "El token no es valido", "Cancelar", "Aceptar");
 			}

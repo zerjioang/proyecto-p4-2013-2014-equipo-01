@@ -27,7 +27,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.SwingConstants;
 
-public class CustomJFrame extends JFrame {
+public class CustomJFrame extends JFrame implements Moveable{
 	
 	//Constantes
 	protected static final int altoBarra = 26;

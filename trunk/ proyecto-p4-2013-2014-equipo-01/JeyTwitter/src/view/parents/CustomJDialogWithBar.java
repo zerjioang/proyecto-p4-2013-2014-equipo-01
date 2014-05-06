@@ -27,7 +27,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.SwingConstants;
 
-public class CustomJDialogWithBar extends JDialog {
+public class CustomJDialogWithBar extends JDialog implements Moveable{
 	
 	//Constantes
 	protected static final int altoBarra = 26;
