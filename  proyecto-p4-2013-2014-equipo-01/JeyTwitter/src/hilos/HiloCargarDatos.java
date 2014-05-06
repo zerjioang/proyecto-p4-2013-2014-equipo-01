@@ -1,4 +1,4 @@
-package view.eventos.welcome;
+package hilos;
 
 import javax.swing.JFrame;
 
