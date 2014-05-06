@@ -60,7 +60,7 @@ public class PanelPerfilUsuario extends JPanel {
 		lblNombreApellidos = new JLabel("Nombre Apellido1 Apellido2");
 		lblBiografia = new JTextArea("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et felis vestibulum, laoreet ipsum vel, varius nunc. Suspendisse porta nibh odio, in porta ipsum consectetur tincidunt. Nulla eget sollicitudin ligula. Maecenas non justo id lorem porta ullamcorper vel vitae quam.");
 		
-		btnDejarDeSeguir = new BotonSeguir();
+		btnDejarDeSeguir = new BotonSeguir("");
 		
 		btnTweets = new CoolBlueButton("Tweets");
 		btnFavoritos = new CoolBlueButton("Favoritos");
@@ -82,7 +82,7 @@ public class PanelPerfilUsuario extends JPanel {
 		lblNombreApellidos = new JLabel(us.getNombreReal());
 		lblBiografia = new JTextArea(us.getBiografia());
 		
-		btnDejarDeSeguir = new BotonSeguir();
+		btnDejarDeSeguir = new BotonSeguir(u.getNombreUsuario());
 		
 		btnTweets = new CoolBlueButton("Tweets");
 		btnFavoritos = new CoolBlueButton("Favoritos");

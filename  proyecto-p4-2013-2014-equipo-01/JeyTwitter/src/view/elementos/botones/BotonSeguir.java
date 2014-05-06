@@ -19,21 +19,21 @@ public class BotonSeguir extends JLabel{
 	private static final String IMAGEN_SEGUIR = "/res/botones/seguir/followingIcon.png";
 	private static final String IMAGEN_DEJAR_SEGUIR = "/res/botones/seguir/UnfollowIcon.png";
 	
-	public BotonSeguir(){
+	public BotonSeguir(String nombreUsuario){
 		super();
-		init();
+		init(nombreUsuario);
 	}
 	/**
 	 * Inicializa el contenido
 	 */
-	private void init() {
+	private void init(String nombreUsuario) {
 		int anchoBoton = 161;
 		int altoBoton = 85;
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		setIcon(getImagenOff());
 		setSize(anchoBoton, altoBoton);
 		//Listener
-		addMouseListener(new EventoClickSeguiroNo(this));
+		addMouseListener(new EventoClickSeguiroNo(this, nombreUsuario));
 	}
 
 	/**
