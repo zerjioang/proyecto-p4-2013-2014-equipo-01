@@ -184,7 +184,8 @@ public class Interaccion {
 						extraidos.getString("biografia"),	
 						null,	
 						extraidos.getDate("fechaActualizacion"),	
-						extraidos.getInt("numeroTweets"),	
+						extraidos.getInt("numeroTweets"),
+						0,
 						extraidos.getInt("numeroSeguidos"),	
 						extraidos.getInt("numeroSeguidores"));
 				temporal.add(tempUsuario);

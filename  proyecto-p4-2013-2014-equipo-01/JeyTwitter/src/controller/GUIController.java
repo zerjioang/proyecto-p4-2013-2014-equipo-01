@@ -314,7 +314,7 @@ public class GUIController {
 				Image imageProfile = ImageIO.read(urlImage);
 				
 				System.out.println(user.toString());
-				u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFriendsCount(), user.getFollowersCount());
+				u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFavouritesCount(), user.getFriendsCount(), user.getFollowersCount());
 			} else {
 				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
 				u = (Usuario)credenciales.getFirst();
@@ -342,7 +342,7 @@ public class GUIController {
 				Image imageProfile = ImageIO.read(urlImage);
 				
 				System.out.println(user.toString());
-				u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFriendsCount(), user.getFollowersCount());
+				u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFavouritesCount(), user.getFriendsCount(), user.getFollowersCount());
 			} else {
 				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
 				u = (Usuario)credenciales.getFirst();
@@ -430,7 +430,7 @@ public class GUIController {
 			URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
 			Image imageProfile = ImageIO.read(urlImage);
 
-			Usuario u = new Usuario(t.getUsuarioRegistrado().getScreenName(), accessToken.getToken(), accessToken.getTokenSecret(), t.getUsuarioRegistrado().getName(), t.getUsuarioRegistrado().getDescription(), imageProfile, t.getUsuarioRegistrado().getCreatedAt(), t.getUsuarioRegistrado().getStatusesCount(), t.getUsuarioRegistrado().getFriendsCount(), t.getUsuarioRegistrado().getFollowersCount());
+			Usuario u = new Usuario(t.getUsuarioRegistrado().getScreenName(), accessToken.getToken(), accessToken.getTokenSecret(), t.getUsuarioRegistrado().getName(), t.getUsuarioRegistrado().getDescription(), imageProfile, t.getUsuarioRegistrado().getCreatedAt(), t.getUsuarioRegistrado().getStatusesCount(), t.getUsuarioRegistrado().getFavouritesCount(),t.getUsuarioRegistrado().getFriendsCount(), t.getUsuarioRegistrado().getFollowersCount());
 			// Guardar en la BBDD
 			Interaccion.introducirUsuario(u);		
 		} catch (TwitterException | IOException e) {
