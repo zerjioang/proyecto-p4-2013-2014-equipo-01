@@ -16,6 +16,7 @@ public class Usuario {
 	private Image imagen;
 	private Date ultimaFechaActualizacion;
 	private int numeroTweets;
+	private int numeroFavoritos;
 	private int numeroSiguiendo;
 	private int numeroSeguidores;
 	public Usuario(String nombreUsuario, String token, String tokenSecreto)
@@ -26,7 +27,7 @@ public class Usuario {
 	}
 	public Usuario(String nombreUsuario, String token, String tokenSecreto, String nombreReal,
 			String biografia, Image imagen, Date ultimaFechaActualizacion,
-			int numeroTweets, int numeroSiguiendo, int numeroSeguidores) {
+			int numeroTweets, int numeroFavoritos, int numeroSiguiendo, int numeroSeguidores) {
 		this.token = token;
 		this.tokenSecreto = tokenSecreto;
 		this.nombreUsuario = nombreUsuario;
@@ -35,6 +36,7 @@ public class Usuario {
 		this.imagen = imagen;
 		this.ultimaFechaActualizacion = ultimaFechaActualizacion;
 		this.numeroTweets = numeroTweets;
+		this.numeroFavoritos = numeroFavoritos;
 		this.numeroSiguiendo = numeroSiguiendo;
 		this.numeroSeguidores = numeroSeguidores;
 	}
@@ -55,6 +57,12 @@ public class Usuario {
 	}
 	public void setNumeroTweets(int numeroTweets) {
 		this.numeroTweets = numeroTweets;
+	}
+	public int getNumeroFavoritos() {
+		return numeroFavoritos;
+	}
+	public void setNumeroFavoritos(int numeroFavoritos) {
+		this.numeroFavoritos = numeroFavoritos;
 	}
 	public Date getLastDateUpdated() {
 		return ultimaFechaActualizacion;
