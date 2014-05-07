@@ -136,6 +136,10 @@ public class TwitterService {
 	public User getUsuarioRegistrado() throws IllegalStateException, TwitterException {
 		return tw.showUser(tw.getId());
 	}
+	
+	public User getUsuario(long id) throws TwitterException{
+		return tw.showUser(id);
+	}
 
 	/**
 	 * Se obtiene el timeline (20 ��ltimos pero se puede parametrizar mas)
