@@ -327,6 +327,30 @@ public class GUIController {
 		return u;
 	}
 	
+	public Usuario getUsuario(String screenName) {
+		User user = null;
+		Usuario u = null;
+		try {
+			user = t.getUsuario(screenName);
+			
+			if (hayConexion()) {
+				URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
+				Image imageProfile = ImageIO.read(urlImage);
+				
+				System.out.println(user.toString());
+				u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFavouritesCount(), user.getFriendsCount(), user.getFollowersCount());
+			} else {
+				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
+				u = (Usuario)credenciales.getFirst();
+			}
+		} catch (IllegalStateException | TwitterException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return u;
+	}
+	
 	/**
 	 * Traduce a nuestra clase modelo Usuario la clase User que maneja la API
 	 * @return
