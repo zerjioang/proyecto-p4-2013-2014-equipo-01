@@ -140,6 +140,10 @@ public class TwitterService {
 	public User getUsuario(long id) throws TwitterException{
 		return tw.showUser(id);
 	}
+	
+	public User getUsuario(String screenName) throws TwitterException{
+		return tw.showUser(screenName);
+	}
 
 	/**
 	 * Se obtiene el timeline (20 ��ltimos pero se puede parametrizar mas)
