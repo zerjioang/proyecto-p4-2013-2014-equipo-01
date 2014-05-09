@@ -83,10 +83,15 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 			for (URLEntity u : urls) {
 				String html = "<a href=\""+u.getDisplayURL()+"\"> "+u.getDisplayURL()+" </a>";
 				mensajeFormateado.replace(u.getDisplayURL(), html);
-				//System.out.println(u.getURL());
+				Util.debug(u.getURL());
 			}
 			for (UserMentionEntity m : menciones) {
-				System.out.println(m.getScreenName());
+
+				String html = "<a href=\""+m.getScreenName()+"\"> "+m.getScreenName()+" </a>";
+				Util.debug("Reemplazando "+m.getScreenName()+" por "+html);
+				mensajeFormateado.replace(m.getScreenName(), html);
+				//System.out.println(u.getURL());
+				//Util.debug(m.getScreenName());
 			}
 			/*
 			lblImagenTweet.setVisible(false);

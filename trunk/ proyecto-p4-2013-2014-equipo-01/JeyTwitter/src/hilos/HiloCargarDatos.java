@@ -6,6 +6,7 @@ import view.systray.SystemTrayLogo;
 import view.ventanas.Bienvenida;
 import view.ventanas.Principal;
 import controller.GUIController;
+import controller.TwitterService;
 
 public class HiloCargarDatos extends Thread{
 
@@ -30,6 +31,7 @@ public class HiloCargarDatos extends Thread{
 				SystemTrayLogo l = SystemTrayLogo.getInstace();
 				l.enviarMensaje("Descargando datos", Util.APP_TITULO+" esta descargando los datos mas recientes");
 				l.setTitulo("descargando datos");
+				TwitterService.debug();
 			} catch (IllegalStateException /*| InvalidInputException*/ e) {
 				ventana.setVisible(true);
 				Util.showError(ventana, "Error de autentificacion", "El token no es valido", "Cancelar", "Aceptar");
