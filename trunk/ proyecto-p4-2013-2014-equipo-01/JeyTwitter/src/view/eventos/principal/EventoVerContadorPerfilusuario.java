@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import controller.GUIController;
 import view.elementos.paneles.PanelPerfilUsuario;
 import view.ventanas.Contador;
 import view.ventanas.Principal;
@@ -17,11 +18,13 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 	private final PanelPerfilUsuario p;
 	private Contador c;
 	private int opcion;
+	private long id;
 
 	public EventoVerContadorPerfilusuario(PanelPerfilUsuario panelPerfilUsuario, Contador c, int opcion) {
 		p = panelPerfilUsuario;
 		this.c = c;
 		this.opcion = opcion;
+		this.id = p.getIdUsuario();
 	}
 
 	@Override
@@ -33,17 +36,22 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		switch (opcion) {
-		case 0:
-			c.setCantidad(Principal.getUsuarioActual().getNumeroTweets());
+		case 0://Tweets
+			//c.setCantidad(Principal.getUsuarioActual().getNumeroTweets());
+			System.out.println(GUIController.getInstance().getUsuario(id).getNumeroTweets());
+			//c.setCantidad(GUIController.getInstance().getNumeroTweets(p.getUser()));
 			break;
-		case 1:
-			c.setCantidad(Principal.getUsuarioActual().getNumeroTweets());
+		case 1://Favoritos
+		//	c.setCantidad(GUIController.getInstance().getNumeroFavoritos(p.getUs().getNombreUsuario()));
+
 			break;
-		case 2:
-			c.setCantidad(Principal.getUsuarioActual().getNumeroSeguidores());
+		case 2://Seguidores
+			//c.setCantidad(Principal.getUsuarioActual().getNumeroSeguidores());
+			System.out.println(GUIController.getInstance().getUsuario(id).getNumeroSeguidores());
 			break;
-		case 3:
-			c.setCantidad(Principal.getUsuarioActual().getNumeroSiguiendo());
+		case 3://Siguiendo
+			//c.setCantidad(Principal.getUsuarioActual().getNumeroSiguiendo())
+			System.out.println(GUIController.getInstance().getUsuario(id).getNumeroSiguiendo());
 			break;
 		}
 		mover(e);

@@ -78,7 +78,13 @@ public class Principal extends CustomJFrame {
 	private JLabel lblImagen;
 	
 	private static Usuario usuarioActual;
+	private static Principal p;
 	
+	/*public getInstance(){
+		if(p==null)
+			p = new Principal(usuario);
+		return p;
+	}*/
 	/**
 	 * Constructor por defecto
 	 */
@@ -364,5 +370,13 @@ public class Principal extends CustomJFrame {
 
 	public static void setUsuarioActual(Usuario usuarioActual) {
 		Principal.usuarioActual = usuarioActual;
+	}
+
+	public PanelPerfilUsuario getPanelUsuario() {
+		return panelUsuario;
+	}
+
+	public void setPanelUsuario(PanelPerfilUsuario panelUsuario) {
+		this.panelUsuario = panelUsuario;
 	}
 }

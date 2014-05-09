@@ -43,10 +43,16 @@ public class PanelPerfilUsuario extends JPanel {
 	private CoolBlueButton btnSiguiendo;
 	private TablaTweetsUsuarios tablaTweetsUsuario;
 	private ArrayList<ObjetoCelda> listaObjetos;
+	private long idUsuario;
 	
 	private Contador cTweets, cFavoritos, cSiguiendo, cSeguidores;
 	private Usuario us;
 
+	public PanelPerfilUsuario(Usuario uActual){
+		this();
+		us = uActual;
+		init();
+	}
 	public PanelPerfilUsuario(){
 		super();
 		cTweets = new Contador();
@@ -302,6 +308,107 @@ public class PanelPerfilUsuario extends JPanel {
 	
 	public void actualizarTabla(){
 		
+	}
+
+	public Usuario getUs() {
+		return us;
+	}
+
+	public void setUs(Usuario us) {
+		this.us = us;
+	}
+	public JLabel getLblImagenUsuario() {
+		return lblImagenUsuario;
+	}
+	public void setLblImagenUsuario(JLabel lblImagenUsuario) {
+		this.lblImagenUsuario = lblImagenUsuario;
+	}
+	public JLabel getLblImagenFondo() {
+		return lblImagenFondo;
+	}
+	public void setLblImagenFondo(JLabel lblImagenFondo) {
+		this.lblImagenFondo = lblImagenFondo;
+	}
+	public JLabel getLbluser() {
+		return lbluser;
+	}
+	public void setLbluser(JLabel lbluser) {
+		this.lbluser = lbluser;
+	}
+	public JLabel getLblNombreApellidos() {
+		return lblNombreApellidos;
+	}
+	public void setLblNombreApellidos(JLabel lblNombreApellidos) {
+		this.lblNombreApellidos = lblNombreApellidos;
+	}
+	public JTextArea getLblBiografia() {
+		return lblBiografia;
+	}
+	public void setLblBiografia(JTextArea lblBiografia) {
+		this.lblBiografia = lblBiografia;
+	}
+	public CoolBlueButton getBtnTweets() {
+		return btnTweets;
+	}
+	public void setBtnTweets(CoolBlueButton btnTweets) {
+		this.btnTweets = btnTweets;
+	}
+	public CoolBlueButton getBtnFavoritos() {
+		return btnFavoritos;
+	}
+	public void setBtnFavoritos(CoolBlueButton btnFavoritos) {
+		this.btnFavoritos = btnFavoritos;
+	}
+	public CoolBlueButton getBtnSeguidores() {
+		return btnSeguidores;
+	}
+	public void setBtnSeguidores(CoolBlueButton btnSeguidores) {
+		this.btnSeguidores = btnSeguidores;
+	}
+	public CoolBlueButton getBtnSiguiendo() {
+		return btnSiguiendo;
+	}
+	public void setBtnSiguiendo(CoolBlueButton btnSiguiendo) {
+		this.btnSiguiendo = btnSiguiendo;
+	}
+	public ArrayList<ObjetoCelda> getListaObjetos() {
+		return listaObjetos;
+	}
+	public void setListaObjetos(ArrayList<ObjetoCelda> listaObjetos) {
+		this.listaObjetos = listaObjetos;
+	}
+	public long getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	public Contador getcTweets() {
+		return cTweets;
+	}
+	public void setcTweets(Contador cTweets) {
+		this.cTweets = cTweets;
+	}
+	public Contador getcFavoritos() {
+		return cFavoritos;
+	}
+	public void setcFavoritos(Contador cFavoritos) {
+		this.cFavoritos = cFavoritos;
+	}
+	public Contador getcSiguiendo() {
+		return cSiguiendo;
+	}
+	public void setcSiguiendo(Contador cSiguiendo) {
+		this.cSiguiendo = cSiguiendo;
+	}
+	public Contador getcSeguidores() {
+		return cSeguidores;
+	}
+	public void setcSeguidores(Contador cSeguidores) {
+		this.cSeguidores = cSeguidores;
+	}
+	public static Color getColorFondo() {
+		return COLOR_FONDO;
 	}
 
 }

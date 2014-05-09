@@ -5,21 +5,30 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.LayoutManager;
 import java.util.Date;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
+import controller.GUIController;
 import model.Tweet;
+import twitter4j.MediaEntity;
+import twitter4j.TwitterException;
+import twitter4j.URLEntity;
+import twitter4j.UserMentionEntity;
 import util.Util;
 import view.elementos.botones.BotonDosEstados;
 import view.elementos.botones.Button;
+import view.eventos.URL.EventoEscucharClickURL;
 import view.eventos.celdaTweet.EventoClickBtnFavorito;
 import view.eventos.celdaTweet.EventoClickBtnReTweet;
 import view.eventos.celdaTweet.EventoClickBtnResponder;
@@ -34,18 +43,18 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	private static final int REDONDEO = 15;
 	private JLabel lblTiempo, lblImagenusuario, lblNombreReal, lblnombreUsuario;
 	private BotonDosEstados btnResponder, btnRetweet, btnFavorito;
-	private JTextArea txtMensaje;
+	private JEditorPane txtMensaje;
 	private JLabel lblImagenTweet;
 	private JPanel panelImagenTweet;
 	private Tweet tweet;
+	private String imagenTuit;
 	
 	public GUITweet(String fecha, Tweet t) {
 		super();
-		
 		this.lblImagenusuario = new JLabel();
 		this.lblNombreReal = new JLabel();
 		this.lblnombreUsuario = new JLabel();
-		this.txtMensaje = new JTextArea();
+		this.txtMensaje = procesarMensaje(t);
 		this.lblTiempo = new JLabel();
 		
 		setTiempo(fecha);
@@ -62,6 +71,48 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		tweet = t;
 		init();
 	}
+	private JEditorPane procesarMensaje(Tweet t) {
+		// TODO Auto-generated method stub
+		String mensajeFormateado = t.getTexto();
+		try {
+			//MediaEntity[] medias = GUIController.getInstance().getMedias(t.getCodigo());
+			UserMentionEntity[] menciones = GUIController.getInstance().getMenciones(t.getCodigo());
+			URLEntity[] urls = GUIController.getInstance().getURLs(t.getCodigo());
+			
+			
+			for (URLEntity u : urls) {
+				String html = "<a href=\""+u.getDisplayURL()+"\"> "+u.getDisplayURL()+" </a>";
+				mensajeFormateado.replace(u.getDisplayURL(), html);
+				//System.out.println(u.getURL());
+			}
+			for (UserMentionEntity m : menciones) {
+				System.out.println(m.getScreenName());
+			}
+			/*
+			lblImagenTweet.setVisible(false);
+			for (MediaEntity media : medias) {
+				System.out.println(media.getExpandedURL());
+				lblImagenTweet.setVisible(true);
+				break;
+			}*/
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		/*JScrollPane scrollPane = new JScrollPane();
+		contentPane.add(scrollPane);*/
+		
+		JEditorPane editor = new JEditorPane();
+		editor.setEditable(false);
+		editor.setFocusable(true);
+		editor.setContentType("text/html"); 
+		editor.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
+		editor.setText(mensajeFormateado);
+		editor.addHyperlinkListener(new EventoEscucharClickURL());
+	    
+		//scrollPane.setViewportView(editor);
+		return editor;
+	}
 	/**
 	 * @param lblTiempo
 	 * @param lblImagenusuario
@@ -76,7 +127,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		this.lblImagenusuario = new JLabel();
 		this.lblNombreReal = new JLabel();
 		this.lblnombreUsuario = new JLabel();
-		this.txtMensaje = new JTextArea();
+		this.txtMensaje = new JEditorPane();
 		this.lblTiempo = new JLabel();
 		
 		this.lblTiempo.setText(tiempo);
@@ -173,8 +224,8 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		
 		JPanel panelCentroMensaje = new JPanel(new BorderLayout());
 		panelCentro.add(panelCentroMensaje, BorderLayout.CENTER);
-		txtMensaje.setLineWrap(true);
-		txtMensaje.setWrapStyleWord(true);
+		//txtMensaje.setLineWrap(true);
+		//txtMensaje.setWrapStyleWord(true);
 		txtMensaje.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		txtMensaje.setEditable(false);
 		txtMensaje.setFocusable(true);
@@ -194,7 +245,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 			lblImagenTweet.setHorizontalAlignment(SwingConstants.CENTER);
 			lblImagenTweet.setHorizontalTextPosition(SwingConstants.CENTER);
 			setBordeImagenTweet(3,3,3,3, new Color(255, 255, 255));
-			setImagenTweet(new ImageIcon(GUITweet.class.getResource("/res/images/a.jpg")));
+			//setImagenTweet(new ImageIcon(GUITweet.class.getResource(imagenTuit)));
 			panelImagenTweet.add(lblImagenTweet, BorderLayout.SOUTH);
 			
 			//evento al clicar encima de la imagen del tweet

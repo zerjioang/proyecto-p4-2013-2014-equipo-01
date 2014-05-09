@@ -19,6 +19,7 @@ public class EventoEscucharClickURL implements HyperlinkListener {
                 	String url = e.getDescription();
                 	System.out.println(url);
                     Desktop.getDesktop().browse(new URI(url));
+                    
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
