@@ -48,7 +48,7 @@ public class URL extends JFrame {
 		editor.setFocusable(true);
 		editor.setContentType("text/html"); 
 		editor.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
-		editor.setText("Hola esto simula un tweet normal que tiene enlaces a <a href=\"www.deusto.es\"> deusto.es </a>. ¿Que te parece?");
+		editor.setText("Hola esto simula un tweet normal que tiene enlaces a <a href=\"www.deusto.es\"> deusto.es </a>. ï¿½Que te parece?");
 		
 		editor.addHyperlinkListener(new EventoEscucharClickURL());
 	    

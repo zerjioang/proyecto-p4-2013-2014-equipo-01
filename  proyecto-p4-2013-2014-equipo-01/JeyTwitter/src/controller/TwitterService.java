@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 
 import model.Tweet;
 import twitter4j.IDs;
+import twitter4j.MediaEntity;
 import twitter4j.PagableResponseList;
 import twitter4j.Paging;
 import twitter4j.Query;
@@ -25,7 +26,9 @@ import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.URLEntity;
 import twitter4j.User;
+import twitter4j.UserMentionEntity;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import util.Util;
@@ -96,6 +99,24 @@ public class TwitterService {
 			}
 		}
 		
+	}
+	
+	public MediaEntity[] getMediaEntities(long idTweet) throws TwitterException {
+		Status tweet = tw.showStatus(idTweet);
+		
+		return tweet.getMediaEntities();
+	}
+	
+	public URLEntity[] getURLEntities(long idTweet) throws TwitterException {
+		Status tweet = tw.showStatus(idTweet);
+		
+		return tweet.getURLEntities();
+	}
+	
+	public UserMentionEntity[] getMentionEntities(long idTweet) throws TwitterException {
+		Status tweet = tw.showStatus(idTweet);
+		
+		return tweet.getUserMentionEntities();
 	}
 	
 	/**
@@ -338,5 +359,20 @@ public class TwitterService {
 		for(int j=0; j<19; j++){
 			System.out.println("el usuario numero "+j + " es: " + usuarios.get(j).getScreenName());
 		}
+	}
+
+	public int getNumeroFavoritos(long id) {
+        try {
+			ResponseList<Status> statusList = tw.timelines().getUserTimeline(id);
+			/*for (Status statusItem : statusList)
+	        {
+	         System.out.println("Tweet Id : " + statusItem.getId() + ", retweet count: " + statusItem.getRetweetCount());
+	        } */
+	         return statusList.get(0).getFavoriteCount();
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			return -1;
+		}
+
 	}
 }

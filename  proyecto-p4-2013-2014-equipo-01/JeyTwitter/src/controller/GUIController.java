@@ -26,6 +26,7 @@ import controller.sql.Interaccion;
 import model.Tweet;
 import model.Usuario;
 import sun.net.www.protocol.http.HttpURLConnection;
+import twitter4j.MediaEntity;
 import twitter4j.Paging;
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -33,7 +34,9 @@ import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.TwitterException;
+import twitter4j.URLEntity;
 import twitter4j.User;
+import twitter4j.UserMentionEntity;
 import twitter4j.auth.AccessToken;
 import twitter4j.Twitter;
 import util.Util;
@@ -108,7 +111,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -147,7 +150,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -181,7 +184,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -215,7 +218,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -249,7 +252,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getName(), each.getUser().getScreenName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -384,7 +387,7 @@ public class GUIController {
 		InetAddress address;
 		System.out.println("Comprobando conexion...");
 		try {
-			System.out.println("Comprobado mediante cabezera HTTP...");
+			System.out.println("Comprobado mediante cabecera HTTP...");
 			URL obj = new URL(HOST);
 			URLConnection conn = obj.openConnection();
 		 
@@ -446,6 +449,18 @@ public class GUIController {
 			return false;
 		}
 
+	}
+	
+	public MediaEntity[] getMedias(long idTweet) throws TwitterException {
+		return t.getMediaEntities(idTweet);
+	}
+	
+	public URLEntity[] getURLs(long idTweet) throws TwitterException {
+		return t.getURLEntities(idTweet);
+	}
+	
+	public UserMentionEntity[] getMenciones(long idTweet) throws TwitterException {
+		return t.getMentionEntities(idTweet);
 	}
 
 	public void guardarUsuario(String codigo){
@@ -589,5 +604,10 @@ public class GUIController {
 	public boolean isAmigo(String user1, String user2) {
 		return t.esSeguidor(user1, user2);
 	}
+
+	public int getNumeroFavoritos(long user) {
+		return t.getNumeroFavoritos(user);
+		// TODO Auto-generated method stub
+		}
 
 }
