@@ -26,10 +26,8 @@ import monitorizacion.Grafica;
 
 public class PanelEstadistica extends JPanel{
 	public PanelEstadistica(){
-		JLabel label = new JLabel();
 		
-		
-		
+		/*JLabel label = new JLabel();
 		try {
 			Grafica.crearGrafica( GUIController.getInstance().getUsuarioRegistrado().getNombreReal(), 460, 600);
 		} catch (TwitterException e) {
@@ -42,9 +40,6 @@ public class PanelEstadistica extends JPanel{
 		}catch(Exception e){
 			System.out.println("error a la hora de mostrar");
 		}
-		
-		
-		
-		add(label);
+		add(label);*/
 	}
 }

@@ -1,6 +1,7 @@
 import java.io.File;
 
 import controller.GUIController;
+import controller.TwitterService;
 import controller.sql.Interaccion;
 import util.Util;
 import view.ventanas.Principal;
@@ -15,7 +16,6 @@ import view.ventanas.TerminosCondiciones;
 public class Launcher {
 
 	public static void main(String[] args) {
-		
 		if(!new File(Util.SQLITE_NOMBRE_BBDD).exists()){
 			TerminosCondiciones t = new TerminosCondiciones();
 			t.setLocationRelativeTo(null);

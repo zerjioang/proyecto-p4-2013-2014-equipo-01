@@ -8,7 +8,10 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -20,6 +23,7 @@ import twitter4j.PagableResponseList;
 import twitter4j.Paging;
 import twitter4j.Query;
 import twitter4j.QueryResult;
+import twitter4j.RateLimitStatus;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
@@ -374,5 +378,21 @@ public class TwitterService {
 			return -1;
 		}
 
+	}
+	
+	public static void debug(){
+		try {
+            Map<String, RateLimitStatus> r = tw.getRateLimitStatus();
+            String[] keys = (String[]) r.keySet().toArray();
+            RateLimitStatus[] rv = (RateLimitStatus[]) r.values().toArray();
+            for (int i = 0; i < rv.length; i++) {
+				Util.debug(keys[i]+" "+rv[i]);
+			}
+            System.exit(0);
+        } catch (TwitterException te) {
+            te.printStackTrace();
+            System.out.println("Failed to get rate limit status: " + te.getMessage());
+            System.exit(-1);
+        }
 	}
 }
