@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 
 import util.Util;
 
-public class InvisibleJFrame extends JFrame {
+public abstract class InvisibleJFrame extends JFrame {
 
 	protected JPanel contentPane;
 	private static final String IMG_ICON = Util.APP_ICONO;
@@ -20,21 +20,6 @@ public class InvisibleJFrame extends JFrame {
 	private String imagenfondo;
 	private ImageIcon icono;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InvisibleJFrame frame = new InvisibleJFrame("/res/images/splash.png");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

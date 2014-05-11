@@ -53,6 +53,8 @@ public class PanelPerfilUsuario extends JPanel {
 		us = uActual;
 		init();
 	}
+	
+	@Deprecated
 	public PanelPerfilUsuario(){
 		super();
 		cTweets = new Contador();
@@ -81,6 +83,12 @@ public class PanelPerfilUsuario extends JPanel {
 	public PanelPerfilUsuario(Usuario u, ArrayList<ObjetoCelda> listaObjetos){
 		super();
 		us = u;
+		
+		cTweets = new Contador();
+		cFavoritos = new Contador();
+		cSiguiendo = new Contador();
+		cSeguidores = new Contador();
+		
 		lblImagenUsuario = new JLabel(new ImageIcon(us.getImagen()));
 		lblImagenFondo = new JLabel("");
 		lbluser = new JLabel();

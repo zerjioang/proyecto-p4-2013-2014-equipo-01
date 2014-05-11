@@ -29,10 +29,6 @@ public class EventoCambiarColoBoton implements MouseListener {
 			tablaGeneral.setValueAt(b, i, col);
 		}
 		tablaGeneral.repaint();
-		
-		//Aqui viene el codigo que cambia de panel
-		
-		//Aqui viene el codigo que cambia de panel
 	}
 
 	@Override

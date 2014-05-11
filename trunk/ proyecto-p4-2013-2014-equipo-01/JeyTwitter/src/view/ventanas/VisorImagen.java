@@ -29,7 +29,7 @@ public class VisorImagen extends JFrame{
 	private Component ventanaPadre;
 	private ImageIcon img;
 	private static final Dimension tamanyoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
-	private static final int MARGEN = 200;
+	private static final int MARGEN = 50;
 	private static final int TAMANO_MINIMO = 200;//Minima cantidad de pixel que tiene que haber tanto en ancho como en alto
 	
 	public VisorImagen(Component parent, String s) throws FileNotFoundException{
@@ -123,7 +123,6 @@ public class VisorImagen extends JFrame{
 		JLabel imageLabel = new JLabel(img);
 		getContentPane().add(imageLabel, BorderLayout.CENTER);
         imageLabel.addMouseListener(new EventoClickVisorImagen(this));
-        setVisible(true);
         Util.mostrarImagenDifuso(this, 20);
 	}
 

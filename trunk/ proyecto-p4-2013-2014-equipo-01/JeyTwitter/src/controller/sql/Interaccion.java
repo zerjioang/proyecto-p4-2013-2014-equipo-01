@@ -328,14 +328,14 @@ public class Interaccion {
 	public static void main(String[]args) throws IOException
 	{
 		reiniciarBase();
-//Esta parte del código prueba la inserción de usuarios y extracción de los mismos con la imagen
-/*		Usuario temp3 = new Usuario("Fiser12", "21323", "dfasdf", "Fiser", "bibliografia", ImageIO.read(new File("src/res/images/notif/notification_follower.png")), new Date(12122012), 4, 2, 2);
+		//Esta parte del código prueba la inserción de usuarios y extracción de los mismos con la imagen
+		/*		Usuario temp3 = new Usuario("Fiser12", "21323", "dfasdf", "Fiser", "bibliografia", ImageIO.read(new File("src/res/images/notif/notification_follower.png")), new Date(12122012), 4, 2, 2);
 		System.out.println(introducirUsuario(temp3));
 		
 		JFrame temp2 = new JFrame();
 		temp2.add(new JLabel(new ImageIcon(extraerUsuarios().get(0).getImagen())));
 		temp2.setVisible(true);*/
-/////////////////////----------------------------------------//////////////////////
+
 //Esta parte de cóidgo prueba la insercción un tweet en la bd
 /*		Tweet temp = new Tweet(6554667, "jejfkef", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
 		System.out.println(insertarTweet(temp, "Fiser12", "png"));

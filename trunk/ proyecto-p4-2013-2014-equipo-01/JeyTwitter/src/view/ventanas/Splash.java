@@ -11,6 +11,8 @@ public class Splash extends InvisibleJFrame {
 	//Constantes
 	private static final String TITULO = "Iniciando "+Util.APP_TITULO+"...";
 	private static final String IMG_SPLASH = "/res/images/Splash.png";
+	//solo de prueba
+	public static long inicio;
 
 	/**
 	 * Launch the application.
@@ -33,6 +35,7 @@ public class Splash extends InvisibleJFrame {
 	 */
 	public Splash() {
 		super(IMG_SPLASH);
+		inicio = System.currentTimeMillis();
 		setTitle(TITULO);
 		contentPane.add(fondo);
 		contentPane.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));

@@ -18,10 +18,15 @@ import java.awt.BorderLayout;
 
 import javax.swing.border.MatteBorder;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TerminosCondiciones extends CustomJDialogWithBar {
 
+	private boolean estado;
+	private JCheckBox checkbox;
 	/**
 	 * Launch the application.
 	 */
@@ -64,12 +69,12 @@ public class TerminosCondiciones extends CustomJDialogWithBar {
 		txtMensaje.setWrapStyleWord(true);
 		txtMensaje.setLineWrap(true);
 		txtMensaje.setEditable(false);
-		txtMensaje.setFont(Util.getFont("Roboto", Font.BOLD, 12));
+		txtMensaje.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 12));
 		scrollPane.setViewportView(txtMensaje);
 		
 		JPanel inferior = new JPanel();
 		inferior.setLayout(new BorderLayout(0, 0));
-		JCheckBox checkbox = new JCheckBox("He leido y acepto las condiciones de uso");
+		checkbox = new JCheckBox("He leido y acepto las condiciones de uso");
 		checkbox.setBorder(new MatteBorder(1, 10, 1, 1, (Color) new Color(0f, 0f, 0f, 0f)));
 		inferior.add(checkbox, BorderLayout.WEST);
 		CoolBlueButton boton = new CoolBlueButton("Aceptar");
@@ -77,10 +82,44 @@ public class TerminosCondiciones extends CustomJDialogWithBar {
 		inferior.add(boton, BorderLayout.EAST);
 		getMainPanel().add(inferior, BorderLayout.SOUTH);
 		
+		boton.addMouseListener(new EventoClickCondiciones(this));
+		
 		JLabel lblTitulo = new JLabel("Terminos y condiciones de JeyTuiter");
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setBorder(new MatteBorder(10, 10, 10, 1, (Color) new Color(0f, 0f, 0f, 0f)));
 		lblTitulo.setFont(Util.getFont("trebuc", Font.BOLD, 20));
 		getMainPanel().add(lblTitulo, BorderLayout.NORTH);
+	}
+
+	public boolean isCondicionesAceptadas() {
+		return estado;
+	}
+
+	/**
+	 * @return the estado
+	 */
+	public boolean isEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+	/**
+	 * @return the checkbox
+	 */
+	public JCheckBox getCheckbox() {
+		return checkbox;
+	}
+
+	/**
+	 * @param checkbox the checkbox to set
+	 */
+	public void setCheckbox(JCheckBox checkbox) {
+		this.checkbox = checkbox;
 	}
 }
