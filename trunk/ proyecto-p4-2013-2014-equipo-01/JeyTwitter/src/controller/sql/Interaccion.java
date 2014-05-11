@@ -3,19 +3,12 @@ package controller.sql;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
-
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 import model.Tweet;
 import model.Usuario;
 /**
@@ -44,7 +37,7 @@ public class Interaccion {
 	public static boolean introducirUsuario(Usuario introducir)
 	{
 		boolean comprobar = true;
-		comprobar = comprobar && gestor.enviarComando("INSERT INTO Usuario(nombreUsuario, nombreReal, token, secretToken, biografia, numeroSeguidos, numeroSeguidores, numeroTweets, fechaActualizacion) VALUES ('"+introducir.getNombreUsuario()+"','"+introducir.getNombreReal()+"','"+introducir.getToken()+"','"+introducir.getTokenSecreto()+"','"+introducir.getBiografia()+"',"+introducir.getNumeroSiguiendo()+","+introducir.getNumeroSeguidores()+","+introducir.getNumeroTweets()+",'"+introducir.getUltimaFechaActualizacion().toString()+"')");
+		comprobar = comprobar && gestor.enviarComando("INSERT INTO Usuario(nombreUsuario, nombreReal, token, secretToken, biografia, numeroSeguidos, numeroSeguidores, numeroTweets, numeroFavoritos, fechaActualizacion) VALUES ('"+introducir.getNombreUsuario()+"','"+introducir.getNombreReal()+"','"+introducir.getToken()+"','"+introducir.getTokenSecreto()+"','"+introducir.getBiografia()+"',"+introducir.getNumeroSiguiendo()+","+introducir.getNumeroSeguidores()+","+introducir.getNumeroTweets()+","+introducir.getNumeroFavoritos()+",'"+introducir.getUltimaFechaActualizacion().toString()+"')");
 		comprobar = comprobar && actualizarImagenPerfil(introducir.getNombreUsuario(), introducir.getImagen(), "png");
 		return comprobar;
 	}
@@ -140,6 +133,16 @@ public class Interaccion {
 		return 	gestor.enviarComando("UPDATE Usuario SET numeroTweets = "+numTweets+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
 	/**
+	 * Permite actualizar el numero de favoritos que dispone la cuenta.
+	 * @param nombreUsuario
+	 * @param numTweets
+	 * @return
+	 */
+	public static boolean actualizarNumFavoritos(String nombreUsuario, int numFaves)
+	{
+		return 	gestor.enviarComando("UPDATE Usuario SET numeroFavoritos = "+numFaves+" WHERE nombreUsuario = '"+nombreUsuario+"'");
+	}
+	/**
 	 * Permite cambiar la imagen del perfil del usuario
 	 * @param nombreUsuario
 	 * @param imagen
@@ -185,7 +188,7 @@ public class Interaccion {
 						null,	
 						extraidos.getDate("fechaActualizacion"),	
 						extraidos.getInt("numeroTweets"),
-						0,
+						extraidos.getInt("numeroFavoritos"),
 						extraidos.getInt("numeroSeguidos"),	
 						extraidos.getInt("numeroSeguidores"));
 				temporal.add(tempUsuario);
@@ -318,7 +321,7 @@ public class Interaccion {
 	}
 	public static void crearEstructura()
 	{
-		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Usuario (nombreUsuario text NOT NULL,nombreReal text, token text NOT NULL, secretToken text, biografia text, imagen blob, numeroSeguidos integer, numeroSeguidores integer, numeroTweets integer, fechaActualizacion Datetime,PRIMARY KEY(nombreUsuario));");		
+		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Usuario (nombreUsuario text NOT NULL,nombreReal text, token text NOT NULL, secretToken text, biografia text, imagen blob, numeroSeguidos integer, numeroSeguidores integer, numeroTweets integer, numeroFavoritos, fechaActualizacion Datetime,PRIMARY KEY(nombreUsuario));");		
 		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Tweet (codigo BIGINT NOT NULL, fechaActualizacion DATETIME, nombreUsuario TEXT, nombreReal TEXT, imagenUsuario blob, texto TEXT, esRetweet integer, esFavorito integer, PRIMARY KEY(codigo));");
 		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Tienen (nombreUsuario text NOT NULL,codigo text NOT NULL,PRIMARY KEY(nombreUsuario,codigo),CONSTRAINT nombreUsuario FOREIGN KEY (nombreUsuario) REFERENCES Usuario (nombreUsuario) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT codigo FOREIGN KEY (codigo) REFERENCES Tweet (codigo) ON DELETE CASCADE ON UPDATE CASCADE);");
 	}
