@@ -1,7 +1,6 @@
 import java.io.File;
 
 import controller.GUIController;
-import controller.TwitterService;
 import controller.sql.Interaccion;
 import util.Util;
 import view.ventanas.Principal;

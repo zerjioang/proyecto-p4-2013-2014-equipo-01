@@ -73,6 +73,14 @@ public class TwitterService {
 		return tw.retweetStatus(codigo);
 	}
 	/**
+	 * Permite desfavear el tweet indicado por el código long
+	 * @param codigo Es el código identificativo del tweet
+	 */
+	public Status desfavear(long codigo) throws TwitterException
+	{
+		return tw.destroyFavorite(codigo);
+	}
+	/**
 	 * Permite hacer fav al tweet indicado por el código long
 	 * @param codigo Es el código identificativo del tweet
 	 */

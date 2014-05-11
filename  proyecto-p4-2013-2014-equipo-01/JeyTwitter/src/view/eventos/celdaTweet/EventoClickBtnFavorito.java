@@ -20,16 +20,11 @@ public class EventoClickBtnFavorito implements MouseListener {
 		long codigo = t.getTweet().getCodigo();
 		
 		if(GUIController.getInstance().marcarFavorito(codigo)) {
-			if(!t.getBtnFavorito().isClicado()){
-				System.out.println("Favorito marcado con éxito");
+				t.getTweet().setEsFavorito(true);
 				t.getBtnFavorito().setClicado(true);
-			}
-			else{
-				System.out.println("Favorito desmarcado con éxito");
-				t.getBtnFavorito().setClicado(false);
-			}
 		} else {
-			System.err.println("Ha ocurrido un error al marcar favorito");
+			t.getBtnFavorito().setClicado(false);
+			t.getTweet().setEsFavorito(false);
 		}
 	}
 
