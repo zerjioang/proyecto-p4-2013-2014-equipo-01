@@ -9,7 +9,9 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,11 +27,16 @@ import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.RateLimitStatus;
 import twitter4j.ResponseList;
+import twitter4j.StallWarning;
 import twitter4j.Status;
+import twitter4j.StatusDeletionNotice;
+import twitter4j.StatusListener;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.TwitterStream;
+import twitter4j.TwitterStreamFactory;
 import twitter4j.URLEntity;
 import twitter4j.User;
 import twitter4j.UserMentionEntity;
@@ -254,23 +261,20 @@ public class TwitterService {
 		return list;
 	}
 	
-	public ResponseList<User> buscarUsuario(String busqueda, int maxPages){
+	public ArrayList<User> buscarUsuario(String busqueda, int maxPages){
+		ArrayList<User> foundUsers = new ArrayList<User>();
 		try {
             int page = 1;
             ResponseList<User> users;
-            do {
+            do{
                 users = tw.searchUsers(busqueda, page);
-                for (User user : users) {
-					users.add(0, user);
-                }
+                foundUsers.addAll(users);
                 page++;
             } while (users.size() != 0 && page < maxPages);
-            return users;
         } catch (TwitterException e) {
-            e.printStackTrace();
             Util.debug("Failed to search users: " + e.getMessage());
-            return null;
         }
+		return foundUsers;
 	}
 	
 	public ArrayList<Status> buscarTuit(String busqueda){
@@ -285,13 +289,10 @@ public class TwitterService {
                 	listaTweets.add(0, t);
                 }
             } while ((query = result.nextQuery()) != null);
-            return listaTweets;
         } catch (TwitterException te) {
-            te.printStackTrace();
             System.out.println("Failed to search tweets: " + te.getMessage());
-            System.exit(-1);
-            return null;
         }
+        return listaTweets;
 	}
 	
 	public boolean esSeguidor(String user1, String user2) {
@@ -387,20 +388,74 @@ public class TwitterService {
 		}
 
 	}
-	
-	public static void debug(){
-		try {
-            Map<String, RateLimitStatus> r = tw.getRateLimitStatus();
-            String[] keys = (String[]) r.keySet().toArray();
-            RateLimitStatus[] rv = (RateLimitStatus[]) r.values().toArray();
-            for (int i = 0; i < rv.length; i++) {
-				Util.debug(keys[i]+" "+rv[i]);
-			}
-            System.exit(0);
-        } catch (TwitterException te) {
-            te.printStackTrace();
-            System.out.println("Failed to get rate limit status: " + te.getMessage());
-            System.exit(-1);
-        }
+
+	public void iniciarStreaming() {
+		TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
+        StatusListener listener = new StatusListener() {
+			
+
+            @Override
+            public void onStatus(Status status) {
+                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+            }
+
+            @Override
+            public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
+                System.out.println("Got a status deletion notice id:" + statusDeletionNotice.getStatusId());
+            }
+
+            @Override
+            public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
+                System.out.println("Got track limitation notice:" + numberOfLimitedStatuses);
+            }
+
+            @Override
+            public void onScrubGeo(long userId, long upToStatusId) {
+                System.out.println("Got scrub_geo event userId:" + userId + " upToStatusId:" + upToStatusId);
+            }
+
+            @Override
+            public void onStallWarning(StallWarning warning) {
+                System.out.println("Got stall warning:" + warning);
+            }
+
+            @Override
+            public void onException(Exception ex) {
+                ex.printStackTrace();
+            }
+		};
+		/*
+            @Override
+            public void onStatus(Status status) {
+                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+            }
+
+            @Override
+            public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
+                System.out.println("Got a status deletion notice id:" + statusDeletionNotice.getStatusId());
+            }
+
+            @Override
+            public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
+                System.out.println("Got track limitation notice:" + numberOfLimitedStatuses);
+            }
+
+            @Override
+            public void onScrubGeo(long userId, long upToStatusId) {
+                System.out.println("Got scrub_geo event userId:" + userId + " upToStatusId:" + upToStatusId);
+            }
+
+            @Override
+            public void onStallWarning(StallWarning warning) {
+                System.out.println("Got stall warning:" + warning);
+            }
+
+            @Override
+            public void onException(Exception ex) {
+                ex.printStackTrace();
+            }
+        */
+        twitterStream.addListener(listener);
+        twitterStream.retweet();
 	}
 }

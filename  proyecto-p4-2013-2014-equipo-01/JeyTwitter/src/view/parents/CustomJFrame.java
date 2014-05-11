@@ -27,7 +27,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.SwingConstants;
 
-public class CustomJFrame extends JFrame implements Moveable{
+public abstract class CustomJFrame extends JFrame implements Moveable{
 	
 	//Constantes
 	protected static final int altoBarra = 26;
@@ -45,22 +45,6 @@ public class CustomJFrame extends JFrame implements Moveable{
 	private JLabel lblBotonesBotonera;
 	private boolean disposeWindow;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CustomJFrame frame = new CustomJFrame(600,300);
-					frame.setTitle("Ventana de prueba");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

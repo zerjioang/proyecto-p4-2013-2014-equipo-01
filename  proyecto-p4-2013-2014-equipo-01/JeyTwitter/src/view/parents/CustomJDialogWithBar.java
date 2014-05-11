@@ -27,7 +27,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.SwingConstants;
 
-public class CustomJDialogWithBar extends JDialog implements Moveable{
+public abstract class CustomJDialogWithBar extends JDialog implements Moveable{
 	
 	//Constantes
 	protected static final int altoBarra = 26;
@@ -44,23 +44,6 @@ public class CustomJDialogWithBar extends JDialog implements Moveable{
 	private JPanel panelBarra;
 	private JLabel lblBotonesBotonera;
 	private boolean disposeWindow;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CustomJDialogWithBar frame = new CustomJDialogWithBar(600,300);
-					frame.setTitle("Ventana de prueba");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

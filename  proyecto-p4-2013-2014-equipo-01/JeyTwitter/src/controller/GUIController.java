@@ -1,20 +1,16 @@
 package controller;
 
-import java.awt.Container;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +21,8 @@ import javax.swing.ImageIcon;
 import controller.sql.Interaccion;
 import model.Tweet;
 import model.Usuario;
-import sun.net.www.protocol.http.HttpURLConnection;
 import twitter4j.MediaEntity;
 import twitter4j.Paging;
-import twitter4j.Query;
-import twitter4j.QueryResult;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.StatusUpdate;
@@ -38,11 +31,11 @@ import twitter4j.URLEntity;
 import twitter4j.User;
 import twitter4j.UserMentionEntity;
 import twitter4j.auth.AccessToken;
-import twitter4j.Twitter;
 import util.Util;
 import view.elementos.GUITweet;
 import view.elementos.GuiTwitterUsuario;
 import view.elementos.ObjetoCelda;
+import view.elementos.paneles.PanelBusqueda;
 import view.ventanas.Principal;
 
 /**
@@ -58,9 +51,9 @@ public class GUIController {
 	private static GUIController instancia = null; 
 
 	private static TwitterService t;
-
-	@SuppressWarnings("unused")
 	private boolean online;
+	private boolean hayCache;
+	private Principal gui;
 
 	/* Metodos para el funcionamiento del singleton */
 	public GUIController() {}
@@ -105,29 +98,47 @@ public class GUIController {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		
-		if (hayConexion()) {
-			try {
-				listaTL = t.getTimeline();
-				for (Status each : listaTL) {
-					Tweet t;
-					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
-						timeline.add(t);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			} catch (TwitterException e) {
-				// Error al recuperar el timeline
-				e.printStackTrace();
+		//el tema es que la bd nos sirve de cache. asi que los tuits que tenga descargados nos los muestre y los nuevos los pida.
+		//independientemente de si hay conexion o no
+		if(hayCache){
+			//Caso 1: carga los datos de la cache y se actualiza con los nuevos
+			if(hayConexion()){
+				
 			}
-		} else {
-			for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
-				timeline.add(t);
+			//caso 2: modo offline: solo carga a cache
+			else{
+				for (int i = 0; i<20; i++) {
+					Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
+					timeline.add(t);
+				}
 			}
 		}
+		else{
+			//caso 3: no hay cache. (primer inicio del programa) pide todos los datos a twitter
+			System.out.println("RECUPERANDO TIMELINE "+hayConexion());
+			if(hayConexion()){
+				try {
+					listaTL = t.getTimeline();
+					for (Status each : listaTL) {
+						Tweet t;
+						try {
+							t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+							timeline.add(t);
+						} catch (IOException e) {
+							
+						}
+					}
+				} catch (TwitterException e) {
+					// Error al recuperar el timeline
+					System.err.println("Error al recuperar el timeline "+e.getMessage());
+				}
+			}
+			//caso 4: (no hay nada) muestra mensaje de error. no internet. no cache.
+			else{
+				Util.showError(null, "Datos no disponibles", "Se requiere conexiona Internet para iniciar", "Aceptar", "Cancelar");
+				}
+		}
+
 		return timeline;
 	}
 	
@@ -150,7 +161,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -184,7 +195,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -203,6 +214,16 @@ public class GUIController {
 		}
 		return timeline;
 	}
+
+	/**
+	 * @param each
+	 * @return
+	 * @throws IOException
+	 * @throws MalformedURLException
+	 */
+	public BufferedImage pedirImagen(URL url) throws IOException {
+		return ImageIO.read(url);
+	}
 	
 	/**
 	 * Muestra mis tuits en el elemento de la GUI correspondiente
@@ -218,7 +239,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -252,7 +273,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , ImageIO.read(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -320,7 +341,7 @@ public class GUIController {
 			
 			if (hayConexion()) {
 				URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
-				Image imageProfile = ImageIO.read(urlImage);
+				Image imageProfile = pedirImagen(urlImage);
 				
 				System.out.println(user.toString());
 				u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFavouritesCount(), user.getFriendsCount(), user.getFollowersCount());
@@ -381,8 +402,7 @@ public class GUIController {
 				u = (Usuario)credenciales.getFirst();
 			}
 		} catch (IllegalStateException | TwitterException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Error al obtener el usuario autorizado: "+e.getMessage());
 		}
 
 		return u;
@@ -391,34 +411,33 @@ public class GUIController {
 	public boolean hayConexion() {
 		@SuppressWarnings("unused")
 		InetAddress address;
-		System.out.println("Comprobando conexion...");
+		//Util.debug("Comprobando conexion...");
 		try {
-			System.out.println("Comprobado mediante cabecera HTTP...");
+			//Util.debug("Comprobado mediante cabecera HTTP...");
 			URL obj = new URL(HOST);
 			URLConnection conn = obj.openConnection();
 		 
 			//get all headers
 			Map<String, List<String>> map = conn.getHeaderFields();
-			for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-				System.out.println("Key : " + entry.getKey() + 
-		                 " ,Value : " + entry.getValue());
-			}
+			/*for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+				System.out.println("Key : " + entry.getKey() + " ,Value : " + entry.getValue());
+			}*/
 		 
 			//get header by 'key'
 			//String server = conn.getHeaderField("Server");
             if(map.isEmpty()){
-            	System.err.println("Comprobacion de cabezera HTTP fallida");
-            	 System.out.println("Comprobando mediante resolucion de Host...");
+            	//System.err.println("Comprobacion de cabezera HTTP fallida");
+            	//Util.debug("Comprobando mediante resolucion de Host...");
             	//try resolving host
             	address = InetAddress.getByName(HOST);
             }
 			online = true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.err.println("Comprobacion de resolucion de Host fallida");
+			//System.err.println("Comprobacion de resolucion de Host fallida");
 			online = false;
 		}
-		System.err.println("Conexion con twitter: "+online);
+		//Util.debug("Conexion con twitter: "+online);
 		return online;
 	}
 
@@ -566,7 +585,7 @@ public class GUIController {
 		gui.menuConsola();
 	}
 
-	public ArrayList<ObjetoCelda> buscarTweets(String str){
+	/*public ArrayList<ObjetoCelda> buscarTweets(String str){
 		ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
 		
 		List<Status> tweets = t.buscarTuit(str);
@@ -574,7 +593,7 @@ public class GUIController {
 			try {
 				URL urlImagen = new URL(t.getUser().getBiggerProfileImageURL());
 				Image imagen = ImageIO.read(urlImagen);
-				listaTweets.add(0, new GUITweet("3d", new Tweet(t.getId(), t.getUser().getName(), t.getUser().getScreenName(), t.getCreatedAt(), imagen, t.getText(), t.isRetweet(), t.isFavorited())));
+				listaTweets.add(0, new GUITweet(Util.calcularFecha(t.getCreatedAt()), new Tweet(t.getId(), t.getUser().getName(), t.getUser().getScreenName(), t.getCreatedAt(), imagen, t.getText(), t.isRetweet(), t.isFavorited())));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -582,12 +601,33 @@ public class GUIController {
 		}
 		
 		return listaTweets;
+	}*/
+	
+	public ArrayList<ObjetoCelda> buscarTweets(String str){
+		ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
+		 Util.debug("iniciando busqueda de tweets...");
+		List<Status> tweets = t.buscarTuit(str);
+		 Util.debug("mostrando tweets...");
+		for (Status t : tweets) {
+			try {
+				URL urlImagen = new URL(t.getUser().getBiggerProfileImageURL());
+				Image imagen = ImageIO.read(urlImagen);
+				listaTweets.add(0, new GUITweet(Util.calcularFecha(t.getCreatedAt()), new Tweet(t.getId(), t.getUser().getName(), t.getUser().getScreenName(), t.getCreatedAt(), imagen, t.getText(), t.isRetweet(), t.isFavorited())));
+				actualizarPanelBusqueda(listaTweets);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		Util.debug("busqueda finalizada.");
+		return listaTweets;
 	}
+	
 	public ArrayList<ObjetoCelda> buscarUsuarios(String str, int maxPages) {
         ArrayList<ObjetoCelda> usuarios = new ArrayList<ObjetoCelda>();
         Util.debug("iniciando busqueda de usuarios...");
         
-        ResponseList<User> users = t.buscarUsuario(str, maxPages);
+        ArrayList<User> users = t.buscarUsuario(str, maxPages);
         for (User user : users) {
         	ImageIcon i;
         	URL urlImage;
@@ -595,9 +635,9 @@ public class GUIController {
 				urlImage = new URL(user.getBiggerProfileImageURL());
 				Image imageProfile = ImageIO.read(urlImage);
 				i = new ImageIcon(imageProfile);
-				
 				boolean isfriend = isAmigo(t.getUsuarioRegistrado().getScreenName(), user.getScreenName());
 				usuarios.add(0, new GuiTwitterUsuario(user.getName(), user.getScreenName(), i, user.getDescription(), isfriend));
+				actualizarPanelBusqueda(usuarios);
 			} catch (IOException | IllegalStateException | TwitterException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -606,6 +646,14 @@ public class GUIController {
         
         return usuarios;
 	}
+	
+	/**
+	 * @param users
+	 */
+	private void actualizarPanelBusqueda(ArrayList<ObjetoCelda> users) {
+		PanelBusqueda pb = new PanelBusqueda(users);
+		gui.setPanelBusqueda(pb);
+	}
 
 	public boolean isAmigo(String user1, String user2) {
 		return t.esSeguidor(user1, user2);
@@ -613,7 +661,23 @@ public class GUIController {
 
 	public int getNumeroFavoritos(long user) {
 		return t.getNumeroFavoritos(user);
-		// TODO Auto-generated method stub
-		}
+	}
+	
+	public void iniciarStreaming(){
+		t.iniciarStreaming();
+	}
 
+	/**
+	 * @return the gui
+	 */
+	public Principal getGui() {
+		return gui;
+	}
+
+	/**
+	 * @param gui the gui to set
+	 */
+	public void setGui(Principal gui) {
+		this.gui = gui;
+	}
 }

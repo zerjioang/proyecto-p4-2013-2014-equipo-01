@@ -20,6 +20,8 @@ public class EventoWelcomeContinuar implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		new HiloCargarDatos(ventana).start();
+		ventana.getLblOK().setEnabled(false);
+		//ventana.getLblOK().setVisible(false);
 	}
 
 	@Override

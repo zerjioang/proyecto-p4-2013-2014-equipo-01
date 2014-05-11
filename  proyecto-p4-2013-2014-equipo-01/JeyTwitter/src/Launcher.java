@@ -13,18 +13,33 @@ import view.ventanas.TerminosCondiciones;
  *
  */
 public class Launcher {
-
+	
 	public static void main(String[] args) {
+		/*double media=0;
+		for (int i = 0; i < 20; i++) {
+			long antes = System.currentTimeMillis();
+			GUIController.getInstance().hayConexion();
+			long despues = System.currentTimeMillis();
+			double s =  ((despues-antes)/1000.0);
+			media+=s;
+			System.out.println(s);
+		}
+		System.err.println("Valor medio: "+media/20.0);
+		System.exit(0);*/
 		if(!new File(Util.SQLITE_NOMBRE_BBDD).exists()){
 			TerminosCondiciones t = new TerminosCondiciones();
 			t.setLocationRelativeTo(null);
+			t.setModal(true);
 			t.setVisible(true);
+			if(!t.isCondicionesAceptadas()){
+				return;
+			}
+			Interaccion.crearEstructura();//Crea la estructura de la BD si no está el archivo *.sqlite
 		}
 		Splash spl = new Splash();
 		spl.mostrar(5);
 		
 		GUIController g = new GUIController();
-		Interaccion.crearEstructura();//Crea la estructura de la BD si no está el archivo *.sqlite
 		if(!g.hayConexion()){
 			//No hay conexion a internet
 			boolean resp = Util.showError(null, "Error de conexion", Util.APP_TITULO+" se mostrara en modo offline", "Cancelar", "Aceptar");
@@ -66,14 +81,17 @@ public class Launcher {
 
 	/**
 	 * Muestra la ventana de bienvenida e inmediatamente muestra la timeline
+	 * @throws Exception 
 	 */
 	private static void mostrarPrincipal() {
 		// Tenemos token, lanzamos la ventana principal
 		//Este usuario es el usuario que tiene la sesion de twitter abierta y que tiene que ser cargado
 		//de la bd o online dependiendo de si esta conectado o no
 		Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
+		GUIController.getInstance().setGui(p);
 		p.setPanelActual(p.getPaneles()[1]);
-		GUIController.getInstance().setGuiPrincipal(p);
+		GUIController.getInstance().setGui(p);
 		p.setVisible(true);
+		//GUIController.getInstance().iniciarStreaming();
 	}
 }

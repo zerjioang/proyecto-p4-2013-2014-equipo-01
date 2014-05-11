@@ -18,15 +18,16 @@ public class BotonSeguir extends JLabel{
 	
 	private static final String IMAGEN_SEGUIR = "/res/botones/seguir/followingIcon.png";
 	private static final String IMAGEN_DEJAR_SEGUIR = "/res/botones/seguir/UnfollowIcon.png";
-	
+	private String nombreUsuario;
 	public BotonSeguir(String nombreUsuario){
 		super();
-		init(nombreUsuario);
+		this.nombreUsuario = nombreUsuario;
+		init();
 	}
 	/**
 	 * Inicializa el contenido
 	 */
-	private void init(String nombreUsuario) {
+	private void init() {
 		int anchoBoton = 161;
 		int altoBoton = 85;
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

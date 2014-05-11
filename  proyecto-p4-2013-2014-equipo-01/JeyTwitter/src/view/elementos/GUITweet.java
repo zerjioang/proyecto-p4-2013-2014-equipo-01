@@ -6,7 +6,14 @@ import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.LayoutManager;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -21,6 +28,7 @@ import javax.swing.border.MatteBorder;
 
 import controller.GUIController;
 import model.Tweet;
+import sun.font.SunFontManager.FamilyDescription;
 import twitter4j.MediaEntity;
 import twitter4j.TwitterException;
 import twitter4j.URLEntity;
@@ -47,13 +55,24 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	private JLabel lblImagenTweet;
 	private JPanel panelImagenTweet;
 	private Tweet tweet;
+	private ImageIcon[] img;
 	private String imagenTuit;
+	
+	public static void main(String [] args){
+		JFrame j = new JFrame();
+		j.setSize(500, 500);
+		GUITweet g = new GUITweet(Util.calcularFecha(new Date(System.currentTimeMillis()-50000000)), new Tweet(1L, "yo", "yomismo", new Date(3L), new ImageIcon(GUITweet.class.getResource("/res/images/usertest.jpg")).getImage(), "Que tal, @kronosnhz? te paso un link http://goo.gl/ #EstoNoSeToca", false, false));
+		j.getContentPane().add(g);
+		j.setLocationRelativeTo(null);
+		j.setVisible(true);
+	}
 	
 	public GUITweet(String fecha, Tweet t) {
 		super();
 		this.lblImagenusuario = new JLabel();
 		this.lblNombreReal = new JLabel();
 		this.lblnombreUsuario = new JLabel();
+		lblImagenTweet = new JLabel();
 		this.txtMensaje = procesarMensaje(t);
 		this.lblTiempo = new JLabel();
 		
@@ -62,57 +81,146 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		setImagenUsuario(new ImageIcon(t.getImagenUsuario()));
 		setNombreReal(t.getNombreReal());
 		setNombreUsuario(t.getNombreUsuario());
-		setMensaje(t.getTexto());
 		
 		btnRetweet = new BotonDosEstados();
 		btnFavorito = new BotonDosEstados();
 		btnResponder = new BotonDosEstados();
 		
+		img = new ImageIcon[2];
 		tweet = t;
 		init();
 	}
 	private JEditorPane procesarMensaje(Tweet t) {
 		// TODO Auto-generated method stub
+		Util.debug("Parseando contenido del tweet...");
+		//habia que especificar por HTML el tamaño y las demas caracteristicas del texto si no se usa putClientProperty
+		//String fontfamily = Util.getFont("Roboto-Light", Font.PLAIN, 12).getFamily();
+		//"<html><font face=\"" + font.getFamily() + "\" size=\"" + font.getSize() + "\"></font>This is some text!</html>"
 		String mensajeFormateado = t.getTexto();
-		try {
-			//MediaEntity[] medias = GUIController.getInstance().getMedias(t.getCodigo());
-			UserMentionEntity[] menciones = GUIController.getInstance().getMenciones(t.getCodigo());
-			URLEntity[] urls = GUIController.getInstance().getURLs(t.getCodigo());
-			
-			
-			for (URLEntity u : urls) {
-				String html = "<a href=\""+u.getDisplayURL()+"\"> "+u.getDisplayURL()+" </a>";
-				mensajeFormateado.replace(u.getDisplayURL(), html);
-				Util.debug(u.getURL());
-			}
-			for (UserMentionEntity m : menciones) {
+		String linkAntes = "<a href=\"";
+		String linkMedio = "\" style=\"text-decoration:none; color: #005996\">";
+		String linkDespues = " </a>";
 
-				String html = "<a href=\""+m.getScreenName()+"\"> "+m.getScreenName()+" </a>";
-				Util.debug("Reemplazando "+m.getScreenName()+" por "+html);
-				mensajeFormateado.replace(m.getScreenName(), html);
-				//System.out.println(u.getURL());
-				//Util.debug(m.getScreenName());
+		/*if(GUIController.getInstance().hayConexion()){
+			try {
+				MediaEntity[] media = GUIController.getInstance().getMedias(t.getCodigo());
+				UserMentionEntity[] menciones = GUIController.getInstance().getMenciones(t.getCodigo());
+				URLEntity[] urls = GUIController.getInstance().getURLs(t.getCodigo());
+			
+				for (URLEntity u : urls) {
+					String url = u.getDisplayURL();
+					String html = linkAntes+url+linkMedio+url+linkDespues;
+					mensajeFormateado = mensajeFormateado.replaceAll(url, html);
+					Util.debug("Reemplazando URL "+url+" por "+html);
+				}
+				for (UserMentionEntity m : menciones) {
+					String nombreArroba = "@"+m.getScreenName();
+					String html = linkAntes+nombreArroba+linkMedio+nombreArroba+linkDespues;
+					mensajeFormateado = mensajeFormateado.replaceAll(nombreArroba, html);
+					Util.debug("Reemplazando nombre "+nombreArroba+" por "+html);
+				}
+				
+				lblImagenTweet.setVisible(false);
+				Util.debug("Numero de imagenes detectadas: "+media.length);
+				for (MediaEntity m : media) {
+					String urlAntes = m.getURL();
+					Util.debug("Eliminando URL Imagen "+urlAntes);
+					mensajeFormateado = mensajeFormateado.replaceAll(urlAntes, "");
+					imagenTuit = m.getMediaURLHttps();
+					lblImagenTweet.setVisible(true);
+					//solo se procesa una
+					break;
+				}
+			} catch (TwitterException e) {
+				System.err.println("Error al procesar los datos - "+e.getMessage());
 			}
-			/*
-			lblImagenTweet.setVisible(false);
-			for (MediaEntity media : medias) {
-				System.out.println(media.getExpandedURL());
-				lblImagenTweet.setVisible(true);
-				break;
-			}*/
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		else{
+			//Recuperar mensaje de la BD
+			mensajeFormateado = "Como lo llevas? "+linkAntes+"@zerjioAng"+linkMedio+"@zerjioAng"+linkDespues+"Date cuenta <a href=\"@kronosnhz\" style=\"text-decoration:none\"> @kronosnhz </a> del 'como' sin tilde jaja";
+		}*/
+		
+		Pattern p = Pattern.compile("(?<!\\w)@[\\w]+");
+		//@zerjioAng @_somega @ruben_fiser @kronosnhz
+		Matcher m = p.matcher(mensajeFormateado);
+		ArrayList<String> mencionesUsuarios = new ArrayList<String>();
+		while(m.find()) {
+			mencionesUsuarios.add(m.group());
+		}
+		for (String s : mencionesUsuarios) {
+			System.out.println("usuarios mencionados: "+s);
+			String html = linkAntes+s+linkMedio+s+linkDespues;
+			mensajeFormateado = mensajeFormateado.replaceAll(s, html);
+			Util.debug("Reemplazando nombre "+s+" por "+html);
+		}
+		String regex = "\\(?\\b(http://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&amp;@#/%=~_()|]";
+		p = Pattern.compile(regex);
+		m = p.matcher(t.getTexto());
+		ArrayList<String> urls = new ArrayList<String>();
+		while(m.find()) {
+			urls.add(m.group());
+		}
+		for (String s : urls) {
+			System.out.println("urls encontradas: "+s);
+			String html = linkAntes+s+linkMedio+s+linkDespues;
+			mensajeFormateado = mensajeFormateado.replaceAll(s, html);
+			Util.debug("Reemplazando url "+s+" por "+html);
+		}
+		
+		//generar las mediaEntity para las imagenes.
+		Util.debug("Obteniendo imagen...");
+		if(GUIController.getInstance().hayConexion()){
+			try {
+				MediaEntity[] media = GUIController.getInstance().getMedias(t.getCodigo());
+				for (MediaEntity im : media) {
+					String urlAntes = im.getURL();
+					Util.debug("Eliminando URL Imagen "+urlAntes);
+					mensajeFormateado = mensajeFormateado.replaceAll(urlAntes, "");
+					imagenTuit = im.getMediaURLHttps();
+					lblImagenTweet.setVisible(true);
+					//solo se procesa una
+					break;
+				}
+			} catch (TwitterException e) {}
+		}
+		Util.debug("Imagen obtenida.");
+		
+		String hashtagRE = "#(\\w+)";//"#\\w+";
+		p = Pattern.compile(hashtagRE);
+		m = p.matcher(t.getTexto());
+		System.out.println("Tweet: "+t.getTexto());
+		ArrayList<String> hash = new ArrayList<String>();
+		while(m.find()) {
+			hash.add(m.group());
+		}
+		for (String s : hash) {
+			System.out.println("hashtags encontrados: "+s);
+			String hashtag = linkAntes+s+"\" style=\"text-decoration:none; color: #f04400\">"+s+linkDespues;
+			mensajeFormateado = mensajeFormateado.replaceAll(s, hashtag);
+			Util.debug("Reemplazando hashtag "+s+" por "+hashtag);
+		}
+		//Contruir el objeto para visualizarlo en pantalla una vez se tienen los datos
+		
 		/*JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane);*/
+		Util.debug(mensajeFormateado);
 		
 		JEditorPane editor = new JEditorPane();
 		editor.setEditable(false);
 		editor.setFocusable(true);
 		editor.setContentType("text/html"); 
+		editor.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
+		editor.setEditable(false);
+		editor.setFocusable(true);
+		editor.setOpaque(false);
+		editor.setBorder(null);
 		editor.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
+		//Permite establecer la fuente del objeto mediante java en vez de mediante sintaxis HTML empebida en el texto
+		editor.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+		editor.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 12));
 		editor.setText(mensajeFormateado);
+		
+		//Añadir evento de click
 		editor.addHyperlinkListener(new EventoEscucharClickURL());
 	    
 		//scrollPane.setViewportView(editor);
@@ -185,8 +293,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		
 		lblNombreReal.setFont(Util.getFont("roboto-light", Font.BOLD, 12));
 		lblnombreUsuario.setFont(Util.getFont("roboto-light", Font.PLAIN, 12));
-		lblTiempo.setFont(Util.getFont("trebuc", Font.PLAIN, 12));
-		txtMensaje.setFont(Util.getFont("roboto-light", Font.PLAIN, 12));
+		lblTiempo.setFont(Util.getFont("roboto-light", Font.PLAIN, 12));
 
 		lblImagenusuario.setSize(ALTO, ALTO);
 		setImagenUsuario((ImageIcon)lblImagenusuario.getIcon());
@@ -229,34 +336,42 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		
 		JPanel panelCentroMensaje = new JPanel(new BorderLayout());
 		panelCentro.add(panelCentroMensaje, BorderLayout.CENTER);
-		//txtMensaje.setLineWrap(true);
-		//txtMensaje.setWrapStyleWord(true);
-		txtMensaje.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		txtMensaje.setEditable(false);
-		txtMensaje.setFocusable(true);
-		txtMensaje.setOpaque(false);
-		txtMensaje.setBorder(null);
 		panelCentroMensaje.add(txtMensaje,BorderLayout.CENTER);
 		panelCentroMensaje.setBorder(new MatteBorder(0, 0, 0, 1, new Color(1.0f,1.0f,1.0f,0.0f)));
 		
-		if(/*hay imagen en el tweet*/true){
+		if(imagenTuit!=null && imagenTuit.length()>0){
 			panelImagenTweet = new JPanel();
 			panelImagenTweet.setLayout(new BorderLayout(0, 0));
 			panelCentroMensaje.add(panelImagenTweet, BorderLayout.EAST);
 			
-			lblImagenTweet = new JLabel();
 			lblImagenTweet.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			lblImagenTweet.setSize(SIZE_IMAGEN, SIZE_IMAGEN);
 			lblImagenTweet.setHorizontalAlignment(SwingConstants.CENTER);
 			lblImagenTweet.setHorizontalTextPosition(SwingConstants.CENTER);
 			setBordeImagenTweet(3,3,3,3, new Color(255, 255, 255));
-			//setImagenTweet(new ImageIcon(GUITweet.class.getResource(imagenTuit)));
+			//asignar imagenTweet;
+			setImagenTweet(imagenTuit);
 			panelImagenTweet.add(lblImagenTweet, BorderLayout.SOUTH);
 			
 			//evento al clicar encima de la imagen del tweet
 			lblImagenTweet.addMouseListener(new EventoClickImagenTweet(this));
 			//evento al clicar la imagen del usuario
 			lblImagenusuario.addMouseListener(new EventoClickImagenUsuario(this));
+		}
+	}
+
+	private void setImagenTweet(String imagenTuit) {
+		BufferedImage bufferImg;
+		try {
+			bufferImg= GUIController.getInstance().pedirImagen(new URL(imagenTuit));
+			Util.debug("Pidiendo imagen: "+imagenTuit+" resultado = "+bufferImg.toString());
+			//se guarda la original
+			img[0]=new ImageIcon(bufferImg);
+			//se guarda la miniatura
+			setImagenTweet(new ImageIcon(bufferImg));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -377,20 +492,21 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	public int tipoObjeto() {
 		return TablaTweetsUsuarios.SOLO_TWEETS;
 	}
-
-	/**
-	 * @return the lblImagenTweet
-	 */
-	public Icon getImagenTweet() {
-		return lblImagenTweet.getIcon();
+	
+	public ImageIcon getImagenTweetMiniatura(){
+		return img[1];
 	}
 
+	public ImageIcon getImagenTweetOriginal(){
+		return img[0];
+	}
 	/**
 	 * @param lblImagenTweet the lblImagenTweet to set
 	 */
 	public void setImagenTweet(ImageIcon imagenTweet) {
 		lblImagenTweet.setIcon(imagenTweet);
 		lblImagenTweet.setIcon(Util.escalarImagen(lblImagenTweet));
+		img[1]=(ImageIcon) lblImagenTweet.getIcon();
 	}
 
 	/**
@@ -410,15 +526,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	public void setBordeImagenTweet(int i, int j, int k, int l, Color color) {
 		lblImagenTweet.setBorder(new MatteBorder(i,j,k,l, color));
 	}
-	
-	public static void main(String [] args){
-		JFrame j = new JFrame();
-		j.setSize(500, 500);
-		GUITweet g = new GUITweet("3d", new Tweet(1L, "yo", "yomismo", new Date(3L), new ImageIcon(GUITweet.class.getResource("/res/images/usertest.jpg")).getImage(), "hola mundo", false, false));
-		j.getContentPane().add(g);
-		j.setLocationRelativeTo(null);
-		j.setVisible(true);
-	}
+
 	/**
 	 * @return the tweet
 	 */

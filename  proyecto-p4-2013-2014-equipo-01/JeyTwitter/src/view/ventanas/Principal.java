@@ -78,32 +78,30 @@ public class Principal extends CustomJFrame {
 	private JLabel lblImagen;
 	
 	private static Usuario usuarioActual;
-	private static Principal p;
 	
-	/*public getInstance(){
-		if(p==null)
-			p = new Principal(usuario);
-		return p;
-	}*/
 	/**
 	 * Constructor por defecto
 	 */
 	public Principal(Usuario usuario) {
 		super(600, 700);
 		usuarioActual = usuario;
-		
 		panelesPrincipales = new JPanel[7];
-		
 		try {
+			/*panelUsuario = new PanelPerfilUsuario(usuarioActual, recargarTweets(TUITSUSUARIO));
+			timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(0));
+			menciones = new PanelTablaTweets(new TablaTweetsUsuarios(0));
+			retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(0));
+			favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(0));*/
+			
 			panelUsuario = new PanelPerfilUsuario(usuarioActual, recargarTweets(TUITSUSUARIO));
 			timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(TIMELINE)));
 			menciones = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(MENCIONES)));
 			retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(RETUITS)));
 			favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(FAVORITOS)));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		panelInferior = new PanelEnviarTweet(this);
 		System.out.println(panelInferior.getBounds());
 		panelBusqueda = new PanelBusqueda();
@@ -112,6 +110,10 @@ public class Principal extends CustomJFrame {
 		lblImagen = new JLabel(usuarioActual.getNombreUsuario());
 		init();
 		generarDatos();
+		
+		long ahora = System.currentTimeMillis();
+		int s = (int) (ahora - Splash.inicio)/1000;
+		System.out.println("Tiempo desde el inicio de la aplicacion: "+s+" segundos - "+s/60.0+" minutos");
 	}
 	
 	public void init(){
@@ -253,7 +255,7 @@ public class Principal extends CustomJFrame {
 		
 		for(Tweet each : listaTuits){
 			GUITweet guiTweet;
-			guiTweet = new GUITweet("2d", each);
+			guiTweet = new GUITweet(Util.calcularFecha(each.getUltimaFechaActualizacion()), each);
 			lista.add(lista.size(), guiTweet);
 		}
 		return lista;
@@ -346,6 +348,7 @@ public class Principal extends CustomJFrame {
 	 */
 	public void setPanelBusqueda(PanelBusqueda panelBusqueda) {
 		this.panelBusqueda = panelBusqueda;
+		setPanelActual(panelBusqueda);
 	}
 
 	/**

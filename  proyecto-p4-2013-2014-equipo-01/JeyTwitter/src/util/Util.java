@@ -15,6 +15,9 @@ import java.awt.Window;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -388,5 +391,66 @@ public class Util {
 	 */
 	public static boolean isNix(){
 		return getOS().contains("nix") || getOS().contains("ubuntu") || getOS().contains("debian");
+	}
+
+	public static String calcularFecha(Date d) {
+		String finalStr;
+		Calendar currCal = Calendar.getInstance();
+		currCal.setTime(new Date(System.currentTimeMillis()));
+	    int currYear = currCal.get(Calendar.YEAR);
+	    int currMonth = currCal.get(Calendar.MONTH)+1;
+	    int currDay = currCal.get(Calendar.DAY_OF_MONTH);
+	    int currHourDay = currCal.get(Calendar.HOUR_OF_DAY);
+	    int currMin = currCal.get(Calendar.MINUTE);
+	    int currSec = currCal.get(Calendar.SECOND);
+	    Util.debug("Actual: "+currYear+" "+currMonth+" "+currDay+" "+currHourDay+" "+currMin+" "+currSec);
+	    currCal.setTime(d);
+	    int year = currCal.get(Calendar.YEAR);
+	    int month = currCal.get(Calendar.MONTH)+1;
+	    String nombreMes = new SimpleDateFormat("MMM").format(currCal.getTime());
+	    int day = currCal.get(Calendar.DAY_OF_MONTH);
+	    int hourDay = currCal.get(Calendar.HOUR_OF_DAY);
+	    int min = currCal.get(Calendar.MINUTE);
+	    int sec = currCal.get(Calendar.SECOND);
+	    Util.debug("Fecha tweet: "+year+" "+month+" "+day+" "+hourDay+" "+min+" "+sec);
+	    if(currYear==year){
+	    	if(currMonth == month){
+	    		if(currDay==day){
+	    			if(currHourDay==hourDay){
+	    				if(currMin==min){
+	    					if(currSec==sec){
+	    						return "ahora";
+	    					}
+	    					else{
+	    						return "hace "+String.valueOf(currSec-sec)+" seg";
+	    					}
+	    				}
+	    				else{
+	    					return "hace "+String.valueOf(currMin-min)+" min";
+	    				}
+	    			}
+	    			else{
+	    				return" hoy, "+hourDay+"h";
+	    			}
+	    		}
+	    		//ayer
+	    		else if(currDay==day-1){
+	    			return "ayer,  "+hourDay+"h";
+	    		}
+	    		//anteayer 
+	    		else if(currDay==day-2){
+	    			return "anteayer a las "+hourDay+"h";
+	    		}
+	    		else{
+	    			return String.valueOf(day)+" de "+nombreMes;
+	    		}
+	    	}
+	    	else{
+	    		return day+" de "+nombreMes;
+	    	}
+	    }
+	    else{
+	    	return day+" de "+nombreMes+" de "+year;
+	    }
 	}
 }

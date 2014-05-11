@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 import util.Util;
 
 
-public class CustomJDialog extends JDialog implements Moveable{
+public abstract class CustomJDialog extends JDialog implements Moveable{
 	
 	private static final String TITULO = Util.APP_TITULO;
 	

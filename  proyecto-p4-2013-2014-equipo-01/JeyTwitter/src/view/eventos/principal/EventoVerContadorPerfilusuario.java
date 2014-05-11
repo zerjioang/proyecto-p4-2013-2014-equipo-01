@@ -28,33 +28,29 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseClicked(MouseEvent e) {}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		c.setCantidad(100);
 		switch (opcion) {
 		case 0://Tweets
 			//c.setCantidad(Principal.getUsuarioActual().getNumeroTweets());
-			System.out.println(GUIController.getInstance().getUsuario(id).getNumeroTweets());
-			//c.setCantidad(GUIController.getInstance().getNumeroTweets(p.getUser()));
+			//System.out.println(GUIController.getInstance().getUsuario(id).getNumeroTweets());
 			break;
 		case 1://Favoritos
-		//	c.setCantidad(GUIController.getInstance().getNumeroFavoritos(p.getUs().getNombreUsuario()));
-
+			//c.setCantidad(GUIController.getInstance().getNumeroFavoritos(id));
+			//System.out.println(GUIController.getInstance().getNumeroFavoritos(id));
 			break;
 		case 2://Seguidores
 			//c.setCantidad(Principal.getUsuarioActual().getNumeroSeguidores());
-			System.out.println(GUIController.getInstance().getUsuario(id).getNumeroSeguidores());
+			//System.out.println(GUIController.getInstance().getUsuario(id).getNumeroSeguidores());
 			break;
 		case 3://Siguiendo
-			//c.setCantidad(Principal.getUsuarioActual().getNumeroSiguiendo())
-			System.out.println(GUIController.getInstance().getUsuario(id).getNumeroSiguiendo());
+			//c.setCantidad(Principal.getUsuarioActual().getNumeroSiguiendo());
+			//System.out.println(GUIController.getInstance().getUsuario(id).getNumeroSiguiendo());
 			break;
 		}
-		mover(e);
 		c.setVisible(true);
 	}
 
@@ -64,32 +60,16 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseDragged(MouseEvent e) {}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		mover(e);
-	}
-
-	/**
-	 * @param e
-	 */
-	private void mover(MouseEvent e) {
 		int x = e.getXOnScreen();
 		int y = e.getYOnScreen();
 		c.setLocation(x-30, y-c.getHeight());

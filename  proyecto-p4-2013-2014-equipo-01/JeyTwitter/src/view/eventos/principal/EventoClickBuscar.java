@@ -1,5 +1,7 @@
 package view.eventos.principal;
 
+import hilos.HiloBuscar;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -12,18 +14,19 @@ import view.elementos.GUITweet;
 import view.elementos.GuiTwitterUsuario;
 import view.elementos.ObjetoCelda;
 import view.elementos.paneles.PanelBusqueda;
+import view.ventanas.Principal;
 
 public class EventoClickBuscar implements MouseListener {
 
 	private PanelBusqueda pb;
 	
 	public EventoClickBuscar(PanelBusqueda panelBusqueda) {
-		// TODO Auto-generated constructor stub
 		pb = panelBusqueda;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		//new HiloBuscar(pb.getBusqString()).start();
 		String str = pb.getBusqString();
 		if(str.startsWith("@")){
 			//se buscaran usuarios
@@ -34,26 +37,18 @@ public class EventoClickBuscar implements MouseListener {
 			buscarTweets(str);
 		}
 	}
-
+	
 	private void buscarTweets(String str) {
-		// TODO Auto-generated method stub
+		GUIController.getInstance().buscarTweets(str);
 		
-		
-		ArrayList<Tweet> tuits = GUIController.getInstance().buscarTuits(str, 2);
-		ArrayList<ObjetoCelda> gui = new ArrayList<ObjetoCelda>();
-		for (Tweet tweet : tuits) {
-			gui.add(0, new GUITweet("2d",tweet));
-		}
-		pb = new PanelBusqueda(gui);
-		GUIController.getInstance().getGuiPrincipal().setPanelBusqueda(pb);
-		GUIController.getInstance().getGuiPrincipal().setPanelActual(pb);
+		ArrayList<ObjetoCelda> tuits = GUIController.getInstance().buscarUsuarios(str, 2);
+		pb = new PanelBusqueda(tuits);
+		GUIController.getInstance().getGui().setPanelBusqueda(pb);
+		GUIController.getInstance().getGui().setPanelActual(pb);
 	}
 
 	private void buscarUsuarios(String str) {
-		ArrayList<ObjetoCelda> users = GUIController.getInstance().buscarUsuarios(str, 50);
-		pb = new PanelBusqueda(users);
-		/*pb.setObjeto(users);
-		pb.actualizarTabla();*/
+		GUIController.getInstance().buscarUsuarios(str, 50);
 	}
 
 	@Override
