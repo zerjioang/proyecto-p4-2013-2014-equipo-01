@@ -4,9 +4,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import model.Tweet;
 import controller.GUIController;
 import twitter4j.ResponseList;
 import twitter4j.User;
+import view.elementos.GUITweet;
 import view.elementos.GuiTwitterUsuario;
 import view.elementos.ObjetoCelda;
 import view.elementos.paneles.PanelBusqueda;
@@ -36,6 +38,15 @@ public class EventoClickBuscar implements MouseListener {
 	private void buscarTweets(String str) {
 		// TODO Auto-generated method stub
 		
+		
+		ArrayList<Tweet> tuits = GUIController.getInstance().buscarTuits(str, 2);
+		ArrayList<ObjetoCelda> gui = new ArrayList<ObjetoCelda>();
+		for (Tweet tweet : tuits) {
+			gui.add(0, new GUITweet("2d",tweet));
+		}
+		pb = new PanelBusqueda(gui);
+		GUIController.getInstance().getGuiPrincipal().setPanelBusqueda(pb);
+		GUIController.getInstance().getGuiPrincipal().setPanelActual(pb);
 	}
 
 	private void buscarUsuarios(String str) {

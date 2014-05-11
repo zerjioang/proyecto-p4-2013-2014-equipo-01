@@ -75,7 +75,7 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 		panel_Superior.add(panel_supDer, BorderLayout.EAST);
 		panel_supDer.setLayout(new BorderLayout(0, 0));
 		
-		btnSeguir = new BotonSeguir();
+		btnSeguir = new BotonSeguir("");
 		btnSeguir.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(1.0f,1.0f,1.0f,0.0f)));
 		btnSeguir.setSiguiendo(siguiendo);
 		panel_supDer.add(btnSeguir, BorderLayout.CENTER);
@@ -204,4 +204,10 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 	public void setLblusuario(JLabel lblusuario) {
 		this.lblusuario = lblusuario;
 	}
+	
+	
+	
+	
+	
+	
 }
