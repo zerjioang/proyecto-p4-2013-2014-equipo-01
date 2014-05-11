@@ -321,7 +321,7 @@ public class Interaccion {
 	}
 	public static void crearEstructura()
 	{
-		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Usuario (nombreUsuario text NOT NULL,nombreReal text, token text NOT NULL, secretToken text, biografia text, imagen blob, numeroSeguidos integer, numeroSeguidores integer, numeroTweets integer, numeroFavoritos, fechaActualizacion Datetime,PRIMARY KEY(nombreUsuario));");		
+		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Usuario (nombreUsuario text NOT NULL,nombreReal text, token text NOT NULL, secretToken text, biografia text, imagen blob, numeroSeguidos integer, numeroSeguidores integer, numeroTweets integer, numeroFavoritos integer, fechaActualizacion Datetime,PRIMARY KEY(nombreUsuario));");		
 		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Tweet (codigo BIGINT NOT NULL, fechaActualizacion DATETIME, nombreUsuario TEXT, nombreReal TEXT, imagenUsuario blob, texto TEXT, esRetweet integer, esFavorito integer, PRIMARY KEY(codigo));");
 		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Tienen (nombreUsuario text NOT NULL,codigo text NOT NULL,PRIMARY KEY(nombreUsuario,codigo),CONSTRAINT nombreUsuario FOREIGN KEY (nombreUsuario) REFERENCES Usuario (nombreUsuario) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT codigo FOREIGN KEY (codigo) REFERENCES Tweet (codigo) ON DELETE CASCADE ON UPDATE CASCADE);");
 	}
