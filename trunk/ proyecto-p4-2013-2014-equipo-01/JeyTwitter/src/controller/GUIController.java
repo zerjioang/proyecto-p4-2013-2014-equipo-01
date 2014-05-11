@@ -282,14 +282,20 @@ public class GUIController {
 			return false;
 		}
 	}
-	
+	/**
+	 * Intenta marcar un tweet como favorito, si falla es que lo más probable ya esté marcado y lo intenta desmarcar, si vuelve a fallar no altera nada
+	 * @param codigo long que indica que tweet es
+	 * @return
+	 */
 	public boolean marcarFavorito(long codigo) {
 		try {
 			t.favorito(codigo);
 			return true;
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				t.desfavear(codigo);
+			} catch (TwitterException e1) {
+			}
 			return false;
 		}
 	}
