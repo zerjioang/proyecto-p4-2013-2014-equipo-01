@@ -73,6 +73,7 @@ public class Launcher {
 		//de la bd o online dependiendo de si esta conectado o no
 		Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 		p.setPanelActual(p.getPaneles()[1]);
+		GUIController.getInstance().setGuiPrincipal(p);
 		p.setVisible(true);
 	}
 }
