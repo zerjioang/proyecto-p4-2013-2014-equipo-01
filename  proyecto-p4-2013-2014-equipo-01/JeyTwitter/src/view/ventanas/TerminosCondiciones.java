@@ -82,7 +82,7 @@ public class TerminosCondiciones extends CustomJDialogWithBar {
 		inferior.add(boton, BorderLayout.EAST);
 		getMainPanel().add(inferior, BorderLayout.SOUTH);
 		
-		boton.addMouseListener(new EventoClickCondiciones(this));
+		//boton.addMouseListener(new EventoClickCondiciones(this));
 		
 		JLabel lblTitulo = new JLabel("Terminos y condiciones de JeyTuiter");
 		lblTitulo.setForeground(Color.WHITE);

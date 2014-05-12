@@ -71,7 +71,7 @@ public class GUIController {
 	}
 
 	/**
-	 * Devuelve la ��nica instancia de esta clase que permanece al mismo tiempo
+	 * Devuelve la ������nica instancia de esta clase que permanece al mismo tiempo
 	 * en memoria, en caso de no existir, se crea.
 	 * @return
 	 */
@@ -82,8 +82,8 @@ public class GUIController {
 	/* Fin de los metodos para el funcionamiento del singleton */
 
 	/**
-	 * Crea la sesi��n en Twitter y recupera de la base de datos el token en caso
-	 * de que exista, si no, solo crea la sesi��n.
+	 * Crea la sesi������n en Twitter y recupera de la base de datos el token en caso
+	 * de que exista, si no, solo crea la sesi������n.
 	 * @throws Exception
 	 */
 	public void autenticar() throws Exception {
@@ -454,12 +454,12 @@ public class GUIController {
 	}
 
 	/**
-	 * Comprueba si el token es válido
+	 * Comprueba si el token es v��lido
 	 * @return
 	 */
 	public boolean recuperarTokenUsuarioGuardado() {
 		LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
-		System.out.println("El tamaño de la tabla usuarios es: "+credenciales.size());
+		System.out.println("El tama��o de la tabla usuarios es: "+credenciales.size());
 
 		if (credenciales.size() > 0) {
 			// Hay resultados, aunque solo esperamos una fila.
@@ -522,7 +522,7 @@ public class GUIController {
 	}
 
 	/**
-	 * Muestra un men�� interactivo en la consola que permite usar ciertas funciones
+	 * Muestra un men������ interactivo en la consola que permite usar ciertas funciones
 	 * del cliente, solo lo usamos para depurar.
 	 */
 	public void menuConsola() {
@@ -548,7 +548,7 @@ public class GUIController {
 			System.out.println("");
 			System.out.println("Pulsa 'q' para salir.");
 			System.out.println();
-			System.out.print("Seleciona una opci��n:");
+			System.out.print("Seleciona una opci������n:");
 			try {
 				input = reader.readLine();
 				switch(input) {
