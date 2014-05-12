@@ -27,13 +27,14 @@ public class Launcher {
 		System.err.println("Valor medio: "+media/20.0);
 		System.exit(0);*/
 		if(!new File(Util.SQLITE_NOMBRE_BBDD).exists()){
+			/*
 			TerminosCondiciones t = new TerminosCondiciones();
 			t.setLocationRelativeTo(null);
 			t.setModal(true);
 			t.setVisible(true);
 			if(!t.isCondicionesAceptadas()){
 				return;
-			}
+			}*/
 			Interaccion.crearEstructura();//Crea la estructura de la BD si no está el archivo *.sqlite
 		}
 		Splash spl = new Splash();

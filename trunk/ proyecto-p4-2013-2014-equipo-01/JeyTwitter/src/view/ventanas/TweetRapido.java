@@ -14,6 +14,7 @@ import view.elementos.botones.BotonNegroCuadrado;
 import view.eventos.fastTweet.EventoAtrasFastTuit;
 import view.eventos.fastTweet.EventoContador140;
 import view.eventos.fastTweet.EventoEnviarFastTuit;
+import view.eventos.fastTweet.EventoFocusLostFastTuit;
 import view.parents.InvisibleJFrame;
 
 import javax.swing.JTextArea;
@@ -23,6 +24,8 @@ import java.awt.Font;
 import javax.swing.border.LineBorder;
 
 import java.awt.SystemColor;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 
 import javax.swing.SwingConstants;
@@ -108,6 +111,7 @@ public class TweetRapido extends InvisibleJFrame {
 		txtMensaje.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
 		txtMensaje.setBorder(new LineBorder(SystemColor.scrollbar));
 		txtMensaje.setBounds(25, 49, 307, 87);
+		txtMensaje.addFocusListener(new EventoFocusLostFastTuit(this));
 
 		lblContador = new JLabel("140");
 		lblContador.setHorizontalAlignment(SwingConstants.CENTER);
@@ -132,7 +136,7 @@ public class TweetRapido extends InvisibleJFrame {
 		
 		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-	
+		
 	}
 	
 	public void colocarVentana(TweetRapido tr, int x, int y) {
