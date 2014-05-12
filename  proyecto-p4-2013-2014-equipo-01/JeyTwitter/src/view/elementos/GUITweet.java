@@ -61,7 +61,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	public static void main(String [] args){
 		JFrame j = new JFrame();
 		j.setSize(500, 500);
-		GUITweet g = new GUITweet(Util.calcularFecha(new Date(System.currentTimeMillis()-50000000)), new Tweet(1L, "yo", "yomismo", new Date(3L), new ImageIcon(GUITweet.class.getResource("/res/images/usertest.jpg")).getImage(), "Que tal, @kronosnhz? te paso un link http://goo.gl/ #EstoNoSeToca", false, false));
+		GUITweet g = new GUITweet(Util.calcularFecha(new Date(System.currentTimeMillis()-50000000)), new Tweet(1L, "yo", "yomismo", new Date(3L), new ImageIcon(GUITweet.class.getResource("/res/images/usertest.jpg")).getImage(), "Que tal, @kronosnhz? te paso un link http://goo.gl/ #EstoNoSeToca", false, false, null));
 		j.getContentPane().add(g);
 		j.setLocationRelativeTo(null);
 		j.setVisible(true);
@@ -93,7 +93,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	private JEditorPane procesarMensaje(Tweet t) {
 		// TODO Auto-generated method stub
 		Util.debug("Parseando contenido del tweet...");
-		//habia que especificar por HTML el tamaño y las demas caracteristicas del texto si no se usa putClientProperty
+		//habia que especificar por HTML el tamaï¿½o y las demas caracteristicas del texto si no se usa putClientProperty
 		//String fontfamily = Util.getFont("Roboto-Light", Font.PLAIN, 12).getFamily();
 		//"<html><font face=\"" + font.getFamily() + "\" size=\"" + font.getSize() + "\"></font>This is some text!</html>"
 		String mensajeFormateado = t.getTexto();
@@ -220,7 +220,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		editor.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 12));
 		editor.setText(mensajeFormateado);
 		
-		//Añadir evento de click
+		//Aï¿½adir evento de click
 		editor.addHyperlinkListener(new EventoEscucharClickURL());
 	    
 		//scrollPane.setViewportView(editor);

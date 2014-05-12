@@ -13,13 +13,14 @@ public class Tweet {
 	private String nombreReal;
 	private Date ultimaFechaActualizacion;
 	private Image imagenUsuario;
+	private Image imagenDelTweet;
 	private String texto;
 	private boolean esRetweet;
 	private boolean esFavorito;
 	
 	public Tweet(long codigo, String nombreUsuario, String nombreReal,
 			Date ultimaFechaActualizacion, Image imagenUsuario, String texto,
-			boolean esRetweet, boolean esFavorito) {
+			boolean esRetweet, boolean esFavorito, Image imagenDelTweet) {
 		super();
 		this.codigo = codigo;
 		this.nombreUsuario = nombreUsuario;
@@ -27,6 +28,7 @@ public class Tweet {
 		this.ultimaFechaActualizacion = ultimaFechaActualizacion;
 		this.imagenUsuario = imagenUsuario;
 		this.texto = texto;
+		this.imagenDelTweet = imagenDelTweet;
 		this.esRetweet = esRetweet;
 		this.esFavorito = esFavorito;
 	}
@@ -99,6 +101,14 @@ public class Tweet {
 
 	public void setEsFavorito(boolean esFavorito) {
 		this.esFavorito = esFavorito;
+	}
+
+	public Image getImagenDelTweet() {
+		return imagenDelTweet;
+	}
+
+	public void setImagenDelTweet(Image imagenDelTweet) {
+		this.imagenDelTweet = imagenDelTweet;
 	}
 	
 }

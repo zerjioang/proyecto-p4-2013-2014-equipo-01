@@ -161,4 +161,20 @@ public class SQLiteManager
 		}
 		return img;
 	}
+	public Image getImageTweetContenido(long codigo){
+		Image img=null;
+		String query="SELECT imagenTweet FROM Tweet WHERE codigo="+codigo;
+		Statement stmt=null;
+		try{
+			stmt=connection.createStatement();
+			ResultSet rslt=stmt.executeQuery(query);
+			if(rslt.next()){
+				byte[] imgArr= rslt.getBytes("imagenTweet");
+				img=Toolkit.getDefaultToolkit().createImage(imgArr);
+			}
+		}catch(Exception e){
+			System.out.println("No hay imagen");
+		}
+		return img;
+	}
 }

@@ -191,6 +191,7 @@ public class Interaccion {
 						extraidos.getInt("numeroFavoritos"),
 						extraidos.getInt("numeroSeguidos"),	
 						extraidos.getInt("numeroSeguidores"));
+						
 				temporal.add(tempUsuario);
 			}
 			cargarImagenesUsuarios(temporal);
@@ -224,13 +225,15 @@ public class Interaccion {
 						extraidos.getString("nombreUsuario"),
 						extraidos.getString("nombreReal"),
 						extraidos.getDate("fechaActualizacion"),	
-						null,	
+						null,
 						extraidos.getString("texto"),	
 						esRetweet,	
-						esFav);
+						esFav,
+						null);
 				temporal.add(tempTweet);
-				cargarImagenesTweets(temporal);
 			}
+			cargarImagenesTweets(temporal);
+			cargarImagenesTweetsContenido(temporal);
 			return temporal;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -253,6 +256,16 @@ public class Interaccion {
 		{
 			try{
 				temp.setImagenUsuario(gestor.getImageTweet(temp.getCodigo()));
+			}catch(Exception e){
+			}
+		}
+	}
+	private static void cargarImagenesTweetsContenido(LinkedList<Tweet> tweets)
+	{
+		for(Tweet temp: tweets)
+		{
+			try{
+				temp.setImagenDelTweet(gestor.getImageTweetContenido(temp.getCodigo()));
 			}catch(Exception e){
 			}
 		}
@@ -301,7 +314,7 @@ public class Interaccion {
 	 * @param codTweet
 	 * @return
 	 */
-	public static boolean actualizarImagenTweet(Image imagen, String formato, long codTweet)
+	public static boolean actualizarImagenTweetContenido(Image imagen, String formato, long codTweet)
 	{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
 		try {
@@ -311,6 +324,25 @@ public class Interaccion {
 		}  
 		byte[] data = baos.toByteArray(); 
 		return gestor.enviarImagen("UPDATE Tweet SET imagenUsuario = ? WHERE codigo = "+codTweet+"", data);
+	}
+	/**
+	 * Permite actualizar la imagen del tweet
+	 * @param nombreUsuario
+	 * @param imagen
+	 * @param formato
+	 * @param codTweet
+	 * @return
+	 */
+	public static boolean actualizarImagenTweet(Image imagen, String formato, long codTweet)
+	{
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+		try {
+			ImageIO.write((RenderedImage)imagen, formato, baos);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  
+		byte[] data = baos.toByteArray(); 
+		return gestor.enviarImagen("UPDATE Tweet SET imagenTweet = ? WHERE codigo = "+codTweet+"", data);
 	}
 	public static void reiniciarBase()
 	{
@@ -322,7 +354,7 @@ public class Interaccion {
 	public static void crearEstructura()
 	{
 		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Usuario (nombreUsuario text NOT NULL,nombreReal text, token text NOT NULL, secretToken text, biografia text, imagen blob, numeroSeguidos integer, numeroSeguidores integer, numeroTweets integer, numeroFavoritos integer, fechaActualizacion Datetime,PRIMARY KEY(nombreUsuario));");		
-		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Tweet (codigo BIGINT NOT NULL, fechaActualizacion DATETIME, nombreUsuario TEXT, nombreReal TEXT, imagenUsuario blob, texto TEXT, esRetweet integer, esFavorito integer, PRIMARY KEY(codigo));");
+		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Tweet (codigo BIGINT NOT NULL, fechaActualizacion DATETIME, nombreUsuario TEXT, nombreReal TEXT, imagenUsuario blob, imagenTweet blob, texto TEXT, esRetweet integer, esFavorito integer, PRIMARY KEY(codigo));");
 		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Tienen (nombreUsuario text NOT NULL,codigo text NOT NULL,PRIMARY KEY(nombreUsuario,codigo),CONSTRAINT nombreUsuario FOREIGN KEY (nombreUsuario) REFERENCES Usuario (nombreUsuario) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT codigo FOREIGN KEY (codigo) REFERENCES Tweet (codigo) ON DELETE CASCADE ON UPDATE CASCADE);");
 	}
 	public static void main(String[]args) throws IOException
