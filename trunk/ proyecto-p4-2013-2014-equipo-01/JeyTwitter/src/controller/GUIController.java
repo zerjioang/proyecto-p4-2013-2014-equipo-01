@@ -108,7 +108,7 @@ public class GUIController {
 			//caso 2: modo offline: solo carga a cache
 			else{
 				for (int i = 0; i<20; i++) {
-					Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
+					Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
 					timeline.add(t);
 				}
 			}
@@ -122,7 +122,7 @@ public class GUIController {
 					for (Status each : listaTL) {
 						Tweet t;
 						try {
-							t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+							t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
 							timeline.add(t);
 						} catch (IOException e) {
 							
@@ -161,7 +161,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -174,7 +174,7 @@ public class GUIController {
 			}
 		} else {
 			for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
 				timeline.add(t);
 			}
 		}
@@ -195,7 +195,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -208,7 +208,7 @@ public class GUIController {
 			}
 		} else {
 			for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
 				timeline.add(t);
 			}
 		}
@@ -239,7 +239,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -252,7 +252,7 @@ public class GUIController {
 			}
 		} else {
 			for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
 				timeline.add(t);
 			}
 		}
@@ -273,7 +273,7 @@ public class GUIController {
 				for (Status each : listaTL) {
 					Tweet t;
 					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited());
+						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
 						timeline.add(t);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -286,7 +286,7 @@ public class GUIController {
 			}
 		} else {
 			for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false);
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
 				timeline.add(t);
 			}
 		}
@@ -612,7 +612,7 @@ public class GUIController {
 			try {
 				URL urlImagen = new URL(t.getUser().getBiggerProfileImageURL());
 				Image imagen = ImageIO.read(urlImagen);
-				listaTweets.add(0, new GUITweet(Util.calcularFecha(t.getCreatedAt()), new Tweet(t.getId(), t.getUser().getName(), t.getUser().getScreenName(), t.getCreatedAt(), imagen, t.getText(), t.isRetweet(), t.isFavorited())));
+				listaTweets.add(0, new GUITweet(Util.calcularFecha(t.getCreatedAt()), new Tweet(t.getId(), t.getUser().getName(), t.getUser().getScreenName(), t.getCreatedAt(), imagen, t.getText(), t.isRetweet(), t.isFavorited(), null)));
 				actualizarPanelBusqueda(listaTweets);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
