@@ -72,24 +72,24 @@ public class TwitterService {
 		tw.verifyCredentials();
 	}
 	/**
-	 * Permite retweetear el tweet indicado por el código long
-	 * @param codigo Es el código identificativo del tweet
+	 * Permite retweetear el tweet indicado por el c��digo long
+	 * @param codigo Es el c��digo identificativo del tweet
 	 */
 	public Status retweetear(long codigo) throws TwitterException
 	{
 		return tw.retweetStatus(codigo);
 	}
 	/**
-	 * Permite desfavear el tweet indicado por el código long
-	 * @param codigo Es el código identificativo del tweet
+	 * Permite desfavear el tweet indicado por el c��digo long
+	 * @param codigo Es el c��digo identificativo del tweet
 	 */
 	public Status desfavear(long codigo) throws TwitterException
 	{
 		return tw.destroyFavorite(codigo);
 	}
 	/**
-	 * Permite hacer fav al tweet indicado por el código long
-	 * @param codigo Es el código identificativo del tweet
+	 * Permite hacer fav al tweet indicado por el c��digo long
+	 * @param codigo Es el c��digo identificativo del tweet
 	 */
 	public Status favorito(long codigo) throws TwitterException
 	{
@@ -140,7 +140,7 @@ public class TwitterService {
 	
 	/**
 	 * Se crea un token con el codigo que el usuario ha recibido al autorizar
-	 * la aplicaci��n en la web
+	 * la aplicaci������n en la web
 	 * @param codigo
 	 * @return
 	 * @throws TwitterException
@@ -152,7 +152,7 @@ public class TwitterService {
 	}
 	
 	/**
-	 * Se crea un token en funci��n de uno que est�� previamente almacenado y se configura
+	 * Se crea un token en funci������n de uno que est������ previamente almacenado y se configura
 	 * @param token
 	 * @param tokenSecret
 	 */
@@ -186,7 +186,7 @@ public class TwitterService {
 	}
 
 	/**
-	 * Se obtiene el timeline (20 ��ltimos pero se puede parametrizar mas)
+	 * Se obtiene el timeline (20 ������ltimos pero se puede parametrizar mas)
 	 * @return
 	 * @throws TwitterException
 	 */
@@ -306,7 +306,7 @@ public class TwitterService {
 	}
 
 	/**
-	 * Tuitea el mensaje por par��metro
+	 * Tuitea el mensaje por par������metro
 	 * @param message
 	 * @throws TwitterException 
 	 */
@@ -328,7 +328,7 @@ public class TwitterService {
 	}
 
 	/**
-	 * Obtiene la personas que est�� siguiendo un usuario
+	 * Obtiene la personas que est������ siguiendo un usuario
 	 * 
 	 * @param String usuario, Long cursor
 	 * @throws TwitterException 
