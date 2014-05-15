@@ -1,7 +1,14 @@
 package model;
 
 import java.awt.Image;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
+
+import javax.imageio.ImageIO;
+
+import twitter4j.Status;
 /**
  * Clase que representa un tweet en la base de datos
  * @author Fiser
@@ -31,6 +38,23 @@ public class Tweet {
 		this.imagenDelTweet = imagenDelTweet;
 		this.esRetweet = esRetweet;
 		this.esFavorito = esFavorito;
+	}
+	
+	public Tweet(Status s) {
+		this.codigo = s.getId();
+		this.nombreUsuario = s.getUser().getScreenName();
+		this.nombreReal = s.getUser().getName();
+		this.ultimaFechaActualizacion = s.getCreatedAt();
+		this.imagenDelTweet = null;
+		this.texto = s.getText();
+		this.esRetweet = s.isRetweet();
+		this.esFavorito = s.isFavorited();
+		try {
+			this.imagenUsuario = ImageIO.read(new URL(s.getUser().getBiggerProfileImageURL()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public long getCodigo() {
