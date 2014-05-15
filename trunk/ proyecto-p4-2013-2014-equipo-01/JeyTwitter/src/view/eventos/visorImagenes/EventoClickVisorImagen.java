@@ -9,6 +9,7 @@ import view.ventanas.VisorImagen;
 public class EventoClickVisorImagen implements MouseListener {
 
 	private final VisorImagen v;
+	
 	public EventoClickVisorImagen(VisorImagen visorImagen) {
 		v = visorImagen;
 	}
@@ -16,6 +17,7 @@ public class EventoClickVisorImagen implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		Util.ocultarImagenDifuso(v, 20);
+		v.setVisible(false);
 		v.dispose();
 	}
 

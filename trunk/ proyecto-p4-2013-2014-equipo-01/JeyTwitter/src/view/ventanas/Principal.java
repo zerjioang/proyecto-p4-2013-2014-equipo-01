@@ -367,11 +367,11 @@ public class Principal extends CustomJFrame {
 		lblImagen.setIcon(Util.escalarImagen(lblImagen));
 	}
 
-	public static Usuario getUsuarioActual() {
+	public Usuario getUsuarioActual() {
 		return usuarioActual;
 	}
 
-	public static void setUsuarioActual(Usuario usuarioActual) {
+	public void setUsuarioActual(Usuario usuarioActual) {
 		Principal.usuarioActual = usuarioActual;
 	}
 

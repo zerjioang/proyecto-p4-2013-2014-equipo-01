@@ -2,11 +2,15 @@ package view.ventanas;
 
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import view.parents.InvisibleJFrame;
+
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
+
 import javax.swing.SwingConstants;
 /**
  * Ventana que muestra un contador con el numero de seguidores/tweets... de un usuario
@@ -78,11 +82,14 @@ public class Contador extends InvisibleJFrame {
 			String u = str.substring(1,2);
 			cantidad.setText(dec+"."+u+"M");
 		}
-		else{
+		else if(valor > 10000000){
 			String str = String.valueOf(valor);
 			String dec = str.substring(0,2);
 			String u = str.substring(2,3);
 			cantidad.setText(dec+"."+u+"M");
+		}
+		else{
+			cantidad.setText("-");
 		}
 	}
 

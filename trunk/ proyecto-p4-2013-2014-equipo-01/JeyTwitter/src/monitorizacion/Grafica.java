@@ -2,6 +2,7 @@ package monitorizacion;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -21,6 +22,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
+import view.elementos.ObjetoCelda;
 
 
 
@@ -35,12 +37,12 @@ public class Grafica {
 		TimeSeries pop = new TimeSeries("Tuits", Day.class);
 
 		//obtenemos la primera lista de tuits
-		ResponseList<Status> tuits = GUIController.getInstance().obtenerTimelineDeUsuario(nombre, new Paging(1, 199));
+		ArrayList<ObjetoCelda> tuits = GUIController.getInstance().obtenerTimelineDeUsuario(nombre, new Paging(1, 199));
 		System.out.println("El tamaño de la lista de tuits es de: "+ tuits.size());
 
 		
 		//calculo: obtener cuantas paginas hay (esto es aproximadamente)
-		ResponseList<Status> temporal = GUIController.getInstance().obtenerTimelineDeUsuario(nombre, new Paging(1, 200));
+		ArrayList<ObjetoCelda> temporal = GUIController.getInstance().obtenerTimelineDeUsuario(nombre, new Paging(1, 200));
 		int numT = temporal.get(1).getUser().getStatusesCount();
 		int div = (int) (numT/200) + 1;
 		

@@ -6,6 +6,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
@@ -18,13 +19,14 @@ import com.mortennobel.imagescaling.*;
 import util.Util;
 import view.eventos.visorImagenes.EventoClickVisorImagen;
 import view.parents.CustomJFrame;
+import view.parents.InvisibleJFrame;
 
 /**
  * Clase que muestra en pantalla las imagenes guardadas en el disco duro o obtenidas a traves de internet
  * @author Sergio Anguita
  *
  */
-public class VisorImagen extends JFrame{
+public class VisorImagen extends InvisibleJFrame{
 	
 	private Component ventanaPadre;
 	private ImageIcon img;
@@ -41,12 +43,10 @@ public class VisorImagen extends JFrame{
 	}
 	
 	public VisorImagen(Component parent, ImageIcon img) throws FileNotFoundException{
-		super(Util.APP_TITULO+" Images");
+		super();
+		setTitle(Util.APP_TITULO+" Images");
 		this.img = img;
 		ventanaPadre = parent;
-        setIconImage(Toolkit.getDefaultToolkit().getImage(VisorImagen.class.getResource(Util.APP_ICONO)));
-        setUndecorated(true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		setAlwaysOnTop(true);
 		

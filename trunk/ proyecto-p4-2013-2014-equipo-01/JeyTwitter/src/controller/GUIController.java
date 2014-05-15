@@ -18,6 +18,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import _launcher.Launcher;
 import controller.sql.Interaccion;
 import model.Tweet;
 import model.Usuario;
@@ -413,6 +414,7 @@ public class GUIController {
 		User user = null;
 		Usuario u = null;
 		try {
+			Launcher.mostrarMensaje("Obteniendo usuario...");
 			user = t.getUsuarioRegistrado();
 			
 			if (hayConexion()) {
@@ -484,7 +486,7 @@ public class GUIController {
 	public boolean recuperarTokenUsuarioGuardado() {
 		LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
 		System.out.println("El tama��o de la tabla usuarios es: "+credenciales.size());
-
+		Launcher.mostrarMensaje("Recuperando credenciales...");
 		if (credenciales.size() > 0) {
 			// Hay resultados, aunque solo esperamos una fila.
 			// Asignamos el token y a otra cosa

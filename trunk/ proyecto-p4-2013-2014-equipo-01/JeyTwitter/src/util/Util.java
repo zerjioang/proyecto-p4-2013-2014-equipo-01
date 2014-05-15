@@ -1,5 +1,6 @@
 package util;
 
+import view.parents.Moveable;
 import view.ventanas.MensajeWindow;
 import view.ventanas.VentanaError;
 
@@ -41,7 +42,7 @@ public class Util {
 	public static final String 
 	APP_TITULO = "JeyTuiter",
 	APP_VERSION = "1.0",
-	APP_ICONO = "/res/images/icon.png",
+	APP_ICONO = "/res/images/JeyIcon.png",
 	FICHERO_XML = "config.xml",
 	SQLITE_NOMBRE_BBDD = "JeyTuiterSQL.sqlite";
 
@@ -105,7 +106,7 @@ public class Util {
 	 * @param parent	Ventana padre desde la que se ha llamado. Null en caso de no ser ninguna
 	 * @throws InvalidInputException	Excepcion que se lanca en caso de error
 	 */
-	public static void cerrarVentana(Component parent) throws InvalidInputException{
+	public static void cerrarVentana(Moveable parent) throws InvalidInputException{
 		showMessage(parent, "Cerrar "+APP_TITULO, "Desea realmente cerrar?", "Si", "No");
 	}
 
@@ -122,13 +123,13 @@ public class Util {
 	 * boton de aceptar o false si no se ha hecho
 	 * @throws InvalidInputException
 	 */
-	public static boolean showMessage(Component parent, String titulo, String mensaje, String textoAceptar, String textoCancelar) throws InvalidInputException{
+	public static boolean showMessage(Moveable parent, String titulo, String mensaje, String textoAceptar, String textoCancelar) throws InvalidInputException{
 		MensajeWindow mw = new MensajeWindow();
 		mw.setTituloVentana(titulo);
 		mw.setMensaje(mensaje);
 		mw.setBotonPositivo(textoAceptar);
 		mw.setBotonNegativo(textoCancelar);
-		mw.setLocationRelativeTo(parent);
+		mw.setLocationRelativeTo((Component) parent);
 		mw.getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		if(titulo.length()>50 || mensaje.length()>60 || textoAceptar.length()>11 || textoCancelar.length()>11)
 			throw new InvalidInputException("Unexpected input string length. Check input Strings");
@@ -182,31 +183,31 @@ public class Util {
 	/**
 	 * Actualmente muestra un efecto de desvanecimiento en la ventana JFrame
 	 * que recibe como parametro. Disminuye la opacidad de la ventana desde 1f hasta 0f
-	 * @param comp	componente que tiene la imagen original no escalada
+	 * @param parent	componente que tiene la imagen original no escalada
 	 */
-	public static void ocultarImagenDifuso(Component comp) {
-		ocultarImagenDifuso(comp, 25);
+	public static void ocultarImagenDifuso(Moveable parent) {
+		ocultarImagenDifuso(parent, 25);
 	}
 
 	/**
 	 * Actualmente muestra un efecto de desvanecimiento en la ventana JFrame
 	 * que recibe como parametro. Disminuye la opacidad de la ventana desde 1f hasta 0f
 	 * Ademas puede configurar la velocidad con el parametro time
-	 * @param comp	componente al que se le aplicara el efecto de difusion
+	 * @param parent	componente al que se le aplicara el efecto de difusion
 	 * @param time	tiempo de espera entre los grados de opacidad.
 	 * A mayor tiempo, mas tardar�� en desvanecerse la ventana
 	 */
-	public static void ocultarImagenDifuso(Component comp, int time) {
+	public static void ocultarImagenDifuso(Moveable parent, int time) {
 		float opacidad=1.0f;
-		((Window) comp).setOpacity(opacidad);
-		comp.setVisible(true);
+		((Window) parent).setOpacity(opacidad);
+		parent.setVisible(true);
 		for (opacidad = 1.0f; opacidad > 0.0f; opacidad-=0.1f ) {
 			pausar(time);
-			((Window) comp).setOpacity(opacidad);
+			((Window) parent).setOpacity(opacidad);
 		}
 		pausar(time);
-		((Window) comp).setOpacity(0.0f);
-		((Window) comp).setVisible(false);
+		((Window) parent).setOpacity(0.0f);
+		((Window) parent).setVisible(false);
 		pausar(time);
 	}
 	/**
@@ -228,6 +229,8 @@ public class Util {
 		//transparencia se volvian opacas. Ahora esta desactivado
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			//Se supone que suaviza el movimiento de las scrollbars
+			UIManager.put("List.lockToPositionOnScroll", Boolean.FALSE);
 			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {

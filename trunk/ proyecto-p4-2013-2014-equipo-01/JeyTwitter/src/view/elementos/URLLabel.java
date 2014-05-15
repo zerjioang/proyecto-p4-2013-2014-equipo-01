@@ -25,13 +25,9 @@ public class URLLabel extends JLabel {
 
 	public URLLabel(String label, String url) {
 		super(label);
-
 		this.url = url;
-		setForeground(Color.BLUE.darker());
-		setCursor(
-				new Cursor(Cursor.HAND_CURSOR));
-		addMouseListener(
-				new URLOpenAdapter());
+		setCursor(new Cursor(Cursor.HAND_CURSOR));
+		addMouseListener(new URLOpenAdapter());
 	}
 
 	public void setURL(String url) {
@@ -39,8 +35,8 @@ public class URLLabel extends JLabel {
 	}
 
 	//this is used to underline the text
-	@Override
-	protected void paintComponent(Graphics g) {
+	//@Override
+	/*protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
 		g.setColor(Color.blue);
@@ -55,7 +51,7 @@ public class URLLabel extends JLabel {
 		g.drawLine(left, getHeight() - 1 - insets.bottom, 
 				(int) getPreferredSize().getWidth()
 				- insets.right, getHeight() - 1 - insets.bottom);
-	}
+	}*/
 
 	private class URLOpenAdapter extends MouseAdapter {
 
