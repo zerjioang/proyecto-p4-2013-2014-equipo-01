@@ -17,7 +17,9 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
+import controller.GUIController;
 import model.Usuario;
+import twitter4j.Paging;
 import util.Util;
 import view.elementos.ObjetoCelda;
 import view.elementos.botones.BotonSeguir;
@@ -47,13 +49,13 @@ public class PanelPerfilUsuario extends JPanel {
 	
 	private Contador cTweets, cFavoritos, cSiguiendo, cSeguidores;
 	private Usuario us;
-
+/*
 	public PanelPerfilUsuario(Usuario uActual){
 		this();
 		us = uActual;
 		init();
 	}
-	
+	*/
 	@Deprecated
 	public PanelPerfilUsuario(){
 		super();
@@ -80,7 +82,7 @@ public class PanelPerfilUsuario extends JPanel {
 		init();
 	}
 	
-	public PanelPerfilUsuario(Usuario u, ArrayList<ObjetoCelda> listaObjetos){
+	public PanelPerfilUsuario(Usuario u){
 		super();
 		us = u;
 		
@@ -102,7 +104,7 @@ public class PanelPerfilUsuario extends JPanel {
 		btnFavoritos = new CoolBlueButton("Favoritos");
 		btnSeguidores = new CoolBlueButton("Seguidores");
 		btnSiguiendo = new CoolBlueButton("Siguiendo");
-		this.listaObjetos = listaObjetos;
+		this.listaObjetos = GUIController.getInstance().obtenerTimelineDeUsuario(u.getNombreUsuario(), new Paging(2));
 		
 		tablaTweetsUsuario = new TablaTweetsUsuarios(listaObjetos);
 		
@@ -184,6 +186,13 @@ public class PanelPerfilUsuario extends JPanel {
 		panel_perfilDesc.add(panel_perfilBtnUnfollow, BorderLayout.SOUTH);
 		
 		panel_perfilBtnUnfollow.add(btnDejarDeSeguir);
+		
+		if(us.getNombreUsuario().equals(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario())){
+			// Es el usuario registrado
+			this.getBtnDejarDeSeguir().setVisible(false);
+		} else {
+			this.getBtnDejarDeSeguir().setVisible(true);
+		}
 		
 		JPanel panel_perfilBotonera = new JPanel();
 		panel_usuarioGeneral.add(panel_perfilBotonera, BorderLayout.SOUTH);

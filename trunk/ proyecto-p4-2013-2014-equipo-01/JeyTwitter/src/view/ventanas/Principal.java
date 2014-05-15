@@ -93,7 +93,7 @@ public class Principal extends CustomJFrame {
 			retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(0));
 			favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(0));*/
 			
-			panelUsuario = new PanelPerfilUsuario(usuarioActual, recargarTweets(TUITSUSUARIO));
+			panelUsuario = new PanelPerfilUsuario(usuarioActual);
 			timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(TIMELINE)));
 			menciones = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(MENCIONES)));
 			retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(RETUITS)));

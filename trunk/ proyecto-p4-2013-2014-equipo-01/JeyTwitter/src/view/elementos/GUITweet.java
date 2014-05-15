@@ -42,6 +42,7 @@ import view.eventos.celdaTweet.EventoClickBtnReTweet;
 import view.eventos.celdaTweet.EventoClickBtnResponder;
 import view.eventos.celdaTweet.EventoClickImagenTweet;
 import view.eventos.celdaTweet.EventoClickImagenUsuario;
+import view.eventos.principal.EventoClickFotoUsuario;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 
 public class GUITweet extends JPanel implements ObjetoCelda{
@@ -88,12 +89,14 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		
 		img = new ImageIcon[2];
 		tweet = t;
+		
+		lblImagenusuario.addMouseListener(new EventoClickFotoUsuario(GUIController.getInstance().getGui(), getNombreUsuario()));
 		init();
 	}
 	private JEditorPane procesarMensaje(Tweet t) {
 		// TODO Auto-generated method stub
 		Util.debug("Parseando contenido del tweet...");
-		//habia que especificar por HTML el tama�o y las demas caracteristicas del texto si no se usa putClientProperty
+		//habia que especificar por HTML el tama���o y las demas caracteristicas del texto si no se usa putClientProperty
 		//String fontfamily = Util.getFont("Roboto-Light", Font.PLAIN, 12).getFamily();
 		//"<html><font face=\"" + font.getFamily() + "\" size=\"" + font.getSize() + "\"></font>This is some text!</html>"
 		String mensajeFormateado = t.getTexto();
@@ -220,7 +223,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		editor.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 12));
 		editor.setText(mensajeFormateado);
 		
-		//A�adir evento de click
+		//A���adir evento de click
 		editor.addHyperlinkListener(new EventoEscucharClickURL());
 	    
 		//scrollPane.setViewportView(editor);
