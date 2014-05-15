@@ -1,7 +1,14 @@
 package model;
 
 import java.awt.Image;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
+
+import javax.imageio.ImageIO;
+
+import twitter4j.User;
 /**
  * Clase que representa a un usuario en la base de datos
  * @author Fiser
@@ -39,6 +46,48 @@ public class Usuario {
 		this.numeroFavoritos = numeroFavoritos;
 		this.numeroSiguiendo = numeroSiguiendo;
 		this.numeroSeguidores = numeroSeguidores;
+	}
+	public Usuario(User u, String token, String tokenSecreto) {
+		this.token = token;
+		this.tokenSecreto = tokenSecreto;
+		this.nombreUsuario = u.getScreenName();
+		this.nombreReal = u.getName();
+		this.biografia = u.getDescription();
+		this.ultimaFechaActualizacion = u.getCreatedAt();
+		this.numeroTweets = u.getStatusesCount();
+		this.numeroFavoritos = u.getFavouritesCount();
+		this.numeroSiguiendo = u.getFriendsCount();
+		this.numeroSeguidores = u.getFollowersCount();
+		try {
+			this.imagen = ImageIO.read(new URL(u.getBiggerProfileImageURL()));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public Usuario(User u) {
+		this.token = null;
+		this.tokenSecreto = null;
+		this.nombreUsuario = u.getScreenName();
+		this.nombreReal = u.getName();
+		this.biografia = u.getDescription();
+		this.ultimaFechaActualizacion = u.getCreatedAt();
+		this.numeroTweets = u.getStatusesCount();
+		this.numeroFavoritos = u.getFavouritesCount();
+		this.numeroSiguiendo = u.getFriendsCount();
+		this.numeroSeguidores = u.getFollowersCount();
+		try {
+			this.imagen = ImageIO.read(new URL(u.getBiggerProfileImageURL()));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public String getTokenSecreto() {
 		return tokenSecreto;

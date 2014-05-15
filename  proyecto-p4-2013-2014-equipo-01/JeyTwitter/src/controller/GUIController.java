@@ -95,7 +95,7 @@ public class GUIController {
 	 * Muestra el TL en el elemento de la GUI correspondiente
 	 * @return 
 	 */
-	public ArrayList<Tweet> mostrarTimeline() {
+	public ArrayList<Tweet> mostrarTimeline() throws IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		
@@ -122,12 +122,8 @@ public class GUIController {
 					listaTL = t.getTimeline();
 					for (Status each : listaTL) {
 						Tweet t;
-						try {
-							t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
-							timeline.add(t);
-						} catch (IOException e) {
-							
-						}
+						t = new Tweet(each);
+						timeline.add(t);
 					}
 				} catch (TwitterException e) {
 					// Error al recuperar el timeline
@@ -143,30 +139,21 @@ public class GUIController {
 		return timeline;
 	}
 	
-	public ArrayList<ObjetoCelda> obtenerTimelineDeUsuario(String usuario, Paging paging) {
+	public ArrayList<ObjetoCelda> obtenerTimelineDeUsuario(String usuario, Paging paging) throws MalformedURLException, IOException {
 		ArrayList<ObjetoCelda> objetosTweet = new ArrayList<ObjetoCelda>();
 		
 		try {
 			ResponseList<Status> statuses = t.getTimelineFromUser(usuario, paging);
 			
 			for (Status each : statuses) {
-				Tweet t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
+				Tweet t = new Tweet(each);
 				GUITweet t2 = new GUITweet(Util.calcularFecha(t.getUltimaFechaActualizacion()),t);
 				
 				objetosTweet.add(t2);
 			}
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
+			e.printStackTrace();	
 		}
 		
 		return objetosTweet;
@@ -176,7 +163,7 @@ public class GUIController {
 	 * Muestra las menciones en el elemento de la GUI correspondiente
 	 * @return 
 	 */
-	public ArrayList<Tweet> mostrarMenciones() throws MalformedURLException {
+	public ArrayList<Tweet> mostrarMenciones() throws MalformedURLException, IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		
@@ -185,13 +172,8 @@ public class GUIController {
 				listaTL = t.getMentions();
 				for (Status each : listaTL) {
 					Tweet t;
-					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
-						timeline.add(t);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					t = new Tweet(each);
+					timeline.add(t);
 				}
 			} catch (TwitterException e) {
 				// Error al recuperar el timeline
@@ -210,7 +192,7 @@ public class GUIController {
 	 * Muestra mis retweets en el elemento de la GUI correspondiente
 	 * @return 
 	 */
-	public ArrayList<Tweet> mostrarRetuits() {
+	public ArrayList<Tweet> mostrarRetuits() throws IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		
@@ -219,13 +201,8 @@ public class GUIController {
 				listaTL = t.getRetweetsOfMe();
 				for (Status each : listaTL) {
 					Tweet t;
-					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
-						timeline.add(t);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					t = new Tweet(each);
+					timeline.add(t);
 				}
 			} catch (TwitterException e) {
 				// Error al recuperar el timeline
@@ -254,7 +231,7 @@ public class GUIController {
 	 * Muestra mis tuits en el elemento de la GUI correspondiente
 	 * @return 
 	 */
-	public ArrayList<Tweet> mostrarPerfil() {
+	public ArrayList<Tweet> mostrarPerfil() throws IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		
@@ -263,13 +240,8 @@ public class GUIController {
 				listaTL = t.getProfileTuits();
 				for (Status each : listaTL) {
 					Tweet t;
-					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
-						timeline.add(t);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					t = new Tweet(each);
+					timeline.add(t);
 				}
 			} catch (TwitterException e) {
 				// Error al recuperar el timeline
@@ -288,7 +260,7 @@ public class GUIController {
 	 * Muestra favoritos en el elemento de la GUI correspondiente
 	 * @return 
 	 */
-	public ArrayList<Tweet> mostrarFavoritos() {
+	public ArrayList<Tweet> mostrarFavoritos() throws IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		
@@ -297,13 +269,8 @@ public class GUIController {
 				listaTL = t.getFavorites();
 				for (Status each : listaTL) {
 					Tweet t;
-					try {
-						t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
-						timeline.add(t);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					t = new Tweet(each);
+					timeline.add(t);
 				}
 			} catch (TwitterException e) {
 				// Error al recuperar el timeline
@@ -358,23 +325,20 @@ public class GUIController {
 		}
 	}
 	
-	public Usuario getUsuario(long id) {
+	public Usuario getUsuario(long id) throws IOException {
 		User user = null;
 		Usuario u = null;
 		try {
 			user = t.getUsuario(id);
 			
 			if (hayConexion()) {
-				URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
-				Image imageProfile = pedirImagen(urlImage);
-				
 				System.out.println(user.toString());
-				u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFavouritesCount(), user.getFriendsCount(), user.getFollowersCount());
+				u = new Usuario(user);
 			} else {
 				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
 				u = (Usuario)credenciales.getFirst();
 			}
-		} catch (IllegalStateException | TwitterException | IOException e) {
+		} catch (IllegalStateException | TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -382,23 +346,20 @@ public class GUIController {
 		return u;
 	}
 	
-	public Usuario getUsuario(String screenName) {
+	public Usuario getUsuario(String screenName) throws IOException {
 		User user = null;
 		Usuario u = null;
 		try {
 			user = t.getUsuario(screenName);
 			
 			if (hayConexion()) {
-				URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
-				Image imageProfile = ImageIO.read(urlImage);
-				
 				System.out.println(user.toString());
-				u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFavouritesCount(), user.getFriendsCount(), user.getFollowersCount());
+				u = new Usuario(user);
 			} else {
 				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
 				u = (Usuario)credenciales.getFirst();
 			}
-		} catch (IllegalStateException | TwitterException | IOException e) {
+		} catch (IllegalStateException | TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -410,7 +371,7 @@ public class GUIController {
 	 * Traduce a nuestra clase modelo Usuario la clase User que maneja la API
 	 * @return
 	 */
-	public Usuario getUsuarioRegistrado() {
+	public Usuario getUsuarioRegistrado() throws IOException {
 		User user = null;
 		Usuario u = null;
 		try {
@@ -418,16 +379,13 @@ public class GUIController {
 			user = t.getUsuarioRegistrado();
 			
 			if (hayConexion()) {
-				URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
-				Image imageProfile = ImageIO.read(urlImage);
-				
 				System.out.println(user.toString());
-				u = new Usuario(user.getScreenName(),"","", user.getName(), user.getDescription(), imageProfile, user.getCreatedAt(), user.getStatusesCount(), user.getFavouritesCount(), user.getFriendsCount(), user.getFollowersCount());
+				u = new Usuario(user);
 			} else {
 				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
 				u = (Usuario)credenciales.getFirst();
 			}
-		} catch (IllegalStateException | TwitterException | IOException e) {
+		} catch (IllegalStateException | TwitterException e) {
 			System.err.println("Error al obtener el usuario autorizado: "+e.getMessage());
 		}
 
@@ -520,7 +478,7 @@ public class GUIController {
 			URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
 			Image imageProfile = ImageIO.read(urlImage);
 
-			Usuario u = new Usuario(t.getUsuarioRegistrado().getScreenName(), accessToken.getToken(), accessToken.getTokenSecret(), t.getUsuarioRegistrado().getName(), t.getUsuarioRegistrado().getDescription(), imageProfile, t.getUsuarioRegistrado().getCreatedAt(), t.getUsuarioRegistrado().getStatusesCount(), t.getUsuarioRegistrado().getFavouritesCount(),t.getUsuarioRegistrado().getFriendsCount(), t.getUsuarioRegistrado().getFollowersCount());
+			Usuario u = new Usuario(t.getUsuarioRegistrado(), accessToken.getToken(), accessToken.getTokenSecret());
 			// Guardar en la BBDD
 			Interaccion.introducirUsuario(u);		
 		} catch (TwitterException | IOException e) {
@@ -629,21 +587,14 @@ public class GUIController {
 		return listaTweets;
 	}*/
 	
-	public ArrayList<ObjetoCelda> buscarTweets(String str){
+	public ArrayList<ObjetoCelda> buscarTweets(String str) throws IOException{
 		ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
 		 Util.debug("iniciando busqueda de tweets...");
 		List<Status> tweets = t.buscarTuit(str);
 		 Util.debug("mostrando tweets...");
 		for (Status t : tweets) {
-			try {
-				URL urlImagen = new URL(t.getUser().getBiggerProfileImageURL());
-				Image imagen = ImageIO.read(urlImagen);
-				listaTweets.add(0, new GUITweet(Util.calcularFecha(t.getCreatedAt()), new Tweet(t.getId(), t.getUser().getName(), t.getUser().getScreenName(), t.getCreatedAt(), imagen, t.getText(), t.isRetweet(), t.isFavorited(), null)));
-				actualizarPanelBusqueda(listaTweets);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			listaTweets.add(0, new GUITweet(Util.calcularFecha(t.getCreatedAt()), new Tweet(t)));
+			actualizarPanelBusqueda(listaTweets);
 		}
 		Util.debug("busqueda finalizada.");
 		return listaTweets;
