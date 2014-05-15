@@ -1,4 +1,10 @@
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
+
+import javax.swing.ImageIcon;
+
+import com.apple.eawt.Application;
 
 import controller.GUIController;
 import controller.sql.Interaccion;
@@ -15,6 +21,11 @@ import view.ventanas.TerminosCondiciones;
 public class Launcher {
 	
 	public static void main(String[] args) {
+		// Icono para OSX
+		Application application = Application.getApplication();
+		Image image = new ImageIcon(Launcher.class.getResource("/res/images/macicon.png")).getImage();
+		application.setDockIconImage(image);
+		
 		/*double media=0;
 		for (int i = 0; i < 20; i++) {
 			long antes = System.currentTimeMillis();
