@@ -142,9 +142,33 @@ public class GUIController {
 		return timeline;
 	}
 	
-	public static  ResponseList<Status> obtenerTimelineDeUsuario(String usuario, Paging paging) throws TwitterException {
+	public ArrayList<ObjetoCelda> obtenerTimelineDeUsuario(String usuario, Paging paging) {
+		ArrayList<ObjetoCelda> objetosTweet = new ArrayList<ObjetoCelda>();
 		
-		return t.getTimelineFromUser(usuario, paging);
+		try {
+			ResponseList<Status> statuses = t.getTimelineFromUser(usuario, paging);
+			
+			for (Status each : statuses) {
+				Tweet t = new Tweet(each.getId(), each.getUser().getScreenName(), each.getUser().getName(), each.getCreatedAt() , pedirImagen(new URL(each.getUser().getBiggerProfileImageURL())), each.getText(), each.isRetweet(), each.isFavorited(), null);
+				GUITweet t2 = new GUITweet(Util.calcularFecha(t.getUltimaFechaActualizacion()),t);
+				
+				objetosTweet.add(t2);
+			}
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+		return objetosTweet;
 	}
 	
 	/**
