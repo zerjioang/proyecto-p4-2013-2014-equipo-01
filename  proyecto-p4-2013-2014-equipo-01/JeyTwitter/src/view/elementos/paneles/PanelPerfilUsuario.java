@@ -212,7 +212,7 @@ public class PanelPerfilUsuario extends JPanel {
 		
 		//Eventos botones usuario
 		btnTweets.addMouseListener(new EventoVerContadorPerfilusuario(this, cTweets, EventoVerContadorPerfilusuario.TWEETS) );
-		btnFavoritos.addMouseListener(new EventoVerContadorPerfilusuario(this, cFavoritos, EventoVerContadorPerfilusuario.TWEETS));
+		btnFavoritos.addMouseListener(new EventoVerContadorPerfilusuario(this, cFavoritos, EventoVerContadorPerfilusuario.FAVORITOS));
 		btnSeguidores.addMouseListener(new EventoVerContadorPerfilusuario(this, cSiguiendo, EventoVerContadorPerfilusuario.SIGUIENDO));
 		btnSiguiendo.addMouseListener(new EventoVerContadorPerfilusuario(this, cSeguidores, EventoVerContadorPerfilusuario.SEGUIDORES));
 

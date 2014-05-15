@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import controller.GUIController;
+import twitter4j.examples.geo.GetGeoDetails;
 import view.elementos.paneles.PanelPerfilUsuario;
 import view.ventanas.Contador;
 import view.ventanas.Principal;
@@ -32,25 +33,23 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		c.setCantidad(100);
+		mover(e);
+		int valor = 0;
 		switch (opcion) {
-		case 0://Tweets
-			//c.setCantidad(Principal.getUsuarioActual().getNumeroTweets());
-			//System.out.println(GUIController.getInstance().getUsuario(id).getNumeroTweets());
+		case 0://favoritos
+			valor = GUIController.getInstance().getNumeroFavoritos(id);
 			break;
-		case 1://Favoritos
-			//c.setCantidad(GUIController.getInstance().getNumeroFavoritos(id));
-			//System.out.println(GUIController.getInstance().getNumeroFavoritos(id));
+		case 1://tweets
+			valor = GUIController.getInstance().getGui().getUsuarioActual().getNumeroTweets();
 			break;
 		case 2://Seguidores
-			//c.setCantidad(Principal.getUsuarioActual().getNumeroSeguidores());
-			//System.out.println(GUIController.getInstance().getUsuario(id).getNumeroSeguidores());
+			valor = GUIController.getInstance().getGui().getUsuarioActual().getNumeroSeguidores();
 			break;
 		case 3://Siguiendo
-			//c.setCantidad(Principal.getUsuarioActual().getNumeroSiguiendo());
-			//System.out.println(GUIController.getInstance().getUsuario(id).getNumeroSiguiendo());
+			valor = GUIController.getInstance().getGui().getUsuarioActual().getNumeroSiguiendo();
 			break;
 		}
+		c.setCantidad(valor);
 		c.setVisible(true);
 	}
 
@@ -70,6 +69,13 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		mover(e);
+	}
+
+	/**
+	 * @param e
+	 */
+	private void mover(MouseEvent e) {
 		int x = e.getXOnScreen();
 		int y = e.getYOnScreen();
 		c.setLocation(x-30, y-c.getHeight());

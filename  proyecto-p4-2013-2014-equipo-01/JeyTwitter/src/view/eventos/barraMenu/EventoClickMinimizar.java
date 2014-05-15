@@ -17,86 +17,61 @@ import javax.swing.JFrame;
 import util.Util;
 import view.parents.CustomJDialogWithBar;
 import view.parents.CustomJFrame;
+import view.parents.Moveable;
 
 
 public class EventoClickMinimizar implements MouseListener {
 	
-	private final Window ventana;
+	private final Moveable ventana;
 
-	public EventoClickMinimizar(Window ventana) {
+	public EventoClickMinimizar(Moveable ventana) {
 		this.ventana = ventana;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0){
 		Point currentLocation = ventana.getLocation();
-		if(ventana instanceof CustomJFrame)
-			((CustomJFrame)ventana).setLastPosition(currentLocation);
-		else if(ventana instanceof CustomJDialogWithBar)
-			((CustomJDialogWithBar)ventana).setLastPosition(currentLocation);
+		ventana.setLastPosition(currentLocation);
 
-		if(ventana instanceof CustomJFrame){
-			
-			Dimension lowerBorder = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-			Float op = 1.0f;
-			
-			if(Util.isMac()){
-				for (int i = currentLocation.y; i < lowerBorder.height+ventana.getHeight(); i=i+20) {
-					currentLocation = new Point(currentLocation.x, i);
-					op = op - 0.001f;
-					if(op > 0f)
-						ventana.setOpacity(op);
-					ventana.setLocation(currentLocation);
-				}
-			}
-			else if(Util.isWin()){
-				for (int i = currentLocation.y; i < lowerBorder.height+ventana.getHeight(); i++) {
-					currentLocation = new Point(currentLocation.x, i);
-					op = op - 0.001f;
-					if(op > 0f)
-						ventana.setOpacity(op);
-					ventana.setLocation(currentLocation);
-				}
-			}
-			
-			ventana.setLocation(((CustomJFrame) ventana).getLastPosition());
-			((Frame) ventana).setExtendedState(JFrame.ICONIFIED);
+		Dimension lowerBorder = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		Float op = 1.0f;
+		
+		if(Util.isMac()){
+			ventana.dispose();
 		}
-		else if(ventana instanceof CustomJDialogWithBar){
-			ventana.setLocation(((CustomJDialogWithBar) ventana).getLastPosition());
+		else if(Util.isWin()){
+			for (int i = currentLocation.y; i < lowerBorder.height+ventana.getHeight(); i++) {
+				currentLocation = new Point(currentLocation.x, i);
+				op = op - 0.001f;
+				if(op > 0f)
+					ventana.setOpacity(op);
+				ventana.setLocation(currentLocation);
+			}
 		}
+		
+		ventana.setLocation(ventana.getLastPosition());
+		ventana.setExtendedState(JFrame.ICONIFIED);
+	
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		if(ventana instanceof CustomJFrame)
-			((CustomJFrame) ventana).setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/minimizarHover.png")));
-		else if(ventana instanceof CustomJDialogWithBar)
-			((CustomJDialogWithBar) ventana).setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/minimizarHover.png")));	
+		ventana.setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/minimizarHover.png")));
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		if(ventana instanceof CustomJFrame)
-			((CustomJFrame) ventana).setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/botonesNormales.png")));
-		else if(ventana instanceof CustomJDialogWithBar)
-			((CustomJDialogWithBar) ventana).setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/botonesNormales.png")));
+		ventana.setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/botonesNormales.png")));
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		if(ventana instanceof CustomJFrame)
-			((CustomJFrame) ventana).setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/minimizarClick.png")));
-		else if(ventana instanceof CustomJDialogWithBar)
-			((CustomJDialogWithBar) ventana).setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/minimizarClick.png")));	
+		ventana.setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/minimizarClick.png")));
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		if(ventana instanceof CustomJFrame)
-			((CustomJFrame) ventana).setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/botonesNormales.png")));
-		else if(ventana instanceof CustomJDialogWithBar)
-			((CustomJDialogWithBar) ventana).setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/botonesNormales.png")));	
+		ventana.setImagenIconos(new ImageIcon(EventoClickMaximizar.class.getResource("/res/images/botonera/botonesNormales.png")));
 	}
 
 }

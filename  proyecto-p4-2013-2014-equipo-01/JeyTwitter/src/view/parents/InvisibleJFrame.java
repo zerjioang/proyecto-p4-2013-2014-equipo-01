@@ -2,6 +2,7 @@ package view.parents;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Point;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
@@ -12,15 +13,32 @@ import javax.swing.JLabel;
 
 import util.Util;
 
-public abstract class InvisibleJFrame extends JFrame {
+public abstract class InvisibleJFrame extends JFrame implements Moveable{
 
 	protected JPanel contentPane;
-	private static final String IMG_ICON = Util.APP_ICONO;
 	protected JLabel fondo;
 	private String imagenfondo;
 	private ImageIcon icono;
 
-
+	
+	/**
+	 * Create the frame.
+	 */
+	public InvisibleJFrame() {
+		setUndecorated(true);
+		setType(Type.POPUP);
+		setResizable(false);
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		setContentPane(contentPane);
+		
+		fondo = new JLabel();
+		
+		init();
+	}
+	
 	/**
 	 * Create the frame.
 	 */
@@ -41,15 +59,13 @@ public abstract class InvisibleJFrame extends JFrame {
 		fondo.setIcon(icono);
 		
 		init();
+		ajustarImagen();
 	}
 
 	private void init() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(InvisibleJFrame.class.getResource(IMG_ICON)));
-		//Application.getApplication().setDockIconImage(new ImageIcon("Football.png").getImage());
+		setIconImage(Toolkit.getDefaultToolkit().getImage(InvisibleJFrame.class.getResource(Util.APP_ICONO)));
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f)); //Lo hace transparente el ultimo valor es el nivel de transparencia
-		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		fondo.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		ajustarImagen();
 	}
 
 	private void ajustarImagen() {
@@ -88,7 +104,44 @@ public abstract class InvisibleJFrame extends JFrame {
 	}
 	@Override
 	public void dispose(){
-		Util.ocultarImagenDifuso(this);
+		if(isVisible()){
+			Util.ocultarImagenDifuso(this);
+		}
 		super.dispose();
+	}
+	
+	@Override
+	public Point getInitialClick() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setInitialClick(Point initialClick) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Point getLastPosition() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLastPosition(Point lastPosition) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isDisposeWindow() {
+		return true;
+	}
+
+	@Override
+	public void setImagenIconos(ImageIcon imageIcon) {
+		// TODO Auto-generated method stub
+		
 	}
 }

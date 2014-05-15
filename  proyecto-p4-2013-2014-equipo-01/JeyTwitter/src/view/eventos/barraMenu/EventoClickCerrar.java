@@ -1,9 +1,7 @@
 package view.eventos.barraMenu;
 
-import view.parents.CustomJDialogWithBar;
-import view.parents.CustomJFrame;
+import view.parents.Moveable;
 
-import java.awt.Window;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -17,19 +15,16 @@ import util.Util;
 
 public class EventoClickCerrar implements MouseListener {
 
-	private Window parent;
+	private Moveable parent;
 	
-	public EventoClickCerrar(Window parent){
+	public EventoClickCerrar(Moveable parent){
 		this.parent = parent;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		boolean dispose = false;
-		if(parent instanceof CustomJFrame)
-			dispose = ((CustomJFrame) parent).isDisposeWindow();
-		else if(parent instanceof CustomJDialogWithBar)
-			dispose = ((CustomJDialogWithBar) parent).isDisposeWindow();
+		dispose = parent.isDisposeWindow();
 		if(dispose){
 			Util.ocultarImagenDifuso(parent);
 			parent.dispose();
@@ -48,35 +43,21 @@ public class EventoClickCerrar implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		if(parent instanceof CustomJFrame)
-			((CustomJFrame) parent).setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/CloseHover.png")));
-		else if(parent instanceof CustomJDialogWithBar)
-			((CustomJDialogWithBar) parent).setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/CloseHover.png")));	
-			
+		parent.setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/CloseHover.png")));
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		if(parent instanceof CustomJFrame)
-			((CustomJFrame) parent).setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/botonesNormales.png")));
-		else if(parent instanceof CustomJDialogWithBar)
-			((CustomJDialogWithBar) parent).setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/botonesNormales.png")));	
-		}
+		parent.setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/botonesNormales.png")));
+	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		if(parent instanceof CustomJFrame)
-			((CustomJFrame) parent).setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/closeClick.png")));
-		else if(parent instanceof CustomJDialogWithBar)
-			((CustomJDialogWithBar) parent).setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/closeClick.png")));	
-		}
+		parent.setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/closeClick.png")));
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		if(parent instanceof CustomJFrame)
-			((CustomJFrame) parent).setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/botonesNormales.png")));
-		else if(parent instanceof CustomJDialogWithBar)
-			((CustomJDialogWithBar) parent).setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/botonesNormales.png")));	
-		}
-
+		parent.setImagenIconos(new ImageIcon(EventoClickCerrar.class.getResource("/res/images/botonera/botonesNormales.png")));
+	}
 }

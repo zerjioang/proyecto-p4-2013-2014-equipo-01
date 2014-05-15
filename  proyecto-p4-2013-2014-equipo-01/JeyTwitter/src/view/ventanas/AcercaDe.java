@@ -105,5 +105,4 @@ public class AcercaDe extends CustomJDialogWithBar {
 		BotonId lblSergioR = new BotonId("/res/images/letreros/SR_id.png", "/res/images/letreros/ErroryEvent.png");
 		panel.add(lblSergioR, BorderLayout.SOUTH);
 	}
-
 }

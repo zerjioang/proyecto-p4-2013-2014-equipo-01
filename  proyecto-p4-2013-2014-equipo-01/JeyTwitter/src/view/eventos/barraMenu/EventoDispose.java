@@ -8,11 +8,13 @@ import java.awt.Window;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import view.parents.Moveable;
+
 public class EventoDispose implements MouseListener {
 	
-	private final Window ventana;
+	private final Moveable ventana;
 	
-	public EventoDispose(Window o){
+	public EventoDispose(Moveable o){
 		ventana = o;
 	}
 

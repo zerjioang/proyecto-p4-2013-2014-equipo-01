@@ -2,6 +2,7 @@ package view.ventanas;
 
 import util.Util;
 import view.elementos.botones.CoolBlueButton;
+import view.eventos.condiciones.EventoClickCondiciones;
 import view.parents.CustomJDialogWithBar;
 
 import java.awt.EventQueue;
@@ -82,7 +83,7 @@ public class TerminosCondiciones extends CustomJDialogWithBar {
 		inferior.add(boton, BorderLayout.EAST);
 		getMainPanel().add(inferior, BorderLayout.SOUTH);
 		
-		//boton.addMouseListener(new EventoClickCondiciones(this));
+		boton.addMouseListener(new EventoClickCondiciones(this));
 		
 		JLabel lblTitulo = new JLabel("Terminos y condiciones de JeyTuiter");
 		lblTitulo.setForeground(Color.WHITE);

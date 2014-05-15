@@ -59,6 +59,10 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	private ImageIcon[] img;
 	private String imagenTuit;
 	
+	private ArrayList<String> usuarioMencionado;
+	private ArrayList<String> hashtagTweet;
+	private ArrayList<String> urlsTweet;
+	
 	public static void main(String [] args){
 		JFrame j = new JFrame();
 		j.setSize(500, 500);
@@ -70,6 +74,11 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	
 	public GUITweet(String fecha, Tweet t) {
 		super();
+		
+		usuarioMencionado = new ArrayList<String>();
+		hashtagTweet = new ArrayList<String>();
+		urlsTweet = new ArrayList<String>();
+		
 		this.lblImagenusuario = new JLabel();
 		this.lblNombreReal = new JLabel();
 		this.lblnombreUsuario = new JLabel();
@@ -146,11 +155,11 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		Pattern p = Pattern.compile("(?<!\\w)@[\\w]+");
 		//@zerjioAng @_somega @ruben_fiser @kronosnhz
 		Matcher m = p.matcher(mensajeFormateado);
-		ArrayList<String> mencionesUsuarios = new ArrayList<String>();
+		
 		while(m.find()) {
-			mencionesUsuarios.add(m.group());
+			usuarioMencionado.add(0, m.group());
 		}
-		for (String s : mencionesUsuarios) {
+		for (String s : usuarioMencionado) {
 			System.out.println("usuarios mencionados: "+s);
 			String html = linkAntes+s+linkMedio+s+linkDespues;
 			mensajeFormateado = mensajeFormateado.replaceAll(s, html);
@@ -159,11 +168,11 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		String regex = "\\(?\\b(http://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&amp;@#/%=~_()|]";
 		p = Pattern.compile(regex);
 		m = p.matcher(t.getTexto());
-		ArrayList<String> urls = new ArrayList<String>();
+		
 		while(m.find()) {
-			urls.add(m.group());
+			urlsTweet.add(0, m.group());
 		}
-		for (String s : urls) {
+		for (String s : urlsTweet) {
 			System.out.println("urls encontradas: "+s);
 			String html = linkAntes+s+linkMedio+s+linkDespues;
 			mensajeFormateado = mensajeFormateado.replaceAll(s, html);
@@ -177,6 +186,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 				MediaEntity[] media = GUIController.getInstance().getMedias(t.getCodigo());
 				for (MediaEntity im : media) {
 					String urlAntes = im.getURL();
+					urlsTweet.add(0, urlAntes);
 					Util.debug("Eliminando URL Imagen "+urlAntes);
 					mensajeFormateado = mensajeFormateado.replaceAll(urlAntes, "");
 					imagenTuit = im.getMediaURLHttps();
@@ -186,17 +196,15 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 				}
 			} catch (TwitterException e) {}
 		}
-		Util.debug("Imagen obtenida.");
 		
 		String hashtagRE = "#(\\w+)";//"#\\w+";
 		p = Pattern.compile(hashtagRE);
 		m = p.matcher(t.getTexto());
 		System.out.println("Tweet: "+t.getTexto());
-		ArrayList<String> hash = new ArrayList<String>();
 		while(m.find()) {
-			hash.add(m.group());
+			hashtagTweet.add(m.group());
 		}
-		for (String s : hash) {
+		for (String s : hashtagTweet) {
 			System.out.println("hashtags encontrados: "+s);
 			String hashtag = linkAntes+s+"\" style=\"text-decoration:none; color: #f04400\">"+s+linkDespues;
 			mensajeFormateado = mensajeFormateado.replaceAll(s, hashtag);
@@ -223,7 +231,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		editor.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 12));
 		editor.setText(mensajeFormateado);
 		
-		//A���adir evento de click
+		//añadir evento de click
 		editor.addHyperlinkListener(new EventoEscucharClickURL());
 	    
 		//scrollPane.setViewportView(editor);
@@ -541,5 +549,47 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	 */
 	public void setTweet(Tweet tweet) {
 		this.tweet = tweet;
+	}
+
+	/**
+	 * @return the usuarioMencionado
+	 */
+	public ArrayList<String> getUsuarioMencionado() {
+		return usuarioMencionado;
+	}
+
+	/**
+	 * @param usuarioMencionado the usuarioMencionado to set
+	 */
+	public void setUsuarioMencionado(ArrayList<String> usuarioMencionado) {
+		this.usuarioMencionado = usuarioMencionado;
+	}
+
+	/**
+	 * @return the hashtagTweet
+	 */
+	public ArrayList<String> getHashtagTweet() {
+		return hashtagTweet;
+	}
+
+	/**
+	 * @param hashtagTweet the hashtagTweet to set
+	 */
+	public void setHashtagTweet(ArrayList<String> hashtagTweet) {
+		this.hashtagTweet = hashtagTweet;
+	}
+
+	/**
+	 * @return the urlsTweet
+	 */
+	public ArrayList<String> getUrlsTweet() {
+		return urlsTweet;
+	}
+
+	/**
+	 * @param urlsTweet the urlsTweet to set
+	 */
+	public void setUrlsTweet(ArrayList<String> urlsTweet) {
+		this.urlsTweet = urlsTweet;
 	}
 }

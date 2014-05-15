@@ -1,6 +1,7 @@
 package view.eventos.barraMenu;
 
 import view.parents.CustomJFrame;
+import view.parents.Moveable;
 
 import java.awt.Window;
 import java.awt.event.WindowEvent;
@@ -12,9 +13,9 @@ import java.awt.event.WindowListener;
  */
 public class EventoMaximizarDesdeBarra implements WindowListener {
 
-	private final Window ventana;
+	private final Moveable ventana;
 	
-	public EventoMaximizarDesdeBarra(Window customJFrame) {
+	public EventoMaximizarDesdeBarra(Moveable customJFrame) {
 		ventana = customJFrame;
 	}
 

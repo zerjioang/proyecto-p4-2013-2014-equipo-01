@@ -125,7 +125,6 @@ public abstract class CustomJDialogWithBar extends JDialog implements Moveable{
 		lblImagenFondo.addMouseMotionListener(new EventosDeBarra(this));
 		lblImagenFondo.addMouseListener(new EventosDeBarra(this));
 		addWindowListener(new EventoMaximizarDesdeBarra(this));
-		
 		setLocationRelativeTo(null);
 	}
 
@@ -216,4 +215,6 @@ public abstract class CustomJDialogWithBar extends JDialog implements Moveable{
 		this.disposeWindow = disposeWindow;
 	}
 	
+	@Override
+	public void setExtendedState(int iconified) {}
 }

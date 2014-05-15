@@ -5,15 +5,16 @@ package view.eventos.barraMenu;
  * @author Sergio Anguita
  */
 import view.parents.CustomJFrame;
+import view.parents.Moveable;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class EventoClickMaximizar implements MouseListener {
 	
-	private final CustomJFrame ventana;
+	private final Moveable ventana;
 
-	public EventoClickMaximizar(CustomJFrame ventana) {
+	public EventoClickMaximizar(Moveable ventana) {
 		this.ventana = ventana;
 	}
 

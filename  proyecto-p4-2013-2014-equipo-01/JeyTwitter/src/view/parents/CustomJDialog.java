@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -186,5 +187,20 @@ public abstract class CustomJDialog extends JDialog implements Moveable{
 	 */
 	public void setBotonNegativo(String botonNegativo) {
 		btnCancelar.setText(botonNegativo);
+	}
+	
+	@Override
+	public boolean isDisposeWindow() {
+		return true;
+	}
+	@Override
+	public void setImagenIconos(ImageIcon imageIcon) {
+		// TODO Auto-generated method stub	
+	}
+	
+	@Override
+	public void setExtendedState(int iconified) {
+		// TODO Auto-generated method stub
+		
 	}
 }
