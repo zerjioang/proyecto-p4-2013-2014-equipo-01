@@ -37,7 +37,7 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 		int valor = 0;
 		switch (opcion) {
 		case 0://favoritos
-			valor = GUIController.getInstance().getNumeroFavoritos(id);
+			valor = GUIController.getInstance().getGui().getUsuarioActual().getNumeroFavoritos();
 			break;
 		case 1://tweets
 			valor = GUIController.getInstance().getGui().getUsuarioActual().getNumeroTweets();

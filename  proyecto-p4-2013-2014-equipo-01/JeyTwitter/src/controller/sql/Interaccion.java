@@ -315,22 +315,6 @@ public class Interaccion {
 		return correcto;
 	}
 	/**
-	 * Permite insertar una lista de Tweets, pero el formato de las imagenes debe de ser siempre el mismo, aun no he probado que sucede si se le indica cualquier tipo de formato.
-	 * Devuelve true si se han insertado todos correctamente.
-	 * @param añadir
-	 * @param nombreUsuario
-	 * @param formatosImagenes
-	 * @return
-	 */
-	public static void insertarTweetsHilos(LinkedList<Tweet> añadir, String nombreUsuario, String formatosImagenes)
-	{
-		for(Tweet temp: añadir)
-		{
-			HiloConsulta c = new HiloConsulta(temp, nombreUsuario, formatosImagenes);
-			c.start();
-		}
-	}
-	/**
 	 * Permite actualizar la imagen del tweet
 	 * @param nombreUsuario
 	 * @param imagen
@@ -347,7 +331,7 @@ public class Interaccion {
 			e.printStackTrace();
 		}  
 		byte[] data = baos.toByteArray(); 
-		return gestor.enviarImagen("UPDATE Tweet SET imagenUsuario = ? WHERE codigo = "+codTweet+"", data);
+		return gestor.enviarImagen("UPDATE Tweet SET imagenTweet = ? WHERE codigo = "+codTweet+"", data);
 	}
 	/**
 	 * Permite actualizar la imagen del tweet
@@ -366,7 +350,7 @@ public class Interaccion {
 			e.printStackTrace();
 		}  
 		byte[] data = baos.toByteArray(); 
-		return gestor.enviarImagen("UPDATE Tweet SET imagenTweet = ? WHERE codigo = "+codTweet+"", data);
+		return gestor.enviarImagen("UPDATE Tweet SET imagenUsuario = ? WHERE codigo = "+codTweet+"", data);
 	}
 	public static void reiniciarBase()
 	{
@@ -384,15 +368,15 @@ public class Interaccion {
 	public static void main(String[]args) throws IOException
 	{
 		reiniciarBase();
-//		//Esta parte del código prueba la inserción de usuarios y extracción de los mismos con la imagen
-//		Usuario temp0 = new Usuario("Fiser12", "21323", "dfasdf", "Fiser", "bibliografia", ImageIO.read(new File("src/res/images/notif/notification_follower.png")), new Date(12122012), 4, 2, 2, 2);
-//		//System.out.println(introducirUsuario(temp3));
-//		/*
-//		JFrame temp2 = new JFrame();
-//		temp2.add(new JLabel(new ImageIcon(extraerUsuarios().get(0).getImagen())));
-//		temp2.setVisible(true);*/
-//
-////Esta parte de cóidgo prueba la insercción un tweet en la bd
+		//Esta parte del código prueba la inserción de usuarios y extracción de los mismos con la imagen
+		Usuario temp0 = new Usuario("Fiser12", "21323", "dfasdf", "Fiser", "bibliografia", ImageIO.read(new File("src/res/images/notif/notification_follower.png")), new Date(12122012), 4, 2, 2, 2);
+		//System.out.println(introducirUsuario(temp3));
+		/*
+		JFrame temp2 = new JFrame();
+		temp2.add(new JLabel(new ImageIcon(extraerUsuarios().get(0).getImagen())));
+		temp2.setVisible(true);*/
+
+//Esta parte de cóidgo prueba la insercción un tweet en la bd
 //		Tweet temp = new Tweet(1L, "Prueba1", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
 //		Tweet temp2 = new Tweet(2L, "Prueba2", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
 //		Tweet temp3 = new Tweet(3L, "Prueba3", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
@@ -402,18 +386,18 @@ public class Interaccion {
 //		temporal.add(temp2);
 //		temporal.add(temp3);
 //		temporal.add(temp4);
-//
-//		long time = System.currentTimeMillis();
-//		insertarTweets(temporal, "Fiser", "png");
-//		System.out.println(System.currentTimeMillis()-time + " ms");
-//		//insertarTweetsHilos(temporal, "Fiser12", "png");
-//		System.out.println(extraerTweets("Fiser12").size());
+
+		long time = System.currentTimeMillis();
+		//insertarTweets(temporal, "Fiser", "png");
+		System.out.println(System.currentTimeMillis()-time + " ms");
+		//insertarTweetsHilos(temporal, "Fiser12", "png");
+		System.out.println(extraerTweets("Fiser12").size());
 //		System.out.println(temporal.toString());
-////		JFrame temp2 = new JFrame();
-////		temp2.add(new JLabel(new ImageIcon(extraerTweets("Fiser12").get(0).getImagenUsuario())));
-////		temp2.setVisible(true);
-////		borrarTodosLosCredenciales();
-//		
+//		JFrame temp2 = new JFrame();
+//		temp2.add(new JLabel(new ImageIcon(extraerTweets("Fiser12").get(0).getImagenUsuario())));
+//		temp2.setVisible(true);
+//		borrarTodosLosCredenciales();
+		
 	}
 
 }

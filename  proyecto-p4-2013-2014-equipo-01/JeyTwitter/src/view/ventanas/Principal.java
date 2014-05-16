@@ -56,11 +56,12 @@ public class Principal extends CustomJFrame {
 
 	//Constantes
 	private static final Color COLOR_PANEL = new Color(64, 64, 64);
-	public static final int TIMELINE = 0;
-	public static final int MENCIONES = 1;
-	public static final int FAVORITOS = 2;
+	
+	public static final int TUITSUSUARIO = 0;
+	public static final int TIMELINE = 1;
+	public static final int MENCIONES = 2;
 	public static final int RETUITS = 3;
-	public static final int TUITSUSUARIO = 4;
+	public static final int FAVORITOS = 4;
 	public static final int BUSQUEDA = 5;
 	
 	private JTable tablaMenu;
