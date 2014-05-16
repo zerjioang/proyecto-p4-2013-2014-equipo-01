@@ -1,16 +1,22 @@
 package controller.sql;
 
+import hilos.HiloConsulta;
+
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
-
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import model.Tweet;
 import model.Usuario;
 /**
@@ -309,6 +315,22 @@ public class Interaccion {
 		return correcto;
 	}
 	/**
+	 * Permite insertar una lista de Tweets, pero el formato de las imagenes debe de ser siempre el mismo, aun no he probado que sucede si se le indica cualquier tipo de formato.
+	 * Devuelve true si se han insertado todos correctamente.
+	 * @param añadir
+	 * @param nombreUsuario
+	 * @param formatosImagenes
+	 * @return
+	 */
+	public static void insertarTweetsHilos(LinkedList<Tweet> añadir, String nombreUsuario, String formatosImagenes)
+	{
+		for(Tweet temp: añadir)
+		{
+			HiloConsulta c = new HiloConsulta(temp, nombreUsuario, formatosImagenes);
+			c.start();
+		}
+	}
+	/**
 	 * Permite actualizar la imagen del tweet
 	 * @param nombreUsuario
 	 * @param imagen
@@ -363,20 +385,33 @@ public class Interaccion {
 	{
 		reiniciarBase();
 		//Esta parte del código prueba la inserción de usuarios y extracción de los mismos con la imagen
-		/*		Usuario temp3 = new Usuario("Fiser12", "21323", "dfasdf", "Fiser", "bibliografia", ImageIO.read(new File("src/res/images/notif/notification_follower.png")), new Date(12122012), 4, 2, 2);
-		System.out.println(introducirUsuario(temp3));
-		
+		Usuario temp0 = new Usuario("Fiser12", "21323", "dfasdf", "Fiser", "bibliografia", ImageIO.read(new File("src/res/images/notif/notification_follower.png")), new Date(12122012), 4, 2, 2, 2);
+		//System.out.println(introducirUsuario(temp3));
+		/*
 		JFrame temp2 = new JFrame();
 		temp2.add(new JLabel(new ImageIcon(extraerUsuarios().get(0).getImagen())));
 		temp2.setVisible(true);*/
 
 //Esta parte de cóidgo prueba la insercción un tweet en la bd
-/*		Tweet temp = new Tweet(6554667, "jejfkef", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
-		System.out.println(insertarTweet(temp, "Fiser12", "png"));
+		Tweet temp = new Tweet(1L, "Prueba1", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
+		Tweet temp2 = new Tweet(2L, "Prueba2", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
+		Tweet temp3 = new Tweet(3L, "Prueba3", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
+		Tweet temp4 = new Tweet(4L, "Prueba4", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
+		LinkedList<Tweet>temporal = new LinkedList<Tweet>();
+		temporal.add(temp);
+		temporal.add(temp2);
+		temporal.add(temp3);
+		temporal.add(temp4);
+
+		long time = System.currentTimeMillis();
+		insertarTweets(temporal, "Fiser", "png");
+		System.out.println(System.currentTimeMillis()-time + " ms");
+		//insertarTweetsHilos(temporal, "Fiser12", "png");
 		System.out.println(extraerTweets("Fiser12").size());
-		JFrame temp2 = new JFrame();
-		temp2.add(new JLabel(new ImageIcon(extraerTweets("Fiser12").get(0).getImagenUsuario())));
-		temp2.setVisible(true);*/
+		System.out.println(temporal.toString());
+//		JFrame temp2 = new JFrame();
+//		temp2.add(new JLabel(new ImageIcon(extraerTweets("Fiser12").get(0).getImagenUsuario())));
+//		temp2.setVisible(true);
 //		borrarTodosLosCredenciales();
 		
 	}
