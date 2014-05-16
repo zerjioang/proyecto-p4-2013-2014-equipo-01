@@ -231,8 +231,8 @@ public class PanelPerfilUsuario extends JPanel {
 		//Eventos botones usuario
 		btnTweets.addMouseListener(new EventoVerContadorPerfilusuario(this, cTweets, EventoVerContadorPerfilusuario.TWEETS) );
 		btnFavoritos.addMouseListener(new EventoVerContadorPerfilusuario(this, cFavoritos, EventoVerContadorPerfilusuario.FAVORITOS));
-		btnSeguidores.addMouseListener(new EventoVerContadorPerfilusuario(this, cSiguiendo, EventoVerContadorPerfilusuario.SIGUIENDO));
-		btnSiguiendo.addMouseListener(new EventoVerContadorPerfilusuario(this, cSeguidores, EventoVerContadorPerfilusuario.SEGUIDORES));
+		btnSeguidores.addMouseListener(new EventoVerContadorPerfilusuario(this, cSiguiendo, EventoVerContadorPerfilusuario.SEGUIDORES));
+		btnSiguiendo.addMouseListener(new EventoVerContadorPerfilusuario(this, cSeguidores, EventoVerContadorPerfilusuario.SIGUIENDO));
 
 		JScrollPane scrollPaneUsuario = new JScrollPane();
 		scrollPaneUsuario.setViewportBorder(null);

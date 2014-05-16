@@ -27,12 +27,12 @@ public class Tweet {
 	
 	public Tweet(long codigo, String nombreUsuario, String nombreReal,
 			Date ultimaFechaActualizacion, Image imagenUsuario, String texto,
-			boolean esRetweet, boolean esFavorito) {
+			boolean esRetweet, boolean esFavorito, Image imageDelTweet) {
 		this.codigo = codigo;
 		this.nombreUsuario = nombreUsuario;
 		this.nombreReal = nombreReal;
 		this.ultimaFechaActualizacion = ultimaFechaActualizacion;
-		this.imagenDelTweet = null;
+		this.imagenDelTweet = imageDelTweet;
 		this.texto = texto;
 		this.esRetweet = esRetweet;
 		this.esFavorito = esFavorito;
