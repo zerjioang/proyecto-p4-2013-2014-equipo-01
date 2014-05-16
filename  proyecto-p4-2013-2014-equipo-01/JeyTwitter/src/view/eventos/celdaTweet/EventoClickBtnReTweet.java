@@ -17,19 +17,19 @@ public class EventoClickBtnReTweet implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent event) {
-		long codigo = t.getTweet().getCodigo();
-		
-		if(GUIController.getInstance().marcarRetuit(codigo)) {
-			if(!t.getBtnRetweet().isClicado()){
-				System.out.println("Retuit con éxito");
-				t.getBtnRetweet().setClicado(true);
+		if (t.getBtnRetweet().isEnabled()){
+			long codigo = t.getTweet().getCodigo();
+			boolean a = t.getBtnRetweet().isClicado();
+			if(!a) {
+				boolean b = GUIController.getInstance().marcarRetuit(codigo);
+				System.out.println("Marcar retuit: "+b);
+				System.out.println("Estado del boton: "+a);
+				if(b){
+					System.out.println("Retuit con éxito");
+					t.getBtnRetweet().setClicado(true);
+				}
+				
 			}
-			else{
-				System.out.println("Des-retuit con exito");
-				t.getBtnRetweet().setClicado(false);
-			}
-		} else {
-			System.out.println("Ha ocurrido un error al retuitear");
 		}
 	}
 
