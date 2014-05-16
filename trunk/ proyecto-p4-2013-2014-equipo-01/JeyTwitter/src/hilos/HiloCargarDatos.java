@@ -1,5 +1,7 @@
 package hilos;
 
+import java.io.IOException;
+
 import util.Util;
 import view.systray.SystemTrayLogo;
 import view.ventanas.Bienvenida;
@@ -40,6 +42,9 @@ public class HiloCargarDatos extends Thread{
 			} catch (IllegalStateException /*| InvalidInputException*/ e) {
 				ventana.setVisible(true);
 				Util.showError(ventana, "Error de autentificacion", "El token no es valido", "Cancelar", "Aceptar");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

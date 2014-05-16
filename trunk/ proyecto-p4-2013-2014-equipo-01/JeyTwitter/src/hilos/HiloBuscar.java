@@ -1,5 +1,7 @@
 package hilos;
 
+import java.io.IOException;
+
 import controller.GUIController;
 
 public class HiloBuscar extends Thread {
@@ -17,11 +19,16 @@ public class HiloBuscar extends Thread {
 		}
 		else{
 			//se buscaran tweets
-			buscarTweets(strBusqueda);
+			try {
+				buscarTweets(strBusqueda);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
-	private void buscarTweets(String str) {
+	private void buscarTweets(String str) throws IOException {
 		GUIController.getInstance().buscarTweets(str);
 	}
 

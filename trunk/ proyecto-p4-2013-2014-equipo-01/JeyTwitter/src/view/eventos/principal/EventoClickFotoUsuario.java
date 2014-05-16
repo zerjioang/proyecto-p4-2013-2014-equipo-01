@@ -2,6 +2,7 @@ package view.eventos.principal;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import controller.GUIController;
 import view.elementos.paneles.PanelPerfilUsuario;
@@ -27,7 +28,12 @@ public class EventoClickFotoUsuario implements MouseListener {
 		v.setPanelActual(v.getPaneles()[0]);
 		
 		if (nombreUsuario != null){
-			GUIController.getInstance().getGui().setPanelActual(new PanelPerfilUsuario(GUIController.getInstance().getUsuario(nombreUsuario)));			
+			try {
+				GUIController.getInstance().getGui().setPanelActual(new PanelPerfilUsuario(GUIController.getInstance().getUsuario(nombreUsuario)));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}
 	}
 

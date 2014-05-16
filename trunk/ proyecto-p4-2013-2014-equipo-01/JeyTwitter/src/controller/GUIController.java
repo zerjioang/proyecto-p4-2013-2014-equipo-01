@@ -18,8 +18,6 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import _launcher.Launcher;
-import controller.sql.Interaccion;
 import model.Tweet;
 import model.Usuario;
 import twitter4j.MediaEntity;
@@ -38,6 +36,8 @@ import view.elementos.GuiTwitterUsuario;
 import view.elementos.ObjetoCelda;
 import view.elementos.paneles.PanelBusqueda;
 import view.ventanas.Principal;
+import _launcher.Launcher;
+import controller.sql.Interaccion;
 
 /**
  * Clase encargada de intermediar entre la GUI y la API de Twitter
@@ -116,7 +116,6 @@ public class GUIController {
 		}
 		else{
 			//caso 3: no hay cache. (primer inicio del programa) pide todos los datos a twitter
-			System.out.println("RECUPERANDO TIMELINE "+hayConexion());
 			if(hayConexion()){
 				try {
 					listaTL = t.getTimeline();
@@ -139,17 +138,16 @@ public class GUIController {
 		return timeline;
 	}
 	
-	public ArrayList<ObjetoCelda> obtenerTimelineDeUsuario(String usuario, Paging paging) throws MalformedURLException, IOException {
-		ArrayList<ObjetoCelda> objetosTweet = new ArrayList<ObjetoCelda>();
+	public ArrayList<Tweet> obtenerTimelineDeUsuario(String usuario, Paging paging) throws MalformedURLException, IOException {
+		ArrayList<Tweet> objetosTweet = new ArrayList<Tweet>();
 		
 		try {
 			ResponseList<Status> statuses = t.getTimelineFromUser(usuario, paging);
 			
 			for (Status each : statuses) {
 				Tweet t = new Tweet(each);
-				GUITweet t2 = new GUITweet(Util.calcularFecha(t.getUltimaFechaActualizacion()),t);
 				
-				objetosTweet.add(t2);
+				objetosTweet.add(t);
 			}
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
@@ -332,7 +330,6 @@ public class GUIController {
 			user = t.getUsuario(id);
 			
 			if (hayConexion()) {
-				System.out.println(user.toString());
 				u = new Usuario(user);
 			} else {
 				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
@@ -353,7 +350,6 @@ public class GUIController {
 			user = t.getUsuario(screenName);
 			
 			if (hayConexion()) {
-				System.out.println(user.toString());
 				u = new Usuario(user);
 			} else {
 				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
@@ -379,7 +375,6 @@ public class GUIController {
 			user = t.getUsuarioRegistrado();
 			
 			if (hayConexion()) {
-				System.out.println(user.toString());
 				u = new Usuario(user);
 			} else {
 				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
@@ -442,14 +437,14 @@ public class GUIController {
 	 * @return
 	 */
 	public boolean recuperarTokenUsuarioGuardado() {
-		LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
-		System.out.println("El tama��o de la tabla usuarios es: "+credenciales.size());
+		LinkedList<Usuario> usuariosAlmacenados = Interaccion.extraerUsuarios();
+		System.out.println("El tama��o de la tabla usuarios es: "+usuariosAlmacenados.size());
 		Launcher.mostrarMensaje("Recuperando credenciales...");
-		if (credenciales.size() > 0) {
+		if (usuariosAlmacenados.size() > 0) {
 			// Hay resultados, aunque solo esperamos una fila.
 			// Asignamos el token y a otra cosa
-			System.out.println("El token de la BBDD es "+credenciales.get(0).getToken());
-			t.recuperarToken(credenciales.get(0).getToken(), credenciales.get(0).getTokenSecreto());
+			System.out.println("El token de la BBDD es "+usuariosAlmacenados.get(0).getToken());
+			t.recuperarToken(usuariosAlmacenados.get(0).getToken(), usuariosAlmacenados.get(0).getTokenSecreto());
 
 			return true;
 		} else {

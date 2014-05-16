@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
@@ -18,9 +20,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 import controller.GUIController;
+import model.Tweet;
 import model.Usuario;
 import twitter4j.Paging;
 import util.Util;
+import view.elementos.GUITweet;
 import view.elementos.ObjetoCelda;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.botones.CoolBlueButton;
@@ -104,7 +108,16 @@ public class PanelPerfilUsuario extends JPanel {
 		btnFavoritos = new CoolBlueButton("Favoritos");
 		btnSeguidores = new CoolBlueButton("Seguidores");
 		btnSiguiendo = new CoolBlueButton("Siguiendo");
-		this.listaObjetos = GUIController.getInstance().obtenerTimelineDeUsuario(u.getNombreUsuario(), new Paging(2));
+		try {
+			ArrayList<Tweet> li = GUIController.getInstance().obtenerTimelineDeUsuario(u.getNombreUsuario(), new Paging(2));
+			this.listaObjetos = new ArrayList<ObjetoCelda>();
+			for (Tweet tweet : li) {
+				listaObjetos.add(new GUITweet(Util.calcularFecha(tweet.getUltimaFechaActualizacion()), tweet));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		tablaTweetsUsuario = new TablaTweetsUsuarios(listaObjetos);
 		
@@ -187,11 +200,16 @@ public class PanelPerfilUsuario extends JPanel {
 		
 		panel_perfilBtnUnfollow.add(btnDejarDeSeguir);
 		
-		if(us.getNombreUsuario().equals(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario())){
-			// Es el usuario registrado
-			this.getBtnDejarDeSeguir().setVisible(false);
-		} else {
-			this.getBtnDejarDeSeguir().setVisible(true);
+		try {
+			if(us.getNombreUsuario().equals(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario())){
+				// Es el usuario registrado
+				this.getBtnDejarDeSeguir().setVisible(false);
+			} else {
+				this.getBtnDejarDeSeguir().setVisible(true);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		JPanel panel_perfilBotonera = new JPanel();

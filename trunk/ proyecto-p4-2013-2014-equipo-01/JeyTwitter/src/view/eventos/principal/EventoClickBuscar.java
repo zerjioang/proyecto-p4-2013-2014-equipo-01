@@ -4,6 +4,7 @@ import hilos.HiloBuscar;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import model.Tweet;
@@ -39,7 +40,12 @@ public class EventoClickBuscar implements MouseListener {
 	}
 	
 	private void buscarTweets(String str) {
-		GUIController.getInstance().buscarTweets(str);
+		try {
+			GUIController.getInstance().buscarTweets(str);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		ArrayList<ObjetoCelda> tuits = GUIController.getInstance().buscarUsuarios(str, 2);
 		pb = new PanelBusqueda(tuits);
