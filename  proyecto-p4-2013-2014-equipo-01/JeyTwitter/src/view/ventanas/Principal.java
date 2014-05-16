@@ -232,19 +232,19 @@ public class Principal extends CustomJFrame {
 	public ArrayList<ObjetoCelda> recargarTweets(int tipo) throws IOException {
 		ArrayList<Tweet> listaTuits = null;
 		switch (tipo){
-		case 0:
+		case 1:
 			listaTuits = GUIController.getInstance().mostrarTimeline();
 			break;
-		case 1:
+		case 2:
 			listaTuits = GUIController.getInstance().mostrarMenciones();
 			break;
-		case 2:
+		case 4:
 			listaTuits = GUIController.getInstance().mostrarFavoritos();
 			break;
 		case 3:
 			listaTuits = GUIController.getInstance().mostrarRetuits();
 			break;
-		case 4:
+		case 0:
 			listaTuits = GUIController.getInstance().mostrarPerfil();
 			break;
 		case 5:

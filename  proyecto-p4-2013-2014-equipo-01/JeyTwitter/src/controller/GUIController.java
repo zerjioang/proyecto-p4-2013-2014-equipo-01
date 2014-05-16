@@ -629,7 +629,6 @@ public class GUIController {
 	public boolean isAmigo(String user1, String user2) {
 		return t.esSeguidor(user1, user2);
 	}
-
 	
 	public void iniciarStreaming(){
 		t.iniciarStreaming();
