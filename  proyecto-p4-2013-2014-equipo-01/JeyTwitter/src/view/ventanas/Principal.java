@@ -103,7 +103,6 @@ public class Principal extends CustomJFrame {
 		}
 		
 		panelInferior = new PanelEnviarTweet(this);
-		System.out.println(panelInferior.getBounds());
 		panelBusqueda = new PanelBusqueda();
 		panel_stats = new PanelEstadistica();
 		

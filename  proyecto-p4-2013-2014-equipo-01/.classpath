@@ -10,5 +10,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="JeyTwitter/freeChart/jfreechart-1.0.17.jar"/>
 	<classpathentry kind="lib" path="JeyTwitter/freeChart/jcommon-1.0.21.jar"/>
+	<classpathentry kind="lib" path="JeyTwitter/imageLibs/java-image-scaling-0.8.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
+
 import javax.imageio.ImageIO;
+
 import model.Tweet;
 import model.Usuario;
 /**

@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import com.mortennobel.imagescaling.*;
+import com.mortennobel.imagescaling.ResampleOp;
 
 import util.Util;
 import view.eventos.visorImagenes.EventoClickVisorImagen;
@@ -59,7 +59,7 @@ public class VisorImagen extends InvisibleJFrame{
 		double ratio = ancho/ (double) alto;
 		System.out.println("Original: "+ancho+" "+alto+" ratio: "+ratio);
 		while( (alto>=(tamanyoPantalla.height-2*MARGEN) || ancho>=(tamanyoPantalla.width-2*MARGEN) ) ){
-			System.out.println("Convirtiendo a tamaño pantalla: "+ancho+" "+alto+" ratio: "+ratio);
+			System.out.println("Convirtiendo a tamaï¿½o pantalla: "+ancho+" "+alto+" ratio: "+ratio);
 			ancho -=10;
 			alto=(int)(ancho/ratio);
 		}
@@ -68,13 +68,13 @@ public class VisorImagen extends InvisibleJFrame{
 			alto=(int)(ancho/ratio);
 		}
 		redimensionarImagen(ancho, alto);
-		//Colocar el frame en el centro y ajustarlo al tamaño de la imagen
+		//Colocar el frame en el centro y ajustarlo al tamaï¿½o de la imagen
 		setSize(ancho, alto);
         setLocationRelativeTo(ventanaPadre);
 	}
 	
 	/**
-	 * Redimensiona la imagen hasta que ésta tiene una resolucion inferior a la de la pantalla
+	 * Redimensiona la imagen hasta que ï¿½sta tiene una resolucion inferior a la de la pantalla
 	 * @param factor	factor de redimensionado
 	 * @return			devuelve la imagen con las dimensiones apropiadas para que se vea en la pantalla
 	 */
@@ -93,7 +93,7 @@ public class VisorImagen extends InvisibleJFrame{
 		return getImg();
 	}
 	/**
-	 * Redimensiona la imagen hasta que ésta tiene una resolucion inferior a la de la pantalla
+	 * Redimensiona la imagen hasta que ï¿½sta tiene una resolucion inferior a la de la pantalla
 	 * @param width	ancho de la imagen final	
 	 * @param height alto de la imagen final
 	 * @return	devuelve un objeto imageIcon con el ancho y alto especificado por parametros
