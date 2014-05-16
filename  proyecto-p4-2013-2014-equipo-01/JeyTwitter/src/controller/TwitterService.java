@@ -374,21 +374,6 @@ public class TwitterService {
 		}
 	}
 
-	public int getNumeroFavoritos(long id) {
-        try {
-			ResponseList<Status> statusList = tw.timelines().getUserTimeline(id);
-			/*for (Status statusItem : statusList)
-	        {
-	         System.out.println("Tweet Id : " + statusItem.getId() + ", retweet count: " + statusItem.getRetweetCount());
-	        } */
-	         return statusList.get(0).getFavoriteCount();
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			return -1;
-		}
-
-	}
-
 	public void iniciarStreaming() {
 		TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
         StatusListener listener = new StatusListener() {
