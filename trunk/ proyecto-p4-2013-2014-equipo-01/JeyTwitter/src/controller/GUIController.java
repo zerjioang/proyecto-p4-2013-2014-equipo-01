@@ -108,10 +108,11 @@ public class GUIController {
 			}
 			//caso 2: modo offline: solo carga a cache
 			else{
+				/*
 				for (int i = 0; i<20; i++) {
 					Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
 					timeline.add(t);
-				}
+				}*/
 			}
 		}
 		else{
@@ -177,11 +178,11 @@ public class GUIController {
 				// Error al recuperar el timeline
 				e.printStackTrace();
 			}
-		} else {
+		} else {/*
 			for (int i = 0; i<20; i++) {
 				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
 				timeline.add(t);
-			}
+			}*/
 		}
 		return timeline;
 	}
@@ -206,11 +207,11 @@ public class GUIController {
 				// Error al recuperar el timeline
 				e.printStackTrace();
 			}
-		} else {
+		} else {/*
 			for (int i = 0; i<20; i++) {
 				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
 				timeline.add(t);
-			}
+			}*/
 		}
 		return timeline;
 	}
@@ -246,10 +247,10 @@ public class GUIController {
 				e.printStackTrace();
 			}
 		} else {
-			for (int i = 0; i<20; i++) {
+			/*for (int i = 0; i<20; i++) {
 				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
 				timeline.add(t);
-			}
+			}*/
 		}
 		return timeline;
 	}
@@ -274,11 +275,11 @@ public class GUIController {
 				// Error al recuperar el timeline
 				e.printStackTrace();
 			}
-		} else {
+		} else {/*
 			for (int i = 0; i<20; i++) {
 				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
 				timeline.add(t);
-			}
+			}*/
 		}
 		return timeline;
 	}
@@ -470,13 +471,11 @@ public class GUIController {
 	public void guardarUsuario(String codigo){
 		try {
 			AccessToken accessToken = t.crearToken(codigo);
-			URL urlImage = new URL(t.getUsuarioRegistrado().getBiggerProfileImageURL());
-			Image imageProfile = ImageIO.read(urlImage);
 
 			Usuario u = new Usuario(t.getUsuarioRegistrado(), accessToken.getToken(), accessToken.getTokenSecret());
 			// Guardar en la BBDD
 			Interaccion.introducirUsuario(u);		
-		} catch (TwitterException | IOException e) {
+		} catch (TwitterException e) {
 			System.out.println("Error al autenticarse");
 			e.printStackTrace();
 		}

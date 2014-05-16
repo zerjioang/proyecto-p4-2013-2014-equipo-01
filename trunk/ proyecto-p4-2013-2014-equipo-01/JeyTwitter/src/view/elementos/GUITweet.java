@@ -66,8 +66,8 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	public static void main(String [] args){
 		JFrame j = new JFrame();
 		j.setSize(500, 500);
-		GUITweet g = new GUITweet(Util.calcularFecha(new Date(System.currentTimeMillis()-50000000)), new Tweet(1L, "yo", "yomismo", new Date(3L), new ImageIcon(GUITweet.class.getResource("/res/images/usertest.jpg")).getImage(), "Que tal, @kronosnhz? te paso un link http://goo.gl/ #EstoNoSeToca", false, false, null));
-		j.getContentPane().add(g);
+		//GUITweet g = new GUITweet(Util.calcularFecha(new Date(System.currentTimeMillis()-50000000)), new Tweet1L, "yo", "yomismo", new Date(3L), new ImageIcon(GUITweet.class.getResource("/res/images/usertest.jpg")).getImage(), "Que tal, @kronosnhz? te paso un link http://goo.gl/ #EstoNoSeToca", false, false, null));
+		//j.getContentPane().add(g);
 		j.setLocationRelativeTo(null);
 		j.setVisible(true);
 	}
@@ -289,8 +289,21 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		btnResponder.setImagenNormal("/res/botones/opcionesTweet/responderNormal.png");
 		btnResponder.setImagenClicado("/res/botones/opcionesTweet/responderClicked.png");
 		
-		btnRetweet.setIcon(new ImageIcon(GUITweet.class.getResource(btnRetweet.getImagenNormal())));
-		btnFavorito.setIcon(new ImageIcon(GUITweet.class.getResource(btnFavorito.getImagenNormal())));
+		if(tweet.esRetweet()) {
+			btnRetweet.setIcon(new ImageIcon(GUITweet.class.getResource(btnRetweet.getImagenClicado())));
+		} else {
+			btnRetweet.setIcon(new ImageIcon(GUITweet.class.getResource(btnRetweet.getImagenNormal())));
+		}
+		
+		btnRetweet.setClicado(tweet.esRetweet());
+		
+		if(tweet.esFavorito()) {
+			btnFavorito.setIcon(new ImageIcon(GUITweet.class.getResource(btnFavorito.getImagenClicado())));
+		} else {
+			btnFavorito.setIcon(new ImageIcon(GUITweet.class.getResource(btnFavorito.getImagenNormal())));
+		}
+		btnFavorito.setClicado(tweet.esFavorito());
+		
 		btnResponder.setIcon(new ImageIcon(GUITweet.class.getResource(btnResponder.getImagenNormal())));
 		
 		btnRetweet.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

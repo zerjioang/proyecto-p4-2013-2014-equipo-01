@@ -27,23 +27,16 @@ public class Tweet {
 	
 	public Tweet(long codigo, String nombreUsuario, String nombreReal,
 			Date ultimaFechaActualizacion, Image imagenUsuario, String texto,
-			boolean esRetweet, boolean esFavorito, Image imagenDelTweet) {
-		super();
+			boolean esRetweet, boolean esFavorito) {
 		this.codigo = codigo;
 		this.nombreUsuario = nombreUsuario;
 		this.nombreReal = nombreReal;
 		this.ultimaFechaActualizacion = ultimaFechaActualizacion;
-		this.imagenUsuario = imagenUsuario;
+		this.imagenDelTweet = null;
 		this.texto = texto;
-		this.imagenDelTweet = imagenDelTweet;
 		this.esRetweet = esRetweet;
 		this.esFavorito = esFavorito;
-	}
-	
-	public Tweet(long codigo, String nombreUsuario, String nombreReal,
-			Date ultimaFechaActualizacion, Image imagenUsuario, String texto,
-			boolean esRetweet, boolean esFavorito) {
-		this(codigo, nombreUsuario, nombreReal, ultimaFechaActualizacion, imagenUsuario, texto, esRetweet, esFavorito, null);
+		this.imagenUsuario = imagenUsuario;
 	}
 	
 	public Tweet(Status s) {
@@ -53,7 +46,7 @@ public class Tweet {
 		this.ultimaFechaActualizacion = s.getCreatedAt();
 		this.imagenDelTweet = null;
 		this.texto = s.getText();
-		this.esRetweet = s.isRetweet();
+		this.esRetweet = s.isRetweeted();
 		this.esFavorito = s.isFavorited();
 		try {
 			this.imagenUsuario = ImageIO.read(new URL(s.getUser().getBiggerProfileImageURL()));
@@ -111,22 +104,16 @@ public class Tweet {
 		this.texto = texto;
 	}
 
-	public int esRetweet() {
-		if(esRetweet)
-			return 1;
-		else
-			return 0;
+	public boolean esRetweet() {
+		return esRetweet;
 	}
 
 	public void setEsRetweet(boolean esRetweet) {
 		this.esRetweet = esRetweet;
 	}
 
-	public int esFavorito() {
-		if(esFavorito)
-			return 1;
-		else
-			return 0;
+	public boolean esFavorito() {
+		return this.esFavorito;
 	}
 
 	public void setEsFavorito(boolean esFavorito) {
