@@ -40,6 +40,12 @@ public class Tweet {
 		this.esFavorito = esFavorito;
 	}
 	
+	public Tweet(long codigo, String nombreUsuario, String nombreReal,
+			Date ultimaFechaActualizacion, Image imagenUsuario, String texto,
+			boolean esRetweet, boolean esFavorito) {
+		this(codigo, nombreUsuario, nombreReal, ultimaFechaActualizacion, imagenUsuario, texto, esRetweet, esFavorito, null);
+	}
+	
 	public Tweet(Status s) {
 		this.codigo = s.getId();
 		this.nombreUsuario = s.getUser().getScreenName();

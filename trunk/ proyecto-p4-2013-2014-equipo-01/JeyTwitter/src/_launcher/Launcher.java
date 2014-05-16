@@ -1,14 +1,28 @@
 package _launcher;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
-import util.Util;
-import view.ventanas.Bienvenida;
-import view.ventanas.Principal;
-import view.ventanas.Splash;
-import view.ventanas.TerminosCondiciones;
+import javax.swing.ImageIcon;
+
+//import com.apple.eawt.Application;
+
+
+
+
+
+
+
+
+
 import controller.GUIController;
 import controller.sql.Interaccion;
+import util.Util;
+import view.ventanas.Principal;
+import view.ventanas.Splash;
+import view.ventanas.Bienvenida;
+import view.ventanas.TerminosCondiciones;
 /**
  * Clase principal que inicia el programa
  * @author JeyTuiter Dev Team
@@ -18,6 +32,7 @@ public class Launcher {
 	
 	private static Splash spl;
 	
+			
 	public static void main(String[] args) throws IOException {
 
 		if(!new File(Util.SQLITE_NOMBRE_BBDD).exists()){
@@ -28,7 +43,7 @@ public class Launcher {
 			if(!t.isCondicionesAceptadas()){
 				return;
 			}
-			Interaccion.crearEstructura();//Crea la estructura de la BD si no est�� el archivo *.sqlite
+			Interaccion.crearEstructura();//Crea la estructura de la BD si no est?? el archivo *.sqlite
 		}
 		spl = new Splash();
 		spl.mostrar(5);
@@ -84,18 +99,23 @@ public class Launcher {
 
 	/**
 	 * Muestra la ventana de bienvenida e inmediatamente muestra la timeline
-	 * @throws IOException 
 	 * @throws Exception 
 	 */
-	private static void mostrarPrincipal() throws IOException {
+	private static void mostrarPrincipal() {
 		// Tenemos token, lanzamos la ventana principal
 		//Este usuario es el usuario que tiene la sesion de twitter abierta y que tiene que ser cargado
 		//de la bd o online dependiendo de si esta conectado o no
 		Launcher.mostrarMensaje("Esperando datos...");
-		Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
-		GUIController.getInstance().setGui(p);
-		p.setPanelActual(p.getPaneles()[1]);
-		p.setVisible(true);
+		Principal p;
+		try {
+			p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
+			GUIController.getInstance().setGui(p);
+			p.setPanelActual(p.getPaneles()[1]);
+			p.setVisible(true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//GUIController.getInstance().iniciarStreaming();
 	}
 }
