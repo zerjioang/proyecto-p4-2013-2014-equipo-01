@@ -630,9 +630,6 @@ public class GUIController {
 		return t.esSeguidor(user1, user2);
 	}
 
-	public int getNumeroFavoritos(long user) {
-		return t.getNumeroFavoritos(user);
-	}
 	
 	public void iniciarStreaming(){
 		t.iniciarStreaming();
