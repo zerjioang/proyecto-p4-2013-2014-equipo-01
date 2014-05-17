@@ -48,9 +48,14 @@ import java.util.ArrayList;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
+import _launcher.Launcher;
 import controller.GUIController;
 import model.Tweet;
 import model.Usuario;
+
+import java.awt.FlowLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class Principal extends CustomJFrame {
 
@@ -63,6 +68,7 @@ public class Principal extends CustomJFrame {
 	public static final int RETUITS = 3;
 	public static final int FAVORITOS = 4;
 	public static final int BUSQUEDA = 5;
+	public static final int ESTADISTICA = 6;
 	
 	private JTable tablaMenu;
 	private BotonSeguir btnDejarDeSeguir;
@@ -79,6 +85,9 @@ public class Principal extends CustomJFrame {
 	private JLabel lblImagen;
 	
 	private static Usuario usuarioActual;
+	private JPanel panelInformativo;
+	private JLabel lblMensajeInformativo;
+	private JLabel lblNewLabel;
 	
 	/**
 	 * Constructor por defecto
@@ -88,41 +97,91 @@ public class Principal extends CustomJFrame {
 		usuarioActual = usuario;
 		panelesPrincipales = new JPanel[7];
 		try {
-			/*panelUsuario = new PanelPerfilUsuario(usuarioActual, recargarTweets(TUITSUSUARIO));
-			timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(0));
-			menciones = new PanelTablaTweets(new TablaTweetsUsuarios(0));
-			retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(0));
-			favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(0));*/
-			
+			Launcher.mostrarMensaje("Cargando perfil de usuario...");
 			panelUsuario = new PanelPerfilUsuario(usuarioActual);
+			Launcher.mostrarMensaje("Cargando timeline...");
 			timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(TIMELINE)));
+			Launcher.mostrarMensaje("Cargando menciones...");
 			menciones = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(MENCIONES)));
+			Launcher.mostrarMensaje("Cargando retweets...");
 			retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(RETUITS)));
+			Launcher.mostrarMensaje("Cargando favoritos...");
 			favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(FAVORITOS)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		Launcher.mostrarMensaje("Cargando ultimos detalles...");
 		panelInferior = new PanelEnviarTweet(this);
 		panelBusqueda = new PanelBusqueda();
 		panel_stats = new PanelEstadistica();
 		
 		lblImagen = new JLabel(usuarioActual.getNombreUsuario());
-		init();
 		generarDatos();
+		init();
 		
+		if(!GUIController.getInstance().hayConexion()){
+			setColorFondoMensajeInformativo(Color.RED);
+			setColorTextoMensajeInformativo(Color.WHITE);
+			setTextoMensajeInformativo("Esta usando "+Util.APP_TITULO+" sin conexion");
+			mostrarMensajeInformativo();
+		}
+		else{
+			setColorFondoMensajeInformativo(Color.DARK_GRAY);
+			setColorTextoMensajeInformativo(Color.WHITE);
+			mostrarSpinWheelInformativa(true);
+			setTextoMensajeInformativo("Actualizando...");
+			mostrarMensajeInformativo();
+		}
 		long ahora = System.currentTimeMillis();
 		int s = (int) (ahora - Splash.inicio)/1000;
 		System.out.println("Tiempo desde el inicio de la aplicacion: "+s+" segundos - "+s/60.0+" minutos");
 	}
 	
+	private void mostrarSpinWheelInformativa(boolean b) {
+		
+	}
+
 	public void init(){
 		setTitle(Util.APP_TITULO);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getMainPanel().setBackground(Color.DARK_GRAY);
 		getMainPanel().setBorder(new EmptyBorder(0, 0, 0, 0));
-		
 		getMainPanel().setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelApp = new JPanel();
+		panelApp.setDoubleBuffered(false);
+		panelApp.setEnabled(false);
+		panelApp.setFocusTraversalKeysEnabled(false);
+		panelApp.setFocusable(false);
+		panelApp.setRequestFocusEnabled(false);
+		panelApp.setBorder(new LineBorder(new Color(0, 0, 0)));
+		getMainPanel().add(panelApp);
+		panelApp.setLayout(new BorderLayout(0, 0));
+		panelApp.add(panelInferior, BorderLayout.SOUTH);
+		
+		panelInformativo = new JPanel();
+		panelInformativo.setBackground(Color.BLUE);
+		panelApp.add(panelInformativo, BorderLayout.NORTH);
+		
+		lblMensajeInformativo = new JLabel(" ");
+		lblMensajeInformativo.setBorder(new MatteBorder(5, 0, 3, 0, (Color) new Color(0, 0, 0, 0)));
+		lblMensajeInformativo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMensajeInformativo.setText("Mensaje");
+		lblMensajeInformativo.setForeground(Color.WHITE);
+		lblMensajeInformativo.setFont(Util.getFont("roboto-regular", Font.PLAIN, 12));
+		lblMensajeInformativo.setVisible(false);
+		panelInformativo.setLayout(new BorderLayout(0, 0));
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setBorder(new MatteBorder(2, 0, 3, 0, (Color) new Color(0, 0, 0, 0)));
+		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/res/images/bolita giratoria.gif")));
+		panelInformativo.add(lblNewLabel, BorderLayout.EAST);
+		panelInformativo.add(lblMensajeInformativo);
+		
+		panelVista = new JPanel();
+		panelVista.setLayout(new BorderLayout(0, 0));
+		panelApp.add(panelVista, BorderLayout.CENTER);
+		panelVista.setVisible(true);
 		
 		JPanel panelIzq = new JPanel();
 		panelIzq.setFocusTraversalKeysEnabled(false);
@@ -211,22 +270,46 @@ public class Principal extends CustomJFrame {
 		lblAbout.setIcon(Util.escalarImagen(lblAbout));
 		panel.add(lblAbout, BorderLayout.SOUTH);
 		lblAbout.addMouseListener(new EventoClickAcercaDe(this));
-		
-		JPanel panelApp = new JPanel();
-		panelApp.setDoubleBuffered(false);
-		panelApp.setEnabled(false);
-		panelApp.setFocusTraversalKeysEnabled(false);
-		panelApp.setFocusable(false);
-		panelApp.setRequestFocusEnabled(false);
-		panelApp.setBorder(new LineBorder(new Color(0, 0, 0)));
-		getMainPanel().add(panelApp);
-		panelApp.setLayout(new BorderLayout(0, 0));
-
-		panelApp.add(panelInferior, BorderLayout.SOUTH);
-		
-		panelVista = new JPanel();
-		panelApp.add(panelVista, BorderLayout.CENTER);
-		panelVista.setLayout(new BorderLayout(0, 0));
+	}
+	
+	public void setTextoMensajeInformativo(String str){
+		lblMensajeInformativo.setText(str);
+	}
+	
+	public void setColorFondoMensajeInformativo(Color c){
+		panelInformativo.setForeground(c);
+	}
+	
+	public void setColorTextoMensajeInformativo(Color c){
+		lblMensajeInformativo.setForeground(c);
+	}
+	
+	public void mostrarMensajeInformativo(){
+		Color a = lblMensajeInformativo.getForeground();
+		Color b = panelVista.getForeground();
+		panelInformativo.setVisible(true);
+		lblMensajeInformativo.setVisible(true);
+		for (float i = 0.0f; i < 1.0f; i+=0.1f) {
+			Color colorPanel = new Color(b.getRed(), b.getGreen(), b.getBlue());
+			Color colorLabel = new Color( (a.getRed() ), (a.getGreen()), (a.getBlue()));
+			panelInformativo.setForeground(colorPanel);
+			lblMensajeInformativo.setForeground(colorLabel);
+			Util.pausar(25);
+		}
+	}
+	
+	public void ocultarMensajeInformativo(){
+		Color a = lblMensajeInformativo.getForeground();
+		Color b = panelInformativo.getForeground();
+		for (float i = 1f; i > 0.0f; i-=0.1f) {
+			Color colorPanel = new Color(b.getRed(), b.getGreen(), b.getBlue());
+			Color colorLabel = new Color(a.getRed(), a.getGreen(), a.getBlue());
+			panelInformativo.setForeground(colorPanel);
+			lblMensajeInformativo.setForeground(colorLabel);
+			Util.pausar(25);
+		}
+		panelInformativo.setVisible(false);
+		lblMensajeInformativo.setVisible(false);
 	}
 	
 	public ArrayList<ObjetoCelda> recargarTweets(int tipo) throws IOException {
@@ -256,7 +339,7 @@ public class Principal extends CustomJFrame {
 		for(Tweet each : listaTuits){
 			GUITweet guiTweet;
 			guiTweet = new GUITweet(Util.calcularFecha(each.getUltimaFechaActualizacion()), each);
-			lista.add(lista.size(), guiTweet);
+			lista.add(guiTweet);
 		}
 		return lista;
 	}
@@ -265,10 +348,6 @@ public class Principal extends CustomJFrame {
 	 * 
 	 */
 	private void generarDatos() {
-		//genera el mismo tweet  n veces
-		//para probar
-		//timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(TablaTweetsUsuarios.SOLO_TWEETS));
-		
 		panelesPrincipales[0] = panelUsuario;
 		panelesPrincipales[1] = timeLine;
 		panelesPrincipales[2] = menciones;

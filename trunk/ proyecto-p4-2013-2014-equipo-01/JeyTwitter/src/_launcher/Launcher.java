@@ -16,9 +16,11 @@ import javax.swing.ImageIcon;
 
 
 
+
 import controller.GUIController;
 import controller.sql.Interaccion;
 import util.Util;
+import view.elementos.paneles.PanelTablaTweets;
 import view.ventanas.Principal;
 import view.ventanas.Splash;
 import view.ventanas.Bienvenida;
@@ -110,7 +112,9 @@ public class Launcher {
 		try {
 			p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 			GUIController.getInstance().setGui(p);
-			p.setPanelActual(p.getPaneles()[1]);
+			p.setPanelActual(p.getPaneles()[Principal.TIMELINE]);
+			PanelTablaTweets panel = (PanelTablaTweets) p.getPaneles()[Principal.TIMELINE];
+			System.out.println(panel.getTabla().getRowCount());
 			p.setVisible(true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
