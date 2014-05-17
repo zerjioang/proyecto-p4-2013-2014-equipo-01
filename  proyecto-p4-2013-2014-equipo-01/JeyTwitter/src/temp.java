@@ -44,7 +44,8 @@ public class temp extends CustomJFrame {
 	 */
 	public temp() {
 		super(600, 700);
-		/*getMainPanel().setLayout(new BorderLayout(0, 0));
+		
+		getMainPanel().setLayout(new BorderLayout(0, 0));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getMainPanel().add(tabbedPane);
@@ -82,8 +83,10 @@ public class temp extends CustomJFrame {
 		tabbedPane.addTab("Resultados", null, scrollPaneResultados, null);
 		
 		JPanel panel_1 = new JPanel();
-		scrollPaneResultados.setViewportView(panel_1);*/
-		PanelEstadistica pe = new PanelEstadistica();
+		scrollPaneResultados.setViewportView(panel_1);
+		
+		/*PanelEstadistica pe = new PanelEstadistica();
 		getMainPanel().add(pe);
+		*/
 	}
 }

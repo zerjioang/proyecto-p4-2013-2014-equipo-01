@@ -43,7 +43,7 @@ public class Ayuda extends CustomJDialogWithBar {
 	 * Create the frame.
 	 */
 	public Ayuda() {
-		super(669, 800);
+		super(600, 700);
 		init();
 	}
 

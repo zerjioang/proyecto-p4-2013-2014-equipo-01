@@ -24,15 +24,12 @@ public class EventoClickFotoUsuario implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("Click foto usuario");
 		v.setPanelActual(v.getPaneles()[0]);
-		
 		if (nombreUsuario != null){
 			try {
 				GUIController.getInstance().getGui().setPanelActual(new PanelPerfilUsuario(GUIController.getInstance().getUsuario(nombreUsuario)));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println(e.getMessage());
 			}			
 		}
 	}

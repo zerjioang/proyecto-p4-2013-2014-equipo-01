@@ -69,6 +69,7 @@ public class PanelEstadistica extends JPanel{
 		panel.add(table, BorderLayout.CENTER);
 		
 		JScrollPane scrollPaneResultados = new JScrollPane();
+		scrollPaneResultados.getVerticalScrollBar().setUnitIncrement(1);
 		tabbedPane.addTab("Resultados", null, scrollPaneResultados, null);
 		
 		JPanel panel_1 = new JPanel();

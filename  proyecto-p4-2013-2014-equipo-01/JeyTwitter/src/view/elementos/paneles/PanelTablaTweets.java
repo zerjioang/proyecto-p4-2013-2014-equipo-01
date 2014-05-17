@@ -28,7 +28,7 @@ public class PanelTablaTweets extends JPanel {
 		scrollpane.setViewportBorder(null);
 		setLayout(new BorderLayout(0, 0));
 		scrollpane.setBorder(null);
-	
+		scrollpane.getVerticalScrollBar().setUnitIncrement(1);
 		//se muestra en el scrollpane
 		scrollpane.setViewportView(tabla);
 		add(scrollpane, BorderLayout.CENTER);

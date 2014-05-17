@@ -10,6 +10,7 @@ import view.ventanas.Principal;
 public class EventoCambiarPanelClick implements MouseListener {
 
 	private final Principal v;
+	
 	public EventoCambiarPanelClick(Principal principal) {
 		v = principal;
 	}
@@ -18,7 +19,6 @@ public class EventoCambiarPanelClick implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		JTable t = v.getTablaMenu();
 		int opcion = t.getSelectedRow();
-		System.out.println(opcion);
 		v.setPanelActual(v.getPaneles()[opcion+1]);
 	}
 
