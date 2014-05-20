@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.MatteBorder;
 
-import twitter4j.User;
 import util.Util;
 import view.elementos.botones.BotonSeguir;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
@@ -135,72 +134,52 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 		return "";
 	}
 
-	/**
-	 * @return the lblImagenUsuario
-	 */
+	
 	public JLabel getLblImagenUsuario() {
 		return lblImagenUsuario;
 	}
 
-	/**
-	 * @param lblImagenUsuario the lblImagenUsuario to set
-	 */
+	
 	public void setLblImagenUsuario(JLabel lblImagenUsuario) {
 		this.lblImagenUsuario = lblImagenUsuario;
 	}
 
-	/**
-	 * @return the btnSeguir
-	 */
+	
 	public BotonSeguir getBtnSeguir() {
 		return btnSeguir;
 	}
 
-	/**
-	 * @param btnSeguir the btnSeguir to set
-	 */
+	
 	public void setBtnSeguir(BotonSeguir btnSeguir) {
 		this.btnSeguir = btnSeguir;
 	}
 
-	/**
-	 * @return the lblNombreReal
-	 */
+	
 	public JLabel getLblNombreReal() {
 		return lblNombreReal;
 	}
 
-	/**
-	 * @param lblNombreReal the lblNombreReal to set
-	 */
+	
 	public void setLblNombreReal(JLabel lblNombreReal) {
 		this.lblNombreReal = lblNombreReal;
 	}
 
-	/**
-	 * @return the txtrBiografia
-	 */
+	
 	public JTextArea getTxtrBiografia() {
 		return txtrBiografia;
 	}
 
-	/**
-	 * @param txtrBiografia the txtrBiografia to set
-	 */
+	
 	public void setTxtrBiografia(JTextArea txtrBiografia) {
 		this.txtrBiografia = txtrBiografia;
 	}
 
-	/**
-	 * @return the lblusuario
-	 */
+	
 	public JLabel getLblusuario() {
 		return lblusuario;
 	}
 
-	/**
-	 * @param lblusuario the lblusuario to set
-	 */
+	
 	public void setLblusuario(JLabel lblusuario) {
 		this.lblusuario = lblusuario;
 	}

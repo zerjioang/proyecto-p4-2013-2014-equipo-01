@@ -1,7 +1,5 @@
 package controller.sql;
 
-import hilos.HiloConsulta;
-
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
@@ -14,34 +12,17 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import model.Tweet;
 import model.Usuario;
-/**
- * Clase con metodos estaticos para facilitar la interaccion con la base de datos.
- * @author Fiser
- *
- */
+
 public class Interaccion {
 	static SQLiteManager gestor = SQLiteManager.getInstance();
-	/**
-	 * Permite introducir un nuevo credencial en la base de datos
-	 * @param usuario
-	 * @param codigo
-	 * @return
-	 */
+	
 	public static boolean introducirCredenciales(String usuario, String codigo, String codigoSecreto)
 	{
 		return 	gestor.enviarComando("INSERT INTO Usuario (nombreUsuario, token, secretToken) VALUES ('"+usuario+"','"+codigo+"','"+codigoSecreto+"')");
 	}
-	/**
-	 * Permite introducir un nuevo credencial en la base de datos
-	 * @param usuario
-	 * @param codigo
-	 * @return
-	 */
+	
 	public static boolean introducirUsuario(Usuario introducir)
 	{
 		boolean comprobar = true;
@@ -49,28 +30,17 @@ public class Interaccion {
 		comprobar = comprobar && actualizarImagenPerfil(introducir.getNombreUsuario(), introducir.getImagen(), "png");
 		return comprobar;
 	}
-	/**
-	 * Borra el credencial de la base de datos
-	 * @param usuario
-	 * @return
-	 */
+	
 	public static boolean borrarCredenciales(String usuario)
 	{
 		return 	gestor.enviarComando("DELETE FROM Usuario WHERE nombreUsuario = '"+usuario+"'");
 	}
-	/**
-	 * Borra los Tweets del usuario indicado
-	 * @param usuario
-	 * @return
-	 */
+	
 	public static boolean borrarTweets(String usuario)
 	{
 		return 	gestor.enviarComando("DELETE FROM Tienen WHERE nombreUsuario = '"+usuario+"'");
 	}
-	/**
-	 * Extrae de la base de datos todos los credenciales de los usuarios registrados en la aplicacion
-	 * @return
-	 */
+	
 	public static LinkedList<Usuario> extraerCredenciales()
 	{
 		gestor.enviarComando("SELECT * FROM Usuario");
@@ -90,73 +60,37 @@ public class Interaccion {
 			return null;
 		}
 	}
-	/**
-	 * Permite cambiar el nombre real del usuario en la BD
-	 * @param nombreUsuario
-	 * @param nombreReal
-	 * @return
-	 */
+	
 	public static boolean actualizarNombreReal(String nombreUsuario, String nombreReal)
 	{
 		return 	gestor.enviarComando("UPDATE Usuario SET nombreReal = '"+nombreReal+"' WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
-	/**
-	 * Permite actualizar la biografía del usuario en la BD
-	 * @param nombreUsuario
-	 * @param biografia
-	 * @return
-	 */
+	
 	public static boolean actualizarBiografia(String nombreUsuario, String biografia)
 	{
 		return 	gestor.enviarComando("UPDATE Usuario SET biografia = '"+biografia+"' WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
-	/**
-	 * Permite actualizar el numero de seguidores en la BD
-	 * @param nombreUsuario
-	 * @param numSeguidores
-	 * @return
-	 */
+	
 	public static boolean actualizarNumSeguidores(String nombreUsuario, int numSeguidores)
 	{
 		return 	gestor.enviarComando("UPDATE Usuario SET numeroSeguidores = "+numSeguidores+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
-	/**
-	 * Permite actualizar el numero de seguidos en la BD
-	 * @param nombreUsuario
-	 * @param numSeguidos
-	 * @return
-	 */
+	
 	public static boolean actualizarNumSeguidos(String nombreUsuario, int numSeguidos)
 	{
 		return 	gestor.enviarComando("UPDATE Usuario SET numeroSeguidos = "+numSeguidos+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
-	/**
-	 * Permite actualizar el numero de tweets que dispone la cuenta.
-	 * @param nombreUsuario
-	 * @param numTweets
-	 * @return
-	 */
+	
 	public static boolean actualizarNumTweets(String nombreUsuario, int numTweets)
 	{
 		return 	gestor.enviarComando("UPDATE Usuario SET numeroTweets = "+numTweets+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
-	/**
-	 * Permite actualizar el numero de favoritos que dispone la cuenta.
-	 * @param nombreUsuario
-	 * @param numTweets
-	 * @return
-	 */
+	
 	public static boolean actualizarNumFavoritos(String nombreUsuario, int numFaves)
 	{
 		return 	gestor.enviarComando("UPDATE Usuario SET numeroFavoritos = "+numFaves+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
-	/**
-	 * Permite cambiar la imagen del perfil del usuario
-	 * @param nombreUsuario
-	 * @param imagen
-	 * @param formato
-	 * @return
-	 */
+	
 	public static boolean actualizarImagenPerfil(String nombreUsuario, Image imagen, String formato)
 	{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
@@ -168,18 +102,11 @@ public class Interaccion {
 		byte[] data = baos.toByteArray(); 
 		return gestor.enviarImagen("UPDATE Usuario SET imagen = ? WHERE nombreUsuario = '"+nombreUsuario+"'", data);
 	}
-	/**
-	 * Elimina todos los contenidos de la tabla Usuarios para poder simular
-	 * que se acaba de instalar la app
-	 * @return
-	 */
+	
 	public static boolean borrarTodosLosCredenciales() {
 		return 	gestor.enviarComando("DELETE FROM Usuario");
 	}
-	/**
-	 * Extrae todos los usuarios de la base de datos
-	 * @return
-	 */
+	
 	public static LinkedList<Usuario> extraerUsuarios()
 	{
 		gestor.enviarComando("SELECT * FROM Usuario");
@@ -209,11 +136,7 @@ public class Interaccion {
 			return null;
 		}
 	}
-	/**
-	 * Método que extrae los tweets de la base de datos almacenados para una cuenta en cuestión
-	 * @param cuenta
-	 * @return
-	 */
+	
 	public static LinkedList<Tweet> extraerTweets(String cuenta)
 	{
 		gestor.enviarComando("SELECT T.* FROM Tweet T, Tienen TI WHERE T.codigo=TI.codigo AND TI.nombreUsuario='"+cuenta+"'");
@@ -278,12 +201,7 @@ public class Interaccion {
 			}
 		}
 	}
-	/**
-	 * Permite introducir un nuevo Tweet en la base de datos para una cuenta
-	 * @param usuario
-	 * @param codigo
-	 * @return
-	 */
+	
 	public static boolean insertarTweet(Tweet añadir, String nombreUsuario, String formatoImagen)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -297,14 +215,7 @@ public class Interaccion {
 		}
 		return true;
 	}
-	/**
-	 * Permite insertar una lista de Tweets, pero el formato de las imagenes debe de ser siempre el mismo, aun no he probado que sucede si se le indica cualquier tipo de formato.
-	 * Devuelve true si se han insertado todos correctamente.
-	 * @param añadir
-	 * @param nombreUsuario
-	 * @param formatosImagenes
-	 * @return
-	 */
+	
 	public static boolean insertarTweets(LinkedList<Tweet> añadir, String nombreUsuario, String formatosImagenes)
 	{
 		boolean correcto = true;
@@ -314,14 +225,7 @@ public class Interaccion {
 		}
 		return correcto;
 	}
-	/**
-	 * Permite actualizar la imagen del tweet
-	 * @param nombreUsuario
-	 * @param imagen
-	 * @param formato
-	 * @param codTweet
-	 * @return
-	 */
+	
 	public static boolean actualizarImagenTweetContenido(Image imagen, String formato, long codTweet)
 	{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
@@ -333,14 +237,7 @@ public class Interaccion {
 		byte[] data = baos.toByteArray(); 
 		return gestor.enviarImagen("UPDATE Tweet SET imagenTweet = ? WHERE codigo = "+codTweet+"", data);
 	}
-	/**
-	 * Permite actualizar la imagen del tweet
-	 * @param nombreUsuario
-	 * @param imagen
-	 * @param formato
-	 * @param codTweet
-	 * @return
-	 */
+	
 	public static boolean actualizarImagenTweet(Image imagen, String formato, long codTweet)
 	{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();  

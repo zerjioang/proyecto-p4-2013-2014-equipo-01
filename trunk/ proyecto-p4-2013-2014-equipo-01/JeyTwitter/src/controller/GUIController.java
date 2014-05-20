@@ -10,7 +10,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -39,11 +38,7 @@ import view.ventanas.Principal;
 import _launcher.Launcher;
 import controller.sql.Interaccion;
 
-/**
- * Clase encargada de intermediar entre la GUI y la API de Twitter
- * @author aitor
- *
- */
+
 public class GUIController {
 	// Keys de la API console
 	private final static String CONSUMER_KEY = "KRiUVHsXKNRDHVIGxYJ7w";
@@ -71,30 +66,19 @@ public class GUIController {
 		}
 	}
 
-	/**
-	 * Devuelve la ������nica instancia de esta clase que permanece al mismo tiempo
-	 * en memoria, en caso de no existir, se crea.
-	 * @return
-	 */
+	
 	public static GUIController getInstance() {
 		crearInstancia();
 		return instancia;
 	}
 	/* Fin de los metodos para el funcionamiento del singleton */
 
-	/**
-	 * Crea la sesi������n en Twitter y recupera de la base de datos el token en caso
-	 * de que exista, si no, solo crea la sesi������n.
-	 * @throws Exception
-	 */
+	
 	public void autenticar() throws Exception {
 		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
 	}
 
-	/**
-	 * Muestra el TL en el elemento de la GUI correspondiente
-	 * @return 
-	 */
+	
 	public ArrayList<Tweet> mostrarTimeline() throws IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
@@ -158,10 +142,7 @@ public class GUIController {
 		return objetosTweet;
 	}
 	
-	/**
-	 * Muestra las menciones en el elemento de la GUI correspondiente
-	 * @return 
-	 */
+	
 	public ArrayList<Tweet> mostrarMenciones() throws MalformedURLException, IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
@@ -187,10 +168,7 @@ public class GUIController {
 		return timeline;
 	}
 	
-	/**
-	 * Muestra mis retweets en el elemento de la GUI correspondiente
-	 * @return 
-	 */
+	
 	public ArrayList<Tweet> mostrarRetuits() throws IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
@@ -216,20 +194,12 @@ public class GUIController {
 		return timeline;
 	}
 
-	/**
-	 * @param each
-	 * @return
-	 * @throws IOException
-	 * @throws MalformedURLException
-	 */
+	
 	public BufferedImage pedirImagen(URL url) throws IOException {
 		return ImageIO.read(url);
 	}
 	
-	/**
-	 * Muestra mis tuits en el elemento de la GUI correspondiente
-	 * @return 
-	 */
+	
 	public ArrayList<Tweet> mostrarPerfil() throws IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
@@ -255,10 +225,7 @@ public class GUIController {
 		return timeline;
 	}
 	
-	/**
-	 * Muestra favoritos en el elemento de la GUI correspondiente
-	 * @return 
-	 */
+	
 	public ArrayList<Tweet> mostrarFavoritos() throws IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
@@ -294,11 +261,7 @@ public class GUIController {
 			return false;
 		}
 	}
-	/**
-	 * Intenta marcar un tweet como favorito, si falla es que lo más probable ya esté marcado y lo intenta desmarcar, si vuelve a fallar no altera nada
-	 * @param codigo long que indica que tweet es
-	 * @return
-	 */
+	
 	public boolean marcarFavorito(long codigo) {
 		try {
 			t.favorito(codigo);
@@ -364,10 +327,7 @@ public class GUIController {
 		return u;
 	}
 	
-	/**
-	 * Traduce a nuestra clase modelo Usuario la clase User que maneja la API
-	 * @return
-	 */
+	
 	public Usuario getUsuarioRegistrado() throws IOException {
 		User user = null;
 		Usuario u = null;
@@ -421,9 +381,7 @@ public class GUIController {
 		return online;
 	}
 
-	/**
-	 * Hace que se abra el navegador para que el usuario autorice a JeyTuiter
-	 */
+	
 	public void solicitarCodigo() {
 		try {
 			t.pedirCodigo();
@@ -433,10 +391,7 @@ public class GUIController {
 		}
 	}
 
-	/**
-	 * Comprueba si el token es v��lido
-	 * @return
-	 */
+	
 	public boolean recuperarTokenUsuarioGuardado() {
 		LinkedList<Usuario> usuariosAlmacenados = Interaccion.extraerUsuarios();
 		System.out.println("El tama��o de la tabla usuarios es: "+usuariosAlmacenados.size());
@@ -481,9 +436,7 @@ public class GUIController {
 		}
 	}
 
-	/**
-	 * Tuitea usando el texto de el componente de la GUI correspondiente
-	 */
+	
 	public boolean enviarTweet(String texto) {
 		// Se supone que recoge el texto de el textfield de turno
 		try {
@@ -499,10 +452,7 @@ public class GUIController {
 		}
 	}
 
-	/**
-	 * Muestra un men������ interactivo en la consola que permite usar ciertas funciones
-	 * del cliente, solo lo usamos para depurar.
-	 */
+	
 	public void menuConsola() {
 		try {
 			this.autenticar();
@@ -618,9 +568,7 @@ public class GUIController {
         return usuarios;
 	}
 	
-	/**
-	 * @param users
-	 */
+	
 	private void actualizarPanelBusqueda(ArrayList<ObjetoCelda> users) {
 		PanelBusqueda pb = new PanelBusqueda(users);
 		gui.setPanelBusqueda(pb);
@@ -634,16 +582,12 @@ public class GUIController {
 		t.iniciarStreaming();
 	}
 
-	/**
-	 * @return the gui
-	 */
+	
 	public Principal getGui() {
 		return gui;
 	}
 
-	/**
-	 * @param gui the gui to set
-	 */
+	
 	public void setGui(Principal gui) {
 		this.gui = gui;
 	}

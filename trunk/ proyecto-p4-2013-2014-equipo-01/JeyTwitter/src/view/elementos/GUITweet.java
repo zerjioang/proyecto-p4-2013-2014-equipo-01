@@ -5,13 +5,10 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.LayoutManager;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,21 +18,15 @@ import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 import controller.GUIController;
 import model.Tweet;
-import sun.font.SunFontManager.FamilyDescription;
 import twitter4j.MediaEntity;
 import twitter4j.TwitterException;
-import twitter4j.URLEntity;
-import twitter4j.UserMentionEntity;
 import util.Util;
 import view.elementos.botones.BotonDosEstados;
-import view.elementos.botones.Button;
 import view.eventos.URL.EventoEscucharClickURL;
 import view.eventos.celdaTweet.EventoClickBtnFavorito;
 import view.eventos.celdaTweet.EventoClickBtnReTweet;
@@ -45,6 +36,7 @@ import view.eventos.celdaTweet.EventoClickImagenUsuario;
 import view.eventos.principal.EventoClickFotoUsuario;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 
+@SuppressWarnings("serial")
 public class GUITweet extends JPanel implements ObjetoCelda{
 	
 	private static final int ALTO = 70;
@@ -99,7 +91,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		img = new ImageIcon[2];
 		tweet = t;
 		
-		lblImagenusuario.addMouseListener(new EventoClickFotoUsuario(GUIController.getInstance().getGui(), getNombreUsuario()));
+		lblImagenusuario.addMouseListener(new EventoClickFotoUsuario(getNombreUsuario()));
 		init();
 	}
 	private JEditorPane procesarMensaje(Tweet t) {
@@ -237,13 +229,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		//scrollPane.setViewportView(editor);
 		return editor;
 	}
-	/**
-	 * @param lblTiempo
-	 * @param lblImagenusuario
-	 * @param lblNombreReal
-	 * @param lblnombreUsuario
-	 * @param txtMensaje
-	 */
+	
 	@Deprecated
 	public GUITweet(String tiempo, ImageIcon imagenusuario,String nombreReal, String nombreUsuario, String mensaje, Tweet t) {
 		
@@ -268,9 +254,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		init();
 	}
 	
-	/**
-	 * Inicializa el contenido del tweet
-	 */
+	
 	public void init(){
 		setLayout(new BorderLayout(0, 0));
 		//definicion de los botones
@@ -399,115 +383,83 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		}
 	}
 
-	/**
-	 * @return devuelve el tiempo desde que se ha mandado el tweet
-	 */
+	
 	public String getTiempo() {
 		return lblTiempo.getText();
 	}
 
-	/**
-	 * @param establece el tiempo indicado 
-	 */
+	
 	public void setTiempo(String tiempo) {
 		this.lblTiempo.setText(tiempo);
 	}
 
-	/**
-	 * @return devuelve el mensaje del tweet
-	 */
+	
 	public String getMensaje() {
 		return txtMensaje.getText();
 	}
 
-	/**
-	 * @param establece el mensaje del tweet
-	 */
+	
 	public void setMensaje(String mensaje) {
 		this.txtMensaje.setText(mensaje);
 	}
 
-	/**
-	 * @return devuelve el boton responder
-	 */
+	
 	public BotonDosEstados getBtnResponder() {
 		return btnResponder;
 	}
 
-	/**
-	 * @param establece el boton responder
-	 */
+	
 	public void setBtnResponder(BotonDosEstados btnResponder) {
 		this.btnResponder = btnResponder;
 	}
 
-	/**
-	 * @return devuelve el boton btnRetweet
-	 */
+	
 	public BotonDosEstados getBtnRetweet() {
 		return btnRetweet;
 	}
 
-	/**
-	 * @param establece el boton btnRetweet
-	 */
+	
 	public void setBtnRetweet(BotonDosEstados btnRetweet) {
 		this.btnRetweet = btnRetweet;
 	}
 
-	/**
-	 * @return devuelve el boton btnFavorito
-	 */
+	
 	public BotonDosEstados getBtnFavorito() {
 		return btnFavorito;
 	}
 
-	/**
-	 * @param establece el boton btnFavorito
-	 */
+	
 	public void setBtnFavorito(BotonDosEstados btnFavorito) {
 		this.btnFavorito = btnFavorito;
 	}
 
-	/**
-	 * @return devuelve la imagen del usuario en forma de un objeto Icon
-	 */
+	
 	public Icon getImagenUsuario() {
 		return lblImagenusuario.getIcon();
 	}
 
-	/**
-	 * @param establece la imagen del usuario
-	 */
+	
 	public void setImagenUsuario(ImageIcon imagenUsuario) {
 		lblImagenusuario.setIcon(Util.getImagenRedondeada(imagenUsuario, REDONDEO));
 		lblImagenusuario.setIcon(Util.escalarImagen(lblImagenusuario));
 	}
 
-	/**
-	 * @return devuelve el nombre real del usuario
-	 */
+	
 	public String getNombreReal() {
 		return lblNombreReal.getText();
 	}
 
-	/**
-	 * @param establece el nombre real del usuario
-	 */
+	
 	public void setNombreReal(String nombreReal) {
 		this.lblNombreReal.setText(nombreReal);
 	}
 
-	/**
-	 * @return devuelve el nombre del usuario
-	 */
+	
 	public String getNombreUsuario() {
-		return lblnombreUsuario.getText();
+		return getTweet().getNombreUsuario();
 	}
 
-	/**
-	 * @param establece el nombre del usuario
-	 */
+	
 	public void setNombreUsuario(String nombreUsuario) {
 		this.lblnombreUsuario.setText("@"+nombreUsuario);
 	}
@@ -524,25 +476,19 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	public ImageIcon getImagenTweetOriginal(){
 		return img[0];
 	}
-	/**
-	 * @param lblImagenTweet the lblImagenTweet to set
-	 */
+	
 	public void setImagenTweet(ImageIcon imagenTweet) {
 		lblImagenTweet.setIcon(imagenTweet);
 		lblImagenTweet.setIcon(Util.escalarImagen(lblImagenTweet));
 		img[1]=(ImageIcon) lblImagenTweet.getIcon();
 	}
 
-	/**
-	 * @return the lblImagenTweet
-	 */
+	
 	public JLabel getLblImagenTweet() {
 		return lblImagenTweet;
 	}
 
-	/**
-	 * @param lblImagenTweet the lblImagenTweet to set
-	 */
+	
 	public void setLblImagenTweet(JLabel lblImagenTweet) {
 		this.lblImagenTweet = lblImagenTweet;
 	}
@@ -551,57 +497,41 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		lblImagenTweet.setBorder(new MatteBorder(i,j,k,l, color));
 	}
 
-	/**
-	 * @return the tweet
-	 */
+	
 	public Tweet getTweet() {
 		return tweet;
 	}
-	/**
-	 * @param tweet the tweet to set
-	 */
+	
 	public void setTweet(Tweet tweet) {
 		this.tweet = tweet;
 	}
 
-	/**
-	 * @return the usuarioMencionado
-	 */
+	
 	public ArrayList<String> getUsuarioMencionado() {
 		return usuarioMencionado;
 	}
 
-	/**
-	 * @param usuarioMencionado the usuarioMencionado to set
-	 */
+	
 	public void setUsuarioMencionado(ArrayList<String> usuarioMencionado) {
 		this.usuarioMencionado = usuarioMencionado;
 	}
 
-	/**
-	 * @return the hashtagTweet
-	 */
+	
 	public ArrayList<String> getHashtagTweet() {
 		return hashtagTweet;
 	}
 
-	/**
-	 * @param hashtagTweet the hashtagTweet to set
-	 */
+	
 	public void setHashtagTweet(ArrayList<String> hashtagTweet) {
 		this.hashtagTweet = hashtagTweet;
 	}
 
-	/**
-	 * @return the urlsTweet
-	 */
+	
 	public ArrayList<String> getUrlsTweet() {
 		return urlsTweet;
 	}
 
-	/**
-	 * @param urlsTweet the urlsTweet to set
-	 */
+	
 	public void setUrlsTweet(ArrayList<String> urlsTweet) {
 		this.urlsTweet = urlsTweet;
 	}

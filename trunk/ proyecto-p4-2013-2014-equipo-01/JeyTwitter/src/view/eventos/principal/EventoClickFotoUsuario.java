@@ -10,21 +10,18 @@ import view.ventanas.Principal;
 
 public class EventoClickFotoUsuario implements MouseListener {
 
-	private final Principal v;
 	private final String nombreUsuario;
 	
-	public EventoClickFotoUsuario(Principal principal, String nombreUsuario) {
-		v = principal;
+	public EventoClickFotoUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
 	public EventoClickFotoUsuario(Principal principal) {
-		v = principal;
 		nombreUsuario = null;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		v.setPanelActual(v.getPaneles()[0]);
+		GUIController.getInstance().getGui().setPanelActual(GUIController.getInstance().getGui().getPaneles()[0]);
 		if (nombreUsuario != null){
 			try {
 				GUIController.getInstance().getGui().setPanelActual(new PanelPerfilUsuario(GUIController.getInstance().getUsuario(nombreUsuario)));

@@ -9,11 +9,7 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 
 import twitter4j.User;
-/**
- * Clase que representa a un usuario en la base de datos
- * @author Fiser
- *
- */
+
 public class Usuario {
 	private String token;
 	private String tokenSecreto;

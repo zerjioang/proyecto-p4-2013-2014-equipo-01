@@ -2,18 +2,13 @@ package model;
 
 import java.awt.Image;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
 
 import twitter4j.Status;
-/**
- * Clase que representa un tweet en la base de datos
- * @author Fiser
- *
- */
+
 public class Tweet {
 	private long codigo;
 	private String nombreUsuario;

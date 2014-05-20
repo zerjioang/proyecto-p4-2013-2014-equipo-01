@@ -1,20 +1,13 @@
 package view.elementos;
 
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
-import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URI;
 import javax.swing.JLabel;
 
-/**
- * My name is Madalin Ilie. Currently I'm a Development Lead at Endava Romania 
- * Recurso utilizado de http://www.codeproject.com/Articles/250101/Creating-a-URL-JLabel-in-Swing
- * @author ludovicianul
- */
+
 public class URLLabel extends JLabel {
 
 	private String url;
