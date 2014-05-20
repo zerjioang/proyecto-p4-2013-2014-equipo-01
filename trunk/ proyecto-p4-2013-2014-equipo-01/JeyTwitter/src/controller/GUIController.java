@@ -581,6 +581,14 @@ public class GUIController {
 	public void iniciarStreaming(){
 		t.iniciarStreaming();
 	}
+	
+	public void seguirUsuario(String nombreUsuario) throws TwitterException {
+		t.seguirUsuario(nombreUsuario);
+	}
+	
+	public void dejarDeSeguirUsuario(String nombreUsuario) throws TwitterException {
+		t.dejarDeSeguirUsuario(nombreUsuario);
+	}
 
 	
 	public Principal getGui() {

@@ -1,10 +1,12 @@
 package view.elementos.botones;
 
 import java.awt.Cursor;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import controller.GUIController;
 import view.eventos.principal.EventoClickSeguiroNo;
 
 /**
@@ -31,7 +33,16 @@ public class BotonSeguir extends JLabel{
 		int anchoBoton = 161;
 		int altoBoton = 85;
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		setIcon(getImagenOff());
+		try {
+			if (!GUIController.getInstance().isAmigo(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario(), nombreUsuario)) {
+				setIcon(getImagenOff());
+			} else {
+				setIcon(getImagenOn());
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setSize(anchoBoton, altoBoton);
 		//Listener
 		addMouseListener(new EventoClickSeguiroNo(this, nombreUsuario));

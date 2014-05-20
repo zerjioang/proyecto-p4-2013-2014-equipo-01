@@ -287,6 +287,14 @@ public class TwitterService {
 			System.out.println("el usuario numero "+j + " es: " + usuarios.get(j).getScreenName());
 		}
 	}
+	
+	public void seguirUsuario(String nombreUsuario) throws TwitterException {
+		tw.createFriendship(nombreUsuario);
+	}
+	
+	public void dejarDeSeguirUsuario(String nombreUsuario) throws TwitterException {
+		tw.destroyFriendship(nombreUsuario);
+	}
 
 	public void iniciarStreaming() {
 		TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
