@@ -1,22 +1,6 @@
 package _launcher;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import javax.swing.ImageIcon;
-
-//import com.apple.eawt.Application;
-
-
-
-
-
-
-
-
-
-
 import controller.GUIController;
 import controller.sql.Interaccion;
 import util.Util;
@@ -25,11 +9,7 @@ import view.ventanas.Principal;
 import view.ventanas.Splash;
 import view.ventanas.Bienvenida;
 import view.ventanas.TerminosCondiciones;
-/**
- * Clase principal que inicia el programa
- * @author JeyTuiter Dev Team
- *
- */
+
 public class Launcher {
 	
 	private static Splash spl;
@@ -91,18 +71,13 @@ public class Launcher {
 		}
 	}
 
-	/**
-	 * Muestra la ventana necesaria para introducir los datos de autentificacion
-	 */
+	
 	private static void mostrarBienvenida() {
 		Bienvenida wc = new Bienvenida();
 		wc.setVisible(true);
 	}
 
-	/**
-	 * Muestra la ventana de bienvenida e inmediatamente muestra la timeline
-	 * @throws Exception 
-	 */
+	
 	private static void mostrarPrincipal() {
 		// Tenemos token, lanzamos la ventana principal
 		//Este usuario es el usuario que tiene la sesion de twitter abierta y que tiene que ser cargado

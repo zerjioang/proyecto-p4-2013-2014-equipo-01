@@ -7,7 +7,6 @@ import view.systray.SystemTrayLogo;
 import view.ventanas.Bienvenida;
 import view.ventanas.Principal;
 import controller.GUIController;
-import controller.TwitterService;
 
 public class HiloCargarDatos extends Thread{
 

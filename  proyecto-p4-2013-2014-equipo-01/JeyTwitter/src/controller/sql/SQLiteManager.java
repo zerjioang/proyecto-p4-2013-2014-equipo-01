@@ -10,10 +10,7 @@ import java.sql.Statement;
 
 import util.Util;
 
-/**
- * @author Fiser
- * Clase encarada de conectarse a una base de datos de diversos tipos
- */
+
 public class SQLiteManager
 {
 	private Connection connection;
@@ -83,18 +80,11 @@ public class SQLiteManager
 		}
 		return resultado;
 	}
-	/**
-	 * 
-	 * @return devuelve el ResultSet
-	 */
+	
 	public ResultSet getResultSet(){
 		return resultadoDeConsulta;
 	}
-	/**
-	 * Envia una orden o comando SQL al servidor
-	 * @param comando	comando SQL que se quiere enviar
-	 * @return	devuelve true si se ha ejecutado correctamente y false si ha habido algun error
-	 */
+	
 	public synchronized boolean enviarComando(String comando){
 		try {
 			if(conectado){

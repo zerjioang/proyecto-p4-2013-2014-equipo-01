@@ -3,12 +3,7 @@ package view.eventos.celdaTweet;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import controller.GUIController;
-import util.InvalidInputException;
-import util.Util;
 import view.elementos.GUITweet;
-import view.elementos.paneles.PanelPerfilUsuario;
-import view.ventanas.Principal;
 
 public class EventoClickImagenUsuario implements MouseListener {
 

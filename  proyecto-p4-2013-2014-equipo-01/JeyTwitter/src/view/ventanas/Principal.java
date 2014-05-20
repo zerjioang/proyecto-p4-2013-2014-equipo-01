@@ -1,6 +1,5 @@
 package view.ventanas;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -16,7 +15,6 @@ import javax.swing.JTable;
 
 import util.Util;
 import view.elementos.GUITweet;
-import view.elementos.GuiTwitterUsuario;
 import view.elementos.ObjetoCelda;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.paneles.PanelBusqueda;
@@ -39,10 +37,6 @@ import view.renderers.UIButtonRenderer;
 import java.awt.Font;
 import java.awt.Cursor;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.Date;
-import java.text.DateFormat;
 import java.util.ArrayList;
 
 import javax.swing.border.LineBorder;
@@ -53,10 +47,7 @@ import controller.GUIController;
 import model.Tweet;
 import model.Usuario;
 
-import java.awt.FlowLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
+@SuppressWarnings("serial")
 public class Principal extends CustomJFrame {
 
 	//Constantes
@@ -89,9 +80,7 @@ public class Principal extends CustomJFrame {
 	private JLabel lblMensajeInformativo;
 	private JLabel lblNewLabel;
 	
-	/**
-	 * Constructor por defecto
-	 */
+	
 	public Principal(Usuario usuario) {
 		super(600, 700);
 		usuarioActual = usuario;
@@ -344,9 +333,7 @@ public class Principal extends CustomJFrame {
 		return lista;
 	}
 
-	/**
-	 * 
-	 */
+	
 	private void generarDatos() {
 		panelesPrincipales[0] = panelUsuario;
 		panelesPrincipales[1] = timeLine;
@@ -357,16 +344,12 @@ public class Principal extends CustomJFrame {
 		panelesPrincipales[6] = panel_stats;
 	}
 
-	/**
-	 * @return the tablaMenu
-	 */
+	
 	public JTable getTablaMenu() {
 		return tablaMenu;
 	}
 
-	/**
-	 * @param tablaMenu the tablaMenu to set
-	 */
+	
 	public void setTablaMenu(JTable tablaMenu) {
 		this.tablaMenu = tablaMenu;
 	}
@@ -401,45 +384,33 @@ public class Principal extends CustomJFrame {
 		}).start();
 	}
 
-	/**
-	 * @return the panelInferior
-	 */
+	
 	public PanelEnviarTweet getPanelInferior() {
 		return panelInferior;
 	}
 
-	/**
-	 * @param panelInferior the panelInferior to set
-	 */
+	
 	public void setPanelInferior(PanelEnviarTweet panelInferior) {
 		this.panelInferior = panelInferior;
 	}
 
-	/**
-	 * @return the panelBusqueda
-	 */
+	
 	public PanelBusqueda getPanelBusqueda() {
 		return panelBusqueda;
 	}
 
-	/**
-	 * @param panelBusqueda the panelBusqueda to set
-	 */
+	
 	public void setPanelBusqueda(PanelBusqueda panelBusqueda) {
 		this.panelBusqueda = panelBusqueda;
 		setPanelActual(panelBusqueda);
 	}
 
-	/**
-	 * @return the lblImagen
-	 */
+	
 	public JLabel getImagenUsuario() {
 		return lblImagen;
 	}
 
-	/**
-	 * @param lblImagen the lblImagen to set
-	 */
+	
 	public void setImagenUsuario(ImageIcon imagen) {
 		// Para pruebas
 		lblImagen.setIcon(Util.getImagenRedondeada(imagen, 15));

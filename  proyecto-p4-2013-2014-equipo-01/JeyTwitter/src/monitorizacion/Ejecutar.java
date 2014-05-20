@@ -2,7 +2,6 @@ package monitorizacion;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class Ejecutar {
 
@@ -10,11 +9,11 @@ public class Ejecutar {
 	 * 					inicio
 	 * 						|<---------------------------
 	 * 						|							|
-	 * 				¿Hay archivo?--no--generar archivo-->
+	 * 				Hay archivo?--no--generar archivo-->
 	 * 						|  					  ^	
 	 * 						si					  |
 	 * 						|					  |
-	 * 			¿hay que generarlo otra vez?--si--
+	 * 			hay que generarlo otra vez?--si--
 	 * 						|
 	 * 						|
 	 * 					fin de esta cosa

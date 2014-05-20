@@ -27,11 +27,7 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-/**
- * Almacena todas las variables estaticas de configuracion que el programa necesita.
- * @author JeyTuiter Dev Team
- *
- */
+
 public class Util {
 
 	public static boolean DEBUG = true;
@@ -99,30 +95,12 @@ public class Util {
 		"Estadistica"
 		};
 
-	/**
-	 * Se encarga de cerrar la ventana al hacer click en el boton cerrar
-	 * de la barra superior. Muestra un dialogo de confirmacion para
-	 * asegurar la accion.
-	 * @param parent	Ventana padre desde la que se ha llamado. Null en caso de no ser ninguna
-	 * @throws InvalidInputException	Excepcion que se lanca en caso de error
-	 */
+	
 	public static void cerrarVentana(Moveable parent) throws InvalidInputException{
 		showMessage(parent, "Cerrar "+APP_TITULO, "Desea realmente cerrar?", "Si", "No");
 	}
 
-	/**
-	 * Muestra un mensaje en pantalla del mismo estilo que la clase JOPtionPane
-	 * pero este metodo tiene la posibilidad de definir el texto de los botones.
-	 * Ademas la interfaz visual no viene determinada por swing
-	 * @param parent	Ventana padre desde la que se ha llamado. Null en caso de no ser ninguna
-	 * @param titulo	Titulo principal de la ventana
-	 * @param mensaje	Mensaje que monstrar�� la ventana en su interior
-	 * @param textoAceptar	Texto del boton aceptar
-	 * @param textoCancelar Texto del boton cancelar
-	 * @return	devuelve un valor booleano dependiendo de la accion realizada. Devuelve true si se ha pulsado el
-	 * boton de aceptar o false si no se ha hecho
-	 * @throws InvalidInputException
-	 */
+	
 	public static boolean showMessage(Moveable parent, String titulo, String mensaje, String textoAceptar, String textoCancelar) throws InvalidInputException{
 		MensajeWindow mw = new MensajeWindow();
 		mw.setTituloVentana(titulo);
@@ -138,34 +116,18 @@ public class Util {
 		return mw.getEstado();
 	}
 
-	/**
-	 * Redimensiona el tama��o de una imagen al tama��o del componente que recibe
-	 * @param comp	componente que tiene la imagen original no escalada
-	 * @return devuelve un objeto imageIcon que contiene la imagen redimensionada
-	 */
+	
 	public static ImageIcon escalarImagen(Component comp){
 		ImageIcon fot = (ImageIcon) ( (JLabel) comp ).getIcon();
 		Icon icono = new ImageIcon(fot.getImage().getScaledInstance(comp.getWidth(), comp.getHeight(), Image.SCALE_SMOOTH));
 		return (ImageIcon) icono;
 	}
 
-	/**
-	 * Actualmente muestra un efecto de desvanecimiento inverso en la ventana JFrame
-	 * que recibe como parametro. Aumenta la opacidad de la ventana desde 0f hasta 1f
-	 *
-	 * @param comp	componente al que se le aplicara el efecto de difusion
-	 */
+	
 	public static void mostrarImagenDifuso(Component comp) {
 		mostrarImagenDifuso(comp, 25);
 	}
-	/**
-	 * Actualmente muestra un efecto de desvanecimiento inverso en la ventana JFrame
-	 * que recibe como parametro. Aumenta la opacidad de la ventana desde 0f hasta 1f
-	 * Ademas puede configurar la velocidad con el parametro time
-	 * @param comp	componente al que se le aplicara el efecto de difusion
-	 * @param time	tiempo de espera entre los grados de opacidad.
-	 * A mayor tiempo, mas tardar�� en visualizarse la ventana
-	 */
+	
 	public static void mostrarImagenDifuso(Component comp, int time) {
 		comp.setVisible(false);
 		float opacidad=0.f;
@@ -180,23 +142,12 @@ public class Util {
 		((JFrame) comp).setVisible(true);
 	}
 
-	/**
-	 * Actualmente muestra un efecto de desvanecimiento en la ventana JFrame
-	 * que recibe como parametro. Disminuye la opacidad de la ventana desde 1f hasta 0f
-	 * @param parent	componente que tiene la imagen original no escalada
-	 */
+	
 	public static void ocultarImagenDifuso(Moveable parent) {
 		ocultarImagenDifuso(parent, 25);
 	}
 
-	/**
-	 * Actualmente muestra un efecto de desvanecimiento en la ventana JFrame
-	 * que recibe como parametro. Disminuye la opacidad de la ventana desde 1f hasta 0f
-	 * Ademas puede configurar la velocidad con el parametro time
-	 * @param parent	componente al que se le aplicara el efecto de difusion
-	 * @param time	tiempo de espera entre los grados de opacidad.
-	 * A mayor tiempo, mas tardar�� en desvanecerse la ventana
-	 */
+	
 	public static void ocultarImagenDifuso(Moveable parent, int time) {
 		float opacidad=1.0f;
 		((Window) parent).setOpacity(opacidad);
@@ -210,20 +161,14 @@ public class Util {
 		((Window) parent).setVisible(false);
 		pausar(time);
 	}
-	/**
-	 * Pausa la ejecucion durante un tiempo determinado
-	 * @param i	tiempo que se debe pausar la ejecucion de un proceso
-	 */
+	
 	public static void pausar(int i) {
 		try {Thread.sleep(i);} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 *
-	 * Asigna el tema del sistema operativo a la aplicacion
-	 */
+	
 	public static void asignarLFSO() {
 		//Al tener activado el look and feel de Nimbus algunas ventanas con
 		//transparencia se volvian opacas. Ahora esta desactivado
@@ -239,13 +184,7 @@ public class Util {
 		}
 	}
 
-	/**
-	 * Carga una fuente que no esta instalada en el sistema para usarla
-	 * @param name	nombre de la fuente a cargar situada en la carpeta /res/fonts. omitir la extension
-	 * @param tipo	tipo de fuente: normal, negrita, cursiva
-	 * @param tamano	tama��o de la fuente
-	 * @return devuelve un objeto fuente con la fuente seleccionada
-	 */
+	
 	public static Font getFont(String name, int tipo, float tamano) {
 		Font font = new JLabel().getFont();	//carga la fuente por defecto
 		if (name != null) {
@@ -264,12 +203,7 @@ public class Util {
 		return font;
 	}
 	
-	/**
-	 * Redondea los bordes de una imagen
-	 * @param image		imagen a redondear
-	 * @param cornerRadius	grado de redondeo
-	 * @return	devuelve la imagen redondeada
-	 */
+	
 	private static BufferedImage makeRoundedCorner(BufferedImage image, int cornerRadius) {
 	    int w = image.getWidth();
 	    int h = image.getHeight();
@@ -297,12 +231,7 @@ public class Util {
 	    return output;
 	}
 	
-	/**
-	 * Converts a given Image into a BufferedImage
-	 *
-	 * @param img The Image to be converted
-	 * @return The converted BufferedImage
-	 */
+	
 	private static BufferedImage toBufferedImage(Image img)
 	{
 	    if (img instanceof BufferedImage)
@@ -321,23 +250,14 @@ public class Util {
 	    // Return the buffered image
 	    return bimage;
 	}
-	/**
-	 * Redondea los bordes de una imagen
-	 * @param imagenOriginal	imagen original que sa ha ser redondeada
-	 * @param redondeo			indice de redondeo
-	 * @return					devuelve un objeto imageIcon con los bordes redondeados
-	 */
+	
 	public static ImageIcon getImagenRedondeada(ImageIcon imagenOriginal, int redondeo){
 		BufferedImage imagenRedondeada = Util.toBufferedImage(imagenOriginal.getImage());
 		imagenRedondeada = Util.makeRoundedCorner(imagenRedondeada, redondeo);
 		return new ImageIcon(imagenRedondeada);
 	}
 
-	/**
-	 * Muestra informacion en consola cuanto el parametro 
-	 * DEBUG es igual a TRUE
-	 * @param string	String que se quiere visualizar por pantalla
-	 */
+	
 	public static void debug(String string) {
 		if(DEBUG)
 			if (string!=null) {
@@ -348,17 +268,7 @@ public class Util {
 			}
 	}
 
-	/**
-	 * Muestra una ventana de error
-	 * @param parent	Ventana padre de la ventana de error
-	 * @param lblTitulodeLaVentana	Titulo de la ventana
-	 * @param lblMensajeAMostrar	Mensaje de la ventan
-	 * @param textoBotonBlanco		Texto del boton blanco
-	 * @param textoBotonRojo		Texto del boton rojo
-	 * @return	devuelve un valor booleano dependiendo de la accion ralizada por el usuario.
-	 * Devuelve true si se ha pulsado el boton rojo, false si se ha pulsado el boton blanco y
-	 * Null si no se ha pulsado ninguno de los dos.
-	 */
+	
 	public static Boolean showError(Component parent, String lblTitulodeLaVentana, String lblMensajeAMostrar, String textoBotonBlanco, String textoBotonRojo) {
 		VentanaError error = new VentanaError(parent, lblTitulodeLaVentana,lblMensajeAMostrar,textoBotonBlanco,textoBotonRojo);
 		error.getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
@@ -366,32 +276,22 @@ public class Util {
 		return error.getEstado();
 	}
 
-	/**
-	 * 
-	 * @return Devuelve el nombre del sistema operativo en el que se esta ejecutando la aplicacion.
-	 */
+	
 	public static String getOS(){
 		return System.getProperty("os.name").toLowerCase();
 	}
 
-	/**
-	 * 
-	 * @return devuelve true si el sistema operativo es Mac OS. De lo contrario, devuelve false.
-	 */
+	
 	public static boolean isMac(){
 		return getOS().contains("mac os");
 	}
 
-	/**
-	 * @return devuelve true si el sistema operativo es Microsoft Windows. De lo contrario, devuelve false
-	 */
+	
 	public static boolean isWin(){
 		return getOS().contains("windows");
 	}
 
-	/**
-	 * @return devuelve true si el sistema operativo es alguno basado Linux. De lo contrario, devuelve false
-	 */
+	
 	public static boolean isNix(){
 		return getOS().contains("nix") || getOS().contains("ubuntu") || getOS().contains("debian");
 	}

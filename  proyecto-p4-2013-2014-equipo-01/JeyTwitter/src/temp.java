@@ -1,21 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-
-import view.elementos.paneles.PanelEstadistica;
 import view.parents.CustomJFrame;
 import javax.swing.JTabbedPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
-import java.awt.List;
 import javax.swing.JButton;
-import java.awt.Panel;
-import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,9 +13,7 @@ import javax.swing.table.DefaultTableModel;
 public class temp extends CustomJFrame {
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -39,9 +27,7 @@ public class temp extends CustomJFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public temp() {
 		super(600, 700);
 		
