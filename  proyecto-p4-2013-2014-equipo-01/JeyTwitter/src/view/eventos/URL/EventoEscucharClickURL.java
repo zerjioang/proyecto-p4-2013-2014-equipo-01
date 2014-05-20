@@ -8,8 +8,10 @@ import java.net.URISyntaxException;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
+import controller.GUIController;
 import util.InvalidInputException;
 import util.Util;
+import view.elementos.paneles.PanelPerfilUsuario;
 
 
 public class EventoEscucharClickURL implements HyperlinkListener {
@@ -43,7 +45,16 @@ public class EventoEscucharClickURL implements HyperlinkListener {
     }
 
 	private void abrirPerfil(String url) throws InvalidInputException {
-		Util.showMessage(null, "En desarrollo", "Cargar  perfil de "+url, "Lo programo", "Paso");
+		GUIController.getInstance().getGui().setPanelActual(GUIController.getInstance().getGui().getPaneles()[0]);
+		if (url != null){
+			try {
+				String usuarioSinArroba = url.replace("@", "");
+				GUIController.getInstance().getGui().setPanelActual(new PanelPerfilUsuario(GUIController.getInstance().getUsuario(usuarioSinArroba)));
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}			
+		}
+		//Util.showMessage(null, "En desarrollo", "Cargar  perfil de "+url, "Lo programo", "Paso");
 	}
 
 	private void abrirHTTP(String url) throws IOException, URISyntaxException {

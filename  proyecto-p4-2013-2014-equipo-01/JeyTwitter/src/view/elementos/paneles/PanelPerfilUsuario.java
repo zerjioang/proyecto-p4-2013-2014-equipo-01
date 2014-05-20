@@ -205,6 +205,7 @@ public class PanelPerfilUsuario extends JPanel {
 				// Es el usuario registrado
 				this.getBtnDejarDeSeguir().setVisible(false);
 			} else {
+				// Es un usuario ajeno
 				this.getBtnDejarDeSeguir().setVisible(true);
 			}
 		} catch (IOException e) {
