@@ -43,7 +43,7 @@ public class PanelEnviarTweet extends JPanel {
 		
 		JScrollPane scrollPaneMensaje = new JScrollPane();
 		scrollPaneMensaje.setBorder(null);
-		scrollPaneMensaje.getVerticalScrollBar().setUnitIncrement(1);
+		scrollPaneMensaje.getVerticalScrollBar().setUnitIncrement(5);
 		
 		txtMensaje.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		txtMensaje.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192)), "Escriba su Tweet", TitledBorder.CENTER, TitledBorder.TOP, null, Color.LIGHT_GRAY));
