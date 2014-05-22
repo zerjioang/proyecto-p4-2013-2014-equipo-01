@@ -86,6 +86,10 @@ public class Principal extends CustomJFrame {
 		super(600, 700);
 		usuarioActual = usuario;
 		panelesPrincipales = new JPanel[7];
+		panelInferior = new PanelEnviarTweet(this);
+		panelBusqueda = new PanelBusqueda();
+		panel_stats = new PanelEstadistica();
+		lblImagen = new JLabel(usuarioActual.getNombreUsuario());
 		try {
 			Launcher.mostrarMensaje("Cargando perfil de usuario...");
 			panelUsuario = new PanelPerfilUsuario(usuarioActual);
@@ -101,25 +105,12 @@ public class Principal extends CustomJFrame {
 			e.printStackTrace();
 		}
 		Launcher.mostrarMensaje("Cargando ultimos detalles...");
-		panelInferior = new PanelEnviarTweet(this);
-		panelBusqueda = new PanelBusqueda();
-		panel_stats = new PanelEstadistica();
-		
-		lblImagen = new JLabel(usuarioActual.getNombreUsuario());
-		generarDatos();
 		init();
-		
+		generarDatos();
 		if(!GUIController.getInstance().hayConexion()){
 			setColorFondoMensajeInformativo(Color.RED);
 			setColorTextoMensajeInformativo(Color.WHITE);
 			setTextoMensajeInformativo("Esta usando "+Util.APP_TITULO+" sin conexion");
-			mostrarMensajeInformativo();
-		}
-		else{
-			setColorFondoMensajeInformativo(Color.DARK_GRAY);
-			setColorTextoMensajeInformativo(Color.WHITE);
-			mostrarSpinWheelInformativa(true);
-			setTextoMensajeInformativo("Actualizando...");
 			mostrarMensajeInformativo();
 		}
 		long ahora = System.currentTimeMillis();

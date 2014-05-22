@@ -39,10 +39,10 @@ public class HiloFavoritos extends Thread {
 				timeline.add(t);
 				listaTweets.add(new GUITweet(Util.calcularFecha(t.getUltimaFechaActualizacion()), t));
 			}
-			
 			PanelTablaTweets panel = p.getPanelFavoritos();
 			TablaTweetsUsuarios tabla = panel.getTabla();
 			tabla.insertarLista(listaTweets);
+			tabla.actualizarFilas();
 			p.ocultarMensajeInformativo();
 		} catch (TwitterException e) {
 			// Error al recuperar el timeline
