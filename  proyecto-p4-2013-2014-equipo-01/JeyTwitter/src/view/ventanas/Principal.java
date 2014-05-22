@@ -37,6 +37,7 @@ import view.renderers.UIButtonRenderer;
 import java.awt.Font;
 import java.awt.Cursor;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import javax.swing.border.LineBorder;
@@ -78,7 +79,7 @@ public class Principal extends CustomJFrame {
 	private static Usuario usuarioActual;
 	private JPanel panelInformativo;
 	private JLabel lblMensajeInformativo;
-	private JLabel lblNewLabel;
+	private JLabel spinningWheel;
 	
 	
 	public Principal(Usuario usuario) {
@@ -89,13 +90,13 @@ public class Principal extends CustomJFrame {
 			Launcher.mostrarMensaje("Cargando perfil de usuario...");
 			panelUsuario = new PanelPerfilUsuario(usuarioActual);
 			Launcher.mostrarMensaje("Cargando timeline...");
-			timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(TIMELINE)));
+			timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(0));
 			Launcher.mostrarMensaje("Cargando menciones...");
-			menciones = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(MENCIONES)));
+			menciones = new PanelTablaTweets(new TablaTweetsUsuarios(0));
 			Launcher.mostrarMensaje("Cargando retweets...");
-			retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(RETUITS)));
+			retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(0));
 			Launcher.mostrarMensaje("Cargando favoritos...");
-			favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(recargarTweets(FAVORITOS)));
+			favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(0));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -126,8 +127,23 @@ public class Principal extends CustomJFrame {
 		System.out.println("Tiempo desde el inicio de la aplicacion: "+s+" segundos - "+s/60.0+" minutos");
 	}
 	
-	private void mostrarSpinWheelInformativa(boolean b) {
-		
+	public void mostrarDatos(){
+		try {
+			GUIController.getInstance().mostrarFavoritos();
+			GUIController.getInstance().mostrarMenciones();
+			GUIController.getInstance().mostrarPerfil();
+			GUIController.getInstance().mostrarRetuits();
+			GUIController.getInstance().mostrarTimeline();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void mostrarSpinWheelInformativa(boolean b) {
+		spinningWheel.setVisible(b);
 	}
 
 	public void init(){
@@ -161,10 +177,10 @@ public class Principal extends CustomJFrame {
 		lblMensajeInformativo.setVisible(false);
 		panelInformativo.setLayout(new BorderLayout(0, 0));
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setBorder(new MatteBorder(2, 0, 3, 0, (Color) new Color(0, 0, 0, 0)));
-		lblNewLabel.setIcon(new ImageIcon(Principal.class.getResource("/res/images/bolita giratoria.gif")));
-		panelInformativo.add(lblNewLabel, BorderLayout.EAST);
+		spinningWheel = new JLabel("");
+		spinningWheel.setBorder(new MatteBorder(2, 0, 3, 0, (Color) new Color(0, 0, 0, 0)));
+		spinningWheel.setIcon(new ImageIcon(Principal.class.getResource("/res/images/bolita giratoria.gif")));
+		panelInformativo.add(spinningWheel, BorderLayout.EAST);
 		panelInformativo.add(lblMensajeInformativo);
 		
 		panelVista = new JPanel();
@@ -301,36 +317,27 @@ public class Principal extends CustomJFrame {
 		lblMensajeInformativo.setVisible(false);
 	}
 	
-	public ArrayList<ObjetoCelda> recargarTweets(int tipo) throws IOException {
-		ArrayList<Tweet> listaTuits = null;
+	public void recargarTweets(int tipo) throws IOException {
 		switch (tipo){
 		case 1:
-			listaTuits = GUIController.getInstance().mostrarTimeline();
+			GUIController.getInstance().mostrarTimeline();
 			break;
 		case 2:
-			listaTuits = GUIController.getInstance().mostrarMenciones();
+			GUIController.getInstance().mostrarMenciones();
 			break;
 		case 4:
-			listaTuits = GUIController.getInstance().mostrarFavoritos();
+			GUIController.getInstance().mostrarFavoritos();
 			break;
 		case 3:
-			listaTuits = GUIController.getInstance().mostrarRetuits();
+			GUIController.getInstance().mostrarRetuits();
 			break;
 		case 0:
-			listaTuits = GUIController.getInstance().mostrarPerfil();
+			GUIController.getInstance().mostrarPerfil();
 			break;
 		case 5:
-			listaTuits = GUIController.getInstance().mostrarTimeline();
+			GUIController.getInstance().mostrarTimeline();
 			break;
 		}
-		ArrayList<ObjetoCelda> lista = new ArrayList<ObjetoCelda>();
-		
-		for(Tweet each : listaTuits){
-			GUITweet guiTweet;
-			guiTweet = new GUITweet(Util.calcularFecha(each.getUltimaFechaActualizacion()), each);
-			lista.add(guiTweet);
-		}
-		return lista;
 	}
 
 	
@@ -344,6 +351,21 @@ public class Principal extends CustomJFrame {
 		panelesPrincipales[6] = panel_stats;
 	}
 
+	public PanelTablaTweets getPanelTimeLine(){
+		return timeLine;
+	}
+	
+	public PanelTablaTweets getPanelMenciones(){
+		return menciones;
+	}
+	
+	public PanelTablaTweets getPanelRetweets(){
+		return retweets;
+	}
+	
+	public PanelTablaTweets getPanelFavoritos(){
+		return favoritos;
+	}
 	
 	public JTable getTablaMenu() {
 		return tablaMenu;

@@ -91,6 +91,7 @@ public class Launcher {
 			PanelTablaTweets panel = (PanelTablaTweets) p.getPaneles()[Principal.TIMELINE];
 			System.out.println(panel.getTabla().getRowCount());
 			p.setVisible(true);
+			p.mostrarDatos();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,0 +1,57 @@
+package hilos;
+
+import java.awt.Color;
+import java.util.ArrayList;
+
+import model.Tweet;
+import twitter4j.ResponseList;
+import twitter4j.Status;
+import twitter4j.TwitterException;
+import util.Util;
+import view.elementos.GUITweet;
+import view.elementos.ObjetoCelda;
+import view.elementos.paneles.PanelTablaTweets;
+import view.models.tablasPrincipal.TablaTweetsUsuarios;
+import view.ventanas.Principal;
+import controller.GUIController;
+import controller.TwitterService;
+
+public class HiloFavoritos extends Thread {
+	
+	private TwitterService t;
+
+	public HiloFavoritos(TwitterService t) {
+		this.t = t;
+	}
+
+	public void run(){
+		Principal p = GUIController.getInstance().getGui();
+		try {
+			p.setTextoMensajeInformativo("Actualizando favoritos...");
+			p.mostrarSpinWheelInformativa(false);
+			p.mostrarMensajeInformativo();
+			ResponseList<Status> listaTL = t.getFavorites();
+			ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+			ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
+			for (Status each : listaTL) {
+				Tweet t;
+				t = new Tweet(each);
+				timeline.add(t);
+				listaTweets.add(new GUITweet(Util.calcularFecha(t.getUltimaFechaActualizacion()), t));
+			}
+			
+			PanelTablaTweets panel = p.getPanelFavoritos();
+			TablaTweetsUsuarios tabla = panel.getTabla();
+			tabla.insertarLista(listaTweets);
+			p.ocultarMensajeInformativo();
+		} catch (TwitterException e) {
+			// Error al recuperar el timeline
+			p.setTextoMensajeInformativo("No hay conexión a internet");
+			p.setColorFondoMensajeInformativo(Color.RED);
+			p.setColorTextoMensajeInformativo(Color.WHITE);
+			p.mostrarSpinWheelInformativa(false);
+			p.mostrarMensajeInformativo();
+			System.err.println("Error al recuperar el timeline "+e.getMessage());
+		}
+	}
+}

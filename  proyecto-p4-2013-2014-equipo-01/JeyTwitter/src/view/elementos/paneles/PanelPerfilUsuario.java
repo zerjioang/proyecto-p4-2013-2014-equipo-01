@@ -109,11 +109,7 @@ public class PanelPerfilUsuario extends JPanel {
 		btnSeguidores = new CoolBlueButton("Seguidores");
 		btnSiguiendo = new CoolBlueButton("Siguiendo");
 		try {
-			ArrayList<Tweet> li = GUIController.getInstance().obtenerTimelineDeUsuario(u.getNombreUsuario(), new Paging(2));
-			this.listaObjetos = new ArrayList<ObjetoCelda>();
-			for (Tweet tweet : li) {
-				listaObjetos.add(new GUITweet(Util.calcularFecha(tweet.getUltimaFechaActualizacion()), tweet));
-			}
+			GUIController.getInstance().obtenerTimelineDeUsuario(u.getNombreUsuario(), new Paging(2), this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
