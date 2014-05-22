@@ -25,9 +25,11 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 import twitter4j.TwitterException;
+import view.eventos.estadistica.EventoClickIniciar;
 import controller.GUIController;
 import controller.TwitterService;
 import monitorizacion.Grafica;
+import javax.swing.SwingConstants;
 
 public class PanelEstadistica extends JPanel{
 	
@@ -42,18 +44,24 @@ public class PanelEstadistica extends JPanel{
 		JScrollPane scrollPaneOpciones = new JScrollPane();
 		tabbedPane.addTab("Opciones", null, scrollPaneOpciones, null);
 		
-		JPanel panel = new JPanel();
-		scrollPaneOpciones.setViewportView(panel);
-		panel.setLayout(new BorderLayout(0, 0));
+		JPanel panelOpciones = new JPanel();
+		scrollPaneOpciones.setViewportView(panelOpciones);
+		panelOpciones.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnNewButton = new JButton("Iniciar");
-		panel.add(btnNewButton, BorderLayout.SOUTH);
+		JButton btnIniciar = new JButton("Iniciar");
+		btnIniciar.addMouseListener(new EventoClickIniciar());
+		panelOpciones.add(btnIniciar, BorderLayout.SOUTH);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null},
-				{null, null},
+				{"opcion 1", new Boolean(false)},
+				{"opcion 2", new Boolean(false)},
+				{"opcion 3", new Boolean(false)},
+				{"opcion 4", new Boolean(false)},
+				{"opcion 5", new Boolean(false)},
+				{"opcion 6", new Boolean(false)},
+				{"opcion 7", new Boolean(false)},
 			},
 			new String[] {
 				"Descripcion", "Estado"
@@ -66,13 +74,18 @@ public class PanelEstadistica extends JPanel{
 				return columnTypes[columnIndex];
 			}
 		});
-		panel.add(table, BorderLayout.CENTER);
+		panelOpciones.add(table, BorderLayout.CENTER);
 		
 		JScrollPane scrollPaneResultados = new JScrollPane();
 		scrollPaneResultados.getVerticalScrollBar().setUnitIncrement(1);
 		tabbedPane.addTab("Resultados", null, scrollPaneResultados, null);
 		
-		JPanel panel_1 = new JPanel();
-		scrollPaneResultados.setViewportView(panel_1);
+		JPanel panelResultados = new JPanel();
+		scrollPaneResultados.setViewportView(panelResultados);
+		panelResultados.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblSinResultados = new JLabel("Sin resultados");
+		lblSinResultados.setHorizontalAlignment(SwingConstants.CENTER);
+		panelResultados.add(lblSinResultados, BorderLayout.CENTER);
 	}
 }

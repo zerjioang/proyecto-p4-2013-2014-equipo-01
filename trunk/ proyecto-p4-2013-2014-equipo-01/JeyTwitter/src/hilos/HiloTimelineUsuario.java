@@ -12,6 +12,8 @@ import util.Util;
 import view.elementos.GUITweet;
 import view.elementos.ObjetoCelda;
 import view.elementos.paneles.PanelPerfilUsuario;
+import view.elementos.paneles.PanelTablaTweets;
+import view.models.tablasPrincipal.TablaTweetsUsuarios;
 import view.ventanas.Principal;
 import controller.GUIController;
 import controller.TwitterService;
@@ -31,22 +33,29 @@ public class HiloTimelineUsuario extends Thread {
 	}
 
 	public void run(){
+
 		Principal p = GUIController.getInstance().getGui();
 		try {
-			p.setTextoMensajeInformativo("Actualizando timeline...");
+			p.setTextoMensajeInformativo("Actualizando favoritos...");
 			p.mostrarSpinWheelInformativa(false);
 			p.mostrarMensajeInformativo();
 			ResponseList<Status> listaTL = t.getTimelineFromUser(usuario, paging);
 			ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+			ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
 			for (Status each : listaTL) {
 				Tweet t;
 				t = new Tweet(each);
 				timeline.add(t);
+				listaTweets.add(new GUITweet(Util.calcularFecha(t.getUltimaFechaActualizacion()), t));
 			}
-			
+			PanelPerfilUsuario panel = p.getPanelUsuario();
+			TablaTweetsUsuarios tabla = panel.getTablaTweetsUsuario();
+			tabla.insertarLista(listaTweets);
+			tabla.actualizarFilas();
+			p.ocultarMensajeInformativo();
 		} catch (TwitterException e) {
 			// Error al recuperar el timeline
-			p.setTextoMensajeInformativo("No hay conexi��n a internet");
+			p.setTextoMensajeInformativo("No hay conexión a internet");
 			p.setColorFondoMensajeInformativo(Color.RED);
 			p.setColorTextoMensajeInformativo(Color.WHITE);
 			p.mostrarSpinWheelInformativa(false);

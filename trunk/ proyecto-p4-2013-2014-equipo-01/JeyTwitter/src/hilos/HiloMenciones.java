@@ -39,10 +39,10 @@ public class HiloMenciones extends Thread {
 				timeline.add(t);
 				listaTweets.add(new GUITweet(Util.calcularFecha(t.getUltimaFechaActualizacion()), t));
 			}
-			
 			PanelTablaTweets panel = p.getPanelMenciones();
 			TablaTweetsUsuarios tabla = panel.getTabla();
 			tabla.insertarLista(listaTweets);
+			tabla.actualizarFilas();
 			p.ocultarMensajeInformativo();
 		} catch (TwitterException e) {
 			// Error al recuperar el timeline

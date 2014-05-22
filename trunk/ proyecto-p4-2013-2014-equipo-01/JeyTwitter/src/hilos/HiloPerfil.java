@@ -44,6 +44,7 @@ public class HiloPerfil extends Thread {
 			PanelPerfilUsuario panel = p.getPanelUsuario();
 			TablaTweetsUsuarios tabla = panel.getTablaTweetsUsuario();
 			tabla.insertarLista(listaTweets);
+			tabla.actualizarFilas();
 			p.ocultarMensajeInformativo();
 		} catch (TwitterException e) {
 			// Error al recuperar el timeline

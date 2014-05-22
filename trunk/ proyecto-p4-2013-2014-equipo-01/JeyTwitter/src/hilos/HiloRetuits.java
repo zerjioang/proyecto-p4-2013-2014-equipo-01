@@ -43,6 +43,7 @@ public class HiloRetuits extends Thread {
 			PanelTablaTweets panel = p.getPanelRetweets();
 			TablaTweetsUsuarios tabla = panel.getTabla();
 			tabla.insertarLista(listaTweets);
+			tabla.actualizarFilas();
 			p.ocultarMensajeInformativo();
 		} catch (TwitterException e) {
 			// Error al recuperar el timeline
