@@ -1,8 +1,13 @@
 eclipse.preferences.version=1
-encoding//src/_launcher/Launcher.java=UTF-8
 encoding//src/controller/GUIController.java=UTF-8
 encoding//src/controller/TwitterService.java=UTF-8
 encoding//src/controller/sql/Interaccion.java=UTF-8
+encoding//src/hilos/HiloFavoritos.java=UTF-8
+encoding//src/hilos/HiloMenciones.java=UTF-8
+encoding//src/hilos/HiloPerfil.java=UTF-8
+encoding//src/hilos/HiloRetuits.java=UTF-8
+encoding//src/hilos/HiloTimeline.java=UTF-8
+encoding//src/hilos/HiloTimelineUsuario.java=UTF-8
 encoding//src/monitorizacion/Ejecutar.java=UTF-8
 encoding//src/monitorizacion/Grafica.java=UTF-8
 encoding//src/util/Util.java=UTF-8

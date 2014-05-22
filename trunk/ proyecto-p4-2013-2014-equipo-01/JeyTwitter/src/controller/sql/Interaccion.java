@@ -9,9 +9,11 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
+
 import model.Tweet;
 import model.Usuario;
 
@@ -41,12 +43,12 @@ public class Interaccion {
 		return 	gestor.enviarComando("DELETE FROM Tienen WHERE nombreUsuario = '"+usuario+"'");
 	}
 	
-	public static LinkedList<Usuario> extraerCredenciales()
+	public static ArrayList<Usuario> extraerCredenciales()
 	{
 		gestor.enviarComando("SELECT * FROM Usuario");
 		try {
 			ResultSet extraidos = gestor.getResultSet();
-			LinkedList<Usuario> temporal = new LinkedList<Usuario>();
+			ArrayList<Usuario> temporal = new ArrayList<Usuario>();
 
 			while(extraidos.next())
 			{
@@ -107,12 +109,12 @@ public class Interaccion {
 		return 	gestor.enviarComando("DELETE FROM Usuario");
 	}
 	
-	public static LinkedList<Usuario> extraerUsuarios()
+	public static ArrayList<Usuario> extraerUsuarios()
 	{
 		gestor.enviarComando("SELECT * FROM Usuario");
 		try {
 			ResultSet extraidos = gestor.getResultSet();
-			LinkedList<Usuario> temporal = new LinkedList<Usuario>();
+			ArrayList<Usuario> temporal = new ArrayList<Usuario>();
 			while(extraidos.next())
 			{
 				Usuario tempUsuario = new Usuario(extraidos.getString("nombreUsuario"),
@@ -137,12 +139,12 @@ public class Interaccion {
 		}
 	}
 	
-	public static LinkedList<Tweet> extraerTweets(String cuenta)
+	public static ArrayList<Tweet> extraerTweets(String cuenta)
 	{
 		gestor.enviarComando("SELECT T.* FROM Tweet T, Tienen TI WHERE T.codigo=TI.codigo AND TI.nombreUsuario='"+cuenta+"'");
 		try {
 			ResultSet extraidos = gestor.getResultSet();
-			LinkedList<Tweet> temporal = new LinkedList<Tweet>();
+			ArrayList<Tweet> temporal = new ArrayList<Tweet>();
 			while(extraidos.next())
 			{
 				boolean esRetweet = false;
@@ -171,7 +173,7 @@ public class Interaccion {
 			return null;
 		}
 	}
-	private static void cargarImagenesUsuarios(LinkedList<Usuario> usuarios)
+	private static void cargarImagenesUsuarios(ArrayList<Usuario> usuarios)
 	{
 		for(Usuario temp: usuarios)
 		{
@@ -181,7 +183,7 @@ public class Interaccion {
 			}
 		}
 	}
-	private static void cargarImagenesTweets(LinkedList<Tweet> tweets)
+	private static void cargarImagenesTweets(ArrayList<Tweet> tweets)
 	{
 		for(Tweet temp: tweets)
 		{
@@ -191,7 +193,7 @@ public class Interaccion {
 			}
 		}
 	}
-	private static void cargarImagenesTweetsContenido(LinkedList<Tweet> tweets)
+	private static void cargarImagenesTweetsContenido(ArrayList<Tweet> tweets)
 	{
 		for(Tweet temp: tweets)
 		{
@@ -216,7 +218,7 @@ public class Interaccion {
 		return true;
 	}
 	
-	public static boolean insertarTweets(LinkedList<Tweet> añadir, String nombreUsuario, String formatosImagenes)
+	public static synchronized boolean insertarTweets(List<Tweet> añadir, String nombreUsuario, String formatosImagenes)
 	{
 		boolean correcto = true;
 		for(Tweet temp: añadir)
@@ -278,7 +280,7 @@ public class Interaccion {
 //		Tweet temp2 = new Tweet(2L, "Prueba2", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
 //		Tweet temp3 = new Tweet(3L, "Prueba3", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
 //		Tweet temp4 = new Tweet(4L, "Prueba4", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
-//		LinkedList<Tweet>temporal = new LinkedList<Tweet>();
+//		ArrayList<Tweet>temporal = new ArrayList<Tweet>();
 //		temporal.add(temp);
 //		temporal.add(temp2);
 //		temporal.add(temp3);

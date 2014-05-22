@@ -1,5 +1,12 @@
 package controller;
 
+import hilos.HiloFavoritos;
+import hilos.HiloMenciones;
+import hilos.HiloPerfil;
+import hilos.HiloRetuits;
+import hilos.HiloTimeline;
+import hilos.HiloTimelineUsuario;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -10,12 +17,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 import model.Tweet;
 import model.Usuario;
@@ -34,6 +42,9 @@ import view.elementos.GUITweet;
 import view.elementos.GuiTwitterUsuario;
 import view.elementos.ObjetoCelda;
 import view.elementos.paneles.PanelBusqueda;
+import view.elementos.paneles.PanelPerfilUsuario;
+import view.elementos.paneles.PanelTablaTweets;
+import view.models.tablasPrincipal.TablaTweetsUsuarios;
 import view.ventanas.Principal;
 import _launcher.Launcher;
 import controller.sql.Interaccion;
@@ -48,7 +59,6 @@ public class GUIController {
 
 	private static TwitterService t;
 	private boolean online;
-	private boolean hayCache;
 	private Principal gui;
 
 	/* Metodos para el funcionamiento del singleton */
@@ -80,118 +90,38 @@ public class GUIController {
 
 	
 	public ArrayList<Tweet> mostrarTimeline() throws IOException {
-		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		
-		//el tema es que la bd nos sirve de cache. asi que los tuits que tenga descargados nos los muestre y los nuevos los pida.
-		//independientemente de si hay conexion o no
-		if(hayCache){
-			//Caso 1: carga los datos de la cache y se actualiza con los nuevos
-			if(hayConexion()){
-				
-			}
-			//caso 2: modo offline: solo carga a cache
-			else{
-				/*
-				for (int i = 0; i<20; i++) {
-					Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
-					timeline.add(t);
-				}*/
-			}
-		}
-		else{
-			//caso 3: no hay cache. (primer inicio del programa) pide todos los datos a twitter
-			if(hayConexion()){
-				try {
-					listaTL = t.getTimeline();
-					for (Status each : listaTL) {
-						Tweet t;
-						t = new Tweet(each);
-						timeline.add(t);
-					}
-				} catch (TwitterException e) {
-					// Error al recuperar el timeline
-					System.err.println("Error al recuperar el timeline "+e.getMessage());
-				}
-			}
-			//caso 4: (no hay nada) muestra mensaje de error. no internet. no cache.
-			else{
-				Util.showError(null, "Datos no disponibles", "Se requiere conexiona Internet para iniciar", "Aceptar", "Cancelar");
-				}
-		}
-
-		return timeline;
-	}
-	
-	public ArrayList<Tweet> obtenerTimelineDeUsuario(String usuario, Paging paging) throws MalformedURLException, IOException {
-		ArrayList<Tweet> objetosTweet = new ArrayList<Tweet>();
-		
-		try {
-			ResponseList<Status> statuses = t.getTimelineFromUser(usuario, paging);
-			
-			for (Status each : statuses) {
-				Tweet t = new Tweet(each);
-				
-				objetosTweet.add(t);
-			}
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();	
-		}
-		
-		return objetosTweet;
-	}
-	
-	
-	public ArrayList<Tweet> mostrarMenciones() throws MalformedURLException, IOException {
-		ResponseList<Status> listaTL;
-		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+		timeline = Interaccion.extraerTweets(getUsuarioRegistrado().getNombreUsuario());
 		
 		if (hayConexion()) {
-			try {
-				listaTL = t.getMentions();
-				for (Status each : listaTL) {
-					Tweet t;
-					t = new Tweet(each);
-					timeline.add(t);
-				}
-			} catch (TwitterException e) {
-				// Error al recuperar el timeline
-				e.printStackTrace();
-			}
-		} else {/*
-			for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
-				timeline.add(t);
-			}*/
+			new HiloTimeline(t).start();		
 		}
+		
 		return timeline;
 	}
 	
-	
-	public ArrayList<Tweet> mostrarRetuits() throws IOException {
-		ResponseList<Status> listaTL;
-		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-		
+	public void obtenerTimelineDeUsuario(String usuario, Paging paging, PanelPerfilUsuario panelPerfilUsuario) throws MalformedURLException, IOException {
 		if (hayConexion()) {
-			try {
-				listaTL = t.getRetweetsOfMe();
-				for (Status each : listaTL) {
-					Tweet t;
-					t = new Tweet(each);
-					timeline.add(t);
-				}
-			} catch (TwitterException e) {
-				// Error al recuperar el timeline
-				e.printStackTrace();
-			}
-		} else {/*
-			for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
-				timeline.add(t);
-			}*/
+			new HiloTimelineUsuario(t, usuario, paging, panelPerfilUsuario).start();
 		}
-		return timeline;
+	}
+	
+	
+	public void mostrarMenciones() throws MalformedURLException, IOException {
+		if (hayConexion()) {
+			new HiloMenciones(t).start();
+		}
+	}
+	
+	public void guardarCache(ArrayList<Tweet> tl) throws IOException {
+		Interaccion.insertarTweets(tl, getUsuarioRegistrado().getNombreUsuario(), "png");
+	}
+	
+	public void mostrarRetuits() throws IOException {
+		if (hayConexion()) {
+			new HiloRetuits(t).start();
+		}
 	}
 
 	
@@ -200,55 +130,17 @@ public class GUIController {
 	}
 	
 	
-	public ArrayList<Tweet> mostrarPerfil() throws IOException {
-		ResponseList<Status> listaTL;
-		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-		
+	public void mostrarPerfil() throws IOException {
 		if (hayConexion()) {
-			try {
-				listaTL = t.getProfileTuits();
-				for (Status each : listaTL) {
-					Tweet t;
-					t = new Tweet(each);
-					timeline.add(t);
-				}
-			} catch (TwitterException e) {
-				// Error al recuperar el timeline
-				e.printStackTrace();
-			}
-		} else {
-			/*for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
-				timeline.add(t);
-			}*/
+			new HiloPerfil(t).start();
 		}
-		return timeline;
 	}
 	
 	
-	public ArrayList<Tweet> mostrarFavoritos() throws IOException {
-		ResponseList<Status> listaTL;
-		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-		
+	public void mostrarFavoritos() throws IOException {
 		if (hayConexion()) {
-			try {
-				listaTL = t.getFavorites();
-				for (Status each : listaTL) {
-					Tweet t;
-					t = new Tweet(each);
-					timeline.add(t);
-				}
-			} catch (TwitterException e) {
-				// Error al recuperar el timeline
-				e.printStackTrace();
-			}
-		} else {/*
-			for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
-				timeline.add(t);
-			}*/
+			new HiloFavoritos(t).start();
 		}
-		return timeline;
 	}
 	
 	public boolean marcarRetuit(long codigo) {
@@ -296,8 +188,8 @@ public class GUIController {
 			if (hayConexion()) {
 				u = new Usuario(user);
 			} else {
-				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
-				u = (Usuario)credenciales.getFirst();
+				ArrayList<Usuario> credenciales = Interaccion.extraerUsuarios();
+				u = (Usuario)credenciales.get(0);
 			}
 		} catch (IllegalStateException | TwitterException e) {
 			// TODO Auto-generated catch block
@@ -316,8 +208,8 @@ public class GUIController {
 			if (hayConexion()) {
 				u = new Usuario(user);
 			} else {
-				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
-				u = (Usuario)credenciales.getFirst();
+				ArrayList<Usuario> credenciales = Interaccion.extraerUsuarios();
+				u = (Usuario)credenciales.get(0);
 			}
 		} catch (IllegalStateException | TwitterException e) {
 			// TODO Auto-generated catch block
@@ -338,8 +230,8 @@ public class GUIController {
 			if (hayConexion()) {
 				u = new Usuario(user);
 			} else {
-				LinkedList<Usuario> credenciales = Interaccion.extraerUsuarios();
-				u = (Usuario)credenciales.getFirst();
+				ArrayList<Usuario> credenciales = Interaccion.extraerUsuarios();
+				u = (Usuario)credenciales.get(0);
 			}
 		} catch (IllegalStateException | TwitterException e) {
 			System.err.println("Error al obtener el usuario autorizado: "+e.getMessage());
@@ -393,7 +285,7 @@ public class GUIController {
 
 	
 	public boolean recuperarTokenUsuarioGuardado() {
-		LinkedList<Usuario> usuariosAlmacenados = Interaccion.extraerUsuarios();
+		ArrayList<Usuario> usuariosAlmacenados = Interaccion.extraerUsuarios();
 		System.out.println("El tama��o de la tabla usuarios es: "+usuariosAlmacenados.size());
 		Launcher.mostrarMensaje("Recuperando credenciales...");
 		if (usuariosAlmacenados.size() > 0) {

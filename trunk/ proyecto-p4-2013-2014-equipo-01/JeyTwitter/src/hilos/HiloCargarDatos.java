@@ -32,6 +32,7 @@ public class HiloCargarDatos extends Thread{
 				p.setLocationRelativeTo(ventana);
 				p.setPanelActual(p.getPaneles()[1]);
 				p.setVisible(true);
+				p.mostrarDatos();
 			} catch (IllegalStateException /*| InvalidInputException*/ e) {
 				ventana.setVisible(true);
 				Util.showError(ventana, "Error de autentificacion", "El token no es valido", "Cancelar", "Aceptar");
