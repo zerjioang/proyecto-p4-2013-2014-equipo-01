@@ -67,7 +67,7 @@ public class PanelBusqueda extends JPanel {
 		panelBusquedaTabla.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPaneTablaBusqueda = new JScrollPane();
-		scrollPaneTablaBusqueda.getVerticalScrollBar().setUnitIncrement(1);
+		scrollPaneTablaBusqueda.getVerticalScrollBar().setUnitIncrement(5);
 		panelBusquedaTabla.add(scrollPaneTablaBusqueda, BorderLayout.CENTER);
 		
 		tablaBusqueda = new TablaTweetsUsuarios(objeto);

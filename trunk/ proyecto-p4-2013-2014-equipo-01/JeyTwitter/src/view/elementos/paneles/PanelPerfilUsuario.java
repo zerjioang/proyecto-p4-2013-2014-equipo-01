@@ -238,7 +238,7 @@ public class PanelPerfilUsuario extends JPanel {
 		JScrollPane scrollPaneUsuario = new JScrollPane();
 		scrollPaneUsuario.setViewportBorder(null);
 		scrollPaneUsuario.setBorder(null);
-		scrollPaneUsuario.getVerticalScrollBar().setUnitIncrement(1);
+		scrollPaneUsuario.getVerticalScrollBar().setUnitIncrement(5);
 
 		//se muestra en el scrollpane
 		scrollPaneUsuario.setViewportView(tablaTweetsUsuario);
