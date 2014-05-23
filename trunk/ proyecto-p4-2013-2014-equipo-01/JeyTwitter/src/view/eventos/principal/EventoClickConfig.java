@@ -2,10 +2,13 @@ package view.eventos.principal;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
-import view.ventanas.Config;
+import javax.swing.JOptionPane;
+
+import util.Util;
 import view.ventanas.Principal;
-
+import controller.sql.Interaccion;
 public class EventoClickConfig implements MouseListener {
 	
 	private final Principal p;
@@ -16,9 +19,13 @@ public class EventoClickConfig implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Config c = new Config();
-		c.setLocationRelativeTo(p);
-		c.setVisible(true);
+		Boolean b = Util.showError(p, "Desautorizar cuenta", "¿Desea cerrar sesion?", "No", "Si");
+		if(b.booleanValue()){
+			Interaccion.reiniciarBase();
+			p.cerrar();
+			new File(Util.SQLITE_NOMBRE_BBDD).delete();
+			System.exit(1);
+		}
 	}
 
 	@Override

@@ -228,7 +228,7 @@ public class Principal extends CustomJFrame {
 		panelIzq.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblConfig = new JLabel("Config");
+		JLabel lblConfig = new JLabel("Cerrar sesión");
 		lblConfig.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblConfig.setForeground(Color.WHITE);
 		lblConfig.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -294,7 +294,7 @@ public class Principal extends CustomJFrame {
 		}
 	}
 	
-	public void ocultarMensajeInformativo(){
+	public synchronized void ocultarMensajeInformativo(){
 		Color a = lblMensajeInformativo.getForeground();
 		Color b = panelInformativo.getForeground();
 		for (float i = 1f; i > 0.0f; i-=0.1f) {

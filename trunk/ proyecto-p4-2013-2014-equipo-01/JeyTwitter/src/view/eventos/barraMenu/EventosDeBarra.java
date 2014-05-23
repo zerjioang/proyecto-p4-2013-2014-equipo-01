@@ -5,7 +5,6 @@ import view.parents.CustomJDialogWithBar;
 import view.parents.CustomJFrame;
 import view.parents.Moveable;
 import view.ventanas.AcercaDe;
-import view.ventanas.Config;
 import view.ventanas.MensajeWindow;
 
 import java.awt.Window;

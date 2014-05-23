@@ -84,12 +84,12 @@ public class GUIController {
 	/* Fin de los metodos para el funcionamiento del singleton */
 
 	
-	public void autenticar() throws Exception {
+	public synchronized void autenticar() throws Exception {
 		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
 	}
 
 	
-	public ArrayList<Tweet> mostrarTimeline() throws IOException {
+	public synchronized ArrayList<Tweet> mostrarTimeline() throws IOException {
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		
 		timeline = Interaccion.extraerTweets(getUsuarioRegistrado().getNombreUsuario());
@@ -101,14 +101,14 @@ public class GUIController {
 		return timeline;
 	}
 	
-	public void obtenerTimelineDeUsuario(String usuario, Paging paging, PanelPerfilUsuario panelPerfilUsuario) throws MalformedURLException, IOException {
+	public synchronized void obtenerTimelineDeUsuario(String usuario, Paging paging, PanelPerfilUsuario panelPerfilUsuario) throws MalformedURLException, IOException {
 		if (hayConexion()) {
 			new HiloTimelineUsuario(t, usuario, paging, panelPerfilUsuario).start();
 		}
 	}
 	
 	
-	public void mostrarMenciones() throws MalformedURLException, IOException {
+	public synchronized void mostrarMenciones() throws MalformedURLException, IOException {
 		if (hayConexion()) {
 			new HiloMenciones(t).start();
 		}
@@ -118,32 +118,32 @@ public class GUIController {
 		Interaccion.insertarTweets(tl, getUsuarioRegistrado().getNombreUsuario(), "png");
 	}
 	
-	public void mostrarRetuits() throws IOException {
+	public synchronized void mostrarRetuits() throws IOException {
 		if (hayConexion()) {
 			new HiloRetuits(t).start();
 		}
 	}
 
 	
-	public BufferedImage pedirImagen(URL url) throws IOException {
+	public synchronized BufferedImage pedirImagen(URL url) throws IOException {
 		return ImageIO.read(url);
 	}
 	
 	
-	public void mostrarPerfil() throws IOException {
+	public synchronized void mostrarPerfil() throws IOException {
 		if (hayConexion()) {
 			new HiloPerfil(t).start();
 		}
 	}
 	
 	
-	public void mostrarFavoritos() throws IOException {
+	public synchronized void mostrarFavoritos() throws IOException {
 		if (hayConexion()) {
 			new HiloFavoritos(t).start();
 		}
 	}
 	
-	public boolean marcarRetuit(long codigo) {
+	public synchronized boolean marcarRetuit(long codigo) {
 		try {
 			t.retweetear(codigo);
 			return true;
@@ -154,7 +154,7 @@ public class GUIController {
 		}
 	}
 	
-	public boolean marcarFavorito(long codigo) {
+	public synchronized boolean marcarFavorito(long codigo) {
 		try {
 			t.favorito(codigo);
 			return true;
@@ -167,7 +167,7 @@ public class GUIController {
 		}
 	}
 	
-	public void responderTuit(long codigo, String texto) {
+	public synchronized void responderTuit(long codigo, String texto) {
 		StatusUpdate respuesta = new StatusUpdate(texto);
 		respuesta.setInReplyToStatusId(codigo);
 		
@@ -179,7 +179,7 @@ public class GUIController {
 		}
 	}
 	
-	public Usuario getUsuario(long id) throws IOException {
+	public synchronized Usuario getUsuario(long id) throws IOException {
 		User user = null;
 		Usuario u = null;
 		try {
@@ -199,7 +199,7 @@ public class GUIController {
 		return u;
 	}
 	
-	public Usuario getUsuario(String screenName) throws IOException {
+	public synchronized Usuario getUsuario(String screenName) throws IOException {
 		User user = null;
 		Usuario u = null;
 		try {
@@ -240,7 +240,7 @@ public class GUIController {
 		return u;
 	}
 
-	public boolean hayConexion() {
+	public synchronized boolean hayConexion() {
 		@SuppressWarnings("unused")
 		InetAddress address;
 		//Util.debug("Comprobando conexion...");
@@ -274,7 +274,7 @@ public class GUIController {
 	}
 
 	
-	public void solicitarCodigo() {
+	public synchronized void solicitarCodigo() {
 		try {
 			t.pedirCodigo();
 		} catch (Exception e) {
@@ -284,7 +284,7 @@ public class GUIController {
 	}
 
 	
-	public boolean recuperarTokenUsuarioGuardado() {
+	public synchronized boolean recuperarTokenUsuarioGuardado() {
 		ArrayList<Usuario> usuariosAlmacenados = Interaccion.extraerUsuarios();
 		System.out.println("El tama��o de la tabla usuarios es: "+usuariosAlmacenados.size());
 		Launcher.mostrarMensaje("Recuperando credenciales...");
@@ -303,15 +303,15 @@ public class GUIController {
 
 	}
 	
-	public MediaEntity[] getMedias(long idTweet) throws TwitterException {
+	public synchronized MediaEntity[] getMedias(long idTweet) throws TwitterException {
 		return t.getMediaEntities(idTweet);
 	}
 	
-	public URLEntity[] getURLs(long idTweet) throws TwitterException {
+	public synchronized URLEntity[] getURLs(long idTweet) throws TwitterException {
 		return t.getURLEntities(idTweet);
 	}
 	
-	public UserMentionEntity[] getMenciones(long idTweet) throws TwitterException {
+	public synchronized UserMentionEntity[] getMenciones(long idTweet) throws TwitterException {
 		return t.getMentionEntities(idTweet);
 	}
 
@@ -341,7 +341,7 @@ public class GUIController {
 	}
 
 	
-	public void menuConsola() {
+	public synchronized void menuConsola() {
 		try {
 			this.autenticar();
 		} catch (Exception e1) {
@@ -419,7 +419,7 @@ public class GUIController {
 		return listaTweets;
 	}*/
 	
-	public ArrayList<ObjetoCelda> buscarTweets(String str) throws IOException{
+	public synchronized ArrayList<ObjetoCelda> buscarTweets(String str) throws IOException{
 		ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
 		 Util.debug("iniciando busqueda de tweets...");
 		List<Status> tweets = t.buscarTuit(str);
@@ -432,7 +432,7 @@ public class GUIController {
 		return listaTweets;
 	}
 	
-	public ArrayList<ObjetoCelda> buscarUsuarios(String str, int maxPages) {
+	public synchronized ArrayList<ObjetoCelda> buscarUsuarios(String str, int maxPages) {
         ArrayList<ObjetoCelda> usuarios = new ArrayList<ObjetoCelda>();
         Util.debug("iniciando busqueda de usuarios...");
         
@@ -457,29 +457,29 @@ public class GUIController {
 	}
 	
 	
-	private void actualizarPanelBusqueda(ArrayList<ObjetoCelda> users) {
+	private synchronized void actualizarPanelBusqueda(ArrayList<ObjetoCelda> users) {
 		PanelBusqueda pb = new PanelBusqueda(users);
 		gui.setPanelBusqueda(pb);
 	}
 
-	public boolean isAmigo(String user1, String user2) {
+	public synchronized boolean isAmigo(String user1, String user2) {
 		return t.esSeguidor(user1, user2);
 	}
 	
-	public void iniciarStreaming(){
+	public synchronized void iniciarStreaming(){
 		t.iniciarStreaming();
 	}
 	
-	public void seguirUsuario(String nombreUsuario) throws TwitterException {
+	public synchronized void seguirUsuario(String nombreUsuario) throws TwitterException {
 		t.seguirUsuario(nombreUsuario);
 	}
 	
-	public void dejarDeSeguirUsuario(String nombreUsuario) throws TwitterException {
+	public synchronized void dejarDeSeguirUsuario(String nombreUsuario) throws TwitterException {
 		t.dejarDeSeguirUsuario(nombreUsuario);
 	}
 
 	
-	public Principal getGui() {
+	public synchronized Principal getGui() {
 		return gui;
 	}
 

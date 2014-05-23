@@ -21,12 +21,12 @@ public class EventoCambiarColoBoton implements MouseListener {
 		int row = tablaGeneral.getSelectedRow();
 		int col = tablaGeneral.getSelectedColumn();
 		for (int i = 0; i < tablaGeneral.getRowCount(); i++) {
-			MenuButton b = (MenuButton) tablaGeneral.getValueAt(i, col);
+			MenuButton b = (MenuButton) tablaGeneral.getValueAt(i, 0);
 			if(i==row)
 				b.click();
 			else
 				b.exited();
-			tablaGeneral.setValueAt(b, i, col);
+			tablaGeneral.setValueAt(b, i, 0);
 		}
 		tablaGeneral.repaint();
 	}
