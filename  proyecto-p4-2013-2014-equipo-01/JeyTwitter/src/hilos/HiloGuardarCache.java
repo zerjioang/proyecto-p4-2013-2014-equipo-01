@@ -15,11 +15,6 @@ public class HiloGuardarCache extends Thread{
 	}
 
 	public void run(){
-		try {
-			GUIController.getInstance().guardarCache(timeline);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GUIController.getInstance().guardarCache(timeline);
 	}
 }

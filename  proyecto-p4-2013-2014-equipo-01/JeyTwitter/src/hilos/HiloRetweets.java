@@ -15,19 +15,19 @@ import view.elementos.paneles.PanelPerfilUsuario;
 import view.elementos.paneles.PanelTablaTweets;
 import controller.GUIController;
 
-public class HiloMenciones extends Thread{
+public class HiloRetweets extends Thread{
 
 	PanelTablaTweets panel;
 	
-	public HiloMenciones(PanelTablaTweets panelMenciones) {
-		panel = panelMenciones;
+	public HiloRetweets(PanelTablaTweets panelRetweets) {
+		panel = panelRetweets;
 	}
 
 	public void run(){
-		GUIController.getInstance().getGui().mostrarMensaje("Cargando menciones...");
+		GUIController.getInstance().getGui().mostrarMensaje("Cargando retweets...");
 		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
 		try {
-			ArrayList<Tweet> li = GUIController.getInstance().mostrarMenciones();
+			ArrayList<Tweet> li = GUIController.getInstance().mostrarRetuits();
 			for (Tweet tweet : li) {
 				listaObjetos.add(0, new GUITweet(Util.calcularFecha(tweet.getUltimaFechaActualizacion()), tweet));
 				panel.getTabla().insertarNuevo(listaObjetos.get(0));
