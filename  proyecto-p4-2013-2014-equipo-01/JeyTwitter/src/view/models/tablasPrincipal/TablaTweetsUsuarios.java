@@ -41,7 +41,7 @@ public class TablaTweetsUsuarios extends JTable {
 		actualizarAltoFilas();
 	}
 
-	private void init() {;
+	private synchronized void init() {;
 		setFocusable(true);
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		setTableHeader(null);
@@ -69,13 +69,13 @@ public class TablaTweetsUsuarios extends JTable {
 	/**
 	 * 
 	 */
-	private void actualizarTabla(ModeloTablaTweetUsuarios modeloTabla) {
+	private synchronized void actualizarTabla(ModeloTablaTweetUsuarios modeloTabla) {
 		setModel(modeloTabla);
 		tipoTabla = listaObjetos.get(0).tipoObjeto();
 		setRenderCelda();
 	}
 	
-	private void setRenderCelda(){
+	private synchronized void setRenderCelda(){
 		if(tipoTabla == SOLO_TWEETS){
 			setDefaultRenderer(GUITweet.class, new TweetRenderer());
 			setDefaultEditor(GUITweet.class, new TweetEditor());
@@ -87,7 +87,7 @@ public class TablaTweetsUsuarios extends JTable {
 		repaint();
 	}
 	
-	public boolean isCellEditable(int row, int column){
+	public synchronized boolean isCellEditable(int row, int column){
 		return true;
 	}
 	
@@ -100,7 +100,7 @@ public class TablaTweetsUsuarios extends JTable {
 		actualizarTabla(modelo);
 	}
 
-	public void insertarLista(ArrayList<ObjetoCelda> l) {
+	public synchronized void insertarLista(ArrayList<ObjetoCelda> l) {
 		ModeloTablaTweetUsuarios modelo;
 		modelo = new ModeloTablaTweetUsuarios(listaObjetos);
 		
@@ -112,8 +112,8 @@ public class TablaTweetsUsuarios extends JTable {
 		listaObjetos = modelo.getLista();
 		actualizarTabla(modelo);
 	}
-	public void actualizarAltoFila(int fila){
-		int altoFinal = getHeight();
+	public synchronized void actualizarAltoFila(int fila){
+		/*int altoFinal = getHeight();
 		System.out.println(altoFinal);
 		for (int column = 0; column < getColumnCount(); column++)
         {
@@ -122,7 +122,8 @@ public class TablaTweetsUsuarios extends JTable {
             System.out.println(comp.getPreferredSize().height);
         }
 		System.out.println("Estableciendo alto de la fila "+fila+" en "+altoFinal);
-		setRowHeight(fila, (altoFinal+30));
+		setRowHeight(fila, (altoFinal+30));*/
+		setRowHeight(fila, 100);
 	}
 	
 	public void actualizarFilas(){
@@ -135,7 +136,7 @@ public class TablaTweetsUsuarios extends JTable {
 		}
 	}
 	
-	public ArrayList<ObjetoCelda> getListaObjetos(){
+	public synchronized ArrayList<ObjetoCelda> getListaObjetos(){
 		return listaObjetos;
 	}
 }

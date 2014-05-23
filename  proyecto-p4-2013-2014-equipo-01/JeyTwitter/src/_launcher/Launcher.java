@@ -12,7 +12,7 @@ import view.ventanas.TerminosCondiciones;
 
 public class Launcher {
 	
-	private static Splash spl;
+	private final static Splash spl = new Splash();;
 	
 			
 	public static void main(String[] args) throws IOException {
@@ -27,7 +27,6 @@ public class Launcher {
 			}
 			Interaccion.crearEstructura();//Crea la estructura de la BD si no est?? el archivo *.sqlite
 		}
-		spl = new Splash();
 		spl.mostrar(5);
 		
 		GUIController g = new GUIController();
@@ -65,20 +64,20 @@ public class Launcher {
 		spl.dispose();
 	}
 
-	public static void mostrarMensaje(String texto) {
+	public synchronized static void mostrarMensaje(String texto) {
 		if(spl!=null && spl.isVisible()){
 			spl.setTextoMensaje(texto);
 		}
 	}
 
 	
-	private static void mostrarBienvenida() {
+	private synchronized static void mostrarBienvenida() {
 		Bienvenida wc = new Bienvenida();
 		wc.setVisible(true);
 	}
 
 	
-	private static void mostrarPrincipal() {
+	private synchronized static void mostrarPrincipal() {
 		// Tenemos token, lanzamos la ventana principal
 		//Este usuario es el usuario que tiene la sesion de twitter abierta y que tiene que ser cargado
 		//de la bd o online dependiendo de si esta conectado o no
@@ -94,6 +93,7 @@ public class Launcher {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		spl.dispose();
 		//GUIController.getInstance().iniciarStreaming();
 	}
 }

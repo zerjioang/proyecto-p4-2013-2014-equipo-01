@@ -29,9 +29,10 @@ public class HiloEnviarTweet extends Thread {
 	}
 
 	public void run(){
+		System.out.println(panel.getMensaje());
 		Status s = GUIController.getInstance().enviarTweet(panel.getMensaje());
+		panel.setMensaje("");
 		if(s!=null) {
-			panel.setMensaje("");
 			TablaTweetsUsuarios tablaTimeLine = panel.getVentanaPadre().getPanelTimeLine().getTabla();
 			TablaTweetsUsuarios tablaUsuario = panel.getVentanaPadre().getPanelUsuario().getTablaTweetsUsuario();
 			Tweet t = new Tweet(s);

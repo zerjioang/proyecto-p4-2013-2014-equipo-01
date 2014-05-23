@@ -19,7 +19,7 @@ public class EventoClickEnviarTweet implements MouseListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	public synchronized void mouseClicked(MouseEvent arg0) {
 		if(panel.getMensaje().length()<140) {
 			new HiloEnviarTweet(panel).start();
 		}

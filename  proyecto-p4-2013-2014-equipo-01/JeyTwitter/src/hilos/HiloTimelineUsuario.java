@@ -12,7 +12,6 @@ import util.Util;
 import view.elementos.GUITweet;
 import view.elementos.ObjetoCelda;
 import view.elementos.paneles.PanelPerfilUsuario;
-import view.elementos.paneles.PanelTablaTweets;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 import view.ventanas.Principal;
 import controller.GUIController;
@@ -23,22 +22,20 @@ public class HiloTimelineUsuario extends Thread {
 	private TwitterService t;
 	private String usuario;
 	private Paging paging;
-	private PanelPerfilUsuario panelPerfilUsuario;
 
 	public HiloTimelineUsuario(TwitterService t, String usuario, Paging paging, PanelPerfilUsuario panelPerfilUsuario) {
 		this.t = t;
 		this.paging = paging;
 		this.usuario = usuario;
-		this.panelPerfilUsuario = panelPerfilUsuario;
 	}
 
 	public void run(){
 
 		Principal p = GUIController.getInstance().getGui();
 		try {
-			p.setTextoMensajeInformativo("Actualizando favoritos...");
-			p.mostrarSpinWheelInformativa(false);
-			p.mostrarMensajeInformativo();
+			//p.setTextoMensajeInformativo("Actualizando favoritos...");
+			//p.mostrarSpinWheelInformativa(false);
+			//p.mostrarMensajeInformativo();
 			ResponseList<Status> listaTL = t.getTimelineFromUser(usuario, paging);
 			ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 			ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
