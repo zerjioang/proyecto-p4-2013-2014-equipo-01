@@ -3,6 +3,7 @@ package view.elementos;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.IOException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.MatteBorder;
 
+import controller.GUIController;
 import util.Util;
 import view.elementos.botones.BotonSeguir;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
@@ -73,11 +75,17 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 		JPanel panel_supDer = new JPanel();
 		panel_Superior.add(panel_supDer, BorderLayout.EAST);
 		panel_supDer.setLayout(new BorderLayout(0, 0));
+		boolean esMismoUsuario = false;
+		try {
+			esMismoUsuario = lblusuario.getText().equals(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
+		} catch (IOException e) {}
 		
-		btnSeguir = new BotonSeguir(lblusuario.getText());
-		btnSeguir.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(1.0f,1.0f,1.0f,0.0f)));
-		btnSeguir.setSiguiendo(siguiendo);
-		panel_supDer.add(btnSeguir, BorderLayout.CENTER);
+		if(!esMismoUsuario){
+			btnSeguir = new BotonSeguir(lblusuario.getText());
+			btnSeguir.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(1.0f,1.0f,1.0f,0.0f)));
+			btnSeguir.setSiguiendo(siguiendo);
+			panel_supDer.add(btnSeguir, BorderLayout.CENTER);
+		}
 		
 		JPanel panel_supIzq = new JPanel();
 		panel_Superior.add(panel_supIzq, BorderLayout.WEST);

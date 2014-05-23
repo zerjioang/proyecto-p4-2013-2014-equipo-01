@@ -15,4 +15,6 @@ public interface ObjetoCelda {
 	public String getMensaje();
 
 	public String getTiempo();
+
+	public int getHeight();
 }

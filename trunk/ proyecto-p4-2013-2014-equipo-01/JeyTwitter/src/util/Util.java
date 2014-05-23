@@ -32,8 +32,9 @@ public class Util {
 
 	public static boolean DEBUG = true;
 
-	public static final int anchoPantalla = Toolkit.getDefaultToolkit().getScreenSize().width;
-	public static final int altoPantalla = Toolkit.getDefaultToolkit().getScreenSize().height;
+	public static final int ANCHO_PANTALLA = Toolkit.getDefaultToolkit().getScreenSize().width;
+	public static final int ALTO_PANTALLA = Toolkit.getDefaultToolkit().getScreenSize().height;
+	public static final int MAX_TWEETS = 5;
 
 	public static final String 
 	APP_TITULO = "JeyTuiter",
@@ -297,7 +298,6 @@ public class Util {
 	}
 
 	public static String calcularFecha(Date d) {
-		String finalStr;
 		Calendar currCal = Calendar.getInstance();
 		currCal.setTime(new Date(System.currentTimeMillis()));
 	    int currYear = currCal.get(Calendar.YEAR);

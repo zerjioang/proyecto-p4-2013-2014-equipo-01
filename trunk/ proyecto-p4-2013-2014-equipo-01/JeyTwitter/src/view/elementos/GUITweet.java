@@ -36,7 +36,6 @@ import view.eventos.celdaTweet.EventoClickImagenUsuario;
 import view.eventos.principal.EventoClickFotoUsuario;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 
-@SuppressWarnings("serial")
 public class GUITweet extends JPanel implements ObjetoCelda{
 	
 	private static final int ALTO = 70;
@@ -88,14 +87,12 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	private JEditorPane procesarMensaje(Tweet t) {
 		// TODO Auto-generated method stub
 		Util.debug("Parseando contenido del tweet...");
-		//habia que especificar por HTML el tama���o y las demas caracteristicas del texto si no se usa putClientProperty
-		//String fontfamily = Util.getFont("Roboto-Light", Font.PLAIN, 12).getFamily();
-		//"<html><font face=\"" + font.getFamily() + "\" size=\"" + font.getSize() + "\"></font>This is some text!</html>"
+
 		String mensajeFormateado = t.getTexto();
 		String linkAntes = "<a href=\"";
 		String linkMedio = "\" style=\"text-decoration:none; color: #005996\">";
 		String linkDespues = " </a>";
-
+		
 		Pattern p = Pattern.compile("(?<!\\w)@[\\w]+");
 		Matcher m = p.matcher(mensajeFormateado);
 		
@@ -123,7 +120,6 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		}
 		
 		//generar las mediaEntity para las imagenes.
-		Util.debug("Obteniendo imagen...");
 		if(GUIController.getInstance().hayConexion()){
 			try {
 				MediaEntity[] media = GUIController.getInstance().getMedias(t.getCodigo());
@@ -174,15 +170,14 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		editor.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 12));
 		editor.setText(mensajeFormateado);
 		
-		//añadir evento de click
+		//a��adir evento de click
 		editor.addHyperlinkListener(new EventoEscucharClickURL());
 	    
 		//scrollPane.setViewportView(editor);
 		return editor;
 	}
 	
-	
-	public synchronized void init(){
+	public void init(){
 		setLayout(new BorderLayout(0, 0));
 		//definicion de los botones
 		btnRetweet.setImagenClick("/res/botones/opcionesTweet/reTweetHover.png");
@@ -208,13 +203,16 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		
 		btnRetweet.setClicado(tweet.esRetweet());
 		
+		if(getNombreUsuario().equals(GUIController.getInstance().getGui().getUsuarioActual().getNombreUsuario())){
+			btnRetweet.setVisible(false);
+		}
+		
 		if(tweet.esFavorito()) {
 			btnFavorito.setIcon(new ImageIcon(GUITweet.class.getResource(btnFavorito.getImagenClicado())));
 		} else {
 			btnFavorito.setIcon(new ImageIcon(GUITweet.class.getResource(btnFavorito.getImagenNormal())));
 		}
 		btnFavorito.setClicado(tweet.esFavorito());
-		
 		btnResponder.setIcon(new ImageIcon(GUITweet.class.getResource(btnResponder.getImagenNormal())));
 		
 		btnRetweet.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -295,7 +293,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		}
 	}
 
-	private synchronized void setImagenTweet(String imagenTuit) {
+	private void setImagenTweet(String imagenTuit) {
 		BufferedImage bufferImg;
 		try {
 			bufferImg= GUIController.getInstance().pedirImagen(new URL(imagenTuit));
@@ -311,155 +309,155 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	}
 
 	
-	public synchronized String getTiempo() {
+	public String getTiempo() {
 		return lblTiempo.getText();
 	}
 
 	
-	public synchronized void setTiempo(String tiempo) {
+	public void setTiempo(String tiempo) {
 		this.lblTiempo.setText(tiempo);
 	}
 
 	
-	public synchronized String getMensaje() {
+	public String getMensaje() {
 		return txtMensaje.getText();
 	}
 
 	
-	public synchronized void setMensaje(String mensaje) {
+	public void setMensaje(String mensaje) {
 		this.txtMensaje.setText(mensaje);
 	}
 
 	
-	public synchronized BotonDosEstados getBtnResponder() {
+	public BotonDosEstados getBtnResponder() {
 		return btnResponder;
 	}
 
 	
-	public synchronized void setBtnResponder(BotonDosEstados btnResponder) {
+	public void setBtnResponder(BotonDosEstados btnResponder) {
 		this.btnResponder = btnResponder;
 	}
 
 	
-	public synchronized BotonDosEstados getBtnRetweet() {
+	public BotonDosEstados getBtnRetweet() {
 		return btnRetweet;
 	}
 
 	
-	public synchronized void setBtnRetweet(BotonDosEstados btnRetweet) {
+	public void setBtnRetweet(BotonDosEstados btnRetweet) {
 		this.btnRetweet = btnRetweet;
 	}
 
 	
-	public synchronized BotonDosEstados getBtnFavorito() {
+	public BotonDosEstados getBtnFavorito() {
 		return btnFavorito;
 	}
 
 	
-	public synchronized void setBtnFavorito(BotonDosEstados btnFavorito) {
+	public void setBtnFavorito(BotonDosEstados btnFavorito) {
 		this.btnFavorito = btnFavorito;
 	}
 
 	
-	public synchronized Icon getImagenUsuario() {
+	public Icon getImagenUsuario() {
 		return lblImagenusuario.getIcon();
 	}
 
 	
-	public synchronized void setImagenUsuario(ImageIcon imagenUsuario) {
+	public void setImagenUsuario(ImageIcon imagenUsuario) {
 		lblImagenusuario.setIcon(Util.getImagenRedondeada(imagenUsuario, REDONDEO));
 		lblImagenusuario.setIcon(Util.escalarImagen(lblImagenusuario));
 	}
 
 	
-	public synchronized String getNombreReal() {
+	public String getNombreReal() {
 		return lblNombreReal.getText();
 	}
 
 	
-	public synchronized void setNombreReal(String nombreReal) {
+	public void setNombreReal(String nombreReal) {
 		this.lblNombreReal.setText(nombreReal);
 	}
 
 	
-	public synchronized String getNombreUsuario() {
+	public String getNombreUsuario() {
 		return getTweet().getNombreUsuario();
 	}
 
 	
-	public synchronized void setNombreUsuario(String nombreUsuario) {
+	public void setNombreUsuario(String nombreUsuario) {
 		this.lblnombreUsuario.setText("@"+nombreUsuario);
 	}
 
 	@Override
-	public synchronized int tipoObjeto() {
+	public int tipoObjeto() {
 		return TablaTweetsUsuarios.SOLO_TWEETS;
 	}
 	
-	public synchronized ImageIcon getImagenTweetMiniatura(){
+	public ImageIcon getImagenTweetMiniatura(){
 		return img[1];
 	}
 
-	public synchronized ImageIcon getImagenTweetOriginal(){
+	public ImageIcon getImagenTweetOriginal(){
 		return img[0];
 	}
 	
-	public synchronized void setImagenTweet(ImageIcon imagenTweet) {
+	public void setImagenTweet(ImageIcon imagenTweet) {
 		lblImagenTweet.setIcon(imagenTweet);
 		lblImagenTweet.setIcon(Util.escalarImagen(lblImagenTweet));
 		img[1]=(ImageIcon) lblImagenTweet.getIcon();
 	}
 
 	
-	public synchronized JLabel getLblImagenTweet() {
+	public JLabel getLblImagenTweet() {
 		return lblImagenTweet;
 	}
 
 	
-	public synchronized void setLblImagenTweet(JLabel lblImagenTweet) {
+	public void setLblImagenTweet(JLabel lblImagenTweet) {
 		this.lblImagenTweet = lblImagenTweet;
 	}
 
-	public synchronized void setBordeImagenTweet(int i, int j, int k, int l, Color color) {
+	public void setBordeImagenTweet(int i, int j, int k, int l, Color color) {
 		lblImagenTweet.setBorder(new MatteBorder(i,j,k,l, color));
 	}
 
 	
-	public synchronized Tweet getTweet() {
+	public Tweet getTweet() {
 		return tweet;
 	}
 	
-	public synchronized void setTweet(Tweet tweet) {
+	public void setTweet(Tweet tweet) {
 		this.tweet = tweet;
 	}
 
 	
-	public synchronized ArrayList<String> getUsuarioMencionado() {
+	public ArrayList<String> getUsuarioMencionado() {
 		return usuarioMencionado;
 	}
 
 	
-	public synchronized void setUsuarioMencionado(ArrayList<String> usuarioMencionado) {
+	public void setUsuarioMencionado(ArrayList<String> usuarioMencionado) {
 		this.usuarioMencionado = usuarioMencionado;
 	}
 
 	
-	public synchronized ArrayList<String> getHashtagTweet() {
+	public ArrayList<String> getHashtagTweet() {
 		return hashtagTweet;
 	}
 
 	
-	public synchronized void setHashtagTweet(ArrayList<String> hashtagTweet) {
+	public void setHashtagTweet(ArrayList<String> hashtagTweet) {
 		this.hashtagTweet = hashtagTweet;
 	}
 
 	
-	public synchronized ArrayList<String> getUrlsTweet() {
+	public ArrayList<String> getUrlsTweet() {
 		return urlsTweet;
 	}
 
 	
-	public synchronized void setUrlsTweet(ArrayList<String> urlsTweet) {
+	public void setUrlsTweet(ArrayList<String> urlsTweet) {
 		this.urlsTweet = urlsTweet;
 	}
 }
