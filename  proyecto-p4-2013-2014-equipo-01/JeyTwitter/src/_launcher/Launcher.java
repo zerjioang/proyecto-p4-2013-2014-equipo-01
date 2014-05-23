@@ -25,7 +25,7 @@ public class Launcher {
 			if(!t.isCondicionesAceptadas()){
 				return;
 			}
-			Interaccion.crearEstructura();//Crea la estructura de la BD si no est?? el archivo *.sqlite
+			Interaccion.crearEstructura();//Crea la estructura de la BD si no esta el archivo *.sqlite
 		}
 		spl.mostrar(5);
 		
@@ -64,20 +64,20 @@ public class Launcher {
 		spl.dispose();
 	}
 
-	public synchronized static void mostrarMensaje(String texto) {
+	public static void mostrarMensaje(String texto) {
 		if(spl!=null && spl.isVisible()){
 			spl.setTextoMensaje(texto);
 		}
 	}
 
 	
-	private synchronized static void mostrarBienvenida() {
+	private static void mostrarBienvenida() {
 		Bienvenida wc = new Bienvenida();
 		wc.setVisible(true);
 	}
 
 	
-	private synchronized static void mostrarPrincipal() {
+	private static void mostrarPrincipal() {
 		// Tenemos token, lanzamos la ventana principal
 		//Este usuario es el usuario que tiene la sesion de twitter abierta y que tiene que ser cargado
 		//de la bd o online dependiendo de si esta conectado o no

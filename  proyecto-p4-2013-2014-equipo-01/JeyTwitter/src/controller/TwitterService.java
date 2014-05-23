@@ -145,6 +145,15 @@ public class TwitterService {
 		return list;
 	}
 	
+	public ResponseList<Status> getTimeline(Paging p) throws TwitterException {
+		ResponseList<Status> list = null;
+
+		if (tw != null) {
+			list = tw.getHomeTimeline(p);						
+		}
+		return list;
+	}
+	
 	public ResponseList<Status> getTimelineFromUser(String usuario, Paging paging) throws TwitterException {
 		
 		return tw.getUserTimeline(usuario, paging);
