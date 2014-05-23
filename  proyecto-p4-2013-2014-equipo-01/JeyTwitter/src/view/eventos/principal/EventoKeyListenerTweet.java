@@ -15,17 +15,11 @@ public class EventoKeyListenerTweet implements KeyListener {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-	}
+	public void keyPressed(KeyEvent e) {}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		panel.setContador(String.valueOf(140 - panel.getMensaje().length()));
 		if (panel.getMensaje().length()>140 || panel.getMensaje().length() == 0){
@@ -36,6 +30,10 @@ public class EventoKeyListenerTweet implements KeyListener {
 			panel.getLblContador().setForeground(Color.BLACK);
 		}
 		
+	
 	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
 
 }

@@ -4,7 +4,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import controller.GUIController;
-import controller.TwitterService;
 import twitter4j.TwitterException;
 import view.elementos.botones.BotonSeguir;
 

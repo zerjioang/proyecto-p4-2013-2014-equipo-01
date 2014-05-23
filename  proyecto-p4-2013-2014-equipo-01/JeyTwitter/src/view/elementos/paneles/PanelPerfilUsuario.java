@@ -1,5 +1,7 @@
 package view.elementos.paneles;
 
+import hilos.HiloTimelineUsuario;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -53,38 +55,8 @@ public class PanelPerfilUsuario extends JPanel {
 	
 	private Contador cTweets, cFavoritos, cSiguiendo, cSeguidores;
 	private Usuario us;
-/*
-	public PanelPerfilUsuario(Usuario uActual){
-		this();
-		us = uActual;
-		init();
-	}
-	*/
-	@Deprecated
-	public PanelPerfilUsuario(){
-		super();
-		cTweets = new Contador();
-		cFavoritos = new Contador();
-		cSiguiendo = new Contador();
-		cSeguidores = new Contador();
-		
-		lblImagenUsuario = new JLabel("");
-		lblImagenFondo = new JLabel("");
-		lbluser = new JLabel("@ElNerd-de-losNerd-EstaAqui");
-		lblNombreApellidos = new JLabel("Nombre Apellido1 Apellido2");
-		lblBiografia = new JTextArea("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et felis vestibulum, laoreet ipsum vel, varius nunc. Suspendisse porta nibh odio, in porta ipsum consectetur tincidunt. Nulla eget sollicitudin ligula. Maecenas non justo id lorem porta ullamcorper vel vitae quam.");
-		
-		btnDejarDeSeguir = new BotonSeguir("");
-		
-		btnTweets = new CoolBlueButton("Tweets");
-		btnFavoritos = new CoolBlueButton("Favoritos");
-		btnSeguidores = new CoolBlueButton("Seguidores");
-		btnSiguiendo = new CoolBlueButton("Siguiendo");
-		
-		tablaTweetsUsuario = new TablaTweetsUsuarios(0);
-		
-		init();
-	}
+	
+	private HiloTimelineUsuario hiloTimeline;
 	
 	public PanelPerfilUsuario(Usuario u){
 		super();
@@ -108,16 +80,12 @@ public class PanelPerfilUsuario extends JPanel {
 		btnFavoritos = new CoolBlueButton("Favoritos");
 		btnSeguidores = new CoolBlueButton("Seguidores");
 		btnSiguiendo = new CoolBlueButton("Siguiendo");
-		try {
-			GUIController.getInstance().obtenerTimelineDeUsuario(u.getNombreUsuario(), new Paging(2), this);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		tablaTweetsUsuario = new TablaTweetsUsuarios(listaObjetos);
 		
+		
 		init();
+		hiloTimeline = new HiloTimelineUsuario(this);
+		hiloTimeline.start();
 	}
 	
 	/**
@@ -140,6 +108,10 @@ public class PanelPerfilUsuario extends JPanel {
 		init();
 	}
 	
+	public PanelPerfilUsuario() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private void init() {
 		setAlignmentY(Component.TOP_ALIGNMENT);
 		setLayout(new BorderLayout(0, 0));
@@ -150,7 +122,6 @@ public class PanelPerfilUsuario extends JPanel {
 		
 		JPanel panel_perfilImagen = new JPanel();
 		panel_usuarioGeneral.add(panel_perfilImagen, BorderLayout.NORTH);
-		
 		
 		panel_perfilImagen.add(lblImagenUsuario);
 		lblImagenUsuario.setHorizontalAlignment(SwingConstants.CENTER);
@@ -442,6 +413,14 @@ public class PanelPerfilUsuario extends JPanel {
 	}
 	public static Color getColorFondo() {
 		return COLOR_FONDO;
+	}
+
+	public HiloTimelineUsuario getHiloTimeline() {
+		return hiloTimeline;
+	}
+
+	public void setHiloTimeline(HiloTimelineUsuario hiloTimeline) {
+		this.hiloTimeline = hiloTimeline;
 	}
 
 }

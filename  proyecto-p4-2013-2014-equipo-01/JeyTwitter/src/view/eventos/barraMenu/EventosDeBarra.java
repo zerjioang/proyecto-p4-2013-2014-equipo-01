@@ -1,13 +1,7 @@
 package view.eventos.barraMenu;
 
-import view.parents.CustomJDialog;
-import view.parents.CustomJDialogWithBar;
-import view.parents.CustomJFrame;
 import view.parents.Moveable;
-import view.ventanas.AcercaDe;
-import view.ventanas.MensajeWindow;
 
-import java.awt.Window;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
