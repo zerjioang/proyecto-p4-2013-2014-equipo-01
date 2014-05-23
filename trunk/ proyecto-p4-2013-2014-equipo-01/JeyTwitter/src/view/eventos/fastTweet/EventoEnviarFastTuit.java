@@ -5,7 +5,6 @@ import hilos.HiloResponderTweet;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import controller.GUIController;
 import view.ventanas.TweetRapido;
 
 public class EventoEnviarFastTuit implements MouseListener {
@@ -19,7 +18,7 @@ public class EventoEnviarFastTuit implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(fastTuit.getBtnEnviar().isEnabled() && fastTuit.getMensaje().length()!=0) {
-			new HiloResponderTweet(fastTuit).start();
+            new HiloResponderTweet(fastTuit).start();
 		}
 	}
 

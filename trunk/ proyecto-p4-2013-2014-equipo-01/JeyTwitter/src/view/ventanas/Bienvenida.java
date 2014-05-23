@@ -113,14 +113,6 @@ public class Bienvenida extends CustomJFrame {
 		ImageIcon imagen = new ImageIcon(Bienvenida.class.getResource("/res/images/bg_welcome.png"));
 		lblBackimg.setIcon(imagen);
 
-		/*JPanel[] paneles = new JPanel[2];
-		for (int i = 0; i < paneles.length; i++) {
-			paneles[i] = new JPanel();
-			paneles[i].setBounds(0, 0, getMainPanel().getWidth(), getMainPanel().getHeight());
-		}
-		getMainPanel().add(paneles[0]);
-		paneles[0].setForeground(Color.YELLOW);*/
-
 		setLocationRelativeTo(null);
 	}
 

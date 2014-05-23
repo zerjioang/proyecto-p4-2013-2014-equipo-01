@@ -4,11 +4,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 
-import javax.swing.JOptionPane;
-
 import util.Util;
 import view.ventanas.Principal;
 import controller.sql.Interaccion;
+
 public class EventoClickConfig implements MouseListener {
 	
 	private final Principal p;
@@ -29,23 +28,15 @@ public class EventoClickConfig implements MouseListener {
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		
-	}
+	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 }

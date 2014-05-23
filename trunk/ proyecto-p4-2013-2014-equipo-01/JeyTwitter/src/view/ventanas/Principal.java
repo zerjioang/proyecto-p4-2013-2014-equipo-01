@@ -1,5 +1,10 @@
 package view.ventanas;
 
+import hilos.HiloFavoritos;
+import hilos.HiloMenciones;
+import hilos.HiloRetweets;
+import hilos.HiloTimeline;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -91,15 +96,10 @@ public class Principal extends CustomJFrame {
 		panel_stats = new PanelEstadistica();
 		lblImagen = new JLabel(usuarioActual.getNombreUsuario());
 		try {
-			Launcher.mostrarMensaje("Cargando perfil de usuario...");
 			panelUsuario = new PanelPerfilUsuario(usuarioActual);
-			Launcher.mostrarMensaje("Cargando timeline...");
 			timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(0));
-			Launcher.mostrarMensaje("Cargando menciones...");
 			menciones = new PanelTablaTweets(new TablaTweetsUsuarios(0));
-			Launcher.mostrarMensaje("Cargando retweets...");
 			retweets  = new PanelTablaTweets(new TablaTweetsUsuarios(0));
-			Launcher.mostrarMensaje("Cargando favoritos...");
 			favoritos = new PanelTablaTweets(new TablaTweetsUsuarios(0));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,25 +113,19 @@ public class Principal extends CustomJFrame {
 			setTextoMensajeInformativo("Esta usando "+Util.APP_TITULO+" sin conexion");
 			mostrarMensajeInformativo();
 		}
+		else{
+			ocultarMensajeInformativo();
+		}
 		long ahora = System.currentTimeMillis();
 		int s = (int) (ahora - Splash.inicio)/1000;
 		System.out.println("Tiempo desde el inicio de la aplicacion: "+s+" segundos - "+s/60.0+" minutos");
 	}
 	
 	public void mostrarDatos(){
-		try {
-			GUIController.getInstance().mostrarFavoritos();
-			GUIController.getInstance().mostrarMenciones();
-			GUIController.getInstance().mostrarPerfil();
-			GUIController.getInstance().mostrarRetuits();
-			GUIController.getInstance().mostrarTimeline();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		new HiloMenciones(getPanelMenciones()).start();
+		new HiloFavoritos(getPanelFavoritos()).start();
+		new HiloRetweets(getPanelRetweets()).start();
+		new HiloTimeline(getPanelTimeLine()).start();
 	}
 	public void mostrarSpinWheelInformativa(boolean b) {
 		spinningWheel.setVisible(b);
@@ -156,14 +150,14 @@ public class Principal extends CustomJFrame {
 		panelApp.add(panelInferior, BorderLayout.SOUTH);
 		
 		panelInformativo = new JPanel();
-		panelInformativo.setBackground(Color.BLUE);
+		panelInformativo.setBackground(Color.WHITE);
 		panelApp.add(panelInformativo, BorderLayout.NORTH);
 		
 		lblMensajeInformativo = new JLabel(" ");
 		lblMensajeInformativo.setBorder(new MatteBorder(5, 0, 3, 0, (Color) new Color(0, 0, 0, 0)));
 		lblMensajeInformativo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMensajeInformativo.setText("Mensaje");
-		lblMensajeInformativo.setForeground(Color.WHITE);
+		lblMensajeInformativo.setForeground(Color.BLACK);
 		lblMensajeInformativo.setFont(Util.getFont("roboto-regular", Font.PLAIN, 12));
 		lblMensajeInformativo.setVisible(false);
 		panelInformativo.setLayout(new BorderLayout(0, 0));
@@ -228,7 +222,7 @@ public class Principal extends CustomJFrame {
 		panelIzq.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblConfig = new JLabel("Cerrar sesión");
+		JLabel lblConfig = new JLabel("Cerrar sesion");
 		lblConfig.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblConfig.setForeground(Color.WHITE);
 		lblConfig.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -273,10 +267,12 @@ public class Principal extends CustomJFrame {
 	}
 	
 	public void setColorFondoMensajeInformativo(Color c){
-		panelInformativo.setForeground(c);
+		lblMensajeInformativo.setBackground(c);
+		panelInformativo.setBackground(c);
 	}
 	
 	public void setColorTextoMensajeInformativo(Color c){
+		lblMensajeInformativo.setForeground(c);
 		lblMensajeInformativo.setForeground(c);
 	}
 	
@@ -294,7 +290,7 @@ public class Principal extends CustomJFrame {
 		}
 	}
 	
-	public synchronized void ocultarMensajeInformativo(){
+	public void ocultarMensajeInformativo(){
 		Color a = lblMensajeInformativo.getForeground();
 		Color b = panelInformativo.getForeground();
 		for (float i = 1f; i > 0.0f; i-=0.1f) {
@@ -444,5 +440,12 @@ public class Principal extends CustomJFrame {
 
 	public void setPanelUsuario(PanelPerfilUsuario panelUsuario) {
 		this.panelUsuario = panelUsuario;
+	}
+
+	public void mostrarMensaje(String string) {
+		GUIController.getInstance().getGui().setTextoMensajeInformativo(string);
+		GUIController.getInstance().getGui().setColorTextoMensajeInformativo(Color.BLACK);
+		GUIController.getInstance().getGui().setColorFondoMensajeInformativo(Color.WHITE);
+		GUIController.getInstance().getGui().mostrarMensajeInformativo();
 	}
 }

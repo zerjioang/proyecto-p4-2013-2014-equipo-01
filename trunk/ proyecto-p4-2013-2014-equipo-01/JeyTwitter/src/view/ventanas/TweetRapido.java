@@ -142,8 +142,8 @@ public class TweetRapido extends InvisibleJFrame {
 	public void colocarVentana(TweetRapido tr, int x, int y) {
 		//Hay que controlar que la ventana este dentro de la pantalla
 		tr.setLocation(new Point(x, y));
-		int anchoPantalla = Util.anchoPantalla;
-		int altoPantalla = Util.altoPantalla;
+		int anchoPantalla = Util.ANCHO_PANTALLA;
+		int altoPantalla = Util.ALTO_PANTALLA;
 		int xv = tr.getLocation().x;
 		int yv = tr.getLocation().y;
 		int anchoVentana = tr.getWidth();
