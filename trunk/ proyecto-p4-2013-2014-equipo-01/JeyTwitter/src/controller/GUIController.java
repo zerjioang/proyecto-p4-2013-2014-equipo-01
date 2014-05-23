@@ -1,12 +1,5 @@
 package controller;
 
-import hilos.HiloFavoritos;
-import hilos.HiloMenciones;
-import hilos.HiloPerfil;
-import hilos.HiloRetuits;
-import hilos.HiloTimeline;
-import hilos.HiloTimelineUsuario;
-
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -23,7 +16,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 import model.Tweet;
 import model.Usuario;
@@ -42,9 +34,6 @@ import view.elementos.GUITweet;
 import view.elementos.GuiTwitterUsuario;
 import view.elementos.ObjetoCelda;
 import view.elementos.paneles.PanelBusqueda;
-import view.elementos.paneles.PanelPerfilUsuario;
-import view.elementos.paneles.PanelTablaTweets;
-import view.models.tablasPrincipal.TablaTweetsUsuarios;
 import view.ventanas.Principal;
 import _launcher.Launcher;
 import controller.sql.Interaccion;
@@ -59,12 +48,13 @@ public class GUIController {
 
 	private static TwitterService t;
 	private boolean online;
+	private boolean hayCache;
 	private Principal gui;
 
 	/* Metodos para el funcionamiento del singleton */
 	public GUIController() {}
 
-	private synchronized static void crearInstancia() {
+	private static void crearInstancia() {
 		if (instancia == null) { 
 			instancia = new GUIController();
 			try {        	
@@ -84,66 +74,190 @@ public class GUIController {
 	/* Fin de los metodos para el funcionamiento del singleton */
 
 	
-	public synchronized void autenticar() throws Exception {
+	public void autenticar() throws Exception {
 		t = new TwitterService(CONSUMER_KEY, CONSUMER_KEY_SECRET);
 	}
 
 	
-	public synchronized ArrayList<Tweet> mostrarTimeline() throws IOException {
+	public ArrayList<Tweet> mostrarTimeline() throws IOException {
+		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-		
-		timeline = Interaccion.extraerTweets(getUsuarioRegistrado().getNombreUsuario());
-		
-		if (hayConexion()) {
-			new HiloTimeline(t).start();		
+		//Recuperar tweets de la BD
+		//Cargar nuevos
+		if(hayConexion()){
+			try {
+				listaTL = t.getTimeline();
+				for (Status each : listaTL) {
+					Tweet t;
+					t = new Tweet(each);
+					timeline.add(0, t);
+				}
+			} catch (TwitterException e) {
+				// Error al recuperar el timeline
+				System.err.println("Error al recuperar el timeline "+e.getMessage());
+			}
 		}
-		
+		//caso 4: (no hay nada) muestra mensaje de error. no internet. no cache.
+		else{
+			Util.showError(null, "Datos no disponibles", "Se requiere conexiona Internet para iniciar", "Aceptar", "Cancelar");
+		}
 		return timeline;
 	}
 	
-	public synchronized void obtenerTimelineDeUsuario(String usuario, Paging paging, PanelPerfilUsuario panelPerfilUsuario) throws MalformedURLException, IOException {
-		if (hayConexion()) {
-			new HiloTimelineUsuario(t, usuario, paging, panelPerfilUsuario).start();
+	public ArrayList<Tweet> mostrarTimeline(int max) throws IOException {
+		ResponseList<Status> listaTL;
+		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+		//Recuperar tweets de la BD
+		//Cargar nuevos
+		if(hayConexion()){
+			try {
+				for (int j = 1; j <= max; j++) {
+					listaTL = t.getTimeline(new Paging(j));
+					for (Status each : listaTL) {
+						Tweet t;
+						t = new Tweet(each);
+						timeline.add(0, t);
+					}
+				}
+			} catch (TwitterException e) {
+				// Error al recuperar el timeline
+				System.err.println("Error al recuperar el timeline "+e.getMessage());
+			}
 		}
+		//caso 4: (no hay nada) muestra mensaje de error. no internet. no cache.
+		else{
+			Util.showError(null, "Datos no disponibles", "Se requiere conexiona Internet para iniciar", "Aceptar", "Cancelar");
+		}
+		return timeline;
+	}
+	
+	public ArrayList<Tweet> obtenerTimelineDeUsuario(String usuario, Paging paging) throws MalformedURLException, IOException {
+		ArrayList<Tweet> objetosTweet = new ArrayList<Tweet>();
+		
+		try {
+			for (int i = 1; i <= paging.getPage(); i++) {
+				ResponseList<Status> statuses = t.getTimelineFromUser(usuario, new Paging(i));
+				for (Status each : statuses) {
+					Tweet t = new Tweet(each);
+					objetosTweet.add(0, t);
+				}
+			}
+		} catch (TwitterException e) {
+			
+		}
+		return objetosTweet;
 	}
 	
 	
-	public synchronized void mostrarMenciones() throws MalformedURLException, IOException {
+	public ArrayList<Tweet> mostrarMenciones() throws MalformedURLException, IOException {
+		ResponseList<Status> listaTL;
+		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+		
 		if (hayConexion()) {
-			new HiloMenciones(t).start();
+			try {
+				listaTL = t.getMentions();
+				for (Status each : listaTL) {
+					Tweet t;
+					t = new Tweet(each);
+					timeline.add(0, t);
+				}
+			} catch (TwitterException e) {
+				// Error al recuperar el timeline
+				e.printStackTrace();
+			}
+		} else {/*
+			for (int i = 0; i<20; i++) {
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
+				timeline.add(t);
+			}*/
 		}
+		return timeline;
 	}
 	
-	public void guardarCache(ArrayList<Tweet> tl) throws IOException {
-		Interaccion.insertarTweets(tl, getUsuarioRegistrado().getNombreUsuario(), "png");
-	}
 	
-	public synchronized void mostrarRetuits() throws IOException {
+	public ArrayList<Tweet> mostrarRetuits() throws IOException {
+		ResponseList<Status> listaTL;
+		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+		
 		if (hayConexion()) {
-			new HiloRetuits(t).start();
+			try {
+				listaTL = t.getRetweetsOfMe();
+				for (Status each : listaTL) {
+					Tweet t;
+					t = new Tweet(each);
+					timeline.add(0, t);
+				}
+			} catch (TwitterException e) {
+				// Error al recuperar el timeline
+				e.printStackTrace();
+			}
+		} else {/*
+			for (int i = 0; i<20; i++) {
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
+				timeline.add(t);
+			}*/
 		}
+		return timeline;
 	}
 
 	
-	public synchronized BufferedImage pedirImagen(URL url) throws IOException {
+	public BufferedImage pedirImagen(URL url) throws IOException {
 		return ImageIO.read(url);
 	}
 	
 	
-	public synchronized void mostrarPerfil() throws IOException {
+	public ArrayList<Tweet> mostrarPerfil() throws IOException {
+		ResponseList<Status> listaTL;
+		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+		
 		if (hayConexion()) {
-			new HiloPerfil(t).start();
+			try {
+				listaTL = t.getProfileTuits();
+				for (Status each : listaTL) {
+					Tweet t;
+					t = new Tweet(each);
+					timeline.add(0, t);
+				}
+			} catch (TwitterException e) {
+				// Error al recuperar el timeline
+				e.printStackTrace();
+			}
+		} else {
+			/*for (int i = 0; i<20; i++) {
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
+				timeline.add(t);
+			}*/
 		}
+		return timeline;
 	}
 	
 	
-	public synchronized void mostrarFavoritos() throws IOException {
+	public ArrayList<Tweet> mostrarFavoritos() throws IOException {
+		ResponseList<Status> listaTL;
+		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
+		
 		if (hayConexion()) {
-			new HiloFavoritos(t).start();
+			try {
+				listaTL = t.getFavorites();
+				for (Status each : listaTL) {
+					Tweet t;
+					t = new Tweet(each);
+					timeline.add(0, t);
+				}
+			} catch (TwitterException e) {
+				// Error al recuperar el timeline
+				e.printStackTrace();
+			}
+		} else {/*
+			for (int i = 0; i<20; i++) {
+				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
+				timeline.add(t);
+			}*/
 		}
+		return timeline;
 	}
 	
-	public synchronized boolean marcarRetuit(long codigo) {
+	public boolean marcarRetuit(long codigo) {
 		try {
 			t.retweetear(codigo);
 			return true;
@@ -154,7 +268,7 @@ public class GUIController {
 		}
 	}
 	
-	public synchronized boolean marcarFavorito(long codigo) {
+	public boolean marcarFavorito(long codigo) {
 		try {
 			t.favorito(codigo);
 			return true;
@@ -167,7 +281,7 @@ public class GUIController {
 		}
 	}
 	
-	public synchronized void responderTuit(long codigo, String texto) {
+	public void responderTuit(long codigo, String texto) {
 		StatusUpdate respuesta = new StatusUpdate(texto);
 		respuesta.setInReplyToStatusId(codigo);
 		
@@ -179,7 +293,7 @@ public class GUIController {
 		}
 	}
 	
-	public synchronized Usuario getUsuario(long id) throws IOException {
+	public Usuario getUsuario(long id) throws IOException {
 		User user = null;
 		Usuario u = null;
 		try {
@@ -199,7 +313,7 @@ public class GUIController {
 		return u;
 	}
 	
-	public synchronized Usuario getUsuario(String screenName) throws IOException {
+	public Usuario getUsuario(String screenName) throws IOException {
 		User user = null;
 		Usuario u = null;
 		try {
@@ -240,7 +354,7 @@ public class GUIController {
 		return u;
 	}
 
-	public synchronized boolean hayConexion() {
+	public boolean hayConexion() {
 		@SuppressWarnings("unused")
 		InetAddress address;
 		//Util.debug("Comprobando conexion...");
@@ -274,7 +388,7 @@ public class GUIController {
 	}
 
 	
-	public synchronized void solicitarCodigo() {
+	public void solicitarCodigo() {
 		try {
 			t.pedirCodigo();
 		} catch (Exception e) {
@@ -284,7 +398,7 @@ public class GUIController {
 	}
 
 	
-	public synchronized boolean recuperarTokenUsuarioGuardado() {
+	public boolean recuperarTokenUsuarioGuardado() {
 		ArrayList<Usuario> usuariosAlmacenados = Interaccion.extraerUsuarios();
 		System.out.println("El tama��o de la tabla usuarios es: "+usuariosAlmacenados.size());
 		Launcher.mostrarMensaje("Recuperando credenciales...");
@@ -292,8 +406,8 @@ public class GUIController {
 			// Hay resultados, aunque solo esperamos una fila.
 			// Asignamos el token y a otra cosa
 			System.out.println("El token de la BBDD es "+usuariosAlmacenados.get(0).getToken());
+			Launcher.mostrarMensaje("Esperando respuesta de Twitter...");
 			t.recuperarToken(usuariosAlmacenados.get(0).getToken(), usuariosAlmacenados.get(0).getTokenSecreto());
-
 			return true;
 		} else {
 			System.out.println("No hay usuarios guardados.");
@@ -303,15 +417,15 @@ public class GUIController {
 
 	}
 	
-	public synchronized MediaEntity[] getMedias(long idTweet) throws TwitterException {
+	public MediaEntity[] getMedias(long idTweet) throws TwitterException {
 		return t.getMediaEntities(idTweet);
 	}
 	
-	public synchronized URLEntity[] getURLs(long idTweet) throws TwitterException {
+	public URLEntity[] getURLs(long idTweet) throws TwitterException {
 		return t.getURLEntities(idTweet);
 	}
 	
-	public synchronized UserMentionEntity[] getMenciones(long idTweet) throws TwitterException {
+	public UserMentionEntity[] getMenciones(long idTweet) throws TwitterException {
 		return t.getMentionEntities(idTweet);
 	}
 
@@ -329,19 +443,20 @@ public class GUIController {
 	}
 
 	
-	public Status enviarTweet(String texto) {
-		// Se supone que recoge el texto del textfield de turno
-		try {
-			StatusUpdate update = new StatusUpdate(texto);
-			return t.tweet(update);
-		} catch (TwitterException e) {
-			// Error al tuitear, mostrar mensaje
-		}
-		return null;
-	}
+	public Tweet enviarTweet(String texto) {
+        // Se supone que recoge el texto del textfield de turno
+        try {
+                StatusUpdate update = new StatusUpdate(texto);
+                Status s = t.tweet(update);
+                return new Tweet(s);
+        } catch (TwitterException e) {
+                // Error al tuitear, mostrar mensaje
+        }
+        return null;
+}
 
 	
-	public synchronized void menuConsola() {
+	public void menuConsola() {
 		try {
 			this.autenticar();
 		} catch (Exception e1) {
@@ -364,7 +479,7 @@ public class GUIController {
 			System.out.println("");
 			System.out.println("Pulsa 'q' para salir.");
 			System.out.println();
-			System.out.print("Seleciona una opci������n:");
+			System.out.print("Seleciona una opci������������������n:");
 			try {
 				input = reader.readLine();
 				switch(input) {
@@ -419,11 +534,11 @@ public class GUIController {
 		return listaTweets;
 	}*/
 	
-	public synchronized ArrayList<ObjetoCelda> buscarTweets(String str) throws IOException{
+	public ArrayList<ObjetoCelda> buscarTweets(String str) throws IOException{
 		ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
-		 Util.debug("iniciando busqueda de tweets...");
+		Util.debug("iniciando busqueda de tweets...");
 		List<Status> tweets = t.buscarTuit(str);
-		 Util.debug("mostrando tweets...");
+		Util.debug("mostrando tweets...");
 		for (Status t : tweets) {
 			listaTweets.add(0, new GUITweet(Util.calcularFecha(t.getCreatedAt()), new Tweet(t)));
 			actualizarPanelBusqueda(listaTweets);
@@ -432,11 +547,11 @@ public class GUIController {
 		return listaTweets;
 	}
 	
-	public synchronized ArrayList<ObjetoCelda> buscarUsuarios(String str, int maxPages) {
+	public ArrayList<ObjetoCelda> buscarUsuarios(String str, int maxPages) {
         ArrayList<ObjetoCelda> usuarios = new ArrayList<ObjetoCelda>();
         Util.debug("iniciando busqueda de usuarios...");
-        
         ArrayList<User> users = t.buscarUsuario(str, maxPages);
+        Util.debug("mostrando tweets...");
         for (User user : users) {
         	ImageIcon i;
         	URL urlImage;
@@ -448,43 +563,47 @@ public class GUIController {
 				usuarios.add(0, new GuiTwitterUsuario(user.getName(), user.getScreenName(), i, user.getDescription(), isfriend));
 				actualizarPanelBusqueda(usuarios);
 			} catch (IOException | IllegalStateException | TwitterException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println("Error al buscar: "+e.getMessage());
 			}
         }
-        
+        Util.debug("busqueda finalizada.");
         return usuarios;
 	}
 	
 	
-	private synchronized void actualizarPanelBusqueda(ArrayList<ObjetoCelda> users) {
+	public void actualizarPanelBusqueda(ArrayList<ObjetoCelda> users) {
 		PanelBusqueda pb = new PanelBusqueda(users);
 		gui.setPanelBusqueda(pb);
 	}
 
-	public synchronized boolean isAmigo(String user1, String user2) {
+	public boolean isAmigo(String user1, String user2) {
 		return t.esSeguidor(user1, user2);
 	}
 	
-	public synchronized void iniciarStreaming(){
+	public void iniciarStreaming(){
 		t.iniciarStreaming();
 	}
 	
-	public synchronized void seguirUsuario(String nombreUsuario) throws TwitterException {
+	public void seguirUsuario(String nombreUsuario) throws TwitterException {
 		t.seguirUsuario(nombreUsuario);
 	}
 	
-	public synchronized void dejarDeSeguirUsuario(String nombreUsuario) throws TwitterException {
+	public void dejarDeSeguirUsuario(String nombreUsuario) throws TwitterException {
 		t.dejarDeSeguirUsuario(nombreUsuario);
 	}
 
 	
-	public synchronized Principal getGui() {
+	public Principal getGui() {
 		return gui;
 	}
 
 	
 	public void setGui(Principal gui) {
 		this.gui = gui;
+	}
+
+	public void guardarCache(ArrayList<Tweet> timeline) {
+		// TODO Auto-generated method stub
+		
 	}
 }
