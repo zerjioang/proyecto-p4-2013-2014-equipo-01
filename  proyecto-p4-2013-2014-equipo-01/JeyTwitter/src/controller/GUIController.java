@@ -329,19 +329,15 @@ public class GUIController {
 	}
 
 	
-	public boolean enviarTweet(String texto) {
-		// Se supone que recoge el texto de el textfield de turno
+	public Status enviarTweet(String texto) {
+		// Se supone que recoge el texto del textfield de turno
 		try {
 			StatusUpdate update = new StatusUpdate(texto);
-			
-			t.tweet(update);
-			
-			return true;
+			return t.tweet(update);
 		} catch (TwitterException e) {
 			// Error al tuitear, mostrar mensaje
-			e.printStackTrace();
-			return false;
 		}
+		return null;
 	}
 
 	

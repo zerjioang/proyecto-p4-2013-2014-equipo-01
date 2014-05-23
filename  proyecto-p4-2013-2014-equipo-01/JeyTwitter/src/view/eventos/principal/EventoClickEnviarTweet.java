@@ -1,5 +1,7 @@
 package view.eventos.principal;
 
+import hilos.HiloEnviarTweet;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -19,43 +21,20 @@ public class EventoClickEnviarTweet implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		if(panel.getMensaje().length()<140) {
-			if(GUIController.getInstance().enviarTweet(panel.getMensaje())) {
-				try {
-					System.out.println("Tweet enviado con exito.");
-					panel.setMensaje("");
-					panel.getVentanaPadre().recargarTweets(Principal.TIMELINE);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				System.out.println("Ha ocurrido un error al enviar el tweet.");
-			}			
+			new HiloEnviarTweet(panel).start();
 		}
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseEntered(MouseEvent arg0) {}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseExited(MouseEvent arg0) {}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mousePressed(MouseEvent arg0) {}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseReleased(MouseEvent arg0) {}
 
 }

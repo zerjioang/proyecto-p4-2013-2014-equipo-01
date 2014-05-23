@@ -19,13 +19,11 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 	private final PanelPerfilUsuario p;
 	private Contador c;
 	private int opcion;
-	private long id;
 
 	public EventoVerContadorPerfilusuario(PanelPerfilUsuario panelPerfilUsuario, Contador c, int opcion) {
 		p = panelPerfilUsuario;
 		this.c = c;
 		this.opcion = opcion;
-		this.id = p.getIdUsuario();
 	}
 
 	@Override
@@ -55,7 +53,7 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		c.setVisible(false);
+		c.dispose();
 	}
 
 	@Override
@@ -72,13 +70,9 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 		mover(e);
 	}
 
-	/**
-	 * @param e
-	 */
 	private void mover(MouseEvent e) {
 		int x = e.getXOnScreen();
 		int y = e.getYOnScreen();
 		c.setLocation(x-30, y-c.getHeight());
 	}
-
 }

@@ -88,7 +88,6 @@ public class Launcher {
 			p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 			GUIController.getInstance().setGui(p);
 			p.setPanelActual(p.getPaneles()[Principal.TIMELINE]);
-			PanelTablaTweets panel = (PanelTablaTweets) p.getPaneles()[Principal.TIMELINE];
 			p.setVisible(true);
 			p.mostrarDatos();
 		} catch (IOException e) {

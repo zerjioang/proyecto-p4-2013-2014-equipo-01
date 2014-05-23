@@ -38,7 +38,7 @@ public class TablaTweetsUsuarios extends JTable {
 		super();
 		this.listaObjetos = objeto;
 		init();
-		actualizarFilas();
+		actualizarAltoFilas();
 	}
 
 	private void init() {;
@@ -66,6 +66,9 @@ public class TablaTweetsUsuarios extends JTable {
 			setRenderCelda();
 	}
 
+	/**
+	 * 
+	 */
 	private void actualizarTabla(ModeloTablaTweetUsuarios modeloTabla) {
 		setModel(modeloTabla);
 		tipoTabla = listaObjetos.get(0).tipoObjeto();
@@ -89,42 +92,50 @@ public class TablaTweetsUsuarios extends JTable {
 	}
 	
 	public void insertarNuevo(ObjetoCelda o){
-		ModeloTablaTweetUsuarios modelo = new ModeloTablaTweetUsuarios(listaObjetos);
-		modelo.insertarElemento(o);
+		ModeloTablaTweetUsuarios modelo;
+		modelo = new ModeloTablaTweetUsuarios(listaObjetos);
+		modelo.insertarInicio(o);
 		listaObjetos = modelo.getLista();
-		actualizarTabla(modelo);
 		actualizarAltoFila(0);
+		actualizarTabla(modelo);
 	}
 
 	public void insertarLista(ArrayList<ObjetoCelda> l) {
 		ModeloTablaTweetUsuarios modelo;
 		modelo = new ModeloTablaTweetUsuarios(listaObjetos);
-		for (int i=0; i<l.size(); i++) {
-			ObjetoCelda o = l.get(i);
-			modelo.insertarElemento(o);
+		
+		for (ObjetoCelda o : l) {
+			modelo.insertarInicio(o);
+			actualizarAltoFila(0);
 		}
 		modelo.actualizarContenidoTabla();
 		listaObjetos = modelo.getLista();
 		actualizarTabla(modelo);
 	}
-	private void actualizarAltoFila(int fila){
+	public void actualizarAltoFila(int fila){
 		int altoFinal = getHeight();
+		System.out.println(altoFinal);
 		for (int column = 0; column < getColumnCount(); column++)
         {
             Component comp = prepareRenderer(getCellRenderer(fila, column), fila, column);
             altoFinal = Math.max(altoFinal, comp.getPreferredSize().height);
             System.out.println(comp.getPreferredSize().height);
         }
-		setRowHeight(fila, altoFinal+30);
+		System.out.println("Estableciendo alto de la fila "+fila+" en "+altoFinal);
+		setRowHeight(fila, (altoFinal+30));
 	}
 	
 	public void actualizarFilas(){
+		actualizarAltoFilas();
+	}
+	
+	private void actualizarAltoFilas(){
 		for (int row = 0; row < getRowCount(); row++){
 			actualizarAltoFila(row);
 		}
 	}
 	
-	public ArrayList<ObjetoCelda> getListaContenido(){
+	public ArrayList<ObjetoCelda> getListaObjetos(){
 		return listaObjetos;
 	}
 }
