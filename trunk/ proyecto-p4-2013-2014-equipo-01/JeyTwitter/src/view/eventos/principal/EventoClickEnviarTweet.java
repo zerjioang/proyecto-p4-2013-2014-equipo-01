@@ -4,11 +4,8 @@ import hilos.HiloEnviarTweet;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 
-import controller.GUIController;
 import view.elementos.paneles.PanelEnviarTweet;
-import view.ventanas.Principal;
 
 public class EventoClickEnviarTweet implements MouseListener {
 
@@ -19,9 +16,9 @@ public class EventoClickEnviarTweet implements MouseListener {
 	}
 
 	@Override
-	public synchronized void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent arg0) {
 		if(panel.getMensaje().length()<140) {
-			new HiloEnviarTweet(panel).start();
+            new HiloEnviarTweet(panel).start();
 		}
 	}
 

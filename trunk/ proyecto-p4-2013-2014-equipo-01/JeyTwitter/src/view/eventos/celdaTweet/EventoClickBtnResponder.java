@@ -1,8 +1,11 @@
 package view.eventos.celdaTweet;
 
+import hilos.HiloResponder;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import controller.GUIController;
 import twitter4j.TwitterException;
@@ -20,13 +23,7 @@ public class EventoClickBtnResponder implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent event) {
-		t.getBtnResponder().setClicado(true);
-		String usuario = t.getNombreUsuario();
-		
-		TweetRapido tr = new TweetRapido(t, usuario);
-		tr.setMensaje(t.getNombreUsuario()+" ");
-		tr.colocarVentana(tr, event.getXOnScreen(), event.getYOnScreen());
-		tr.setVisible(true);
+		new HiloResponder(t, event).start();
 	}
 
 	@Override

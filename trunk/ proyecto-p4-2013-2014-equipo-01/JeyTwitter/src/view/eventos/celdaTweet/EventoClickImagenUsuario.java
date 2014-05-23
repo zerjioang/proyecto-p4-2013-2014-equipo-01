@@ -8,7 +8,6 @@ import view.elementos.GUITweet;
 public class EventoClickImagenUsuario implements MouseListener {
 
 	private final GUITweet g;
-	//private final Principal p;
 	
 	public EventoClickImagenUsuario(GUITweet guiTweet) {
 		g = guiTweet;

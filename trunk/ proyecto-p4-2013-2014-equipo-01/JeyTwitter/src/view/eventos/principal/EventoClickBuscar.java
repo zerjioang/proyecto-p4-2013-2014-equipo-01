@@ -4,57 +4,27 @@ import hilos.HiloBuscar;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.util.ArrayList;
 
-import model.Tweet;
-import controller.GUIController;
-import twitter4j.ResponseList;
-import twitter4j.User;
-import view.elementos.GUITweet;
-import view.elementos.GuiTwitterUsuario;
-import view.elementos.ObjetoCelda;
 import view.elementos.paneles.PanelBusqueda;
-import view.ventanas.Principal;
 
 public class EventoClickBuscar implements MouseListener {
 
 	private PanelBusqueda pb;
+	private static HiloBuscar hb;
 	
 	public EventoClickBuscar(PanelBusqueda panelBusqueda) {
 		pb = panelBusqueda;
+		hb = new HiloBuscar();
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		//new HiloBuscar(pb.getBusqString()).start();
-		String str = pb.getBusqString();
-		if(str.startsWith("@")){
-			//se buscaran usuarios
-			buscarUsuarios(str);
+		if(!hb.isAlive()){
+			pb.getTablaResultadosBusqueda().limpiar();
+			String str = pb.getBusqString();
+			hb.setStrBusqueda(str);
+			hb.start();
 		}
-		else{
-			//se buscaran tweets
-			buscarTweets(str);
-		}
-	}
-	
-	private void buscarTweets(String str) {
-		try {
-			GUIController.getInstance().buscarTweets(str);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		ArrayList<ObjetoCelda> tuits = GUIController.getInstance().buscarUsuarios(str, 2);
-		pb = new PanelBusqueda(tuits);
-		GUIController.getInstance().getGui().setPanelBusqueda(pb);
-		GUIController.getInstance().getGui().setPanelActual(pb);
-	}
-
-	private void buscarUsuarios(String str) {
-		GUIController.getInstance().buscarUsuarios(str, 50);
 	}
 
 	@Override

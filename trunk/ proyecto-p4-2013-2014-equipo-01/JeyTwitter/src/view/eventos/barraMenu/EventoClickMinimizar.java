@@ -37,18 +37,19 @@ public class EventoClickMinimizar implements MouseListener {
 		Float op = 1.0f;
 		
 		if(Util.isMac()){
-			ventana.dispose();
+			Util.ocultarImagenDifuso(ventana);
+			ventana.setVisible(true);
 		}
-		else if(Util.isWin()){
+		else{
 			for (int i = currentLocation.y; i < lowerBorder.height+ventana.getHeight(); i++) {
 				currentLocation = new Point(currentLocation.x, i);
 				op = op - 0.001f;
-				if(op > 0f)
+				if(op > 0f){
 					ventana.setOpacity(op);
-				ventana.setLocation(currentLocation);
+					ventana.setLocation(currentLocation);
+				}
 			}
 		}
-		
 		ventana.setLocation(ventana.getLastPosition());
 		ventana.setExtendedState(JFrame.ICONIFIED);
 	
