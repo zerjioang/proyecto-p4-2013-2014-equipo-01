@@ -6,8 +6,10 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 import util.Util;
 import view.elementos.GUITweet;
@@ -41,7 +43,7 @@ public class TablaTweetsUsuarios extends JTable {
 		actualizarAltoFilas();
 	}
 
-	private synchronized void init() {;
+	private  void init() {;
 		setFocusable(true);
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		setTableHeader(null);
@@ -69,13 +71,13 @@ public class TablaTweetsUsuarios extends JTable {
 	/**
 	 * 
 	 */
-	private synchronized void actualizarTabla(ModeloTablaTweetUsuarios modeloTabla) {
+	private  void actualizarTabla(ModeloTablaTweetUsuarios modeloTabla) {
 		setModel(modeloTabla);
 		tipoTabla = listaObjetos.get(0).tipoObjeto();
 		setRenderCelda();
 	}
 	
-	private synchronized void setRenderCelda(){
+	private  void setRenderCelda(){
 		if(tipoTabla == SOLO_TWEETS){
 			setDefaultRenderer(GUITweet.class, new TweetRenderer());
 			setDefaultEditor(GUITweet.class, new TweetEditor());
@@ -87,56 +89,50 @@ public class TablaTweetsUsuarios extends JTable {
 		repaint();
 	}
 	
-	public synchronized boolean isCellEditable(int row, int column){
+	public  boolean isCellEditable(int row, int column){
 		return true;
 	}
 	
 	public void insertarNuevo(ObjetoCelda o){
 		ModeloTablaTweetUsuarios modelo;
 		modelo = new ModeloTablaTweetUsuarios(listaObjetos);
-		modelo.insertarInicio(o);
+		modelo.insertarElemento(o);
 		listaObjetos = modelo.getLista();
-		actualizarAltoFila(0);
 		actualizarTabla(modelo);
 	}
 
-	public synchronized void insertarLista(ArrayList<ObjetoCelda> l) {
+	public  void insertarLista(ArrayList<ObjetoCelda> l) {
 		ModeloTablaTweetUsuarios modelo;
 		modelo = new ModeloTablaTweetUsuarios(listaObjetos);
 		
 		for (ObjetoCelda o : l) {
-			modelo.insertarInicio(o);
-			actualizarAltoFila(0);
+			modelo.insertarElemento(o);
+			actualizarAltoFilas();
 		}
 		modelo.actualizarContenidoTabla();
 		listaObjetos = modelo.getLista();
 		actualizarTabla(modelo);
 	}
-	public synchronized void actualizarAltoFila(int fila){
-		/*int altoFinal = getHeight();
-		System.out.println(altoFinal);
-		for (int column = 0; column < getColumnCount(); column++)
-        {
-            Component comp = prepareRenderer(getCellRenderer(fila, column), fila, column);
-            altoFinal = Math.max(altoFinal, comp.getPreferredSize().height);
-            System.out.println(comp.getPreferredSize().height);
-        }
-		System.out.println("Estableciendo alto de la fila "+fila+" en "+altoFinal);
-		setRowHeight(fila, (altoFinal+30));*/
-		setRowHeight(fila, 100);
+
+	private void actualizarAltoFila(int fila){
+		Component comp = prepareRenderer(getCellRenderer(fila, 0), fila, 0);
+        int alto = Math.max(1, comp.getPreferredSize().height);
+		setRowHeight(fila, alto+30);
 	}
 	
-	public void actualizarFilas(){
-		actualizarAltoFilas();
-	}
-	
-	private void actualizarAltoFilas(){
+	public void actualizarAltoFilas(){
 		for (int row = 0; row < getRowCount(); row++){
 			actualizarAltoFila(row);
 		}
 	}
+
+	public void limpiar() {
+		ModeloTablaTweetUsuarios model =  new ModeloTablaTweetUsuarios(new ArrayList<ObjetoCelda>());
+		model.clear();
+		setModel(model);
+	}
 	
-	public synchronized ArrayList<ObjetoCelda> getListaObjetos(){
+	public  ArrayList<ObjetoCelda> getListaObjetos(){
 		return listaObjetos;
 	}
 }
