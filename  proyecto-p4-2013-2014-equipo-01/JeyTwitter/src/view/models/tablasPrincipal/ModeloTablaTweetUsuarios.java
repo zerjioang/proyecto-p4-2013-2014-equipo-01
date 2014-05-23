@@ -43,8 +43,9 @@ public class ModeloTablaTweetUsuarios extends ModeloTablaLateral implements Data
 	 */
 	public Object[][] generarDatos() {
 		Object[][] datos = new Object[total][1];	//Una sola columna en la tabla con 'total' filas
-		tipo = lista.get(0).tipoObjeto();
-
+		if(lista.size()>0){
+			tipo = lista.get(0).tipoObjeto();
+		}
 		for (int i = 0; i < total; i++) {
 			datos[i][0]= lista.get(i);
 		}
