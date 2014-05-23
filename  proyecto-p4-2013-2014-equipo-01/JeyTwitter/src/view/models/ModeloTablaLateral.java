@@ -41,13 +41,13 @@ public abstract class ModeloTablaLateral extends AbstractTableModel{
 		return false;
 	}
 	
-	public void insertarInicio(ObjetoCelda e) {
-        // A�ade un elemento en la primera posicion de la tabla
+	public void insertarElemento(ObjetoCelda e) {
+        // A���ade un elemento en la primera posicion de la tabla
 		lista.add(0, e);
 		actualizarContenidoTabla();
     }
 	public void insertarElementoLista(ObjetoCelda e) {
-        // A�ade un elemento en la primera posicion de la tabla
+        // A���ade un elemento en la primera posicion de la tabla
 		lista.add(0, e);
     }
 	public void actualizarContenidoTabla(){
@@ -62,6 +62,10 @@ public abstract class ModeloTablaLateral extends AbstractTableModel{
 		lista.clear();
 		lista.addAll(l);
 		fireTableRowsInserted(0, lista.size()-1);
+	}
+	
+	public void clear(){
+		lista.clear();
 	}
 
 }

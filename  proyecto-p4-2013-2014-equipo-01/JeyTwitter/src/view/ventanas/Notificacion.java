@@ -226,8 +226,8 @@ public class Notificacion extends InvisibleJFrame {
 			int offsetX = 10; //cantidad de pixeles de margen vertical derecho
 			int offsetY = 50; //cantidad de pixeles de margen horizontal inferior
 			setBounds(
-					Util.anchoPantalla-getImagenFondo().getIconWidth()-offsetX,
-					Util.altoPantalla-getImagenFondo().getIconHeight()-offsetY, 
+					Util.ANCHO_PANTALLA-getImagenFondo().getIconWidth()-offsetX,
+					Util.ALTO_PANTALLA-getImagenFondo().getIconHeight()-offsetY, 
 					getImagenFondo().getIconWidth(), getImagenFondo().getIconHeight()
 					);
 		}
@@ -235,7 +235,7 @@ public class Notificacion extends InvisibleJFrame {
 			int offsetX = 10; //cantidad de pixeles de margen vertical derecho
 			int offsetY = 50; //cantidad de pixeles de margen horizontal inferior
 			setBounds(
-					Util.anchoPantalla-getImagenFondo().getIconWidth()-offsetX,
+					Util.ANCHO_PANTALLA-getImagenFondo().getIconWidth()-offsetX,
 					0+offsetY, 
 					getImagenFondo().getIconWidth(), getImagenFondo().getIconHeight()
 					);
