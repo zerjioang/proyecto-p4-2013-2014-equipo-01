@@ -1,63 +1,38 @@
 package hilos;
 
-import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import model.Tweet;
 import twitter4j.Paging;
-import twitter4j.ResponseList;
-import twitter4j.Status;
-import twitter4j.TwitterException;
 import util.Util;
+import view.elementos.Cache;
 import view.elementos.GUITweet;
 import view.elementos.ObjetoCelda;
 import view.elementos.paneles.PanelPerfilUsuario;
-import view.models.tablasPrincipal.TablaTweetsUsuarios;
-import view.ventanas.Principal;
 import controller.GUIController;
-import controller.TwitterService;
 
-public class HiloTimelineUsuario extends Thread {
+public class HiloTimelineUsuario extends Thread{
+
+	PanelPerfilUsuario panel;
 	
-	private TwitterService t;
-	private String usuario;
-	private Paging paging;
-
-	public HiloTimelineUsuario(TwitterService t, String usuario, Paging paging, PanelPerfilUsuario panelPerfilUsuario) {
-		this.t = t;
-		this.paging = paging;
-		this.usuario = usuario;
+	public HiloTimelineUsuario(PanelPerfilUsuario panelPerfilUsuario) {
+		panel = panelPerfilUsuario;
 	}
 
 	public void run(){
-
-		Principal p = GUIController.getInstance().getGui();
+		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
 		try {
-			//p.setTextoMensajeInformativo("Actualizando favoritos...");
-			//p.mostrarSpinWheelInformativa(false);
-			//p.mostrarMensajeInformativo();
-			ResponseList<Status> listaTL = t.getTimelineFromUser(usuario, paging);
-			ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-			ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
-			for (Status each : listaTL) {
-				Tweet t;
-				t = new Tweet(each);
-				timeline.add(0,t);
-				listaTweets.add(0, new GUITweet(Util.calcularFecha(t.getUltimaFechaActualizacion()), t));
+			ArrayList<Tweet> li = GUIController.getInstance().obtenerTimelineDeUsuario(panel.getUs().getNombreUsuario(), new Paging(Util.MAX_TWEETS));
+			for (Tweet tweet : li) {
+				listaObjetos.add(0, new GUITweet(Util.calcularFecha(tweet.getUltimaFechaActualizacion()), tweet));
+				panel.getTablaTweetsUsuario().insertarNuevo(listaObjetos.get(0));
+				panel.getTablaTweetsUsuario().actualizarAltoFilas();
 			}
-			PanelPerfilUsuario panel = p.getPanelUsuario();
-			TablaTweetsUsuarios tabla = panel.getTablaTweetsUsuario();
-			tabla.insertarLista(listaTweets);
-			tabla.actualizarFilas();
-			p.ocultarMensajeInformativo();
-		} catch (TwitterException e) {
-			// Error al recuperar el timeline
-			p.setTextoMensajeInformativo("No hay conexión a internet");
-			p.setColorFondoMensajeInformativo(Color.RED);
-			p.setColorTextoMensajeInformativo(Color.WHITE);
-			p.mostrarSpinWheelInformativa(false);
-			p.mostrarMensajeInformativo();
-			System.err.println("Error al recuperar el timeline "+e.getMessage());
+			Cache.getInstance().addPanelUsuario(panel.getUs().getNombreUsuario(), panel);
+			GUIController.getInstance().getGui().ocultarMensajeInformativo();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }
