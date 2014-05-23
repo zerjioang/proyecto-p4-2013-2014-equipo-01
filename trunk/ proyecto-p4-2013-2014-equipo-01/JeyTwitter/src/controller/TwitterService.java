@@ -236,8 +236,8 @@ public class TwitterService {
 	}
 
 	
-	public void tweet(StatusUpdate message) throws TwitterException {		
-		tw.updateStatus(message);
+	public Status tweet(StatusUpdate message) throws TwitterException {		
+		return tw.updateStatus(message);
 	}
 
 	

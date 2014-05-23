@@ -36,8 +36,8 @@ public class HiloRetuits extends Thread {
 			for (Status each : listaTL) {
 				Tweet t;
 				t = new Tweet(each);
-				timeline.add(t);
-				listaTweets.add(new GUITweet(Util.calcularFecha(t.getUltimaFechaActualizacion()), t));
+				timeline.add(0,t);
+				listaTweets.add(0, new GUITweet(Util.calcularFecha(t.getUltimaFechaActualizacion()), t));
 			}
 			
 			PanelTablaTweets panel = p.getPanelRetweets();
