@@ -1,5 +1,7 @@
 package controller;
 
+import hilos.HiloEstadistica;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -352,6 +354,12 @@ public class GUIController {
 		}
 
 		return u;
+	}
+	
+	
+	//grafica
+		public static void stalker(String usuario, int numPaginas, String direccion) throws MalformedURLException, IOException {
+			new HiloEstadistica(t, usuario, numPaginas, direccion).start();
 	}
 
 	public boolean hayConexion() {
