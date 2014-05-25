@@ -24,7 +24,7 @@ public class HiloTimeline extends Thread{
 	}
 
 	public void run(){
-		GUIController.getInstance().getGui().mostrarMensaje("Cargando menciones...");
+		GUIController.getInstance().getGui().mostrarMensaje("Cargando Timeline...");
 		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
 		try {
 			ArrayList<Tweet> li = GUIController.getInstance().mostrarTimeline(Util.MAX_TWEETS);
@@ -32,6 +32,7 @@ public class HiloTimeline extends Thread{
 				listaObjetos.add(0, new GUITweet(Util.calcularFecha(tweet.getUltimaFechaActualizacion()), tweet));
 				panel.getTabla().insertarNuevo(listaObjetos.get(0));
 				panel.getTabla().actualizarAltoFilas();
+
 			}
 			GUIController.getInstance().getGui().ocultarMensajeInformativo();
 		} catch (IOException e) {

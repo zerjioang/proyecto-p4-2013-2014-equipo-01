@@ -1,5 +1,7 @@
 package view.elementos;
 
+import hilos.HiloInsertarTweet;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -172,7 +174,7 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		
 		//a��adir evento de click
 		editor.addHyperlinkListener(new EventoEscucharClickURL());
-	    
+
 		//scrollPane.setViewportView(editor);
 		return editor;
 	}
@@ -290,6 +292,13 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 			lblImagenTweet.addMouseListener(new EventoClickImagenTweet(this));
 			//evento al clicar la imagen del usuario
 			lblImagenusuario.addMouseListener(new EventoClickImagenUsuario(this));
+			HiloInsertarTweet hilo;
+			try {
+				hilo = new HiloInsertarTweet(tweet, GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
+				hilo.start();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
