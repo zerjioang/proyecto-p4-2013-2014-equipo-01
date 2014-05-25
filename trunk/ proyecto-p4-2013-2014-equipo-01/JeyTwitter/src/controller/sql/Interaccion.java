@@ -207,8 +207,14 @@ public class Interaccion {
 	public static boolean insertarTweet(Tweet añadir, String nombreUsuario, String formatoImagen)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		gestor.enviarComando("INSERT INTO Tweet(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ("+añadir.getCodigo()+",datetime('"+sdf.format(añadir.getUltimaFechaActualizacion())+"'), '"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+añadir.esRetweet()+","+añadir.esFavorito()+")");
-		gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"',"+añadir.getCodigo()+")");
+		int fav = 0;
+		int ret = 0;
+		if(añadir.esFavorito())
+			fav = 1;
+		if(añadir.esRetweet())
+			ret = 1;
+		System.out.println(gestor.enviarComando("INSERT INTO Tweet(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ("+añadir.getCodigo()+",datetime('"+sdf.format(añadir.getUltimaFechaActualizacion())+"'), '"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+ret+","+fav+")"));
+		System.out.println(gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"',"+añadir.getCodigo()+")"));
 		try{
 			actualizarImagenTweet(añadir.getImagenUsuario(), formatoImagen, añadir.getCodigo());
 		}catch(IllegalArgumentException E)

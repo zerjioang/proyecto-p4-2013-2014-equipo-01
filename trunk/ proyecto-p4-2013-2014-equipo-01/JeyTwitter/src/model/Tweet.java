@@ -46,7 +46,6 @@ public class Tweet {
 		try {
 			this.imagenUsuario = ImageIO.read(new URL(s.getUser().getBiggerProfileImageURL()));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -1,6 +1,7 @@
 package controller;
 
 import hilos.HiloEstadistica;
+import hilos.HiloInsertarTweet;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -11,7 +12,6 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +85,7 @@ public class GUIController {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		//Recuperar tweets de la BD
+		//timeline = Interaccion.extraerTweets(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
 		//Cargar nuevos
 		if(hayConexion()){
 			try {
@@ -110,6 +111,7 @@ public class GUIController {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		//Recuperar tweets de la BD
+		//timeline = Interaccion.extraerTweets(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
 		//Cargar nuevos
 		if(hayConexion()){
 			try {
@@ -358,8 +360,8 @@ public class GUIController {
 	
 	
 	//grafica
-		public static void stalker(String usuario, int numPaginas, String direccion) throws MalformedURLException, IOException {
-			new HiloEstadistica(t, usuario, numPaginas, direccion).start();
+	public static void stalker(String usuario, int numPaginas, String direccion) throws MalformedURLException, IOException {
+			//new HiloEstadistica(t, usuario, numPaginas, direccion).start();
 	}
 
 	public boolean hayConexion() {
