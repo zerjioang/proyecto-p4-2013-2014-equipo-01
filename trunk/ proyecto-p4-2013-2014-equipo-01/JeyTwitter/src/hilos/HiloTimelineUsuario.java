@@ -19,6 +19,7 @@ public class HiloTimelineUsuario extends Thread{
 	public HiloTimelineUsuario(PanelPerfilUsuario panelPerfilUsuario) {
 		panel = panelPerfilUsuario;
 	}
+	
 
 	public void run(){
 		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
@@ -30,7 +31,19 @@ public class HiloTimelineUsuario extends Thread{
 				panel.getTablaTweetsUsuario().actualizarAltoFilas();
 			}
 			Cache.getInstance().addPanelUsuario(panel.getUs().getNombreUsuario(), panel);
-			GUIController.getInstance().getGui().ocultarMensajeInformativo();
+			
+			boolean activo = false;
+			ArrayList<Thread> hilosActivos = AlmacenHilos.lista;
+			for (Thread t : hilosActivos) {
+				if(t.isAlive()) {
+					activo = true;
+					break;
+				}
+			}
+			
+			if(!activo) {
+				GUIController.getInstance().getGui().ocultarMensajeInformativo();				
+			}
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}

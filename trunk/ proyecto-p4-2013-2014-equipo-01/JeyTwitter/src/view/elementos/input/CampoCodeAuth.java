@@ -6,17 +6,18 @@ import javax.swing.ImageIcon;
 
 import util.Util;
 import view.eventos.welcome.EventoKeyListenerAuthCode;
+import view.ventanas.Bienvenida;
 
 public class CampoCodeAuth extends InputField{
 
-	public CampoCodeAuth(){
+	public CampoCodeAuth(Bienvenida b){
 		super();
 		inputCode.setBounds(88, 165, 300, 48);
 		inputCode.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 40));
 		imagenFondo.setIcon(new ImageIcon(InputField.class.getResource("/res/images/textInput/IntroCodeField_Normal.png")));
 		imagenFondo.setBounds(80, 155, 308, 58);
 		
-		inputCode.addKeyListener(new EventoKeyListenerAuthCode(this));
+		inputCode.addKeyListener(new EventoKeyListenerAuthCode(this, b));
 	}
 	
 	@Override

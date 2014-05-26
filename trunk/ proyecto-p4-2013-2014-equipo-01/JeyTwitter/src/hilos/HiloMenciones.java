@@ -22,6 +22,7 @@ public class HiloMenciones extends Thread{
 	public HiloMenciones(PanelTablaTweets panelMenciones) {
 		panel = panelMenciones;
 	}
+	
 
 	public void run(){
 		GUIController.getInstance().getGui().mostrarMensaje("Cargando menciones...");
@@ -33,7 +34,20 @@ public class HiloMenciones extends Thread{
 				panel.getTabla().insertarNuevo(listaObjetos.get(0));
 				panel.getTabla().actualizarAltoFilas();
 			}
-			GUIController.getInstance().getGui().ocultarMensajeInformativo();
+			
+			boolean activo = false;
+			ArrayList<Thread> hilosActivos = AlmacenHilos.lista;
+			for (Thread t : hilosActivos) {
+				if(t.isAlive()) {
+					activo = true;
+					break;
+				}
+			}
+			
+			if(!activo) {
+				GUIController.getInstance().getGui().ocultarMensajeInformativo();				
+			}
+			
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}

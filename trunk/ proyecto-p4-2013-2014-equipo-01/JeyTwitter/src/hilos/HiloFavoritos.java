@@ -33,7 +33,20 @@ public class HiloFavoritos extends Thread{
 				panel.getTabla().insertarNuevo(listaObjetos.get(0));
 				panel.getTabla().actualizarAltoFilas();
 			}
-			GUIController.getInstance().getGui().ocultarMensajeInformativo();
+			
+			boolean activo = false;
+			ArrayList<Thread> hilosActivos = AlmacenHilos.lista;
+			for (Thread t : hilosActivos) {
+				if(t.isAlive()) {
+					activo = true;
+					break;
+				}
+			}
+			
+			if(!activo) {
+				GUIController.getInstance().getGui().ocultarMensajeInformativo();				
+			}
+			
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}

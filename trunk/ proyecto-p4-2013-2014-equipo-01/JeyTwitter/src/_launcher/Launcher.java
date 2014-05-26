@@ -4,7 +4,6 @@ import java.io.IOException;
 import controller.GUIController;
 import controller.sql.Interaccion;
 import util.Util;
-import view.elementos.paneles.PanelTablaTweets;
 import view.ventanas.Principal;
 import view.ventanas.Splash;
 import view.ventanas.Bienvenida;
@@ -12,7 +11,7 @@ import view.ventanas.TerminosCondiciones;
 
 public class Launcher {
 	
-	private final static Splash spl = new Splash();;
+	private final static Splash spl = new Splash();
 	
 			
 	public static void main(String[] args) throws IOException {

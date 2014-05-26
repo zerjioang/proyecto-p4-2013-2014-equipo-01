@@ -2,6 +2,8 @@ package view.elementos;
 
 import javax.swing.Icon;
 
+import model.Tweet;
+
 public interface ObjetoCelda {
 
 	public int tipoObjeto();
@@ -17,4 +19,6 @@ public interface ObjetoCelda {
 	public String getTiempo();
 
 	public int getHeight();
+
+	public Tweet getTweet();
 }

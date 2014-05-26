@@ -65,9 +65,9 @@ public class Bienvenida extends CustomJFrame {
 		panelUno.setLayout(null);
 		getMainPanel().add(panelUno);
 		
-		codeField = new CampoCodeAuth();
+		codeField = new CampoCodeAuth(this);
 		codeField.setBounds(80, 156, 308, 58);
-		codeField.getInputField().addKeyListener(new EventoKeyListenerAuthCode(codeField));
+		codeField.getInputField().addKeyListener(new EventoKeyListenerAuthCode(codeField, this));
 		panelUno.add(codeField.getInputField());
 		panelUno.add(codeField.getImagenFondo());
 		panelUno.add(codeField);

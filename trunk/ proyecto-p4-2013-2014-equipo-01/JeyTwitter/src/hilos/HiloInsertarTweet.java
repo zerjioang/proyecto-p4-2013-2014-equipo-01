@@ -1,12 +1,8 @@
 package hilos;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import model.Tweet;
-import view.elementos.Cache;
-import view.elementos.ObjetoCelda;
-import controller.GUIController;
 import controller.sql.Interaccion;
 
 public class HiloInsertarTweet extends Thread {

@@ -1,5 +1,6 @@
 package view.ventanas;
 
+import hilos.AlmacenHilos;
 import hilos.HiloFavoritos;
 import hilos.HiloMenciones;
 import hilos.HiloRetweets;
@@ -71,6 +72,8 @@ public class Principal extends CustomJFrame {
 	private BotonSeguir btnDejarDeSeguir;
 	private JPanel[] panelesPrincipales;
 	
+	private ArrayList<Thread> hilosActivos;
+	
 	private PanelTablaTweets timeLine, menciones, retweets, favoritos;
 	private PanelPerfilUsuario panelUsuario;
 	private PanelEnviarTweet panelInferior;
@@ -122,10 +125,21 @@ public class Principal extends CustomJFrame {
 	}
 	
 	public void mostrarDatos(){
-		new HiloMenciones(getPanelMenciones()).start();
-		new HiloFavoritos(getPanelFavoritos()).start();
-		new HiloRetweets(getPanelRetweets()).start();
-		new HiloTimeline(getPanelTimeLine()).start();
+		HiloMenciones m = new HiloMenciones(getPanelMenciones());
+		HiloFavoritos f = new HiloFavoritos(getPanelFavoritos());
+		HiloRetweets r = new HiloRetweets(getPanelRetweets());
+		HiloTimeline t = new HiloTimeline(getPanelTimeLine());
+		
+		AlmacenHilos.lista.add(0, m);
+		AlmacenHilos.lista.add(0, f);
+		AlmacenHilos.lista.add(0, r);
+		AlmacenHilos.lista.add(0, t);
+		
+		m.start();
+		f.start();
+		r.start();
+		t.start();
+		
 	}
 	public void mostrarSpinWheelInformativa(boolean b) {
 		spinningWheel.setVisible(b);
@@ -137,6 +151,8 @@ public class Principal extends CustomJFrame {
 		getMainPanel().setBackground(Color.DARK_GRAY);
 		getMainPanel().setBorder(new EmptyBorder(0, 0, 0, 0));
 		getMainPanel().setLayout(new BorderLayout(0, 0));
+		
+		hilosActivos = new ArrayList<Thread>();
 		
 		JPanel panelApp = new JPanel();
 		panelApp.setDoubleBuffered(false);

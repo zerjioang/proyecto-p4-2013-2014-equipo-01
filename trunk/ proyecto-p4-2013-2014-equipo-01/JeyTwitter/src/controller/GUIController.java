@@ -110,9 +110,6 @@ public class GUIController {
 	public ArrayList<Tweet> mostrarTimeline(int max) throws IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
-		//Recuperar tweets de la BD
-		timeline = Interaccion.extraerTweets(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
-		System.out.println(timeline.size());
 		//Cargar nuevos
 		if(hayConexion()){
 			try {
