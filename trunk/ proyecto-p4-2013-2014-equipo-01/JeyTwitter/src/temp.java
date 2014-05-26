@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.io.IOException;
 
 import javax.swing.JPanel;
 
@@ -31,7 +32,7 @@ public class temp extends CustomJFrame {
 	}
 
 	
-	public temp() {
+	public temp() throws IOException {
 		super(600, 700);
 		
 		PanelEstadistica pe = new PanelEstadistica();

@@ -87,7 +87,7 @@ public class Principal extends CustomJFrame {
 	private JLabel spinningWheel;
 	
 	
-	public Principal(Usuario usuario) {
+	public Principal(Usuario usuario) throws IOException {
 		super(600, 700);
 		usuarioActual = usuario;
 		panelesPrincipales = new JPanel[7];
