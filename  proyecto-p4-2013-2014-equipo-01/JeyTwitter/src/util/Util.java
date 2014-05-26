@@ -30,7 +30,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class Util {
 
-	public static boolean DEBUG = true;
+	public static boolean DEBUG = false;
 
 	public static final int ANCHO_PANTALLA = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static final int ALTO_PANTALLA = Toolkit.getDefaultToolkit().getScreenSize().height;

@@ -94,7 +94,7 @@ public class Principal extends CustomJFrame {
 		panelInferior = new PanelEnviarTweet(this);
 		panelBusqueda = new PanelBusqueda();
 		panel_stats = new PanelEstadistica();
-		lblImagen = new JLabel(usuarioActual.getNombreUsuario());
+		lblImagen = new JLabel(usuario.getNombreUsuario());
 		try {
 			panelUsuario = new PanelPerfilUsuario(usuarioActual);
 			timeLine = new PanelTablaTweets(new TablaTweetsUsuarios(0));

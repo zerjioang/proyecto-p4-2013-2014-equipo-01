@@ -85,7 +85,7 @@ public class GUIController {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		//Recuperar tweets de la BD
-		//timeline = Interaccion.extraerTweets(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
+		timeline = Interaccion.extraerTweets(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
 		//Cargar nuevos
 		if(hayConexion()){
 			try {
@@ -111,7 +111,8 @@ public class GUIController {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
 		//Recuperar tweets de la BD
-		//timeline = Interaccion.extraerTweets(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
+		timeline = Interaccion.extraerTweets(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
+		System.out.println(timeline.size());
 		//Cargar nuevos
 		if(hayConexion()){
 			try {
@@ -343,11 +344,13 @@ public class GUIController {
 		Usuario u = null;
 		try {
 			Launcher.mostrarMensaje("Obteniendo usuario...");
-			user = t.getUsuarioRegistrado();
 			
 			if (hayConexion()) {
+				user = t.getUsuarioRegistrado();
+				System.out.println("Ke ase que tiene c");
 				u = new Usuario(user);
 			} else {
+				System.out.println("Hola ke ase");
 				ArrayList<Usuario> credenciales = Interaccion.extraerUsuarios();
 				u = (Usuario)credenciales.get(0);
 			}
@@ -390,7 +393,7 @@ public class GUIController {
 			online = true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			//System.err.println("Comprobacion de resolucion de Host fallida");
+			System.err.println("Comprobacion de resolucion de Host fallida");
 			online = false;
 		}
 		//Util.debug("Conexion con twitter: "+online);
