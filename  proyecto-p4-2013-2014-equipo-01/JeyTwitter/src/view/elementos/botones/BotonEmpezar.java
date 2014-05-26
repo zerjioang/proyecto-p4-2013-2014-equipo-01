@@ -22,4 +22,14 @@ public class BotonEmpezar extends BotonUI{
 		
 		setIcon(new ImageIcon(MensajeWindow.class.getResource(getImagenNormal())));
 	}
+	
+	public void setVisible(boolean b){
+		if(b){
+			setImagenNormal("/res/botones/botonUI_EmpezarNormal.png");
+		}
+		else{
+			setImagenNormal(null);
+		}
+		super.setVisible(b);
+	}
 }

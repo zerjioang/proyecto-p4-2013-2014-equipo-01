@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
+import view.elementos.ObjetoCelda;
 import model.Tweet;
 import model.Usuario;
 
@@ -224,6 +226,16 @@ public class Interaccion {
 		return true;
 	}
 	
+	public static synchronized boolean insertarObjetosCelda(List<ObjetoCelda> añadir, String nombreUsuario, String formatosImagenes)
+	{
+		boolean correcto = true;
+		for(ObjetoCelda temp: añadir)
+		{
+			correcto = correcto && insertarTweet(temp.getTweet(), nombreUsuario, formatosImagenes);
+		}
+		return correcto;
+	}
+	
 	public static synchronized boolean insertarTweets(List<Tweet> añadir, String nombreUsuario, String formatosImagenes)
 	{
 		boolean correcto = true;
@@ -234,7 +246,7 @@ public class Interaccion {
 		return correcto;
 	}
 	
-	public static boolean actualizarImagenTweetContenido(Image imagen, String formato, long codTweet)
+	public static synchronized boolean actualizarImagenTweetContenido(Image imagen, String formato, long codTweet)
 	{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
 		try {

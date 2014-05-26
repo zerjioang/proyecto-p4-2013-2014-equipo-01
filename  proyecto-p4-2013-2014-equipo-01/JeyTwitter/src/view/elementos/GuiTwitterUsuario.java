@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.MatteBorder;
 
+import model.Tweet;
 import controller.GUIController;
 import util.Util;
 import view.elementos.botones.BotonSeguir;
@@ -190,6 +191,12 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 	
 	public void setLblusuario(JLabel lblusuario) {
 		this.lblusuario = lblusuario;
+	}
+
+	@Override
+	public Tweet getTweet() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

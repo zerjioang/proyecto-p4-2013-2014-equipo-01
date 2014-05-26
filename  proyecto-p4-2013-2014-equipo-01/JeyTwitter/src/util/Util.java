@@ -34,7 +34,7 @@ public class Util {
 
 	public static final int ANCHO_PANTALLA = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static final int ALTO_PANTALLA = Toolkit.getDefaultToolkit().getScreenSize().height;
-	public static final int MAX_TWEETS = 5;
+	public static final int MAX_TWEETS = 1;
 
 	public static final String 
 	APP_TITULO = "JeyTuiter",

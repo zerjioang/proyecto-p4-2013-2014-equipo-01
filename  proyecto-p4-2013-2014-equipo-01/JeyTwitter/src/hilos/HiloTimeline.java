@@ -6,35 +6,56 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import model.Tweet;
-import twitter4j.Paging;
 import util.Util;
-import view.elementos.Cache;
 import view.elementos.GUITweet;
 import view.elementos.ObjetoCelda;
-import view.elementos.paneles.PanelPerfilUsuario;
 import view.elementos.paneles.PanelTablaTweets;
 import controller.GUIController;
+import controller.sql.Interaccion;
 
 public class HiloTimeline extends Thread{
 
-	PanelTablaTweets panel;
+	private PanelTablaTweets panel;
 	
 	public HiloTimeline(PanelTablaTweets panelTimeLine) {
 		panel = panelTimeLine;
 	}
-
+	
 	public void run(){
 		GUIController.getInstance().getGui().mostrarMensaje("Cargando Timeline...");
 		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
+		ArrayList<Tweet> timeline;
+		try {
+			timeline = Interaccion.extraerTweets(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
+			for (Tweet tweet : timeline) {
+				GUITweet g = new GUITweet(Util.calcularFecha(tweet.getUltimaFechaActualizacion()), tweet);
+				listaObjetos.add(0, g);
+				panel.getTabla().insertarNuevo(listaObjetos.get(0));
+				panel.getTabla().actualizarAltoFilas();
+			}
+		} catch (IOException e1) {}
+
 		try {
 			ArrayList<Tweet> li = GUIController.getInstance().mostrarTimeline(Util.MAX_TWEETS);
 			for (Tweet tweet : li) {
-				listaObjetos.add(0, new GUITweet(Util.calcularFecha(tweet.getUltimaFechaActualizacion()), tweet));
+				GUITweet g = new GUITweet(Util.calcularFecha(tweet.getUltimaFechaActualizacion()), tweet);
+				listaObjetos.add(0, g);
+				Interaccion.insertarTweet(tweet, GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario(), "png");
 				panel.getTabla().insertarNuevo(listaObjetos.get(0));
 				panel.getTabla().actualizarAltoFilas();
-
 			}
-			GUIController.getInstance().getGui().ocultarMensajeInformativo();
+			boolean activo = false;
+			ArrayList<Thread> hilosActivos = AlmacenHilos.lista;
+			for (Thread t : hilosActivos) {
+				if(t.isAlive()) {
+					activo = true;
+					break;
+				}
+			}
+			
+			if(!activo) {
+				GUIController.getInstance().getGui().ocultarMensajeInformativo();				
+			}
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}

@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 import controller.GUIController;
+import controller.sql.Interaccion;
 import model.Tweet;
 import twitter4j.MediaEntity;
 import twitter4j.TwitterException;
@@ -37,6 +39,7 @@ import view.eventos.celdaTweet.EventoClickImagenTweet;
 import view.eventos.celdaTweet.EventoClickImagenUsuario;
 import view.eventos.principal.EventoClickFotoUsuario;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
+import view.parents.InvisibleJFrame;
 
 public class GUITweet extends JPanel implements ObjetoCelda{
 	
@@ -55,6 +58,9 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	private ArrayList<String> usuarioMencionado;
 	private ArrayList<String> hashtagTweet;
 	private ArrayList<String> urlsTweet;
+	
+	private String mensajeFormateado;
+	private JPanel panelCentroMensaje;
 	
 	public GUITweet(String fecha, Tweet t) {
 		super();
@@ -85,12 +91,14 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		
 		lblImagenusuario.addMouseListener(new EventoClickFotoUsuario(getNombreUsuario()));
 		init();
+		HiloCargarImagen hi = new HiloCargarImagen(this);
+		hi.start();
 	}
 	private JEditorPane procesarMensaje(Tweet t) {
 		// TODO Auto-generated method stub
 		Util.debug("Parseando contenido del tweet...");
 
-		String mensajeFormateado = t.getTexto();
+		mensajeFormateado = t.getTexto();
 		String linkAntes = "<a href=\"";
 		String linkMedio = "\" style=\"text-decoration:none; color: #005996\">";
 		String linkDespues = " </a>";
@@ -121,23 +129,6 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 			Util.debug("Reemplazando url "+s+" por "+html);
 		}
 		
-		//generar las mediaEntity para las imagenes.
-		if(GUIController.getInstance().hayConexion()){
-			try {
-				MediaEntity[] media = GUIController.getInstance().getMedias(t.getCodigo());
-				for (MediaEntity im : media) {
-					String urlAntes = im.getURL();
-					urlsTweet.add(0, urlAntes);
-					Util.debug("Eliminando URL Imagen "+urlAntes);
-					mensajeFormateado = mensajeFormateado.replaceAll(urlAntes, "");
-					imagenTuit = im.getMediaURLHttps();
-					lblImagenTweet.setVisible(true);
-					//solo se procesa una
-					break;
-				}
-			} catch (TwitterException e) {}
-		}
-		
 		String hashtagRE = "#(\\w+)";//"#\\w+";
 		p = Pattern.compile(hashtagRE);
 		m = p.matcher(t.getTexto());
@@ -152,10 +143,6 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 			Util.debug("Reemplazando hashtag "+s+" por "+hashtag);
 		}
 		//Contruir el objeto para visualizarlo en pantalla una vez se tienen los datos
-		
-		/*JScrollPane scrollPane = new JScrollPane();
-		contentPane.add(scrollPane);*/
-		Util.debug(mensajeFormateado);
 		
 		JEditorPane editor = new JEditorPane();
 		editor.setEditable(false);
@@ -269,10 +256,13 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		panelInferior.add(btnRetweet);
 		panelInferior.add(btnFavorito);
 		
-		JPanel panelCentroMensaje = new JPanel(new BorderLayout());
+		panelCentroMensaje = new JPanel(new BorderLayout());
 		panelCentro.add(panelCentroMensaje, BorderLayout.CENTER);
 		panelCentroMensaje.add(txtMensaje,BorderLayout.CENTER);
 		panelCentroMensaje.setBorder(new MatteBorder(0, 0, 0, 1, new Color(1.0f,1.0f,1.0f,0.0f)));
+	}
+	
+	public void asignarImagenTweet() {
 		
 		if(imagenTuit!=null && imagenTuit.length()>0){
 			panelImagenTweet = new JPanel();
@@ -292,13 +282,11 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 			lblImagenTweet.addMouseListener(new EventoClickImagenTweet(this));
 			//evento al clicar la imagen del usuario
 			lblImagenusuario.addMouseListener(new EventoClickImagenUsuario(this));
-			HiloInsertarTweet hilo;
+			
 			try {
-				hilo = new HiloInsertarTweet(tweet, GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
+				HiloInsertarTweet hilo = new HiloInsertarTweet(tweet, GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
 				hilo.start();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			} catch (IOException e) {}
 		}
 	}
 
@@ -468,5 +456,59 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	
 	public void setUrlsTweet(ArrayList<String> urlsTweet) {
 		this.urlsTweet = urlsTweet;
+	}
+	public String getMensajeFormateado() {
+		return mensajeFormateado;
+	}
+	public void setMensajeFormateado(String mensajeFormateado) {
+		this.mensajeFormateado = mensajeFormateado;
+	}
+	public String getImagenTuit() {
+		return imagenTuit;
+	}
+	public void setImagenTuit(String imagenTuit) {
+		this.imagenTuit = imagenTuit;
+	}
+	public JLabel getLblTiempo() {
+		return lblTiempo;
+	}
+	public void setLblTiempo(JLabel lblTiempo) {
+		this.lblTiempo = lblTiempo;
+	}
+	public JLabel getLblImagenusuario() {
+		return lblImagenusuario;
+	}
+	public void setLblImagenusuario(JLabel lblImagenusuario) {
+		this.lblImagenusuario = lblImagenusuario;
+	}
+	public JLabel getLblNombreReal() {
+		return lblNombreReal;
+	}
+	public void setLblNombreReal(JLabel lblNombreReal) {
+		this.lblNombreReal = lblNombreReal;
+	}
+	public JLabel getLblnombreUsuario() {
+		return lblnombreUsuario;
+	}
+	public void setLblnombreUsuario(JLabel lblnombreUsuario) {
+		this.lblnombreUsuario = lblnombreUsuario;
+	}
+	public JEditorPane getTxtMensaje() {
+		return txtMensaje;
+	}
+	public void setTxtMensaje(JEditorPane txtMensaje) {
+		this.txtMensaje = txtMensaje;
+	}
+	public JPanel getPanelImagenTweet() {
+		return panelImagenTweet;
+	}
+	public void setPanelImagenTweet(JPanel panelImagenTweet) {
+		this.panelImagenTweet = panelImagenTweet;
+	}
+	public JPanel getPanelCentroMensaje() {
+		return panelCentroMensaje;
+	}
+	public void setPanelCentroMensaje(JPanel panelCentroMensaje) {
+		this.panelCentroMensaje = panelCentroMensaje;
 	}
 }
