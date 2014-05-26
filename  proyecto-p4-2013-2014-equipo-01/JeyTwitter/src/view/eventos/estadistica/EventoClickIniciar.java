@@ -44,6 +44,7 @@ public class EventoClickIniciar implements MouseListener {
 					if(!new File(ruta+"/estadistica_JeyTuiter/"+nombre).exists()){
 						boolean b = new File(ruta+"/estadistica_JeyTuiter/"+nombre).mkdir();
 					}
+					PanelEstadistica.rutaDestino = ruta+"/estadistica_JeyTuiter/"+nombre;
 					Grafica.iniciar(nombre, numPaginas, ruta+"/estadistica_JeyTuiter/"+nombre);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
