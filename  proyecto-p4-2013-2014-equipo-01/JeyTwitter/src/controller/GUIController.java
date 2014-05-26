@@ -153,7 +153,20 @@ public class GUIController {
 		return objetosTweet;
 	}
 	
+public static boolean existeUsuario(String nombre){
+	boolean existe = true;
 	
+	try{
+		t.getUsuario(nombre);
+		existe = true;
+	}catch(Exception e){
+		existe = false;
+	}
+	
+	
+	return existe;
+	
+}
 	public ArrayList<Tweet> mostrarMenciones() throws MalformedURLException, IOException {
 		ResponseList<Status> listaTL;
 		ArrayList<Tweet> timeline = new ArrayList<Tweet>();
@@ -363,8 +376,8 @@ public class GUIController {
 	
 	
 	//grafica
-	public static void stalker(String usuario, int numPaginas, String direccion) throws MalformedURLException, IOException {
-			//new HiloEstadistica(t, usuario, numPaginas, direccion).start();
+		public static void stalker(String usuario, int numPaginas, String ruta) throws MalformedURLException, IOException {
+			new HiloEstadistica(t, usuario, numPaginas, ruta).start();
 	}
 
 	public boolean hayConexion() {

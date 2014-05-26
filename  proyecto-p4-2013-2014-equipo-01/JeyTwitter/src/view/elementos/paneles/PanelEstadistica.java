@@ -18,6 +18,7 @@ import java.awt.Insets;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 
 import javax.swing.JTextField;
@@ -29,13 +30,13 @@ import view.eventos.estadistica.EventoClickIniciar;
 import controller.GUIController;
 import controller.TwitterService;
 import monitorizacion.Grafica;
+
 import javax.swing.SwingConstants;
 
 public class PanelEstadistica extends JPanel{
+	private static JTextField txtNombreUsuario;
 	
-	private JTable table;
-	
-	public PanelEstadistica(){
+	public PanelEstadistica() throws IOException{
 		setLayout(new BorderLayout(0, 0));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -48,33 +49,24 @@ public class PanelEstadistica extends JPanel{
 		scrollPaneOpciones.setViewportView(panelOpciones);
 		panelOpciones.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnIniciar = new JButton("Iniciar");
-		btnIniciar.addMouseListener(new EventoClickIniciar());
-		panelOpciones.add(btnIniciar, BorderLayout.SOUTH);
+		JPanel panel = new JPanel();
+		panelOpciones.add(panel, BorderLayout.SOUTH);
+		panel.setLayout(new BorderLayout(0, 0));
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"opcion 1", new Boolean(false)},
-				{"opcion 2", new Boolean(false)},
-				{"opcion 3", new Boolean(false)},
-				{"opcion 4", new Boolean(false)},
-				{"opcion 5", new Boolean(false)},
-				{"opcion 6", new Boolean(false)},
-				{"opcion 7", new Boolean(false)},
-			},
-			new String[] {
-				"Descripcion", "Estado"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, Boolean.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		panelOpciones.add(table, BorderLayout.CENTER);
+		JPanel panel_1 = new JPanel();
+		panel.add(panel_1, BorderLayout.NORTH);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JButton btnIniciar = new JButton("Iniciar");
+		panel.add(btnIniciar, BorderLayout.CENTER);
+		
+		JLabel lblNombreUsuario = new JLabel("Introduzca el nombre de usuario");
+		panelOpciones.add(lblNombreUsuario, BorderLayout.NORTH);
+		
+		txtNombreUsuario = new JTextField(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
+		scrollPaneOpciones.setColumnHeaderView(txtNombreUsuario);
+		txtNombreUsuario.setColumns(10);
+		btnIniciar.addMouseListener(new EventoClickIniciar());
 		
 		JScrollPane scrollPaneResultados = new JScrollPane();
 		scrollPaneResultados.getVerticalScrollBar().setUnitIncrement(1);
@@ -87,5 +79,9 @@ public class PanelEstadistica extends JPanel{
 		JLabel lblSinResultados = new JLabel("Sin resultados");
 		lblSinResultados.setHorizontalAlignment(SwingConstants.CENTER);
 		panelResultados.add(lblSinResultados, BorderLayout.CENTER);
+	}
+	
+	public static String getTxt(){
+		return txtNombreUsuario.getText();
 	}
 }
