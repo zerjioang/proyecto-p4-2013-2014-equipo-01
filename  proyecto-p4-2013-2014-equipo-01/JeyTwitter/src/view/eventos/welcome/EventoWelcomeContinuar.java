@@ -5,9 +5,6 @@ import hilos.HiloCargarDatos;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import controller.GUIController;
-import util.Util;
-import view.ventanas.Principal;
 import view.ventanas.Bienvenida;
 
 public class EventoWelcomeContinuar implements MouseListener {
@@ -19,9 +16,9 @@ public class EventoWelcomeContinuar implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		new HiloCargarDatos(ventana).start();
 		ventana.getLblOK().setEnabled(false);
 		ventana.getLblOK().setVisible(false);
+		new HiloCargarDatos(ventana).start();
 	}
 
 	@Override

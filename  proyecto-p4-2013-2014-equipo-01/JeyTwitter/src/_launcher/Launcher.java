@@ -40,7 +40,7 @@ public class Launcher {
 					mostrarPrincipal();
 				else{
 					//El usuario no existe y no tiene Internet para autentificarse por lo tanto salir
-					Util.showError(null, Util.APP_TITULO+" se cerrara", "No tiene sesion iniciada en "+Util.APP_TITULO, "Cancelar", "Aceptar");
+					Util.showError(null, Util.APP_TITULO+" se cerrara", "No tiene sesion iniciada en "+Util.APP_TITULO+".", "Cancelar", "Aceptar");
 					spl.dispose();
 					System.exit(1);
 				}
@@ -89,10 +89,8 @@ public class Launcher {
 			p.setVisible(true);
 			p.mostrarDatos();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		spl.dispose();
-		//GUIController.getInstance().iniciarStreaming();
 	}
 }

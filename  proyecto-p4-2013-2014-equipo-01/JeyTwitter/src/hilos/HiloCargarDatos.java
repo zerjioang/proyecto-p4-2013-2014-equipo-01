@@ -25,7 +25,7 @@ public class HiloCargarDatos extends Thread{
 				//aparece el globo emergente
 				SystemTrayLogo l = SystemTrayLogo.getInstace();
 				l.enviarMensaje("Descargando datos", Util.APP_TITULO+" esta descargando los datos mas recientes");
-				l.setTitulo("descargando datos");
+				l.setTitulo("Descargando");
 				//Se cargan los datos
 				Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 				GUIController.getInstance().setGui(p);

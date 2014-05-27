@@ -1,26 +1,20 @@
 package view.ventanas;
 
 import util.Util;
-import view.elementos.botones.BotonEmpezar;
-import view.elementos.botones.BotonUI;
-import view.elementos.input.CampoCodeAuth;
-import view.eventos.welcome.EventoClickEmpezar;
-import view.eventos.welcome.EventoKeyListenerAuthCode;
-import view.eventos.welcome.EventoWelcomeContinuar;
 import view.parents.CustomJDialogWithBar;
-import view.parents.CustomJFrame;
 
 import java.awt.EventQueue;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 import java.awt.Color;
-import java.awt.Font;
+
 import javax.swing.JScrollPane;
+
 import java.awt.BorderLayout;
 
+@SuppressWarnings("serial")
 public class Ayuda extends CustomJDialogWithBar {
 
 	/**

@@ -5,7 +5,6 @@ import view.elementos.botones.BotonEmpezar;
 import view.elementos.botones.BotonUI;
 import view.elementos.input.CampoCodeAuth;
 import view.eventos.welcome.EventoClickEmpezar;
-import view.eventos.welcome.EventoKeyListenerAuthCode;
 import view.eventos.welcome.EventoWelcomeContinuar;
 import view.parents.CustomJFrame;
 
@@ -18,6 +17,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class Bienvenida extends CustomJFrame {
 
 	private JPanel panelCero;
@@ -67,7 +67,6 @@ public class Bienvenida extends CustomJFrame {
 		
 		codeField = new CampoCodeAuth(this);
 		codeField.setBounds(80, 156, 308, 58);
-		codeField.getInputField().addKeyListener(new EventoKeyListenerAuthCode(codeField, this));
 		panelUno.add(codeField.getInputField());
 		panelUno.add(codeField.getImagenFondo());
 		panelUno.add(codeField);
