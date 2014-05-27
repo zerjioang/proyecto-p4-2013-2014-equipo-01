@@ -27,7 +27,8 @@ public class HiloTimeline extends Thread{
 		try {
 			timeline = Interaccion.extraerTweets(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
 			for (Tweet tweet : timeline) {
-				GUITweet g = new GUITweet(Util.calcularFecha(tweet.getUltimaFechaActualizacion()), tweet);
+				long fecha = tweet.getUltimaFechaActualizacion().getTime();
+				GUITweet g = new GUITweet(Util.calcularFecha(fecha), tweet);
 				listaObjetos.add(0, g);
 				panel.getTabla().insertarNuevo(listaObjetos.get(0));
 				panel.getTabla().actualizarAltoFilas();

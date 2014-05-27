@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/controller/GUIController.java=UTF-8
 encoding//src/controller/TwitterService.java=UTF-8
 encoding//src/controller/sql/Interaccion.java=UTF-8
+encoding//src/controller/sql/SQLiteManager.java=UTF-8
 encoding//src/hilos/HiloEstadistica.java=UTF-8
 encoding//src/hilos/HiloFavoritos.java=UTF-8
 encoding//src/hilos/HiloMenciones.java=UTF-8

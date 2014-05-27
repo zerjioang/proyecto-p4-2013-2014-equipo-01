@@ -7,9 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import util.Util;
-
 
 public class SQLiteManager
 {
@@ -20,13 +18,11 @@ public class SQLiteManager
 	private static SQLiteManager instance = null;
 	private ResultSet resultadoDeConsulta;
 	
-	/* Metodos para el funcionamiento del singleton */
 	public SQLiteManager()
 	{
 		this.dir = Util.SQLITE_NOMBRE_BBDD;
 		connect();
 	}
-	
 	private synchronized static void createInstance() {
         if (instance == null) { 
             instance = new SQLiteManager();
@@ -37,8 +33,9 @@ public class SQLiteManager
 		createInstance();
 		return instance;
 	}
-	/* Fin de los metodos para el funcionamiento del singleton */
-	
+	/**
+	 * Conecta con la base de datos SQLite establecida en la direción Util
+	 */
 	private void connect(){
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -53,6 +50,9 @@ public class SQLiteManager
 			conectado = false;
 		}
 	}
+	/**
+	 * Desconecta la base de datos
+	 */
 	public void disconnet()
 	{
 		try{
@@ -63,6 +63,11 @@ public class SQLiteManager
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Lanza la consulta SQL no destinada a métodos de devolución, solo de inserción, creación, borrado o actualizado
+	 * @param sql
+	 * @return
+	 */
 	public boolean consulta(String sql){
 		boolean funciona = true;
 		try {
@@ -72,6 +77,11 @@ public class SQLiteManager
 		}
 		return funciona;
 	}
+	/**
+	 * Lanza la consulta SQL y retorna el resultado de dicha Select
+	 * @param sql
+	 * @return
+	 */
 	public ResultSet select(String sql){
 		ResultSet resultado = null;
 		try {
@@ -80,11 +90,18 @@ public class SQLiteManager
 		}
 		return resultado;
 	}
-	
+	/**
+	 * Retorna el resultado de la consulta SQL última que se ha realizado
+	 * @return
+	 */
 	public ResultSet getResultSet(){
 		return resultadoDeConsulta;
 	}
-	
+	/**
+	 * Método preparado para enviar cualquier tipo de comando y ajusta la llamada para decidir si devuelve algún valor o no
+	 * @param comando
+	 * @return
+	 */
 	public synchronized boolean enviarComando(String comando){
 		try {
 			if(conectado){
@@ -108,6 +125,12 @@ public class SQLiteManager
 			return false;
 		}		
 	}
+	/**
+	 * Con una consulta destinada insertar imagenes con un PrepareStatment inserta la imagen en el campo indicado de la base de datos
+	 * @param sql
+	 * @param image
+	 * @return
+	 */
 	public boolean enviarImagen(String sql, byte [] image){
 		boolean funciona = true; 
 		try {
@@ -119,6 +142,11 @@ public class SQLiteManager
 		}
 		return funciona;
 	}
+	/**
+	 * Para extraer la imagen del usuario se hace necesario abtraerse con este método e indicar a que usuario se desea sacar.
+	 * @param name
+	 * @return
+	 */
 	public Image getImageUsuario(String name){
 		Image img=null;
 		String query="SELECT imagen FROM Usuario WHERE nombreUsuario='"+name+"'";
@@ -135,6 +163,11 @@ public class SQLiteManager
 		}
 		return img;
 	}
+	/**
+	 * Para extraer la imagen del tweet del usuario se hace necesario abtraerse con este método e indicar a que Tweet se desea sacar.
+	 * @param name
+	 * @return
+	 */
 	public Image getImageTweet(long codigo){
 		Image img=null;
 		String query="SELECT imagenUsuario FROM Tweet WHERE codigo="+codigo;
@@ -151,6 +184,11 @@ public class SQLiteManager
 		}
 		return img;
 	}
+	/**
+	 * Para extraer la imagen del tweet del contenido se hace necesario abtraerse con este método e indicar a que Tweet se desea sacar.
+	 * @param name
+	 * @return
+	 */
 	public Image getImageTweetContenido(long codigo){
 		Image img=null;
 		String query="SELECT imagenTweet FROM Tweet WHERE codigo="+codigo;
