@@ -3,30 +3,36 @@ package controller.sql;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-
 import view.elementos.ObjetoCelda;
 import model.Tweet;
 import model.Usuario;
 
-public class Interaccion {
+public class Interaccion 
+{
 	static SQLiteManager gestor = SQLiteManager.getInstance();
-	
+	/**
+	 * Introduce los credenciales de un nuevo usuario, sin tener que cargar con ello el resto de valores
+	 * @param usuario
+	 * @param codigo
+	 * @param codigoSecreto
+	 * @return
+	 */
 	public static boolean introducirCredenciales(String usuario, String codigo, String codigoSecreto)
 	{
 		return 	gestor.enviarComando("INSERT INTO Usuario (nombreUsuario, token, secretToken) VALUES ('"+usuario+"','"+codigo+"','"+codigoSecreto+"')");
 	}
-	
+	/**
+	 * Introduce los datos completos del usuario
+	 * @param introducir
+	 * @return
+	 */
 	public static boolean introducirUsuario(Usuario introducir)
 	{
 		boolean comprobar = true;
@@ -34,17 +40,28 @@ public class Interaccion {
 		comprobar = comprobar && actualizarImagenPerfil(introducir.getNombreUsuario(), introducir.getImagen(), "png");
 		return comprobar;
 	}
-	
+	/**
+	 * Borra el usuario indicado
+	 * @param usuario
+	 * @return
+	 */
 	public static boolean borrarCredenciales(String usuario)
 	{
 		return 	gestor.enviarComando("DELETE FROM Usuario WHERE nombreUsuario = '"+usuario+"'");
 	}
-	
+	/**
+	 * Borra los tweets del usuario indicado
+	 * @param usuario
+	 * @return
+	 */
 	public static boolean borrarTweets(String usuario)
 	{
 		return 	gestor.enviarComando("DELETE FROM Tienen WHERE nombreUsuario = '"+usuario+"'");
 	}
-	
+	/**
+	 * Extrae todos lso usuarios registrados
+	 * @return
+	 */
 	public static ArrayList<Usuario> extraerCredenciales()
 	{
 		gestor.enviarComando("SELECT * FROM Usuario");
@@ -94,7 +111,13 @@ public class Interaccion {
 	{
 		return 	gestor.enviarComando("UPDATE Usuario SET numeroFavoritos = "+numFaves+" WHERE nombreUsuario = '"+nombreUsuario+"'");
 	}
-	
+	/**
+	 * Actualiza la imagen de perfil del usuario
+	 * @param nombreUsuario
+	 * @param imagen
+	 * @param formato
+	 * @return
+	 */
 	public static boolean actualizarImagenPerfil(String nombreUsuario, Image imagen, String formato)
 	{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
@@ -106,11 +129,17 @@ public class Interaccion {
 		byte[] data = baos.toByteArray(); 
 		return gestor.enviarImagen("UPDATE Usuario SET imagen = ? WHERE nombreUsuario = '"+nombreUsuario+"'", data);
 	}
-	
+	/**
+	 * Borra los credenciales de un usuario
+	 * @return
+	 */
 	public static boolean borrarTodosLosCredenciales() {
 		return 	gestor.enviarComando("DELETE FROM Usuario");
 	}
-	
+	/**
+	 * Extrae todos los usuarios que haya almacenados
+	 * @return
+	 */
 	public static ArrayList<Usuario> extraerUsuarios()
 	{
 		gestor.enviarComando("SELECT * FROM Usuario");
@@ -130,7 +159,6 @@ public class Interaccion {
 						extraidos.getInt("numeroFavoritos"),
 						extraidos.getInt("numeroSeguidos"),	
 						extraidos.getInt("numeroSeguidores"));
-						
 				temporal.add(tempUsuario);
 			}
 			cargarImagenesUsuarios(temporal);
@@ -140,7 +168,11 @@ public class Interaccion {
 			return null;
 		}
 	}
-	
+	/**
+	 * Extrae todos los tweets con toda la información para una cuenta de usuario
+	 * @param cuenta
+	 * @return
+	 */
 	public static ArrayList<Tweet> extraerTweets(String cuenta)
 	{
 		gestor.enviarComando("SELECT T.* FROM Tweet T, Tienen TI WHERE T.codigo=TI.codigo AND TI.nombreUsuario='"+cuenta+"'");
@@ -159,7 +191,7 @@ public class Interaccion {
 				Tweet tempTweet = new Tweet(extraidos.getLong("codigo"),
 						extraidos.getString("nombreUsuario"),
 						extraidos.getString("nombreReal"),
-						extraidos.getDate("fechaActualizacion"),	
+						new Date(extraidos.getLong("fechaActualizacion")),	
 						null,
 						extraidos.getString("texto"),	
 						esRetweet,	
@@ -208,14 +240,13 @@ public class Interaccion {
 	
 	public static boolean insertarTweet(Tweet añadir, String nombreUsuario, String formatoImagen)
 	{
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		int fav = 0;
 		int ret = 0;
 		if(añadir.esFavorito())
 			fav = 1;
 		if(añadir.esRetweet())
 			ret = 1;
-		System.out.println(gestor.enviarComando("INSERT INTO Tweet(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ("+añadir.getCodigo()+",datetime('"+sdf.format(añadir.getUltimaFechaActualizacion())+"'), '"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+ret+","+fav+")"));
+		System.out.println(gestor.enviarComando("INSERT INTO Tweet(codigo, fechaActualizacion, nombreUsuario, nombreReal, texto, esRetweet, esFavorito) VALUES ("+añadir.getCodigo()+","+añadir.getUltimaFechaActualizacion().getTime()+", '"+añadir.getNombreUsuario()+"','"+añadir.getNombreReal()+"','"+añadir.getTexto()+"',"+ret+","+fav+")"));
 		System.out.println(gestor.enviarComando("INSERT INTO Tienen VALUES ('"+nombreUsuario+"',"+añadir.getCodigo()+")"));
 		try{
 			actualizarImagenTweet(añadir.getImagenUsuario(), formatoImagen, añadir.getCodigo());
@@ -257,7 +288,13 @@ public class Interaccion {
 		byte[] data = baos.toByteArray(); 
 		return gestor.enviarImagen("UPDATE Tweet SET imagenTweet = ? WHERE codigo = "+codTweet+"", data);
 	}
-	
+	/**
+	 * Actualiza la imagen del Tweet, la del perfil del usuario, para ello se pasa la imagen, su formato y el código del tweet
+	 * @param imagen
+	 * @param formato
+	 * @param codTweet
+	 * @return
+	 */
 	public static boolean actualizarImagenTweet(Image imagen, String formato, long codTweet)
 	{
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
@@ -269,6 +306,9 @@ public class Interaccion {
 		byte[] data = baos.toByteArray(); 
 		return gestor.enviarImagen("UPDATE Tweet SET imagenUsuario = ? WHERE codigo = "+codTweet+"", data);
 	}
+	/**
+	 * Restaura la base de datos a sus valores originales
+	 */
 	public static void reiniciarBase()
 	{
 		gestor.enviarComando("DROP TABLE IF EXISTS Usuario;");
@@ -276,45 +316,18 @@ public class Interaccion {
 		gestor.enviarComando("DROP TABLE IF EXISTS Tienen;");
 		crearEstructura();
 	}
+	/**
+	 * Crea las tablas si no existen
+	 */
 	public static void crearEstructura()
 	{
-		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Usuario (nombreUsuario text NOT NULL,nombreReal text, token text NOT NULL, secretToken text, biografia text, imagen blob, numeroSeguidos integer, numeroSeguidores integer, numeroTweets integer, numeroFavoritos integer, fechaActualizacion Datetime,PRIMARY KEY(nombreUsuario));");		
+		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Usuario (nombreUsuario text NOT NULL,nombreReal text, token text NOT NULL, secretToken text, biografia text, imagen blob, numeroSeguidos integer, numeroSeguidores integer, numeroTweets integer, numeroFavoritos integer, fechaActualizacion BIGINT,PRIMARY KEY(nombreUsuario));");		
 		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Tweet (codigo BIGINT NOT NULL, fechaActualizacion DATETIME, nombreUsuario TEXT, nombreReal TEXT, imagenUsuario blob, imagenTweet blob, texto TEXT, esRetweet integer, esFavorito integer, PRIMARY KEY(codigo));");
 		gestor.enviarComando("CREATE TABLE IF NOT EXISTS Tienen (nombreUsuario text NOT NULL,codigo text NOT NULL,PRIMARY KEY(nombreUsuario,codigo),CONSTRAINT nombreUsuario FOREIGN KEY (nombreUsuario) REFERENCES Usuario (nombreUsuario) ON DELETE CASCADE ON UPDATE CASCADE, CONSTRAINT codigo FOREIGN KEY (codigo) REFERENCES Tweet (codigo) ON DELETE CASCADE ON UPDATE CASCADE);");
 	}
 	public static void main(String[]args) throws IOException
 	{
 		reiniciarBase();
-		//Esta parte del código prueba la inserción de usuarios y extracción de los mismos con la imagen
-		Usuario temp0 = new Usuario("Fiser12", "21323", "dfasdf", "Fiser", "bibliografia", ImageIO.read(new File("src/res/images/notif/notification_follower.png")), new Date(12122012), 4, 2, 2, 2);
-		//System.out.println(introducirUsuario(temp3));
-		/*
-		JFrame temp2 = new JFrame();
-		temp2.add(new JLabel(new ImageIcon(extraerUsuarios().get(0).getImagen())));
-		temp2.setVisible(true);*/
-
-//Esta parte de cóidgo prueba la insercción un tweet en la bd
-//		Tweet temp = new Tweet(1L, "Prueba1", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
-//		Tweet temp2 = new Tweet(2L, "Prueba2", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
-//		Tweet temp3 = new Tweet(3L, "Prueba3", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
-//		Tweet temp4 = new Tweet(4L, "Prueba4", "fgd", new Date(12121987), ImageIO.read(new File("src/res/images/notif/notification_follower.png")), "fdf", true, true);
-//		ArrayList<Tweet>temporal = new ArrayList<Tweet>();
-//		temporal.add(temp);
-//		temporal.add(temp2);
-//		temporal.add(temp3);
-//		temporal.add(temp4);
-
-		long time = System.currentTimeMillis();
-		//insertarTweets(temporal, "Fiser", "png");
-		System.out.println(System.currentTimeMillis()-time + " ms");
-		//insertarTweetsHilos(temporal, "Fiser12", "png");
-		System.out.println(extraerTweets("Fiser12").size());
-//		System.out.println(temporal.toString());
-//		JFrame temp2 = new JFrame();
-//		temp2.add(new JLabel(new ImageIcon(extraerTweets("Fiser12").get(0).getImagenUsuario())));
-//		temp2.setVisible(true);
-//		borrarTodosLosCredenciales();
-		
 	}
 
 }

@@ -296,7 +296,11 @@ public class Util {
 	public static boolean isNix(){
 		return getOS().contains("nix") || getOS().contains("ubuntu") || getOS().contains("debian");
 	}
-
+	public static String calcularFecha(long d)
+	{
+		System.out.println(d);
+		return calcularFecha(new Date(d));
+	}
 	public static String calcularFecha(Date d) {
 		Calendar currCal = Calendar.getInstance();
 		currCal.setTime(new Date(System.currentTimeMillis()));
