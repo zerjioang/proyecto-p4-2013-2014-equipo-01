@@ -71,14 +71,14 @@ public class Button extends JLabel{
 	}
 	
 	public void setNormal(){
-		setIcon(new ImageIcon(Button.class.getResource(getImagenNormal())));
+		setIcon(new ImageIcon(this.getClass().getResource(getImagenNormal())));
 	}
 	
 	public void setClick(){
-		setIcon(new ImageIcon(Button.class.getResource(getImagenClick())));
+		setIcon(new ImageIcon(this.getClass().getResource(getImagenClick())));
 	}
 
 	public void setHover(){
-		setIcon(new ImageIcon(Button.class.getResource(getImagenHover())));
+		setIcon(new ImageIcon(this.getClass().getResource(getImagenHover())));
 	}
 }

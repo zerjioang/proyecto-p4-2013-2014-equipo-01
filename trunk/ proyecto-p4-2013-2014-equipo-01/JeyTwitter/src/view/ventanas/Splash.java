@@ -51,9 +51,9 @@ public class Splash extends InvisibleJFrame {
 		lblIniciando = new JLabel("Iniciando...");
 		lblIniciando.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIniciando.setBounds(109, 248, 332, 28);
-		getContentPane().add(lblIniciando);
 		lblIniciando.setForeground(Color.WHITE);
-		lblIniciando.setFont(Util.getFont("Roboto-light", Font.PLAIN, 14));
+		lblIniciando.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 14));
+		getContentPane().add(lblIniciando);
 		contentPane.add(fondo);
 	}
 	
