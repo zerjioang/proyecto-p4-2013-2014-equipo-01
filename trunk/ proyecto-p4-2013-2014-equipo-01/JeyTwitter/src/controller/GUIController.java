@@ -357,10 +357,8 @@ public static boolean existeUsuario(String nombre){
 			
 			if (hayConexion()) {
 				user = t.getUsuarioRegistrado();
-				System.out.println("Ke ase que tiene c");
 				u = new Usuario(user);
 			} else {
-				System.out.println("Hola ke ase");
 				ArrayList<Usuario> credenciales = Interaccion.extraerUsuarios();
 				u = (Usuario)credenciales.get(0);
 			}

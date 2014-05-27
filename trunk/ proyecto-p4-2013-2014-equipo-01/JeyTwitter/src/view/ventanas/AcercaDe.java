@@ -20,6 +20,7 @@ import java.awt.Font;
  * Ventana de acerca de que muestra la infomacion sobre los desarrolladores de la aplicacion
  * @author Sergio Anguita
  */
+@SuppressWarnings("serial")
 public class AcercaDe extends CustomJDialogWithBar {
 
 	private static final Color COLOR_FONDO = Color.BLACK;
