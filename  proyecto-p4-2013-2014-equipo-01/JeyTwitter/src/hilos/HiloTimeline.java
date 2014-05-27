@@ -24,6 +24,7 @@ public class HiloTimeline extends Thread{
 	public void run(){
 		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
 		ArrayList<Tweet> timeline;
+		long masReciente = 0;
 		try {
 			timeline = Interaccion.extraerTweets(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
 			for (Tweet tweet : timeline) {
@@ -32,17 +33,21 @@ public class HiloTimeline extends Thread{
 				listaObjetos.add(0, g);
 				panel.getTabla().insertarNuevo(listaObjetos.get(0));
 				panel.getTabla().actualizarAltoFilas();
+				if(fecha>masReciente)
+					masReciente = fecha;
 			}
 		} catch (IOException e1) {}
 
 		try {
 			ArrayList<Tweet> li = GUIController.getInstance().mostrarTimeline(Util.MAX_TWEETS);
 			for (Tweet tweet : li) {
-				GUITweet g = new GUITweet(Util.calcularFecha(tweet.getUltimaFechaActualizacion()), tweet);
-				listaObjetos.add(0, g);
-				Interaccion.insertarTweet(tweet, GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario(), "png");
-				panel.getTabla().insertarNuevo(listaObjetos.get(0));
-				panel.getTabla().actualizarAltoFilas();
+				if(tweet.getUltimaFechaActualizacion().getTime()>masReciente){
+					GUITweet g = new GUITweet(Util.calcularFecha(tweet.getUltimaFechaActualizacion()), tweet);
+					listaObjetos.add(0, g);
+					Interaccion.insertarTweet(tweet, GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario(), "png");
+					panel.getTabla().insertarNuevo(listaObjetos.get(0));
+					panel.getTabla().actualizarAltoFilas();
+				}
 			}
 			boolean activo = false;
 			ArrayList<Thread> hilosActivos = AlmacenHilos.lista;
