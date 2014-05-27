@@ -24,7 +24,6 @@ public class HiloRetweets extends Thread{
 	}
 	
 	public void run(){
-		GUIController.getInstance().getGui().mostrarMensaje("Cargando retweets...");
 		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
 		try {
 			ArrayList<Tweet> li = GUIController.getInstance().mostrarRetuits();
