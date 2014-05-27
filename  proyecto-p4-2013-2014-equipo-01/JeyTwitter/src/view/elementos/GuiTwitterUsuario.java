@@ -21,6 +21,7 @@ import view.models.tablasPrincipal.TablaTweetsUsuarios;
 public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 
 	private static final int ALTO = 70;
+	private static final int REDONDEO = 15;
 	
 	private JLabel lblImagenUsuario;
 	private BotonSeguir btnSeguir;
@@ -43,13 +44,25 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 		super();
 		lblImagenUsuario = new JLabel();
 		lblImagenUsuario.setSize(ALTO, ALTO);
-		lblImagenUsuario.setIcon(Util.getImagenRedondeada(img, 20));
-		lblImagenUsuario.setIcon(Util.escalarImagen(lblImagenUsuario));
+		setImagenUsuario(img);
 		lblNombreReal = new JLabel(name);
 		txtrBiografia = new JTextArea(description);
 		lblusuario = new JLabel(screenName);
 		siguiendo = b;
 		init();
+	}
+
+	private void setImagenUsuario(ImageIcon img) {
+		ImageIcon imagenCache = Cache.getInstance().getImagenesUsuario(getNombreUsuario());
+		if(imagenCache!=null){
+			lblImagenUsuario.setIcon(imagenCache);
+		}
+		else{
+			lblImagenUsuario.setIcon(Util.getImagenRedondeada(img, REDONDEO));
+			ImageIcon imagen = Util.escalarImagen(lblImagenUsuario);
+			lblImagenUsuario.setIcon(imagen);
+			Cache.getInstance().addImagenesUsuario(getNombreUsuario(), imagen);
+		}
 	}
 
 	private void init() {

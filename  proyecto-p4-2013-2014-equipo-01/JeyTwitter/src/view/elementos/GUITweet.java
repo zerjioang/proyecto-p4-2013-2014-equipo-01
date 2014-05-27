@@ -359,28 +359,31 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	public Icon getImagenUsuario() {
 		return lblImagenusuario.getIcon();
 	}
-
 	
 	public void setImagenUsuario(ImageIcon imagenUsuario) {
-		lblImagenusuario.setIcon(Util.getImagenRedondeada(imagenUsuario, REDONDEO));
-		lblImagenusuario.setIcon(Util.escalarImagen(lblImagenusuario));
+		ImageIcon imagenCache = Cache.getInstance().getImagenesUsuario(getNombreUsuario());
+		if(imagenCache!=null){
+			lblImagenusuario.setIcon(imagenCache);
+		}
+		else{
+			lblImagenusuario.setIcon(Util.getImagenRedondeada(imagenUsuario, REDONDEO));
+			ImageIcon imagen = Util.escalarImagen(lblImagenusuario);
+			lblImagenusuario.setIcon(imagen);
+			Cache.getInstance().addImagenesUsuario(getNombreUsuario(), imagen);
+		}
 	}
 
-	
 	public String getNombreReal() {
 		return lblNombreReal.getText();
 	}
 
-	
 	public void setNombreReal(String nombreReal) {
 		this.lblNombreReal.setText(nombreReal);
 	}
-
 	
 	public String getNombreUsuario() {
 		return getTweet().getNombreUsuario();
 	}
-
 	
 	public void setNombreUsuario(String nombreUsuario) {
 		this.lblnombreUsuario.setText("@"+nombreUsuario);
@@ -404,12 +407,10 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		lblImagenTweet.setIcon(Util.escalarImagen(lblImagenTweet));
 		img[1]=(ImageIcon) lblImagenTweet.getIcon();
 	}
-
 	
 	public JLabel getLblImagenTweet() {
 		return lblImagenTweet;
 	}
-
 	
 	public void setLblImagenTweet(JLabel lblImagenTweet) {
 		this.lblImagenTweet = lblImagenTweet;
@@ -418,7 +419,6 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	public void setBordeImagenTweet(int i, int j, int k, int l, Color color) {
 		lblImagenTweet.setBorder(new MatteBorder(i,j,k,l, color));
 	}
-
 	
 	public Tweet getTweet() {
 		return tweet;
@@ -427,32 +427,26 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 	public void setTweet(Tweet tweet) {
 		this.tweet = tweet;
 	}
-
 	
 	public ArrayList<String> getUsuarioMencionado() {
 		return usuarioMencionado;
 	}
-
 	
 	public void setUsuarioMencionado(ArrayList<String> usuarioMencionado) {
 		this.usuarioMencionado = usuarioMencionado;
 	}
-
 	
 	public ArrayList<String> getHashtagTweet() {
 		return hashtagTweet;
 	}
-
 	
 	public void setHashtagTweet(ArrayList<String> hashtagTweet) {
 		this.hashtagTweet = hashtagTweet;
 	}
-
 	
 	public ArrayList<String> getUrlsTweet() {
 		return urlsTweet;
 	}
-
 	
 	public void setUrlsTweet(ArrayList<String> urlsTweet) {
 		this.urlsTweet = urlsTweet;

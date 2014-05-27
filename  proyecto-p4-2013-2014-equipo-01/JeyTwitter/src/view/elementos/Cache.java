@@ -3,6 +3,8 @@ package view.elementos;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.ImageIcon;
+
 import view.elementos.paneles.PanelPerfilUsuario;
 
 public class Cache {
@@ -12,6 +14,7 @@ public class Cache {
 	private HashMap<String, PanelPerfilUsuario> panelesUsuario;
 	private HashMap<String, ArrayList<ObjetoCelda>> resultadosBusquedaTweet;
 	private HashMap<String, ArrayList<ObjetoCelda>> resultadosBusquedaUsuario;
+	private HashMap<String, ImageIcon> imagenesUsuario;
 	
 	public static Cache getInstance(){
 		if(c==null){
@@ -48,5 +51,13 @@ public class Cache {
 
 	public void addResultadosBusquedaUsuario(String cadenaTexto, ArrayList<ObjetoCelda> tablaResultado) {
 		resultadosBusquedaUsuario.put(cadenaTexto, tablaResultado);
+	}
+
+	public ImageIcon getImagenesUsuario(String nombreusuario) {
+		return imagenesUsuario.get(nombreusuario);
+	}
+
+	public void addImagenesUsuario(String nombreusuario, ImageIcon image) {
+		imagenesUsuario.put(nombreusuario, image);
 	}
 }
