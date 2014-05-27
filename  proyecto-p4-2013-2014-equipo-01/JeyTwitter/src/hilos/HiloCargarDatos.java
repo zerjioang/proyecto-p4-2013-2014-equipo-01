@@ -19,13 +19,13 @@ public class HiloCargarDatos extends Thread{
 	public void run(){
 		if(ventana.getCodeField().evaluate()){
 			try {
-				GUIController.getInstance().guardarUsuario(ventana.getCodigo());
 				//Se cierra la ventana de introducir el codigo
 				ventana.cerrar();
 				//aparece el globo emergente
 				SystemTrayLogo l = SystemTrayLogo.getInstace();
 				l.enviarMensaje("Descargando datos", Util.APP_TITULO+" esta descargando los datos mas recientes");
 				l.setTitulo("Descargando");
+				GUIController.getInstance().guardarUsuario(ventana.getCodigo());
 				//Se cargan los datos
 				Principal p = new Principal(GUIController.getInstance().getUsuarioRegistrado());
 				GUIController.getInstance().setGui(p);
