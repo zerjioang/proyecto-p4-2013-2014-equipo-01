@@ -20,21 +20,31 @@ public class HiloTimeline extends Thread{
 	public HiloTimeline(PanelTablaTweets panelTimeLine) {
 		panel = panelTimeLine;
 	}
-	
 	public void run(){
 		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
 		ArrayList<Tweet> timeline;
 		long masReciente = 0;
+		if(GUIController.getInstance().getGui().getPanelTimeLine().getTabla().getListaObjetos()!=null){
+			listaObjetos = GUIController.getInstance().getGui().getPanelTimeLine().getTabla().getListaObjetos();
+			for(ObjetoCelda celda : listaObjetos)
+			{
+				long temporal = celda.getTweet().getUltimaFechaActualizacion().getTime();
+				if(masReciente<temporal)
+					masReciente = temporal;
+			}
+		}
 		try {
 			timeline = Interaccion.extraerTweets(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
 			for (Tweet tweet : timeline) {
 				long fecha = tweet.getUltimaFechaActualizacion().getTime();
+				if(masReciente<fecha){
 				GUITweet g = new GUITweet(Util.calcularFecha(fecha), tweet);
 				listaObjetos.add(0, g);
 				panel.getTabla().insertarNuevo(listaObjetos.get(0));
 				panel.getTabla().actualizarAltoFilas();
 				if(fecha>masReciente)
 					masReciente = fecha;
+				}
 			}
 		} catch (IOException e1) {}
 
