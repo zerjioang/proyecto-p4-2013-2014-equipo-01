@@ -18,8 +18,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class PanelEstadistica extends JPanel{
-	private static JTextField txtNombreUsuario;
-	public static String rutaDestino ="vacio";
+	private JTextField txtNombreUsuario;
+	private String rutaDestino ="vacio";
+	private JButton btnNewButton;
+	private JButton btnIniciar;
 
 	public PanelEstadistica() throws IOException{
 		setLayout(new BorderLayout(0, 0));
@@ -42,7 +44,7 @@ public class PanelEstadistica extends JPanel{
 		panel.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
-		JButton btnIniciar = new JButton("Iniciar");
+		btnIniciar = new JButton("Iniciar");
 		panel.add(btnIniciar, BorderLayout.CENTER);
 
 		JLabel lblNombreUsuario = new JLabel("Introduzca el nombre de usuario");
@@ -51,7 +53,7 @@ public class PanelEstadistica extends JPanel{
 		txtNombreUsuario = new JTextField(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario());
 		scrollPaneOpciones.setColumnHeaderView(txtNombreUsuario);
 		txtNombreUsuario.setColumns(10);
-		btnIniciar.addMouseListener(new EventoClickIniciar());
+		btnIniciar.addMouseListener(new EventoClickIniciar(this));
 
 		JScrollPane scrollPaneResultados = new JScrollPane();
 		scrollPaneResultados.getVerticalScrollBar().setUnitIncrement(1);
@@ -61,7 +63,7 @@ public class PanelEstadistica extends JPanel{
 		scrollPaneResultados.setViewportView(panelResultados);
 		panelResultados.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblSinResultados = new JLabel(" ");
+		JLabel lblSinResultados = new JLabel();
 		lblSinResultados.setHorizontalAlignment(SwingConstants.CENTER);
 		panelResultados.add(lblSinResultados, BorderLayout.CENTER);
 
@@ -71,7 +73,7 @@ public class PanelEstadistica extends JPanel{
 		JLabel lblAbrirCarpetaDe = new JLabel("Abrir carpeta de destino:");
 		panel_2.add(lblAbrirCarpetaDe);
 
-		JButton btnNewButton = new JButton("Abrir");
+		btnNewButton = new JButton("Abrir");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//cuando pulsamos el boton
@@ -100,7 +102,39 @@ public class PanelEstadistica extends JPanel{
 	}
 
 	//obtiene el texto del usuario del textField
-	public static String getTxt(){
+	public String getTxt(){
 		return txtNombreUsuario.getText();
+	}
+
+	public JTextField getTxtNombreUsuario() {
+		return txtNombreUsuario;
+	}
+
+	public void setTxtNombreUsuario(JTextField txtNombreUsuario) {
+		this.txtNombreUsuario = txtNombreUsuario;
+	}
+
+	public String getRutaDestino() {
+		return rutaDestino;
+	}
+
+	public void setRutaDestino(String rutaDestino) {
+		this.rutaDestino = rutaDestino;
+	}
+
+	public JButton getBtnNewButton() {
+		return btnNewButton;
+	}
+
+	public void setBtnNewButton(JButton btnNewButton) {
+		this.btnNewButton = btnNewButton;
+	}
+
+	public JButton getBtnIniciar() {
+		return btnIniciar;
+	}
+
+	public void setBtnIniciar(JButton btnIniciar) {
+		this.btnIniciar = btnIniciar;
 	}
 }

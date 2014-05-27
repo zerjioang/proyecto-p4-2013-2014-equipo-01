@@ -15,8 +15,11 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 import model.Tweet;
 import model.Usuario;
 import twitter4j.MediaEntity;
@@ -34,6 +37,7 @@ import view.elementos.GUITweet;
 import view.elementos.GuiTwitterUsuario;
 import view.elementos.ObjetoCelda;
 import view.elementos.paneles.PanelBusqueda;
+import view.elementos.paneles.PanelEstadistica;
 import view.ventanas.Principal;
 import _launcher.Launcher;
 import controller.sql.Interaccion;
@@ -368,8 +372,8 @@ public class GUIController {
 	}
 
 
-	public static void stalker(String usuario, int numPaginas, String ruta) throws MalformedURLException, IOException {
-		new HiloEstadistica(t, usuario, numPaginas, ruta).start();
+	public static void stalker(PanelEstadistica pe, String usuario, int numPaginas, String ruta) throws MalformedURLException, IOException {
+		new HiloEstadistica(pe, t, usuario, numPaginas, ruta).start();
 	}
 
 	public boolean hayConexion() {
