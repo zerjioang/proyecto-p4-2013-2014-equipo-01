@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.swing.JPanel;
 
+import util.InvalidInputException;
+import util.Util;
 import view.elementos.paneles.PanelEstadistica;
 import view.parents.CustomJFrame;
 
@@ -18,17 +20,8 @@ public class temp extends CustomJFrame {
 	private JTable table;
 
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					temp frame = new temp();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public static void main(String[] args) throws InvalidInputException {
+		 
 	}
 
 	
