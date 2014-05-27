@@ -24,7 +24,6 @@ public class HiloFavoritos extends Thread{
 	}
 
 	public void run(){
-		GUIController.getInstance().getGui().mostrarMensaje("Cargando favoritos...");
 		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
 		try {
 			ArrayList<Tweet> li = GUIController.getInstance().mostrarFavoritos();

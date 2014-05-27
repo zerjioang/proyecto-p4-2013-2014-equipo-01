@@ -25,7 +25,6 @@ public class HiloMenciones extends Thread{
 	
 
 	public void run(){
-		GUIController.getInstance().getGui().mostrarMensaje("Cargando menciones...");
 		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
 		try {
 			ArrayList<Tweet> li = GUIController.getInstance().mostrarMenciones();

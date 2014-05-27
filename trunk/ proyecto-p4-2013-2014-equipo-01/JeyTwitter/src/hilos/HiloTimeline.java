@@ -22,7 +22,6 @@ public class HiloTimeline extends Thread{
 	}
 	
 	public void run(){
-		GUIController.getInstance().getGui().mostrarMensaje("Cargando Timeline...");
 		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
 		ArrayList<Tweet> timeline;
 		try {

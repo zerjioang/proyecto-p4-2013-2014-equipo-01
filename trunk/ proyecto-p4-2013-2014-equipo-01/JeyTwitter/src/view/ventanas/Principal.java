@@ -135,6 +135,7 @@ public class Principal extends CustomJFrame {
 		AlmacenHilos.lista.add(0, r);
 		AlmacenHilos.lista.add(0, t);
 		
+		GUIController.getInstance().getGui().mostrarMensaje("Actualizando...");
 		m.start();
 		f.start();
 		r.start();
