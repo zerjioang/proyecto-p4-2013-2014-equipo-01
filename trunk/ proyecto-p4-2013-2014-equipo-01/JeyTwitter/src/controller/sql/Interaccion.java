@@ -301,7 +301,7 @@ public class Interaccion
 		try {
 			ImageIO.write((RenderedImage)imagen, formato, baos);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}  
 		byte[] data = baos.toByteArray(); 
 		return gestor.enviarImagen("UPDATE Tweet SET imagenUsuario = ? WHERE codigo = "+codTweet+"", data);
