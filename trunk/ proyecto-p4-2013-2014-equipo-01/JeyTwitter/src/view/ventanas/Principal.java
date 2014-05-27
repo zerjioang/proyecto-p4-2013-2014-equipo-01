@@ -6,22 +6,26 @@ import hilos.HiloMenciones;
 import hilos.HiloRetweets;
 import hilos.HiloTimeline;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Color;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 
+import model.Usuario;
 import util.Util;
-import view.elementos.GUITweet;
-import view.elementos.ObjetoCelda;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.paneles.PanelBusqueda;
 import view.elementos.paneles.PanelEnviarTweet;
@@ -39,20 +43,8 @@ import view.models.ModeloTablaPrincipal;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 import view.parents.CustomJFrame;
 import view.renderers.UIButtonRenderer;
-
-import java.awt.Font;
-import java.awt.Cursor;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-
-import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
-
 import _launcher.Launcher;
 import controller.GUIController;
-import model.Tweet;
-import model.Usuario;
 
 @SuppressWarnings("serial")
 public class Principal extends CustomJFrame {

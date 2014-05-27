@@ -15,9 +15,6 @@ public class EventoClickImagenUsuario implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		/*PanelPerfilUsuario pu = new PanelPerfilUsuario(GUIController.getInstance().getUsuario(g.getNombreUsuario()));
-		p.setPanelUsuario(pu);
-		p.setPanelActual(p.getPanelUsuario());*/
 	}
 
 	@Override

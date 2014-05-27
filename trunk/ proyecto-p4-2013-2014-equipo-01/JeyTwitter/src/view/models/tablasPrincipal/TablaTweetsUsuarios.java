@@ -113,6 +113,14 @@ public class TablaTweetsUsuarios extends JTable {
 		listaObjetos = modelo.getLista();
 		actualizarTabla(modelo);
 	}
+	
+	public  void actualizar(ArrayList<ObjetoCelda> l) {
+		ModeloTablaTweetUsuarios modelo;
+		l = listaObjetos;
+		modelo = new ModeloTablaTweetUsuarios(l);
+		modelo.actualizarContenidoTabla();
+		actualizarTabla(modelo);
+	}
 
 	private void actualizarAltoFila(int fila){
 		Component comp = prepareRenderer(getCellRenderer(fila, 0), fila, 0);

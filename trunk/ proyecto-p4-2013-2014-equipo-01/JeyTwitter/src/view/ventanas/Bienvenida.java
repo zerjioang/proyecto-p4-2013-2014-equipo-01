@@ -1,7 +1,6 @@
 package view.ventanas;
 
 import util.Util;
-import view.elementos.botones.BotonEmpezar;
 import view.elementos.botones.BotonUI;
 import view.elementos.input.CampoCodeAuth;
 import view.eventos.welcome.EventoClickEmpezar;
@@ -23,7 +22,7 @@ public class Bienvenida extends CustomJFrame {
 	private JPanel panelCero;
 	private JPanel panelUno;
 	private CampoCodeAuth codeField;
-	private BotonEmpezar lblOK;
+	private BotonUI lblOK;
 
 	/**
 	 * Launch the application.
@@ -94,7 +93,7 @@ public class Bienvenida extends CustomJFrame {
 		lblTextoBienvenida.setBounds(21, 129, 406, 94);
 		panelCero.add(lblTextoBienvenida);
 
-		lblOK = new BotonEmpezar();
+		lblOK = new BotonUI("Empezar");
 		panelCero.add(lblOK);
 		lblOK.setBounds(160, 242, 164, 43);
 		lblOK.addMouseListener(new EventoClickEmpezar(this));
@@ -142,11 +141,11 @@ public class Bienvenida extends CustomJFrame {
 		codeField.setText(code);
 	}
 
-	public BotonEmpezar getLblOK() {
+	public BotonUI getLblOK() {
 		return lblOK;
 	}
 
-	public void setLblOK(BotonEmpezar lblOK) {
+	public void setLblOK(BotonUI lblOK) {
 		this.lblOK = lblOK;
 	}
 
