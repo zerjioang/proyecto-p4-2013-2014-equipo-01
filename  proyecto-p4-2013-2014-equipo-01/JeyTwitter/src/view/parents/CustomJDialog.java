@@ -127,9 +127,9 @@ public abstract class CustomJDialog extends JDialog implements Moveable{
 		this.lastPosition = lastPosition;
 	}
 	
-	public boolean getEstado(){
+	public Boolean getEstado(){
 		if(estado==null)
-			return false;
+			return null;
 		return estado.booleanValue();
 	}
 	

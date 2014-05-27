@@ -34,10 +34,15 @@ public class BotonSeguir extends JLabel{
 		int altoBoton = 85;
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		try {
-			if (!GUIController.getInstance().isAmigo(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario(), nombreUsuario)) {
+			if(GUIController.getInstance().hayConexion()){
+				if (!GUIController.getInstance().isAmigo(GUIController.getInstance().getUsuarioRegistrado().getNombreUsuario(), nombreUsuario)) {
+					setIcon(getImagenOff());
+				} else {
+					setIcon(getImagenOn());
+				}
+			}
+			else{
 				setIcon(getImagenOff());
-			} else {
-				setIcon(getImagenOn());
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
