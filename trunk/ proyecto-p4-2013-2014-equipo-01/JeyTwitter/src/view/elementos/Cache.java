@@ -27,6 +27,7 @@ public class Cache {
 		panelesUsuario = new HashMap<String, PanelPerfilUsuario>();
 		resultadosBusquedaTweet = new HashMap<String, ArrayList<ObjetoCelda>>();
 		resultadosBusquedaUsuario = new HashMap<String, ArrayList<ObjetoCelda>>();
+		imagenesUsuario = new HashMap<String, ImageIcon>();
 	}
 	
 	public void addPanelUsuario(String nombreUsuario, PanelPerfilUsuario pu){

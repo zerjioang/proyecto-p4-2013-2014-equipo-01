@@ -6,8 +6,12 @@ import java.net.URL;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import twitter4j.Status;
+import util.Util;
+import view.elementos.Cache;
+import view.elementos.GUITweet;
 
 public class Tweet {
 	private long codigo;
@@ -44,7 +48,15 @@ public class Tweet {
 		this.esRetweet = s.isRetweeted();
 		this.esFavorito = s.isFavorited();
 		try {
-			this.imagenUsuario = ImageIO.read(new URL(s.getUser().getBiggerProfileImageURL()));
+			ImageIcon ii = Cache.getInstance().getImagenesUsuario(nombreUsuario);
+			if(ii==null){	
+				this.imagenUsuario = ImageIO.read(new URL(s.getUser().getBiggerProfileImageURL()));
+				ImageIcon temp = Util.getImagenRedondeada(new ImageIcon(imagenUsuario), GUITweet.REDONDEO);
+				Cache.getInstance().addImagenesUsuario(nombreUsuario, temp);
+			}
+			else{
+				this.imagenUsuario = ii.getImage();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

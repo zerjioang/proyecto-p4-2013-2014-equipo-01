@@ -27,14 +27,18 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-
+/**
+ * Contiene la mayoria de las variables estaticas asi como metodos y utilidades necesarias para la aplicacion
+ * @author Sergio Anguita
+ *
+ */
 public class Util {
 
 	public static boolean DEBUG = false;
 
 	public static final int ANCHO_PANTALLA = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public static final int ALTO_PANTALLA = Toolkit.getDefaultToolkit().getScreenSize().height;
-	public static final int MAX_TWEETS = 1;
+	public static final int MAX_TWEETS = 2;
 
 	public static final String 
 	APP_TITULO = "JeyTuiter",
@@ -44,47 +48,6 @@ public class Util {
 	SQLITE_NOMBRE_BBDD = "JeyTuiterSQL.sqlite";
 
 	public static final String URL_SVN = "https://code.google.com/p/proyecto-p4-2013-2014-equipo-01/";
-
-	//Este array representa las diferentes areas de configuracion
-	public static String[] settings =
-		{
-		"General",
-		"Cuenta",
-		"Notificaciones"
-		};
-	/*
-	 * Cada uno de los siguientes arrays representa las configuraciones disponibles
-	 * dentro de cada area de configuracion
-	 */
-	public static String[] settingsGeneral =
-		{
-		"Activar modo silencio",
-		"Mostrar splash al iniciar",
-		"Minimizar a la barra de tareas",
-		"Frecuencia de actualizacion",
-		"Personalizar fuente",
-		"Activar filtros de busqueda",
-		"Iniciar con el sistema",
-		"Reiniciar configuracion"
-		};
-
-	public static String[] settingsCuenta =
-		{
-		"Permitir multiples usuarios",
-		"Cerrar sesion al salir",
-		"Permitir edicion offline",
-		//"Activar modo Streaming",
-		"Desautorizar cliente",
-		};
-
-	public static String[] settingsNotif =
-		{
-		"Habilitar notificaciones",
-		"Habilitar sonido de notificacion",
-		"Personalizar posicion",
-		"Traer notificaciones al frente",
-		"Definir tiempo de espera"
-		};
 
 	public static String[] principal =
 		{
@@ -96,13 +59,26 @@ public class Util {
 		"Estadistica"
 		};
 
-	
+	/**
+	 * Cierra la ventana mostrando un mensaje de aviso
+	 * @param parent	ventana padre
+	 * @throws InvalidInputException
+	 */
 	public static void cerrarVentana(Moveable parent) throws InvalidInputException{
 		showMessage(parent, "Cerrar "+APP_TITULO, "Desea realmente cerrar?", "Si", "No");
 	}
-
 	
-	public static boolean showMessage(Moveable parent, String titulo, String mensaje, String textoAceptar, String textoCancelar) throws InvalidInputException{
+	/**
+	 * Muestra un mensaje en pantalla
+	 * @param parent	ventana padre
+	 * @param titulo	titulo de la ventana a mostrar	
+	 * @param mensaje	mensaje de la ventana	
+	 * @param textoAceptar	texto del mensaje del boton 'Aceptar'
+	 * @param textoCancelar texto del mensaje del boton 'Cancelar'
+	 * @return	devuelve true si el usuario ha clicado en aceptar, false si ha clicado en cancelar o null si ha cerrado la ventana
+	 * @throws InvalidInputException
+	 */
+	public static Boolean showMessage(Moveable parent, String titulo, String mensaje, String textoAceptar, String textoCancelar) throws InvalidInputException{
 		MensajeWindow mw = new MensajeWindow();
 		mw.setTituloVentana(titulo);
 		mw.setMensaje(mensaje);
@@ -117,18 +93,30 @@ public class Util {
 		return mw.getEstado();
 	}
 
-	
+	/**
+	 * Escala el tamaño de la imagen al tamaño del componente	
+	 * @param comp	componente de Swing que contiene la imagen
+	 * @return	devuelve un Objeto ImageIcon con la imagen reescalada
+	 */
 	public static ImageIcon escalarImagen(Component comp){
 		ImageIcon fot = (ImageIcon) ( (JLabel) comp ).getIcon();
 		Icon icono = new ImageIcon(fot.getImage().getScaledInstance(comp.getWidth(), comp.getHeight(), Image.SCALE_SMOOTH));
 		return (ImageIcon) icono;
 	}
 
-	
+	/**
+	 * Muestra una ventana con una animacion de transparencia
+	 * @param comp	ventana a mostrar
+	 */
 	public static void mostrarImagenDifuso(Component comp) {
 		mostrarImagenDifuso(comp, 25);
 	}
 	
+	/**
+	 * Muestra una ventana con una animacion de transparencia
+	 * @param comp ventana a mostrar
+	 * @param time	intervalo de tiempo entre cada nivel de transparencia. Controla la velocidad con la que la ventan aparece
+	 */
 	public static void mostrarImagenDifuso(Component comp, int time) {
 		comp.setVisible(false);
 		float opacidad=0.f;
@@ -143,12 +131,19 @@ public class Util {
 		((JFrame) comp).setVisible(true);
 	}
 
-	
+	/**
+	 * Oculta una ventana con una animacion de transparencia
+	 * @param parent	ventana a ocultar
+	 */
 	public static void ocultarImagenDifuso(Moveable parent) {
 		ocultarImagenDifuso(parent, 25);
 	}
 
-	
+	/**
+	 * Oculta una ventana con una animacion de transparencia
+	 * @param comp ventana a mostrar
+	 * @param time	intervalo de tiempo entre cada nivel de transparencia. Controla la velocidad con la que la ventan aparece
+	 */
 	public static void ocultarImagenDifuso(Moveable parent, int time) {
 		float opacidad=1.0f;
 		((Window) parent).setOpacity(opacidad);
@@ -163,13 +158,19 @@ public class Util {
 		pausar(time);
 	}
 	
+	/**
+	 * Pausa la ejecucion del programa durante un tiempo determinado
+	 * @param i	tiempo de pausar en ms
+	 */
 	public static void pausar(int i) {
 		try {Thread.sleep(i);} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
-	
+	/**
+	 * Asigna el Look and Feel del sistema operativo en el que se ejecuta la aplicacion
+	 */
 	public static void asignarLFSO() {
 		//Al tener activado el look and feel de Nimbus algunas ventanas con
 		//transparencia se volvian opacas. Ahora esta desactivado
@@ -185,7 +186,13 @@ public class Util {
 		}
 	}
 
-	
+	/**
+	 * Genera objetos fuente con las fuentes personalizadas
+	 * @param name	nombre de la fuente
+	 * @param tipo	tipo de la fuente: negrita, cursiva, normal
+	 * @param tamano	tamaño de la fuente
+	 * @return devulve la funete especificada por parametros. En caso de haber algun error, devuelve la fuente predeterminada por el sistema
+	 */
 	public static Font getFont(String name, int tipo, float tamano) {
 		Font font = new JLabel().getFont();	//carga la fuente por defecto
 		if (name != null) {
@@ -204,7 +211,12 @@ public class Util {
 		return font;
 	}
 	
-	
+	/**
+	 * Redondea los bordes de una imagen
+	 * @param image	imagen	
+	 * @param cornerRadius	grado de redondeo.
+	 * @return	devuelve la imagen redondeada
+	 */
 	private static BufferedImage makeRoundedCorner(BufferedImage image, int cornerRadius) {
 	    int w = image.getWidth();
 	    int h = image.getHeight();
@@ -232,7 +244,11 @@ public class Util {
 	    return output;
 	}
 	
-	
+	/**
+	 * Convierte una Image a un objeto BufferedImage
+	 * @param img	imagen a convertir
+	 * @return
+	 */
 	private static BufferedImage toBufferedImage(Image img)
 	{
 	    if (img instanceof BufferedImage)
@@ -252,13 +268,22 @@ public class Util {
 	    return bimage;
 	}
 	
+	/**
+	 * Calcula una imagen redondeada dada la imagen y el grado de redondeo
+	 * @param imagenOriginal imagen original a redondear
+	 * @param redondeo	grado de redondeo
+	 * @return
+	 */
 	public static ImageIcon getImagenRedondeada(ImageIcon imagenOriginal, int redondeo){
 		BufferedImage imagenRedondeada = Util.toBufferedImage(imagenOriginal.getImage());
 		imagenRedondeada = Util.makeRoundedCorner(imagenRedondeada, redondeo);
 		return new ImageIcon(imagenRedondeada);
 	}
 
-	
+	/**
+	 * Muestra un mensaje en consola solo si el atributo DEBUG es true.
+	 * @param string	mensaje a mostrar
+	 */
 	public static void debug(String string) {
 		if(DEBUG)
 			if (string!=null) {
@@ -269,7 +294,15 @@ public class Util {
 			}
 	}
 
-	
+	/**
+	 * Muestra una ventana de error
+	 * @param parent	ventana padre
+	 * @param lblTitulodeLaVentana	Titulo de la ventana	
+	 * @param lblMensajeAMostrar	mensaje
+	 * @param textoBotonBlanco		texto del boton cancelar
+	 * @param textoBotonRojo		texto del boton aceptar
+	 * @return
+	 */
 	public static Boolean showError(Component parent, String lblTitulodeLaVentana, String lblMensajeAMostrar, String textoBotonBlanco, String textoBotonRojo) {
 		VentanaError error = new VentanaError(parent, lblTitulodeLaVentana,lblMensajeAMostrar,textoBotonBlanco,textoBotonRojo);
 		error.getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
@@ -277,25 +310,43 @@ public class Util {
 		return error.getEstado();
 	}
 
-	
+	/**
+	 * 
+	 * @return devuelve el nombre del sistema operativo
+	 */
 	public static String getOS(){
 		return System.getProperty("os.name").toLowerCase();
 	}
 
-	
+	/**
+	 * 
+	 * @return devuelve true si el S.O es mac os. Falso si no lo es
+	 */
 	public static boolean isMac(){
 		return getOS().contains("mac os");
 	}
 
-	
+	/**
+	 * 
+	 * @return devuelve true si el S.O es Microsoft Windows. Falso si no lo es
+	 */
 	public static boolean isWin(){
 		return getOS().contains("windows");
 	}
 
-	
+	/**
+	 * 
+	 * @return devuelve true si el S.O esta basado en Linux. Falso si no lo es
+	 */
 	public static boolean isNix(){
 		return getOS().contains("nix") || getOS().contains("ubuntu") || getOS().contains("debian");
 	}
+	
+	/**
+	 * Calcula la fecha de creacion de un Tweet
+	 * @param d	long que contiene la fecha
+	 * @return 	devuelve una String con la fecha correctamente escrita
+	 */
 	public static String calcularFecha(long d)
 	{
 		System.out.println(d);
