@@ -1,16 +1,16 @@
 package view.eventos.principal;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import controller.GUIController;
-import twitter4j.examples.geo.GetGeoDetails;
 import view.elementos.paneles.PanelPerfilUsuario;
 import view.ventanas.Contador;
-import view.ventanas.Principal;
 
-public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotionListener {
+public class EventoVerContadorPerfilusuario implements MouseListener, FocusListener {
 
 	public static final int FAVORITOS = 0;
 	public static final int TWEETS = 1;
@@ -51,6 +51,12 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 		c.setVisible(true);
 	}
 
+	private void mover(MouseEvent e) {
+		int x = e.getXOnScreen();
+		int y = e.getYOnScreen();
+		c.setLocation(x-30, y-c.getHeight());
+	}
+
 	@Override
 	public void mouseExited(MouseEvent e) {
 		c.dispose();
@@ -63,16 +69,10 @@ public class EventoVerContadorPerfilusuario implements MouseListener, MouseMotio
 	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {}
+	public void focusGained(FocusEvent e) {}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		mover(e);
-	}
-
-	private void mover(MouseEvent e) {
-		int x = e.getXOnScreen();
-		int y = e.getYOnScreen();
-		c.setLocation(x-30, y-c.getHeight());
+	public void focusLost(FocusEvent e) {
+		c.dispose();
 	}
 }
