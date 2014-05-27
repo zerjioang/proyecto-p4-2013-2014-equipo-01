@@ -1,10 +1,13 @@
 package view.eventos.principal;
 
+import hilos.HiloTimeline;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JTable;
 
+import controller.GUIController;
 import view.ventanas.Principal;
 
 public class EventoCambiarPanelClick implements MouseListener {
@@ -20,6 +23,11 @@ public class EventoCambiarPanelClick implements MouseListener {
 		JTable t = v.getTablaMenu();
 		int opcion = t.getSelectedRow();
 		v.setPanelActual(v.getPaneles()[opcion+1]);
+	/*	if(opcion==1)
+		{
+			HiloTimeline recargar = new HiloTimeline(GUIController.getInstance().getGui().getPanelTimeLine());
+			recargar.start();
+		}*/
 	}
 
 	@Override

@@ -300,7 +300,7 @@ public class Interaccion
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
 		try {
 			ImageIO.write((RenderedImage)imagen, formato, baos);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}  
 		byte[] data = baos.toByteArray(); 

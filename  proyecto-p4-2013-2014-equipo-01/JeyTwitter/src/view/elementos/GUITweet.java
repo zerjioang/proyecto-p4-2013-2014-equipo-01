@@ -83,11 +83,15 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		tweet = t;
 		
 		lblImagenusuario.addMouseListener(new EventoClickFotoUsuario(getNombreUsuario()));
-		init();
-		setImagenUsuario(new ImageIcon(t.getImagenUsuario()));
-		
+		init();		
+		if(t.getImagenUsuario()!=null)
+			setImagenUsuario(new ImageIcon(t.getImagenUsuario()));
+		else
+			setImagenUsuario(Cache.getInstance().getImagenesUsuario(getNombreUsuario()));
 		HiloCargarImagen hi = new HiloCargarImagen(this);
 		hi.start();
+		
+		
 	}
 	
 	public GUITweet(Tweet t) {
