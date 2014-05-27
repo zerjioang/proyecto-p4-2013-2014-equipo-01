@@ -37,6 +37,7 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 import util.Util;
 import view.elementos.GUITweet;
+import view.elementos.paneles.PanelEstadistica;
 import controller.GUIController;
 import controller.TwitterService;
 
@@ -46,6 +47,7 @@ public class HiloEstadistica extends Thread {
 	private String nombre;
 	private int numPaginas;
 	private static String ruta;
+	private PanelEstadistica pe;
 
 	//contador de dias
 	//	private static int numeroDeDias =0;
@@ -53,11 +55,12 @@ public class HiloEstadistica extends Thread {
 	//creamos una lista vacia donde irán todos los tuits que vamos a sacar
 	private static	ArrayList<Tweet> tuits = new ArrayList<Tweet>();
 
-	public HiloEstadistica(TwitterService t, String nombre, int numPaginas, String ruta) {
+	public HiloEstadistica(PanelEstadistica pe, TwitterService t, String nombre, int numPaginas, String ruta) {
 		this.t = t;
 		this.numPaginas = numPaginas;
 		this.nombre = nombre;
 		this.ruta = ruta;
+		this.pe = pe;
 	}
 
 	public void run(){
@@ -68,17 +71,21 @@ public class HiloEstadistica extends Thread {
 			System.out.println("Archivo de tuits");
 			crearGrafica(nombre, 1500, 900);
 			System.out.println("Grafica");
-			generarMenciones();
-			generarHashTags();
-			generarListaTuits();
 			System.out.println("Lista");
 			diaMasTuiteado();
 			GUIController.getInstance().getGui().mostrarMensaje("Estadistica finalizada");
 			Util.pausar(1000);
 			GUIController.getInstance().getGui().ocultarMensajeInformativo();
+			pe.getBtnIniciar().setEnabled(true);
 		} catch (Exception e) {
 			Util.showError(null, "Error", "Error generando las graficas", "Cancelar", "Aceptar");
 		}
+		try {
+			generarMenciones();
+			generarHashTags();
+			generarListaTuits();
+		} catch (FileNotFoundException e) {}
+		
 		GUIController.getInstance().getGui().ocultarMensajeInformativo();
 	}
 
@@ -104,7 +111,7 @@ public class HiloEstadistica extends Thread {
 		Collection<Integer> values = counter.values();
 		Integer[] v = values.toArray(new Integer[values.size()]);
 		for (int i=0; i<k.length;i++) {
-			DDescritor.println(k[i]+"\t\t\t\t "+v[i].intValue());
+			DDescritor.println(k[i]+"\t\t\t\t\t\t\t\t"+v[i].intValue());
 		}
 		//cerramos
 		DDescritor.close();
@@ -133,7 +140,7 @@ public class HiloEstadistica extends Thread {
 		Collection<Integer> values = counter.values();
 		Integer[] v = values.toArray(new Integer[values.size()]);
 		for (int i=0; i<k.length;i++) {
-			DDescritor.println(k[i]+"\t\t\t\t "+v[i].intValue());
+			DDescritor.println(k[i]+"\t\t\t\t\t\t\t\t"+v[i].intValue());
 		}
 		//cerramos
 		DDescritor.close();
