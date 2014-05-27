@@ -44,12 +44,12 @@ public class GuiTwitterUsuario extends JPanel implements ObjetoCelda{
 		super();
 		lblImagenUsuario = new JLabel();
 		lblImagenUsuario.setSize(ALTO, ALTO);
-		setImagenUsuario(img);
 		lblNombreReal = new JLabel(name);
 		txtrBiografia = new JTextArea(description);
 		lblusuario = new JLabel(screenName);
 		siguiendo = b;
 		init();
+		setImagenUsuario(img);
 	}
 
 	private void setImagenUsuario(ImageIcon img) {

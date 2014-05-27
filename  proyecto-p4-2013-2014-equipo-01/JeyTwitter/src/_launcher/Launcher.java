@@ -9,6 +9,11 @@ import view.ventanas.Splash;
 import view.ventanas.Bienvenida;
 import view.ventanas.TerminosCondiciones;
 
+/**
+ * Inicia la aplicacion
+ * @author Sergio Anguita
+ *
+ */
 public class Launcher {
 	
 	private final static Splash spl = new Splash();
@@ -62,20 +67,27 @@ public class Launcher {
 		}
 		spl.dispose();
 	}
-
+	/**
+	 * Muestra un mensaje en la splash inicial
+	 * @param texto mensaje a mostrar
+	 */
 	public static void mostrarMensaje(String texto) {
 		if(spl!=null && spl.isVisible()){
 			spl.setTextoMensaje(texto);
 		}
 	}
 
-	
+	/**
+	 * Muestra la ventana de bienvenida
+	 */
 	private static void mostrarBienvenida() {
 		Bienvenida wc = new Bienvenida();
 		wc.setVisible(true);
 	}
 
-	
+	/**
+	 * Muestra la ventana principal
+	 */
 	private static void mostrarPrincipal() {
 		// Tenemos token, lanzamos la ventana principal
 		//Este usuario es el usuario que tiene la sesion de twitter abierta y que tiene que ser cargado

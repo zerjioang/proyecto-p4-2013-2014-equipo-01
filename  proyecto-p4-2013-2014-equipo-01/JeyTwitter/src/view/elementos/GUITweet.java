@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -18,17 +17,12 @@ import java.util.regex.Pattern;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
-import controller.GUIController;
-import controller.sql.Interaccion;
 import model.Tweet;
-import twitter4j.MediaEntity;
-import twitter4j.TwitterException;
 import util.Util;
 import view.elementos.botones.BotonDosEstados;
 import view.eventos.URL.EventoEscucharClickURL;
@@ -39,13 +33,13 @@ import view.eventos.celdaTweet.EventoClickImagenTweet;
 import view.eventos.celdaTweet.EventoClickImagenUsuario;
 import view.eventos.principal.EventoClickFotoUsuario;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
-import view.parents.InvisibleJFrame;
+import controller.GUIController;
 
 public class GUITweet extends JPanel implements ObjetoCelda{
 	
 	private static final int ALTO = 70;
 	private static final int SIZE_IMAGEN = 50;
-	private static final int REDONDEO = 15;
+	public static final int REDONDEO = 15;
 	private JLabel lblTiempo, lblImagenusuario, lblNombreReal, lblnombreUsuario;
 	private BotonDosEstados btnResponder, btnRetweet, btnFavorito;
 	private JEditorPane txtMensaje;
@@ -78,7 +72,6 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		
 		setTiempo(fecha);
 		lblImagenusuario.setSize(ALTO, ALTO);
-		setImagenUsuario(new ImageIcon(t.getImagenUsuario()));
 		setNombreReal(t.getNombreReal());
 		setNombreUsuario(t.getNombreUsuario());
 		
@@ -91,13 +84,32 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		
 		lblImagenusuario.addMouseListener(new EventoClickFotoUsuario(getNombreUsuario()));
 		init();
+		setImagenUsuario(new ImageIcon(t.getImagenUsuario()));
+		
 		HiloCargarImagen hi = new HiloCargarImagen(this);
 		hi.start();
 	}
+	
+	public GUITweet(Tweet t) {
+		super();
+		
+		usuarioMencionado = new ArrayList<String>();
+		hashtagTweet = new ArrayList<String>();
+		urlsTweet = new ArrayList<String>();
+		
+		this.lblImagenusuario = new JLabel();
+		this.lblNombreReal = new JLabel();
+		this.lblnombreUsuario = new JLabel();
+		lblImagenTweet = new JLabel();
+		this.txtMensaje = procesarMensaje(t);
+		this.lblTiempo = new JLabel();
+		
+		lblImagenusuario.setSize(ALTO, ALTO);
+		setNombreReal(t.getNombreReal());
+		setNombreUsuario(t.getNombreUsuario());
+	}
+	
 	private JEditorPane procesarMensaje(Tweet t) {
-		// TODO Auto-generated method stub
-		Util.debug("Parseando contenido del tweet...");
-
 		mensajeFormateado = t.getTexto();
 		String linkAntes = "<a href=\"";
 		String linkMedio = "\" style=\"text-decoration:none; color: #005996\">";
@@ -110,10 +122,8 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 			usuarioMencionado.add(0, m.group());
 		}
 		for (String s : usuarioMencionado) {
-			System.out.println("usuarios mencionados: "+s);
 			String html = linkAntes+s+linkMedio+s+linkDespues;
 			mensajeFormateado = mensajeFormateado.replaceAll(s, html);
-			Util.debug("Reemplazando nombre "+s+" por "+html);
 		}
 		String regex = "\\(?\\b(http://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&amp;@#/%=~_()|]";
 		p = Pattern.compile(regex);
@@ -123,10 +133,8 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 			urlsTweet.add(0, m.group());
 		}
 		for (String s : urlsTweet) {
-			System.out.println("urls encontradas: "+s);
 			String html = linkAntes+s+linkMedio+s+linkDespues;
 			mensajeFormateado = mensajeFormateado.replaceAll(s, html);
-			Util.debug("Reemplazando url "+s+" por "+html);
 		}
 		
 		String hashtagRE = "#(\\w+)";//"#\\w+";
@@ -137,10 +145,8 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 			hashtagTweet.add(m.group());
 		}
 		for (String s : hashtagTweet) {
-			System.out.println("hashtags encontrados: "+s);
 			String hashtag = linkAntes+s+"\" style=\"text-decoration:none; color: #f04400\">"+s+linkDespues;
 			mensajeFormateado = mensajeFormateado.replaceAll(s, hashtag);
-			Util.debug("Reemplazando hashtag "+s+" por "+hashtag);
 		}
 		//Contruir el objeto para visualizarlo en pantalla una vez se tienen los datos
 		
@@ -218,7 +224,6 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		lblTiempo.setFont(Util.getFont("roboto-light", Font.PLAIN, 12));
 
 		lblImagenusuario.setSize(ALTO, ALTO);
-		setImagenUsuario((ImageIcon)lblImagenusuario.getIcon());
 		lblImagenusuario.setBorder(new MatteBorder(5, 5, 0, 5, new Color(1.0f,1.0f,1.0f,0.0f)));
 		lblImagenusuario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblImagenusuario.setHorizontalAlignment(SwingConstants.CENTER);
@@ -290,11 +295,10 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 		}
 	}
 
-	private void setImagenTweet(String imagenTuit) {
+	private synchronized void setImagenTweet(String imagenTuit) {
 		BufferedImage bufferImg;
 		try {
 			bufferImg= GUIController.getInstance().pedirImagen(new URL(imagenTuit));
-			Util.debug("Pidiendo imagen: "+imagenTuit+" resultado = "+bufferImg.toString());
 			//se guarda la original
 			img[0]=new ImageIcon(bufferImg);
 			//se guarda la miniatura

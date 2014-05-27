@@ -9,8 +9,16 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
+
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
+
+import model.Tweet;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartUtilities;
@@ -22,12 +30,13 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
-import model.Tweet;
+
 import twitter4j.Paging;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 import util.Util;
+import view.elementos.GUITweet;
 import controller.GUIController;
 import controller.TwitterService;
 
@@ -59,16 +68,80 @@ public class HiloEstadistica extends Thread {
 			System.out.println("Archivo de tuits");
 			crearGrafica(nombre, 1500, 900);
 			System.out.println("Grafica");
+			generarMenciones();
+			generarHashTags();
 			generarListaTuits();
 			System.out.println("Lista");
 			diaMasTuiteado();
+			GUIController.getInstance().getGui().mostrarMensaje("Estadistica finalizada");
+			Util.pausar(1000);
+			GUIController.getInstance().getGui().ocultarMensajeInformativo();
 		} catch (Exception e) {
 			Util.showError(null, "Error", "Error generando las graficas", "Cancelar", "Aceptar");
 		}
 		GUIController.getInstance().getGui().ocultarMensajeInformativo();
 	}
 
+	private void generarHashTags() throws FileNotFoundException {
+		HashMap<String, Integer> counter = new HashMap<String, Integer>();
+		//abrimos el archivo
+		PrintStream DDescritor = new PrintStream(ruta+ "/lista_HashTags.txt");
+		for (Tweet t : tuits) {
+			GUITweet gt = new GUITweet(t);
+			ArrayList<String> hash = gt.getHashtagTweet();
+			for (String s : hash) {
+				Integer i = counter.get(s);
+				if(i==null || i==0){
+					counter.put(s, 1);
+				}
+				else{
+					counter.put(s, i.intValue()+1);
+				}
+			}
+		}
+		Set<String> keys = counter.keySet();
+		String[] k = keys.toArray(new String[keys.size()]);
+		Collection<Integer> values = counter.values();
+		Integer[] v = values.toArray(new Integer[values.size()]);
+		for (int i=0; i<k.length;i++) {
+			DDescritor.println(k[i]+"\t\t\t\t "+v[i].intValue());
+		}
+		//cerramos
+		DDescritor.close();
+				
+	}
+
+	private void generarMenciones() throws FileNotFoundException {
+		HashMap<String, Integer> counter = new HashMap<String, Integer>();
+		//abrimos el archivo
+		PrintStream DDescritor = new PrintStream(ruta+ "/lista_menciones.txt");
+		for (Tweet t : tuits) {
+			GUITweet gt = new GUITweet(t);
+			ArrayList<String> hash = gt.getUsuarioMencionado();
+			for (String s : hash) {
+				Integer i = counter.get(s);
+				if(i==null || i==0){
+					counter.put(s, 1);
+				}
+				else{
+					counter.put(s, i.intValue()+1);
+				}
+			}
+		}
+		Set<String> keys = counter.keySet();
+		String[] k = keys.toArray(new String[keys.size()]);
+		Collection<Integer> values = counter.values();
+		Integer[] v = values.toArray(new Integer[values.size()]);
+		for (int i=0; i<k.length;i++) {
+			DDescritor.println(k[i]+"\t\t\t\t "+v[i].intValue());
+		}
+		//cerramos
+		DDescritor.close();
+				
+	}
+	
 	public void generarTuits() throws TwitterException {
+
 
 		//ESTO ES CRUCIAL!!! limpia la lista de tuits antes de recibir nuevos. Si no, no funcionará una segunda vez
 		tuits.clear();

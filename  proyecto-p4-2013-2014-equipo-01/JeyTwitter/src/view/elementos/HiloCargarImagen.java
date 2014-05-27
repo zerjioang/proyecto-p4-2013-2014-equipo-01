@@ -1,15 +1,9 @@
 package view.elementos;
 
-import java.io.FileNotFoundException;
-
-import javax.swing.JOptionPane;
-
 import twitter4j.MediaEntity;
 import twitter4j.TwitterException;
 import util.Util;
-import view.ventanas.VisorImagen;
 import controller.GUIController;
-import controller.sql.Interaccion;
 
 public class HiloCargarImagen extends Thread{
 
@@ -35,6 +29,8 @@ public class HiloCargarImagen extends Thread{
 					g.asignarImagenTweet();
 					g.revalidate();
 					g.repaint();
+					g.updateUI();
+					
 					//solo se procesa una
 					break;
 				}
