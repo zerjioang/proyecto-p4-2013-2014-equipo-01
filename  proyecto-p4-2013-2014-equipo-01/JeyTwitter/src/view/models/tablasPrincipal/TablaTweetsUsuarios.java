@@ -6,10 +6,8 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
 
 import util.Util;
 import view.elementos.GUITweet;
@@ -20,13 +18,14 @@ import view.renderers.TweetRenderer;
 import view.renderers.UsuarioEditor;
 import view.renderers.UsuarioRenderer;
 
+@SuppressWarnings("serial")
 public class TablaTweetsUsuarios extends JTable {
-	
+
 	//Constantes
 	public static final int SOLO_USUARIOS = 0;
 	public static final int SOLO_TWEETS = 1;
 	public static final int ALTO_FILA = 90;
-	
+
 	private ArrayList<ObjetoCelda> listaObjetos;
 	private int tipoTabla;
 
@@ -35,7 +34,7 @@ public class TablaTweetsUsuarios extends JTable {
 		tipoTabla = tipo;
 		init();
 	}
-	
+
 	public TablaTweetsUsuarios(ArrayList<ObjetoCelda> objeto) {
 		super();
 		this.listaObjetos = objeto;
@@ -44,28 +43,28 @@ public class TablaTweetsUsuarios extends JTable {
 	}
 
 	private  void init() {;
-		setFocusable(true);
-		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		setTableHeader(null);
-		setRowSelectionAllowed(true);
-		setShowHorizontalLines(false);
-		setShowVerticalLines(false);
-		setCellSelectionEnabled(true);
-		setShowGrid(false);
-		//setRowHeight(ALTO_FILA);
-		setFont(Util.getFont("Roboto-Light", Font.PLAIN, 18));
-		setBorder(null);
-		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		setFocusTraversalPolicyProvider(true);
-		setFocusCycleRoot(true);
-		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		setBackground(Color.BLACK);
-		
-		if(listaObjetos!=null && listaObjetos.size()>0){
-			actualizarTabla(new ModeloTablaTweetUsuarios(listaObjetos));
-		}
-		else
-			setRenderCelda();
+	setFocusable(true);
+	setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	setTableHeader(null);
+	setRowSelectionAllowed(true);
+	setShowHorizontalLines(false);
+	setShowVerticalLines(false);
+	setCellSelectionEnabled(true);
+	setShowGrid(false);
+	//setRowHeight(ALTO_FILA);
+	setFont(Util.getFont("Roboto-Light", Font.PLAIN, 18));
+	setBorder(null);
+	setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	setFocusTraversalPolicyProvider(true);
+	setFocusCycleRoot(true);
+	setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+	setBackground(Color.BLACK);
+
+	if(listaObjetos!=null && listaObjetos.size()>0){
+		actualizarTabla(new ModeloTablaTweetUsuarios(listaObjetos));
+	}
+	else
+		setRenderCelda();
 	}
 
 	/**
@@ -76,7 +75,7 @@ public class TablaTweetsUsuarios extends JTable {
 		tipoTabla = listaObjetos.get(0).tipoObjeto();
 		setRenderCelda();
 	}
-	
+
 	private  void setRenderCelda(){
 		if(tipoTabla == SOLO_TWEETS){
 			setDefaultRenderer(GUITweet.class, new TweetRenderer());
@@ -88,11 +87,11 @@ public class TablaTweetsUsuarios extends JTable {
 		}
 		repaint();
 	}
-	
+
 	public  boolean isCellEditable(int row, int column){
 		return true;
 	}
-	
+
 	public void insertarNuevo(ObjetoCelda o){
 		ModeloTablaTweetUsuarios modelo;
 		modelo = new ModeloTablaTweetUsuarios(listaObjetos);
@@ -104,7 +103,7 @@ public class TablaTweetsUsuarios extends JTable {
 	public  void insertarLista(ArrayList<ObjetoCelda> l) {
 		ModeloTablaTweetUsuarios modelo;
 		modelo = new ModeloTablaTweetUsuarios(listaObjetos);
-		
+
 		for (ObjetoCelda o : l) {
 			modelo.insertarElemento(o);
 			actualizarAltoFilas();
@@ -113,7 +112,7 @@ public class TablaTweetsUsuarios extends JTable {
 		listaObjetos = modelo.getLista();
 		actualizarTabla(modelo);
 	}
-	
+
 	public  void actualizar(ArrayList<ObjetoCelda> l) {
 		ModeloTablaTweetUsuarios modelo;
 		l = listaObjetos;
@@ -124,10 +123,10 @@ public class TablaTweetsUsuarios extends JTable {
 
 	private void actualizarAltoFila(int fila){
 		Component comp = prepareRenderer(getCellRenderer(fila, 0), fila, 0);
-        int alto = Math.max(1, comp.getPreferredSize().height);
+		int alto = Math.max(1, comp.getPreferredSize().height);
 		setRowHeight(fila, alto+30);
 	}
-	
+
 	public void actualizarAltoFilas(){
 		for (int row = 0; row < getRowCount(); row++){
 			actualizarAltoFila(row);
@@ -139,7 +138,7 @@ public class TablaTweetsUsuarios extends JTable {
 		model.clear();
 		setModel(model);
 	}
-	
+
 	public  ArrayList<ObjetoCelda> getListaObjetos(){
 		return listaObjetos;
 	}

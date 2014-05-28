@@ -1,14 +1,15 @@
 package view.renderers;
 
-import view.elementos.botones.MenuButton;
-
 import java.awt.Component;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import view.elementos.botones.MenuButton;
+
+@SuppressWarnings("serial")
 public class MenuButtonRenderer extends DefaultTableCellRenderer{
-	
+
 	/**
 	 * Se sobreescribe el metodo que se encarga de visualizar los datos en las celdas del JTable y se le obliga
 	 * a que muestre un icono

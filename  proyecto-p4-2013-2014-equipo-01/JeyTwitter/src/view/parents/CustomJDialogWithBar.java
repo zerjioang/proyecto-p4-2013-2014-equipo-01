@@ -1,39 +1,34 @@
 package view.parents;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.Point;
+import java.awt.Toolkit;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import util.Util;
 import view.eventos.barraMenu.EventoClickCerrar;
 import view.eventos.barraMenu.EventoClickMinimizar;
 import view.eventos.barraMenu.EventoMaximizarDesdeBarra;
 import view.eventos.barraMenu.EventosDeBarra;
 
-import java.awt.Cursor;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Point;
-
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import java.awt.Color;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-
-import util.Util;
-
-import java.awt.Toolkit;
-import java.awt.BorderLayout;
-
-import javax.swing.SwingConstants;
-
+@SuppressWarnings("serial")
 public abstract class CustomJDialogWithBar extends JDialog implements Moveable{
-	
+
 	//Constantes
 	protected static final int altoBarra = 26;
 	private final static int tamBoton = 16;
 	private final static String RUTA_ICONO = Util.APP_ICONO;
-	
+
 	private Point initialClick, lastPosition;
 	private JLabel lblCerrar;
 	private JLabel tituloVentana;
@@ -62,22 +57,22 @@ public abstract class CustomJDialogWithBar extends JDialog implements Moveable{
 		setUndecorated(true);
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		
+
 		panelBarra = new JPanel();
-		
+
 		panelContenido = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addComponent(panelBarra, GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
 				.addComponent(panelContenido, GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
-		);
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panelBarra, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-					.addComponent(panelContenido, GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
-		);
+						.addComponent(panelBarra, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panelContenido, GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
+				);
 		panelContenido.setLayout(new BorderLayout(0, 0));
 		panelBarra.setLayout(null);
 		getContentPane().setLayout(groupLayout);
@@ -91,17 +86,17 @@ public abstract class CustomJDialogWithBar extends JDialog implements Moveable{
 		tituloVentana.setBounds(10, 0, getWidth()-70, altoBarra);
 		tituloVentana.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 13));
 		panelBarra.add(tituloVentana);
-		
+
 		lblCerrar = new JLabel();
 		lblCerrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblCerrar.setBounds(getWidth()-24, 3, tamBoton, tamBoton);
 		panelBarra.add(lblCerrar);
-		
+
 		lblMaximizar = new JLabel();
 		lblMaximizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblMaximizar.setBounds(getWidth()-45, 3, tamBoton, tamBoton);
 		panelBarra.add(lblMaximizar);
-		
+
 		lblMinimizar = new JLabel();
 		lblMinimizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblMinimizar.setBounds(getWidth()-67, 3, tamBoton, tamBoton);
@@ -111,14 +106,14 @@ public abstract class CustomJDialogWithBar extends JDialog implements Moveable{
 		lblBotonesBotonera.setIcon(new ImageIcon(CustomJDialogWithBar.class.getResource("/res/images/botonera/botonesNormales.png")));
 		lblBotonesBotonera.setBounds(getWidth()-69, 0, 69, 26);
 		panelBarra.add(lblBotonesBotonera);
-		
+
 		lblImagenFondo = new JLabel("");
 		lblImagenFondo.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 		lblImagenFondo.setIcon(new ImageIcon(CustomJDialogWithBar.class.getResource("/res/images/barra.png")));
 		lblImagenFondo.setBounds(0, 0, getWidth(), altoBarra);
 		lblImagenFondo.setIcon(Util.escalarImagen(lblImagenFondo));
 		panelBarra.add(lblImagenFondo);
-		
+
 		//Eventos-Listeners
 		lblCerrar.addMouseListener(new EventoClickCerrar(this));
 		lblMinimizar.addMouseListener(new EventoClickMinimizar(this));
@@ -132,17 +127,17 @@ public abstract class CustomJDialogWithBar extends JDialog implements Moveable{
 		Util.mostrarImagenDifuso(this);
 		setVisible(true);
 	}
-	
+
 	public void mostrar(int pausar){
 		Util.mostrarImagenDifuso(this, pausar);
 		setVisible(true);
 	}
-	
+
 	public void cerrar(){
 		Util.ocultarImagenDifuso(this);
 		setVisible(false);
 	}
-	
+
 	/**
 	 * @return the initialClick
 	 */
@@ -172,7 +167,7 @@ public abstract class CustomJDialogWithBar extends JDialog implements Moveable{
 	public void setLastPosition(Point lastPosition) {
 		this.lastPosition = lastPosition;
 	}
-	
+
 	public JPanel getMainPanel() {
 		return panelContenido;
 	}
@@ -192,7 +187,7 @@ public abstract class CustomJDialogWithBar extends JDialog implements Moveable{
 	public JLabel getLblImagenFondoBarra() {
 		return lblImagenFondo;
 	}
-	
+
 	public JLabel getLblMinimizar() {
 		return lblMinimizar;
 	}
@@ -214,7 +209,7 @@ public abstract class CustomJDialogWithBar extends JDialog implements Moveable{
 	public void setDisposeWindow(boolean disposeWindow) {
 		this.disposeWindow = disposeWindow;
 	}
-	
+
 	@Override
 	public void setExtendedState(int iconified) {}
 }

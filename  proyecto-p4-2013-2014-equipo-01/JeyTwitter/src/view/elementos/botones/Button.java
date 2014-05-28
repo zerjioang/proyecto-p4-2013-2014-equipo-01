@@ -5,13 +5,14 @@ import javax.swing.JLabel;
 
 import view.eventos.botonesGenericos.EventosButton;
 
+@SuppressWarnings("serial")
 public class Button extends JLabel{
 
 	protected int anchoBoton;
 	protected  int altoBoton;
-	
+
 	protected String imagenNormal, imagenClick, imagenHover;
-	
+
 	public Button(String texto) {
 		super(texto);
 		addMouseListener(new EventosButton(this));
@@ -69,11 +70,11 @@ public class Button extends JLabel{
 		if(isEnabled())
 			this.imagenHover = imagenHover;
 	}
-	
+
 	public void setNormal(){
 		setIcon(new ImageIcon(this.getClass().getResource(getImagenNormal())));
 	}
-	
+
 	public void setClick(){
 		setIcon(new ImageIcon(this.getClass().getResource(getImagenClick())));
 	}

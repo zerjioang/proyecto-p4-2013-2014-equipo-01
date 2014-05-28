@@ -9,10 +9,7 @@ import view.ventanas.Notificacion;
 
 public class EventoClickImagenNotificacion implements MouseListener {
 
-	private final Notificacion notificacion;
-	
 	public EventoClickImagenNotificacion(Notificacion notificacion) {
-		this.notificacion = notificacion;
 	}
 
 	@Override

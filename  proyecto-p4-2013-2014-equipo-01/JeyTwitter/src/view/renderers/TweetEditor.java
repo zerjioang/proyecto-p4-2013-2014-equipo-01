@@ -8,10 +8,11 @@ import javax.swing.table.TableCellEditor;
 
 import view.elementos.GUITweet;
 
+@SuppressWarnings("serial")
 public class TweetEditor extends AbstractCellEditor implements TableCellEditor{
 
 	private GUITweet l;
-	
+
 	public TweetEditor(GUITweet l){
 		this.l=l;
 	}

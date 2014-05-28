@@ -1,22 +1,25 @@
 package view.elementos.paneles;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.JTextField;
+
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
 import util.Util;
 import view.eventos.estadistica.EventoClickIniciar;
 import controller.GUIController;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class PanelEstadistica extends JPanel{
 	private JTextField txtNombreUsuario;
 	private String rutaDestino ="vacio";

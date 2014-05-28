@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 import view.ventanas.Notificacion;
 
 public class EventoCerrarNotificacion implements MouseListener {
-	
+
 	private final Notificacion not;
 
 	public EventoCerrarNotificacion(Notificacion notificacion) {
@@ -20,22 +20,22 @@ public class EventoCerrarNotificacion implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		
+
 	}
 
 }

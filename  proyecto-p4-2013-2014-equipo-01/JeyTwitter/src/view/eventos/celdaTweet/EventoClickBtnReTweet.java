@@ -3,14 +3,13 @@ package view.eventos.celdaTweet;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import controller.GUIController;
-import twitter4j.TwitterException;
 import view.elementos.GUITweet;
+import controller.GUIController;
 
 public class EventoClickBtnReTweet implements MouseListener {
 
 	private final GUITweet t;
-	
+
 	public EventoClickBtnReTweet(GUITweet guiTweet) {
 		t = guiTweet;
 	}
@@ -28,7 +27,7 @@ public class EventoClickBtnReTweet implements MouseListener {
 					System.out.println("Retuit con éxito");
 					t.getBtnRetweet().setClicado(true);
 				}
-				
+
 			}
 		}
 	}

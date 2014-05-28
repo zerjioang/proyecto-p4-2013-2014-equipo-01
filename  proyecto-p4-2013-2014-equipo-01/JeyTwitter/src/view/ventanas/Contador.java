@@ -1,21 +1,18 @@
 package view.ventanas;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import view.parents.InvisibleJFrame;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Point;
-
-import javax.swing.SwingConstants;
 /**
  * Ventana que muestra un contador con el numero de seguidores/tweets... de un usuario
  * @author Sergio Anguita
  */
+@SuppressWarnings("serial")
 public class Contador extends InvisibleJFrame {
 
 	private JLabel cantidad;
@@ -44,7 +41,7 @@ public class Contador extends InvisibleJFrame {
 		cantidad = new JLabel();
 		init();
 	}
-	
+
 	/**
 	 * 
 	 * @param cantidad Numero exacto de seguidores/seguidos/tweets de un usuario

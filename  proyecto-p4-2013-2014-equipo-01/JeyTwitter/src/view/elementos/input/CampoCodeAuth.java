@@ -16,9 +16,9 @@ public class CampoCodeAuth extends InputField{
 		inputCode.setFont(Util.getFont("Roboto-Light", Font.PLAIN, 40));
 		imagenFondo.setIcon(new ImageIcon(InputField.class.getResource("/res/images/textInput/IntroCodeField_Normal.png")));
 		imagenFondo.setBounds(80, 155, 308, 58);
-		
+
 	}
-	
+
 	@Override
 	/**
 	 * Evalua el contenido del campo de datos introducido por el usuario para satisfacer
@@ -35,7 +35,7 @@ public class CampoCodeAuth extends InputField{
 			setModoError();
 		return condicion;
 	}
-	
+
 	@Override
 	/**
 	 * Establece los limites del campo de busqueda teniendo en cuenta que la imagen de fondo

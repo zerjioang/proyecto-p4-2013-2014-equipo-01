@@ -3,22 +3,15 @@ package view.eventos.celdaTweet;
 import hilos.HiloMostrarImagenTweet;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.FileNotFoundException;
 
-import javax.swing.ImageIcon;
-
-import controller.GUIController;
-import util.Util;
 import view.elementos.GUITweet;
-import view.ventanas.VisorImagen;
 
 public class EventoClickImagenTweet implements MouseListener {
-	
+
 	private final GUITweet g;
-	
+
 	public EventoClickImagenTweet(GUITweet guiTweet) {
 		g = guiTweet;
 	}

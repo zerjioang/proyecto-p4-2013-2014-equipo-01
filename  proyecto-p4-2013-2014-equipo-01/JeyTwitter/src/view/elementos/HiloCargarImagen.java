@@ -30,7 +30,7 @@ public class HiloCargarImagen extends Thread{
 					g.revalidate();
 					g.repaint();
 					g.updateUI();
-					
+
 					//solo se procesa una
 					break;
 				}

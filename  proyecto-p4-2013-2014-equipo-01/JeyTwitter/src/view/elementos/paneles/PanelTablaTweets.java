@@ -3,16 +3,15 @@ package view.elementos.paneles;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import view.elementos.ObjetoCelda;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
-import view.ventanas.Principal;
 
+@SuppressWarnings("serial")
 public class PanelTablaTweets extends JPanel {
-	
+
 	private JScrollPane scrollpane;
 	private TablaTweetsUsuarios tabla;
 
@@ -51,7 +50,7 @@ public class PanelTablaTweets extends JPanel {
 	public void insertarNuevo(ObjetoCelda o) {
 		tabla.insertarNuevo(o);
 	}
-	
+
 	public void insertarLista(ArrayList<ObjetoCelda> l) {
 		tabla.insertarLista(l);
 	}

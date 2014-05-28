@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 
 import model.Tweet;
 
@@ -48,23 +47,17 @@ public class HiloEstadistica extends Thread {
 	private int numPaginas;
 	private static String ruta;
 	private PanelEstadistica pe;
-
-	//contador de dias
-	//	private static int numeroDeDias =0;
-
-	//creamos una lista vacia donde irán todos los tuits que vamos a sacar
 	private static	ArrayList<Tweet> tuits = new ArrayList<Tweet>();
 
 	public HiloEstadistica(PanelEstadistica pe, TwitterService t, String nombre, int numPaginas, String ruta) {
 		this.t = t;
 		this.numPaginas = numPaginas;
 		this.nombre = nombre;
-		this.ruta = ruta;
+		HiloEstadistica.ruta = ruta;
 		this.pe = pe;
 	}
 
 	public void run(){
-		//muestr un mensaje en la aplicacion
 		GUIController.getInstance().getGui().mostrarMensaje("Generando estadistica...");
 		try {
 			generarTuits();
@@ -85,7 +78,7 @@ public class HiloEstadistica extends Thread {
 			generarHashTags();
 			generarListaTuits();
 		} catch (FileNotFoundException e) {}
-		
+
 		GUIController.getInstance().getGui().ocultarMensajeInformativo();
 	}
 
@@ -115,7 +108,7 @@ public class HiloEstadistica extends Thread {
 		}
 		//cerramos
 		DDescritor.close();
-				
+
 	}
 
 	private void generarMenciones() throws FileNotFoundException {
@@ -144,13 +137,11 @@ public class HiloEstadistica extends Thread {
 		}
 		//cerramos
 		DDescritor.close();
-				
+
 	}
-	
+
 	public void generarTuits() throws TwitterException {
-
-
-		//ESTO ES CRUCIAL!!! limpia la lista de tuits antes de recibir nuevos. Si no, no funcionará una segunda vez
+		//ESTO ES CRUCIAL!!! limpia la lista de tuits antes de recibir nuevos. Si no, no funcionara una segunda vez
 		tuits.clear();
 		System.out.println("Obtenemos tuits...");
 		//obtenemos los tuits
@@ -166,9 +157,9 @@ public class HiloEstadistica extends Thread {
 			for(int j=0; j<timelineStatus.size();j++){
 				Status s = timelineStatus.get(j);
 				Tweet t = new Tweet(s.getId(), s.getUser().getScreenName(), s.getUser().getName(), s.getCreatedAt(), null, s.getText(), s.isRetweet(), s.isFavorited(), null);
-				//añadimos los tuits al ArrayList
+				//anyadimos los tuits al ArrayList
 				tuits.add(t);
-				System.out.println("Tuit añadido");
+				System.out.println("Tuit a��adido");
 			}
 		}		
 	}
@@ -191,6 +182,7 @@ public class HiloEstadistica extends Thread {
 		DDescritor.close();
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void crearGrafica(String nombre, int alto, int ancho) throws IOException {
 		//inicializamos la grafica
 		TimeSeries pop = new TimeSeries("Tuits", Day.class);
@@ -201,14 +193,14 @@ public class HiloEstadistica extends Thread {
 		tuit = tuits.get(0).getUltimaFechaActualizacion();
 		Date ultimo = new Date(tuit.getYear(), tuit.getMonth(), tuit.getDate());
 
-		System.out.println("Dia primero: "+  primer.getDate() + " mes: " + (primer.getMonth() +1) + " año: "+ (primer.getYear() +1900));
-		System.out.println("Dia ultimo: "+  ultimo.getDate() + " mes: " + (ultimo.getMonth() +1) + " año: "+ (ultimo.getYear() +1900));
+		System.out.println("Dia primero: "+  primer.getDate() + " mes: " + (primer.getMonth() +1) + " a��o: "+ (primer.getYear() +1900));
+		System.out.println("Dia ultimo: "+  ultimo.getDate() + " mes: " + (ultimo.getMonth() +1) + " a��o: "+ (ultimo.getYear() +1900));
 
-		//añadimos dias vacios a la grafica entre ambas fechas. El array solo contiene dias en los que has tuiteado, asi que necesitas calcular los dias en los que no
-		System.out.println("Añadimos los dias...");
+		//a��adimos dias vacios a la grafica entre ambas fechas. El array solo contiene dias en los que has tuiteado, asi que necesitas calcular los dias en los que no
+		System.out.println("A��adimos los dias...");
 		while(compara(primer, ultimo) == false){
 			primer = sumarRestarDiasFecha(primer, 1);			
-			System.out.println("Dia primero: "+  primer.getDate() + " mes: " + (primer.getMonth() +1) + " año: "+ (primer.getYear() +1900));
+			System.out.println("Dia primero: "+  primer.getDate() + " mes: " + (primer.getMonth() +1) + " a��o: "+ (primer.getYear() +1900));
 			pop.addOrUpdate(new Day(primer.getDate(), primer.getMonth()+1, primer.getYear()+1900), 0);
 			//numeroDedias++
 		}
@@ -249,17 +241,18 @@ public class HiloEstadistica extends Thread {
 		ChartUtilities.saveChartAsPNG(new File(ruta+"/grafica.png"), chart, alto, ancho);
 	}
 
-	//Calcula el número total de tuits por dias de la semana
+	//Calcula el numero total de tuits por dias de la semana
+	@SuppressWarnings("deprecation")
 	public static void diaMasTuiteado() throws IOException {
 		// (0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
 
-		int lunes =0;
-		int martes =0;
-		int miercoles =0;
-		int jueves =0;
-		int viernes =0;
-		int sabado =0;
-		int domingo =0;
+		int lunes = 0;
+		int martes = 0;
+		int miercoles = 0;
+		int jueves = 0;
+		int viernes = 0;
+		int sabado = 0;
+		int domingo = 0;
 
 		for(int i=0; i<tuits.size(); i++){
 
@@ -320,7 +313,7 @@ public class HiloEstadistica extends Thread {
 			System.out.println("Error al crear el archivo");
 			Util.showError(null, "Error :(", "No se ha podido crear el grafico en la ruta especificada", "Cancelar", "Aceptar");
 		}
-		ChartFrame frame = new ChartFrame("Gráfico de Barras", chart);
+		ChartFrame frame = new ChartFrame("Grafico de Barras", chart);
 		frame.pack();
 		frame.setVisible(true);
 	}	
@@ -329,8 +322,8 @@ public class HiloEstadistica extends Thread {
 	public static Date sumarRestarDiasFecha(Date fecha, int dias){
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(fecha); // Configuramos la fecha que se recibe
-		calendar.add(Calendar.DAY_OF_YEAR, dias);  // numero de días a añadir, o restar en caso de días<0
-		return calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
+		calendar.add(Calendar.DAY_OF_YEAR, dias);  // numero de dias a anyadir, o restar en caso de dias<0
+		return calendar.getTime(); // Devuelve el objeto Date con los nuevos dias anyadidos
 	}
 
 	//metodo para comparar dos fechas
@@ -343,5 +336,3 @@ public class HiloEstadistica extends Thread {
 		return iguales;
 	}
 }
-
-

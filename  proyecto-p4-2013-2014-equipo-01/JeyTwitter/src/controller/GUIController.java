@@ -1,13 +1,10 @@
 package controller;
 
 import hilos.HiloEstadistica;
-import hilos.HiloInsertarTweet;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,7 +15,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 import model.Tweet;
 import model.Usuario;
@@ -52,7 +48,6 @@ public class GUIController {
 
 	private static TwitterService t;
 	private boolean online;
-	private boolean hayCache;
 	private Principal gui;
 
 	/* Metodos para el funcionamiento del singleton */
@@ -64,7 +59,6 @@ public class GUIController {
 			try {        	
 				instancia.autenticar();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -102,7 +96,6 @@ public class GUIController {
 				System.err.println("Error al recuperar el timeline "+e.getMessage());
 			}
 		}
-		//caso 4: (no hay nada) muestra mensaje de error. no internet. no cache.
 		else{
 			Util.showError(null, "Datos no disponibles", "Se requiere conexiona Internet para iniciar", "Aceptar", "Cancelar");
 		}
@@ -128,7 +121,6 @@ public class GUIController {
 				System.err.println("Error al recuperar el timeline "+e.getMessage());
 			}
 		}
-		//caso 4: (no hay nada) muestra mensaje de error. no internet. no cache.
 		else{
 			Util.showError(null, "Datos no disponibles", "Se requiere conexiona Internet para iniciar", "Aceptar", "Cancelar");
 		}
@@ -162,9 +154,7 @@ public class GUIController {
 			existe = false;
 		}
 
-
 		return existe;
-
 	}
 	public ArrayList<Tweet> mostrarMenciones() throws MalformedURLException, IOException {
 		ResponseList<Status> listaTL;
@@ -182,11 +172,6 @@ public class GUIController {
 				// Error al recuperar el timeline
 				e.printStackTrace();
 			}
-		} else {/*
-			for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
-				timeline.add(t);
-			}*/
 		}
 		return timeline;
 	}
@@ -208,11 +193,6 @@ public class GUIController {
 				// Error al recuperar el timeline
 				e.printStackTrace();
 			}
-		} else {/*
-			for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
-				timeline.add(t);
-			}*/
 		}
 		return timeline;
 	}
@@ -239,11 +219,6 @@ public class GUIController {
 				// Error al recuperar el timeline
 				e.printStackTrace();
 			}
-		} else {
-			/*for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
-				timeline.add(t);
-			}*/
 		}
 		return timeline;
 	}
@@ -265,11 +240,6 @@ public class GUIController {
 				// Error al recuperar el timeline
 				e.printStackTrace();
 			}
-		} else {/*
-			for (int i = 0; i<20; i++) {
-				Tweet t = new Tweet(34234, "pepepalotes", "Pepe", new Date() , new ImageIcon(Principal.class.getResource("/res/images/userTest.jpg")).getImage(), "Este es un tweet en modo offline", false, false, null);
-				timeline.add(t);
-			}*/
 		}
 		return timeline;
 	}
@@ -279,7 +249,6 @@ public class GUIController {
 			t.retweetear(codigo);
 			return true;
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -305,7 +274,6 @@ public class GUIController {
 		try {
 			t.tweet(respuesta);
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -323,7 +291,6 @@ public class GUIController {
 				u = (Usuario)credenciales.get(0);
 			}
 		} catch (IllegalStateException | TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -343,7 +310,6 @@ public class GUIController {
 				u = (Usuario)credenciales.get(0);
 			}
 		} catch (IllegalStateException | TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -379,17 +345,12 @@ public class GUIController {
 	public boolean hayConexion() {
 		@SuppressWarnings("unused")
 		InetAddress address;
-		//Util.debug("Comprobando conexion...");
 		try {
-			//Util.debug("Comprobado mediante cabecera HTTP...");
 			URL obj = new URL(HOST);
 			URLConnection conn = obj.openConnection();
 
 			//get all headers
 			Map<String, List<String>> map = conn.getHeaderFields();
-			/*for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-				System.out.println("Key : " + entry.getKey() + " ,Value : " + entry.getValue());
-			}*/
 
 			//get header by 'key'
 			//String server = conn.getHeaderField("Server");
@@ -401,11 +362,9 @@ public class GUIController {
 			}
 			online = true;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.err.println("Comprobacion de resolucion de Host fallida");
 			online = false;
 		}
-		//Util.debug("Conexion con twitter: "+online);
 		return online;
 	}
 
@@ -414,7 +373,6 @@ public class GUIController {
 		try {
 			t.pedirCodigo();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -422,7 +380,7 @@ public class GUIController {
 
 	public boolean recuperarTokenUsuarioGuardado() {
 		ArrayList<Usuario> usuariosAlmacenados = Interaccion.extraerUsuarios();
-		System.out.println("El tama��o de la tabla usuarios es: "+usuariosAlmacenados.size());
+		System.out.println("El tamanyoo de la tabla usuarios es: "+usuariosAlmacenados.size());
 		Launcher.mostrarMensaje("Recuperando credenciales...");
 		if (usuariosAlmacenados.size() > 0) {
 			// Hay resultados, aunque solo esperamos una fila.
@@ -477,85 +435,6 @@ public class GUIController {
 		return null;
 	}
 
-
-	public void menuConsola() {
-		try {
-			this.autenticar();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		String input = null;
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		do {
-			System.out.println("*****JeyTwitter V0.1*****");
-			System.out.println();
-			System.out.println();
-			System.out.println("1. Ver mi Timeline");
-			//			System.out.println("2. Ver mis menciones");
-			System.out.println("2. PRUEBA  FOLLOWERS");
-
-			System.out.println("3. Ver tweets que he retwitteado");
-			System.out.println("4. Ver tweets que he marcado como favoritos");
-			System.out.println("5. Twittear un mensaje");
-			System.out.println("");
-			System.out.println("Pulsa 'q' para salir.");
-			System.out.println();
-			System.out.print("Seleciona una opci������������������n:");
-			try {
-				input = reader.readLine();
-				switch(input) {
-				case "1":mostrarTimeline();
-				break;
-
-				case "2": //System.out.println("adios");
-
-					break;
-
-				case "3":System.out.println("adios");
-				break;
-
-				case "4":System.out.println("adios");
-				break;
-
-				case "5":
-					System.out.print("Introduce el tweet: ");
-					String texto = reader.readLine();
-					enviarTweet(texto);
-					break;
-				}
-
-			} catch(IOException e) {
-				System.out.println("Error leyendo desde System.in");
-				System.exit(1);
-			}
-		} while (!input.equals("q"));
-	}
-
-	public static void main(String[] args) {
-		// Inicio de el programa
-		GUIController gui = new GUIController();
-		gui.menuConsola();
-	}
-
-	/*public ArrayList<ObjetoCelda> buscarTweets(String str){
-		ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
-
-		List<Status> tweets = t.buscarTuit(str);
-		for (Status t : tweets) {
-			try {
-				URL urlImagen = new URL(t.getUser().getBiggerProfileImageURL());
-				Image imagen = ImageIO.read(urlImagen);
-				listaTweets.add(0, new GUITweet(Util.calcularFecha(t.getCreatedAt()), new Tweet(t.getId(), t.getUser().getName(), t.getUser().getScreenName(), t.getCreatedAt(), imagen, t.getText(), t.isRetweet(), t.isFavorited())));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		return listaTweets;
-	}*/
-
 	public ArrayList<ObjetoCelda> buscarTweets(String str) throws IOException{
 		ArrayList<ObjetoCelda> listaTweets = new ArrayList<ObjetoCelda>();
 		Util.debug("iniciando busqueda de tweets...");
@@ -602,10 +481,6 @@ public class GUIController {
 		return t.esSeguidor(user1, user2);
 	}
 
-	public void iniciarStreaming(){
-		t.iniciarStreaming();
-	}
-
 	public void seguirUsuario(String nombreUsuario) throws TwitterException {
 		t.seguirUsuario(nombreUsuario);
 	}
@@ -614,7 +489,6 @@ public class GUIController {
 		t.dejarDeSeguirUsuario(nombreUsuario);
 	}
 
-
 	public Principal getGui() {
 		return gui;
 	}
@@ -622,10 +496,5 @@ public class GUIController {
 
 	public void setGui(Principal gui) {
 		this.gui = gui;
-	}
-
-	public void guardarCache(ArrayList<Tweet> timeline) {
-		// TODO Auto-generated method stub
-
 	}
 }

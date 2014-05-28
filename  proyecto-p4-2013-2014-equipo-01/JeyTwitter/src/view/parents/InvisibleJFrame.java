@@ -1,18 +1,18 @@
 package view.parents;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Point;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 
 import util.Util;
 
+@SuppressWarnings("serial")
 public abstract class InvisibleJFrame extends JFrame implements Moveable{
 
 	protected JPanel contentPane;
@@ -20,7 +20,7 @@ public abstract class InvisibleJFrame extends JFrame implements Moveable{
 	private String imagenfondo;
 	private ImageIcon icono;
 
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -28,17 +28,17 @@ public abstract class InvisibleJFrame extends JFrame implements Moveable{
 		setUndecorated(true);
 		setType(Type.POPUP);
 		setResizable(false);
-		
+
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
-		
+
 		fondo = new JLabel();
-		
+
 		init();
 	}
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -48,16 +48,16 @@ public abstract class InvisibleJFrame extends JFrame implements Moveable{
 		setUndecorated(true);
 		setType(Type.POPUP);
 		setResizable(false);
-		
+
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, icono.getIconWidth(), icono.getIconHeight());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
-		
+
 		fondo = new JLabel();
 		fondo.setIcon(icono);
-		
+
 		init();
 		ajustarImagen();
 	}
@@ -85,7 +85,7 @@ public abstract class InvisibleJFrame extends JFrame implements Moveable{
 		fondo.setIcon(icono);
 		this.icono = icono;
 	}
-	
+
 	public void setImagenFondo(String ruta){
 		setImagenFondo(new ImageIcon(InvisibleJFrame.class.getResource(ruta)));
 	}
@@ -96,7 +96,7 @@ public abstract class InvisibleJFrame extends JFrame implements Moveable{
 	public ImageIcon getImagenFondo() {
 		return icono;
 	}
-	
+
 
 	public void mostrar(int pausar){
 		Util.mostrarImagenDifuso(this, pausar);
@@ -109,7 +109,7 @@ public abstract class InvisibleJFrame extends JFrame implements Moveable{
 		}
 		super.dispose();
 	}
-	
+
 	@Override
 	public Point getInitialClick() {
 		// TODO Auto-generated method stub
@@ -119,7 +119,7 @@ public abstract class InvisibleJFrame extends JFrame implements Moveable{
 	@Override
 	public void setInitialClick(Point initialClick) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public abstract class InvisibleJFrame extends JFrame implements Moveable{
 	@Override
 	public void setLastPosition(Point lastPosition) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -142,6 +142,6 @@ public abstract class InvisibleJFrame extends JFrame implements Moveable{
 	@Override
 	public void setImagenIconos(ImageIcon imageIcon) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

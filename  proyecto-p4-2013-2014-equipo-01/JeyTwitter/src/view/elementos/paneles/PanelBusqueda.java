@@ -9,8 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
-import model.Tweet;
-import model.Usuario;
 import view.elementos.ObjetoCelda;
 import view.elementos.botones.BotonBuscar;
 import view.elementos.input.CampoBusqueda;
@@ -18,8 +16,9 @@ import view.eventos.principal.EventoClickBuscar;
 import view.models.tablasPrincipal.ModeloTablaTweetUsuarios;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 
+@SuppressWarnings("serial")
 public class PanelBusqueda extends JPanel {
-	
+
 	private CampoBusqueda busq;
 	private TablaTweetsUsuarios tablaBusqueda;
 	private ArrayList<ObjetoCelda> objeto;
@@ -28,7 +27,7 @@ public class PanelBusqueda extends JPanel {
 		super();
 		init();
 	}
-	
+
 	public PanelBusqueda(ArrayList<ObjetoCelda> lista){
 		super();
 		objeto = lista;
@@ -37,23 +36,23 @@ public class PanelBusqueda extends JPanel {
 
 	public void init(){
 		setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel_sup = new JPanel();
 		add(panel_sup, BorderLayout.NORTH);
 		panel_sup.setLayout(new BorderLayout(0,0));
 		panel_sup.setBorder(new LineBorder(Color.WHITE, 5));
 		panel_sup.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		
+
 		BotonBuscar lblBusqueda = new BotonBuscar();
 		lblBusqueda.setIcon(new ImageIcon(PanelBusqueda.class.getResource("/res/images/principal/botonBusqueda_normal.png")));
 		panel_sup.add(lblBusqueda, BorderLayout.EAST);
 		lblBusqueda.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		lblBusqueda.addMouseListener(new EventoClickBuscar(this));
-		
+
 		JPanel panel_BusquedaSup = new JPanel();
 		panel_sup.add(panel_BusquedaSup, BorderLayout.CENTER);
 		panel_BusquedaSup.setLayout(null);
-		
+
 		busq = new CampoBusqueda();
 		panel_BusquedaSup.add(busq);
 		busq.setBounds(0, 0, 360, 39);
@@ -61,15 +60,15 @@ public class PanelBusqueda extends JPanel {
 		panel_BusquedaSup.add(busq.getImagenFondo(), BorderLayout.WEST);
 		panel_BusquedaSup.setBackground(Color.WHITE);
 		busq.getInputField().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		
+
 		JPanel panelBusquedaTabla = new JPanel();
 		add(panelBusquedaTabla, BorderLayout.CENTER);
 		panelBusquedaTabla.setLayout(new BorderLayout(0, 0));
-		
+
 		JScrollPane scrollPaneTablaBusqueda = new JScrollPane();
 		scrollPaneTablaBusqueda.getVerticalScrollBar().setUnitIncrement(5);
 		panelBusquedaTabla.add(scrollPaneTablaBusqueda, BorderLayout.CENTER);
-		
+
 		tablaBusqueda = new TablaTweetsUsuarios(objeto);
 		scrollPaneTablaBusqueda.setViewportView(tablaBusqueda);
 	}
@@ -80,7 +79,7 @@ public class PanelBusqueda extends JPanel {
 	public CampoBusqueda getBusq() {
 		return busq;
 	}
-	
+
 	public String getBusqString() {
 		return busq.getInputField().getText();
 	}
@@ -105,7 +104,7 @@ public class PanelBusqueda extends JPanel {
 	public void setTablaResultadosBusqueda(TablaTweetsUsuarios tablaBusqueda) {
 		this.tablaBusqueda = tablaBusqueda;
 	}
-	
+
 	/**
 	 * @param busq the busq to set
 	 */

@@ -2,16 +2,15 @@ package view.ventanas;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import util.Util;
 import view.parents.InvisibleJFrame;
 
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.SwingConstants;
-
+@SuppressWarnings("serial")
 public class Splash extends InvisibleJFrame {
 
 	//Constantes
@@ -47,7 +46,7 @@ public class Splash extends InvisibleJFrame {
 		contentPane.setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		contentPane.setLayout(null);
 		getContentPane().setLayout(null);
-		
+
 		lblIniciando = new JLabel("Iniciando...");
 		lblIniciando.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIniciando.setBounds(109, 248, 332, 28);
@@ -56,11 +55,11 @@ public class Splash extends InvisibleJFrame {
 		getContentPane().add(lblIniciando);
 		contentPane.add(fondo);
 	}
-	
+
 	public String getTextoMensaje(){
 		return lblIniciando.getText();
 	}
-	
+
 	public void setTextoMensaje(String texto){
 		lblIniciando.setText(texto);
 	}

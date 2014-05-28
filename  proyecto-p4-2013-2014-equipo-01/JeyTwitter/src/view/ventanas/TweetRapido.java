@@ -2,11 +2,17 @@ package view.ventanas;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Point;
+import java.awt.SystemColor;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
+import model.Tweet;
 import util.Util;
 import view.elementos.GUITweet;
 import view.elementos.botones.BotonAzulCuadrado;
@@ -17,25 +23,11 @@ import view.eventos.fastTweet.EventoEnviarFastTuit;
 import view.eventos.fastTweet.EventoFocusLostFastTuit;
 import view.parents.InvisibleJFrame;
 
-import javax.swing.JTextArea;
-
-import java.awt.Font;
-
-import javax.swing.border.LineBorder;
-
-import java.awt.SystemColor;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-
-import javax.swing.SwingConstants;
-
-import model.Tweet;
-
 /**
  * Muestra una ventana flotante que se encarga de mostrar un panel donde introducir un tweet de forma rapida
  * @author Sergio Anguita
  */
+@SuppressWarnings("serial")
 public class TweetRapido extends InvisibleJFrame {
 
 	//Constantes
@@ -48,7 +40,7 @@ public class TweetRapido extends InvisibleJFrame {
 	private JTextArea txtMensaje;
 	private BotonAzulCuadrado btnEnviar;
 	private BotonNegroCuadrado btnAtras;
-	
+
 	private GUITweet t;
 	private Tweet responderA;
 
@@ -75,7 +67,7 @@ public class TweetRapido extends InvisibleJFrame {
 		this();
 		setNombre(nombreUsuario);
 	}
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -83,13 +75,13 @@ public class TweetRapido extends InvisibleJFrame {
 		super("/res/images/fastTweet/FastTuit.png");
 		init();
 	}
-	
+
 	public TweetRapido(GUITweet t, String nombreUsuario) {
 		this(nombreUsuario);
 		this.t = t;
 		responderA = t.getTweet();
 	}
-	
+
 	/**
 	 * Inicializa el contenido de la ventana
 	 */
@@ -133,12 +125,12 @@ public class TweetRapido extends InvisibleJFrame {
 
 		contentPane.add(fondo);
 		getContentPane().setLayout(null);
-		
+
 		getContentPane().setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
-		
+
 	}
-	
+
 	public void colocarVentana(TweetRapido tr, int x, int y) {
 		//Hay que controlar que la ventana este dentro de la pantalla
 		tr.setLocation(new Point(x, y));
@@ -189,7 +181,7 @@ public class TweetRapido extends InvisibleJFrame {
 	public void setContador(int valor) {
 		lblContador.setText(String.valueOf(valor));
 	}
-	
+
 	public Tweet getTuit() {
 		return responderA;
 	}

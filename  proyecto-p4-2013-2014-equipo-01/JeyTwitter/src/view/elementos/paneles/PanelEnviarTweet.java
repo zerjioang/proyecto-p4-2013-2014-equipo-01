@@ -20,13 +20,14 @@ import view.eventos.principal.EventoClickEnviarTweet;
 import view.eventos.principal.EventoKeyListenerTweet;
 import view.ventanas.Principal;
 
+@SuppressWarnings("serial")
 public class PanelEnviarTweet extends JPanel {
-	
+
 	private final Principal ventanaPadre;
 	private BotonEnviar btnEnviar;
 	private JTextArea txtMensaje;
 	private JLabel lblContador;
-	
+
 	public PanelEnviarTweet(Principal ventanaPadre){
 		super();
 		this.ventanaPadre = ventanaPadre;
@@ -38,31 +39,31 @@ public class PanelEnviarTweet extends JPanel {
 
 	private void init() {
 		setLayout(new BorderLayout(0, 0));
-		
+
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
+
 		JScrollPane scrollPaneMensaje = new JScrollPane();
 		scrollPaneMensaje.setBorder(null);
 		scrollPaneMensaje.getVerticalScrollBar().setUnitIncrement(5);
-		
+
 		txtMensaje.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		txtMensaje.setBorder(new TitledBorder(new LineBorder(new Color(192, 192, 192)), "Escriba su Tweet", TitledBorder.CENTER, TitledBorder.TOP, null, Color.LIGHT_GRAY));
 		txtMensaje.setLineWrap(true);
 		txtMensaje.setWrapStyleWord(true);
 		txtMensaje.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 16));
-		
-		
+
+
 		lblContador.setBorder(null);
 		lblContador.setBackground(Color.WHITE);
 		lblContador.setHorizontalAlignment(SwingConstants.CENTER);
 		lblContador.setFont(new Font("Roboto", Font.PLAIN, 16));
 		lblContador.setBackground(SystemColor.inactiveCaptionBorder);
-		
+
 		add(btnEnviar, BorderLayout.EAST);
 		add(lblContador, BorderLayout.SOUTH);
 		add(scrollPaneMensaje, BorderLayout.CENTER);
 		scrollPaneMensaje.setViewportView(txtMensaje);
-		
+
 		//Eventos
 		btnEnviar.addMouseListener(new EventoClickEnviarTweet(this));
 		txtMensaje.addKeyListener(new EventoKeyListenerTweet(this));

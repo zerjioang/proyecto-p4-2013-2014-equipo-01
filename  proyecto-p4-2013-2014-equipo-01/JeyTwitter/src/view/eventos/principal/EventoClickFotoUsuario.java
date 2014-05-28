@@ -4,17 +4,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
-import controller.GUIController;
 import view.elementos.Cache;
 import view.elementos.paneles.PanelPerfilUsuario;
 import view.ventanas.Principal;
+import controller.GUIController;
 
 public class EventoClickFotoUsuario implements MouseListener {
 
 	private final String nombreUsuario;
-	
+
 	public EventoClickFotoUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}

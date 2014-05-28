@@ -6,50 +6,50 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import com.mortennobel.imagescaling.ResampleOp;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import util.Util;
 import view.eventos.visorImagenes.EventoClickVisorImagen;
 import view.parents.CustomJFrame;
 import view.parents.InvisibleJFrame;
 
+import com.mortennobel.imagescaling.ResampleOp;
+
 /**
  * Clase que muestra en pantalla las imagenes guardadas en el disco duro o obtenidas a traves de internet
  * @author Sergio Anguita
  *
  */
+@SuppressWarnings("serial")
 public class VisorImagen extends InvisibleJFrame{
-	
+
 	private Component ventanaPadre;
 	private ImageIcon img;
 	private static final Dimension tamanyoPantalla = Toolkit.getDefaultToolkit().getScreenSize();
 	private static final int MARGEN = 50;
 	private static final int TAMANO_MINIMO = 200;//Minima cantidad de pixel que tiene que haber tanto en ancho como en alto
-	
+
 	public VisorImagen(Component parent, String s) throws FileNotFoundException{
 		this(parent, new ImageIcon(VisorImagen.class.getResource(s)));
 	}
-	
+
 	public VisorImagen(Component parent, Image image) throws FileNotFoundException{
 		this(parent, new ImageIcon(image));
 	}
-	
+
 	public VisorImagen(Component parent, ImageIcon img) throws FileNotFoundException{
 		super();
 		setTitle(Util.APP_TITULO+" Images");
 		this.img = img;
 		ventanaPadre = parent;
-        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		setAlwaysOnTop(true);
-		
+
 		//redimensionar la imagen hasta que entre en las dimensiones de la pantalla
 		Util.debug("Redimensionado imagen...");
 		//Margen minimo que debe haber desde el borde de la pantalla a la imagen. se multiplica por dos porque hay
@@ -70,28 +70,9 @@ public class VisorImagen extends InvisibleJFrame{
 		redimensionarImagen(ancho, alto);
 		//Colocar el frame en el centro y ajustarlo al tama�o de la imagen
 		setSize(ancho, alto);
-        setLocationRelativeTo(ventanaPadre);
+		setLocationRelativeTo(ventanaPadre);
 	}
-	
-	/**
-	 * Redimensiona la imagen hasta que �sta tiene una resolucion inferior a la de la pantalla
-	 * @param factor	factor de redimensionado
-	 * @return			devuelve la imagen con las dimensiones apropiadas para que se vea en la pantalla
-	 */
-	@Deprecated
-	private ImageIcon redimensionarImg(int factor) {
-		//Este algoritmo scala las imagenes pero en algunos casos no quedan bien definidas, sobre todo los bordes o los textos.
-		
-		Util.debug(img.getIconWidth()+" "+img.getIconHeight());
-		Util.debug(img.getIconWidth()*factor+" "+img.getIconHeight()*factor);
-		BufferedImage resizedImage = new BufferedImage((int)(img.getIconWidth()*factor), (int)(img.getIconHeight()*factor), BufferedImage.SCALE_SMOOTH);
-		Graphics2D g = resizedImage.createGraphics();
-		g.drawImage(img.getImage(), 0, 0, (int)(img.getIconWidth()*factor), (int)(img.getIconHeight()*factor), null);
-		g.dispose();
-		ImageIcon newImg = new ImageIcon(resizedImage);
-		setImg(newImg);
-		return getImg();
-	}
+
 	/**
 	 * Redimensiona la imagen hasta que �sta tiene una resolucion inferior a la de la pantalla
 	 * @param width	ancho de la imagen final	
@@ -122,8 +103,8 @@ public class VisorImagen extends InvisibleJFrame{
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		JLabel imageLabel = new JLabel(img);
 		getContentPane().add(imageLabel, BorderLayout.CENTER);
-        imageLabel.addMouseListener(new EventoClickVisorImagen(this));
-        Util.mostrarImagenDifuso(this, 20);
+		imageLabel.addMouseListener(new EventoClickVisorImagen(this));
+		Util.mostrarImagenDifuso(this, 20);
 	}
 
 	/**
@@ -160,7 +141,7 @@ public class VisorImagen extends InvisibleJFrame{
 	public static Dimension getTamanyopantalla() {
 		return tamanyoPantalla;
 	}
-	
+
 	/**
 	 * Main de prueba
 	 * @param args

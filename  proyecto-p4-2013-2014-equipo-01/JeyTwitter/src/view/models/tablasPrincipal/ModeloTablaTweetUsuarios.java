@@ -8,6 +8,7 @@ import view.elementos.ObjetoCelda;
 import view.models.DataGenerate;
 import view.models.ModeloTablaLateral;
 
+@SuppressWarnings("serial")
 public class ModeloTablaTweetUsuarios extends ModeloTablaLateral implements DataGenerate {
 
 	private int total;
@@ -53,6 +54,7 @@ public class ModeloTablaTweetUsuarios extends ModeloTablaLateral implements Data
 		return datos;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Class getColumnClass(int column) {
 		if(tipo == TablaTweetsUsuarios.SOLO_TWEETS)
 			return GUITweet.class;

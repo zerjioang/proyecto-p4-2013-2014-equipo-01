@@ -6,18 +6,19 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import controller.GUIController;
 import view.eventos.principal.EventoClickSeguiroNo;
+import controller.GUIController;
 
 /**
-* Clase que simula un boton de dos posiciones. El boton puede estar encendido o apagado.
-* Ideal para operaciones binarias.
-* @author Sergio Anguita
-*/
+ * Clase que simula un boton de dos posiciones. El boton puede estar encendido o apagado.
+ * Ideal para operaciones binarias.
+ * @author Sergio Anguita
+ */
+@SuppressWarnings("serial")
 public class BotonSeguir extends JLabel{
-	
+
 	private boolean estado;
-	
+
 	private static final String IMAGEN_SEGUIR = "/res/botones/seguir/followingIcon.png";
 	private static final String IMAGEN_DEJAR_SEGUIR = "/res/botones/seguir/UnfollowIcon.png";
 	private String nombreUsuario;

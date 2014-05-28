@@ -4,16 +4,15 @@ package view.eventos.barraMenu;
  * Evento que controla la accion a realizar cuando el usuario clica en el boton cerrar (dispose) de las ventanas
  * @author Sergio Anguita
  */
-import java.awt.Window;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import view.parents.Moveable;
 
 public class EventoDispose implements MouseListener {
-	
+
 	private final Moveable ventana;
-	
+
 	public EventoDispose(Moveable o){
 		ventana = o;
 	}

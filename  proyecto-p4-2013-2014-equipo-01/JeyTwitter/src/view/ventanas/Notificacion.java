@@ -1,40 +1,35 @@
 package view.ventanas;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import model.Tweet;
 import util.Util;
 import view.eventos.notificacion.EventoCerrarNotificacion;
 import view.eventos.notificacion.EventoClickImagenNotificacion;
 import view.parents.InvisibleJFrame;
 
-import java.awt.Color;
-import java.awt.SystemColor;
-
-import javax.swing.Icon;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JTextArea;
-
-import java.awt.Font;
-
-import javax.swing.SwingConstants;
-
-import model.Tweet;
-
-import java.awt.Cursor;
-
+@SuppressWarnings("serial")
 public class Notificacion extends InvisibleJFrame {
-	
+
 	public static final int TWEET = 0;
 	public static final int RETWEET = 1;
 	public static final int MENCION = 2;
 	public static final int FOLLOW = 3;
 	public static final int UNFOLLOW = 4;
-	
+
 	private JTextArea txtMensaje;
 	private JLabel lblHora;
 	private JLabel lblusuario;
@@ -66,7 +61,7 @@ public class Notificacion extends InvisibleJFrame {
 		super("/res/images/notif/notification_tweet.png");
 		init();
 	}
-	
+
 	public Notificacion(Tweet tweet) {
 		super("/res/images/notif/notification_tweet.png");
 		init();
@@ -75,17 +70,17 @@ public class Notificacion extends InvisibleJFrame {
 		setUsuario(tweet.getNombreUsuario());
 		setImagenUsuario(new ImageIcon(tweet.getImagenUsuario()));
 	}
-	
+
 	public void init(){
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setAlwaysOnTop(true);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		
+
 		lblCerrar = new JLabel("X");
 		lblCerrar.addMouseListener(new EventoCerrarNotificacion(this));
 		lblCerrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -95,7 +90,7 @@ public class Notificacion extends InvisibleJFrame {
 		lblCerrar.setForeground(Color.WHITE);
 		lblCerrar.setBounds(392, 11, 23, 22);
 		contentPane.add(lblCerrar);
-		
+
 		txtMensaje = new JTextArea();
 		txtMensaje.setWrapStyleWord(true);
 		txtMensaje.setLineWrap(true);
@@ -105,23 +100,23 @@ public class Notificacion extends InvisibleJFrame {
 		txtMensaje.setForeground(Color.WHITE);
 		txtMensaje.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 12));
 		//Util.getFont("mirda", Font.PLAIN, 16)
-		
+
 		txtMensaje.setText("Este es un comentario de prueba en una notificacion de JeyTuiter. El comentario tiene que ser largo para ver como se muestra un mensaje cuando no entra en la notificacion. Pero por lo que veo todavia tengo que escribir mas para que entre");
 		txtMensaje.setBounds(114, 41, 301, 61);
 		contentPane.add(txtMensaje);
-		
+
 		lblHora = new JLabel("13:00");
 		lblHora.setFont(Util.getFont("mirda", Font.PLAIN, 16));
 		lblHora.setForeground(Color.WHITE);
 		lblHora.setBounds(336, 11, 44, 22);
 		contentPane.add(lblHora);
-		
+
 		lblusuario = new JLabel("@Usuario");
 		lblusuario.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 14));
 		lblusuario.setForeground(Color.WHITE);
 		lblusuario.setBounds(114, 11, 212, 22);
 		contentPane.add(lblusuario);
-		
+
 		lblImagenUsuario = new JLabel("Imagen");
 		lblImagenUsuario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblImagenUsuario.setBounds(6, 11, 94, 91);
@@ -200,9 +195,9 @@ public class Notificacion extends InvisibleJFrame {
 			lblImagenUsuario.setIcon(Util.escalarImagen(lblImagenUsuario));
 		}
 	}
-	
+
 	public void setTipoNotificacion(int tipo) throws Exception{
-		
+
 		/*
 		 * 	public static final int TWEET = 0;
 			public static final int RETWEET = 1;
@@ -216,10 +211,10 @@ public class Notificacion extends InvisibleJFrame {
 		imagenes[2] = "/res/images/notif/notification_mencion.png";
 		imagenes[3] = "/res/images/notif/notification_follower.png";
 		imagenes[4] = "/res/images/notif/notification_unfollow.png";
-		
+
 		setImagenFondo(imagenes[tipo]);
 	}
-	
+
 	public void ajustarApantalla(){
 		//valores para windows
 		if(Util.isWin()){

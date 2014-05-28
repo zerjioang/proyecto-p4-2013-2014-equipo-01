@@ -8,10 +8,7 @@ import view.ventanas.Principal;
 
 public class EventoClickHelp implements MouseListener {
 
-	private final Principal p;
-	
 	public EventoClickHelp(Principal principal) {
-		p = principal;
 	}
 
 	@Override
