@@ -72,7 +72,6 @@ public class Button extends JLabel{
 	}
 
 	public void setNormal(){
-		System.out.println(getImagenNormal());
 		setIcon(new ImageIcon(Button.class.getResource(getImagenNormal())));
 	}
 
