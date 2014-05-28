@@ -169,6 +169,13 @@ public class Interaccion
 		}
 	}
 	/**
+	 * Cierra la base de datos
+	 */
+	public static void cerrarBase()
+	{
+		gestor.disconnet();
+	}
+	/**
 	 * Extrae todos los tweets con toda la información para una cuenta de usuario
 	 * @param cuenta
 	 * @return
