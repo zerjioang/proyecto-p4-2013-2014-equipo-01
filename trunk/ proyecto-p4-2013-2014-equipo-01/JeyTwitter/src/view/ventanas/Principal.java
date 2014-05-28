@@ -13,6 +13,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -111,8 +113,21 @@ public class Principal extends CustomJFrame {
 		long ahora = System.currentTimeMillis();
 		int s = (int) (ahora - Splash.inicio)/1000;
 		System.out.println("Tiempo desde el inicio de la aplicacion: "+s+" segundos - "+s/60.0+" minutos");
+		lanzarHiloRecargaTimeline();
 	}
-
+	public void lanzarHiloRecargaTimeline()
+	{
+		TimerTask timerTask = new TimerTask() 
+		{ 
+			public void run() 
+			{ 
+				HiloTimeline actualizar = new HiloTimeline(getPanelTimeLine());
+				actualizar.start();
+			} 
+		}; 
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(timerTask, Util.MILISEGUNDOS_RECARGA_TIMELINE, Util.MILISEGUNDOS_RECARGA_TIMELINE);
+	}
 	public void mostrarDatos(){
 		HiloMenciones m = new HiloMenciones(getPanelMenciones());
 		HiloFavoritos f = new HiloFavoritos(getPanelFavoritos());
