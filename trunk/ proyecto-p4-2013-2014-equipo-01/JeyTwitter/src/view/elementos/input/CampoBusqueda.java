@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import util.Util;
 import view.eventos.principal.EventoKeyListenerBusqeda;
 
+@SuppressWarnings("serial")
 public class CampoBusqueda extends InputField{
 
 	public CampoBusqueda(){
@@ -17,7 +18,7 @@ public class CampoBusqueda extends InputField{
 		imagenFondo.setBounds(0, 0, 352, 39);
 		inputCode.addKeyListener(new EventoKeyListenerBusqeda(this));
 	}
-	
+
 	@Override
 	/**
 	 * Evalua el contenido del campo de datos introducido por el usuario para satisfacer
@@ -34,7 +35,7 @@ public class CampoBusqueda extends InputField{
 			setModoError();
 		return condicion;
 	}
-	
+
 	@Override
 	/**
 	 * Establece los limites del campo de busqueda teniendo en cuenta que la imagen de fondo
@@ -55,14 +56,14 @@ public class CampoBusqueda extends InputField{
 		inputCode.setLocation(x+10, y+5);
 		imagenFondo.setLocation(x, y);
 	}
-	
+
 	/**
 	 * Establece el campo de busqueda como erroneo y muestra una imagen al usuario advirtiendole del error
 	 */
 	public void setModoError(){
 		//getImagenFondo().setIcon(new ImageIcon(InputField.class.getResource("/res/images/textInput/IntroCodeField_Error.png")));
 	}
-	
+
 	/**
 	 * Establece el campo de busqueda como correcto y muestra una imagen de confirmacion al usuario
 	 */

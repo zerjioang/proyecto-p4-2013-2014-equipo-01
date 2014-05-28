@@ -5,9 +5,11 @@ import java.awt.Desktop;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URI;
+
 import javax.swing.JLabel;
 
 
+@SuppressWarnings("serial")
 public class URLLabel extends JLabel {
 
 	private String url;

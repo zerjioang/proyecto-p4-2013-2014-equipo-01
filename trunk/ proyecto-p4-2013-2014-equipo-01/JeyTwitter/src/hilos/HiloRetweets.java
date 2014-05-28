@@ -3,26 +3,21 @@ package hilos;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import model.Tweet;
-import twitter4j.Paging;
 import util.Util;
-import view.elementos.Cache;
 import view.elementos.GUITweet;
 import view.elementos.ObjetoCelda;
-import view.elementos.paneles.PanelPerfilUsuario;
 import view.elementos.paneles.PanelTablaTweets;
 import controller.GUIController;
 
 public class HiloRetweets extends Thread{
 
 	PanelTablaTweets panel;
-	
+
 	public HiloRetweets(PanelTablaTweets panelRetweets) {
 		panel = panelRetweets;
 	}
-	
+
 	public void run(){
 		ArrayList<ObjetoCelda> listaObjetos = new ArrayList<ObjetoCelda>();
 		try {
@@ -40,11 +35,11 @@ public class HiloRetweets extends Thread{
 					break;
 				}
 			}
-			
+
 			if(!activo) {
 				GUIController.getInstance().getGui().ocultarMensajeInformativo();				
 			}
-			
+
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}

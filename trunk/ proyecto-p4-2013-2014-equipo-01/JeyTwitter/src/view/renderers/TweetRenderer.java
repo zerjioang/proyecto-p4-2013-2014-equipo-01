@@ -1,14 +1,15 @@
 package view.renderers;
 
-import view.elementos.GUITweet;
-
 import java.awt.Component;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import view.elementos.GUITweet;
+
+@SuppressWarnings("serial")
 public class TweetRenderer extends DefaultTableCellRenderer{
-	
+
 	/**
 	 * Se sobreescribe el metodo que se encarga de visualizar los tweets  en las celdas del JTable.
 	 */

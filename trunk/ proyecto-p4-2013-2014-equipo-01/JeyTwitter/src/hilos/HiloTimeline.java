@@ -3,8 +3,6 @@ package hilos;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import model.Tweet;
 import util.Util;
 import view.elementos.GUITweet;
@@ -16,7 +14,7 @@ import controller.sql.Interaccion;
 public class HiloTimeline extends Thread{
 
 	private PanelTablaTweets panel;
-	
+
 	public HiloTimeline(PanelTablaTweets panelTimeLine) {
 		panel = panelTimeLine;
 	}
@@ -38,12 +36,12 @@ public class HiloTimeline extends Thread{
 			for (Tweet tweet : timeline) {
 				long fecha = tweet.getUltimaFechaActualizacion().getTime();
 				if(masReciente<fecha){
-				GUITweet g = new GUITweet(Util.calcularFecha(fecha), tweet);
-				listaObjetos.add(0, g);
-				panel.getTabla().insertarNuevo(listaObjetos.get(0));
-				panel.getTabla().actualizarAltoFilas();
-				if(fecha>masReciente)
-					masReciente = fecha;
+					GUITweet g = new GUITweet(Util.calcularFecha(fecha), tweet);
+					listaObjetos.add(0, g);
+					panel.getTabla().insertarNuevo(listaObjetos.get(0));
+					panel.getTabla().actualizarAltoFilas();
+					if(fecha>masReciente)
+						masReciente = fecha;
 				}
 			}
 		} catch (IOException e1) {}
@@ -67,7 +65,7 @@ public class HiloTimeline extends Thread{
 					break;
 				}
 			}
-			
+
 			if(!activo) {
 				GUIController.getInstance().getGui().ocultarMensajeInformativo();				
 			}

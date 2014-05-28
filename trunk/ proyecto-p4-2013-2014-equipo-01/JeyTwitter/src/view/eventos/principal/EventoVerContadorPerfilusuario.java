@@ -4,11 +4,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
-import controller.GUIController;
 import view.elementos.paneles.PanelPerfilUsuario;
 import view.ventanas.Contador;
+import controller.GUIController;
 
 public class EventoVerContadorPerfilusuario implements MouseListener, FocusListener {
 
@@ -16,12 +15,10 @@ public class EventoVerContadorPerfilusuario implements MouseListener, FocusListe
 	public static final int TWEETS = 1;
 	public static final int SEGUIDORES = 2;
 	public static final int SIGUIENDO = 3;
-	private final PanelPerfilUsuario p;
 	private Contador c;
 	private int opcion;
 
 	public EventoVerContadorPerfilusuario(PanelPerfilUsuario panelPerfilUsuario, Contador c, int opcion) {
-		p = panelPerfilUsuario;
 		this.c = c;
 		this.opcion = opcion;
 	}

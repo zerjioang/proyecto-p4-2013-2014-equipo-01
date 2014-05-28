@@ -9,7 +9,6 @@ import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
@@ -21,19 +20,17 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
-import controller.GUIController;
-import model.Tweet;
 import model.Usuario;
-import twitter4j.Paging;
 import util.Util;
-import view.elementos.GUITweet;
 import view.elementos.ObjetoCelda;
 import view.elementos.botones.BotonSeguir;
 import view.elementos.botones.CoolBlueButton;
 import view.eventos.principal.EventoVerContadorPerfilusuario;
 import view.models.tablasPrincipal.TablaTweetsUsuarios;
 import view.ventanas.Contador;
+import controller.GUIController;
 
+@SuppressWarnings("serial")
 public class PanelPerfilUsuario extends JPanel {
 	
 	//Constantes

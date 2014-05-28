@@ -1,7 +1,5 @@
 package view.parents;
 
-import view.elementos.botones.CoolBlueButton;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
@@ -16,16 +14,18 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import util.Util;
+import view.elementos.botones.CoolBlueButton;
 
 
+@SuppressWarnings("serial")
 public abstract class CustomJDialog extends JDialog implements Moveable{
-	
+
 	private static final String TITULO = Util.APP_TITULO;
-	
+
 	protected Boolean estado = null;
 	private JPanel contentPane;
 	private Point initialClick, lastPosition;
-	
+
 	protected CoolBlueButton btnCancelar;
 	protected CoolBlueButton btnAceptar;
 	protected String imagenBackground;
@@ -33,9 +33,9 @@ public abstract class CustomJDialog extends JDialog implements Moveable{
 	protected JLabel lblTitulodeLaVentana;
 	protected JLabel lblCerrar;
 	protected Component ventanaPadre;
-	
+
 	protected boolean disposeWindow;
-	
+
 	public CustomJDialog() {
 		// TODO Auto-generated constructor stub
 		super();
@@ -45,7 +45,7 @@ public abstract class CustomJDialog extends JDialog implements Moveable{
 		lblMensajeAMostrar = new JLabel();
 		lblTitulodeLaVentana = new JLabel();
 		lblCerrar = new JLabel();
-		
+
 		setModal(true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CustomJFrame.class.getResource(Util.APP_ICONO)));
 		//Application.getApplication().setDockIconImage(new ImageIcon("Football.png").getImage());
@@ -54,17 +54,17 @@ public abstract class CustomJDialog extends JDialog implements Moveable{
 		setBackground(new Color(1.0f,1.0f,1.0f,0.0f));
 		setTitle(TITULO);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0,0,0,0));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		
+
 		getContentPane().add(btnCancelar);
 		getContentPane().add(btnAceptar);
-		
+
 		//Eventos
-		
+
 		btnCancelar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -72,14 +72,14 @@ public abstract class CustomJDialog extends JDialog implements Moveable{
 				dispose();
 			}
 		});
-		
+
 		lblCerrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				dispose();
 			}
 		});
-		
+
 		btnAceptar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -88,12 +88,12 @@ public abstract class CustomJDialog extends JDialog implements Moveable{
 			}
 		});
 	}
-	
+
 	public CustomJDialog(int w, int h) {
 		this();
 		setBounds(0, 0, w, h);
 	}
-	
+
 	public JPanel getMainPanel(){
 		return contentPane;
 	}
@@ -122,17 +122,17 @@ public abstract class CustomJDialog extends JDialog implements Moveable{
 	/**
 	 * @param lastPosition the lastPosition to set
 	 */
-	
+
 	public void setLastPosition(Point lastPosition) {
 		this.lastPosition = lastPosition;
 	}
-	
+
 	public Boolean getEstado(){
 		if(estado==null)
 			return null;
 		return estado.booleanValue();
 	}
-	
+
 	/**
 	 * @return the tituloVentana
 	 */
@@ -188,7 +188,7 @@ public abstract class CustomJDialog extends JDialog implements Moveable{
 	public void setBotonNegativo(String botonNegativo) {
 		btnCancelar.setText(botonNegativo);
 	}
-	
+
 	@Override
 	public boolean isDisposeWindow() {
 		return true;
@@ -197,10 +197,10 @@ public abstract class CustomJDialog extends JDialog implements Moveable{
 	public void setImagenIconos(ImageIcon imageIcon) {
 		// TODO Auto-generated method stub	
 	}
-	
+
 	@Override
 	public void setExtendedState(int iconified) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

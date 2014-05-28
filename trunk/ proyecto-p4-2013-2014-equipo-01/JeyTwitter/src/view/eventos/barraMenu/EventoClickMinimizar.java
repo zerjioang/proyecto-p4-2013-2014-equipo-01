@@ -5,9 +5,7 @@ package view.eventos.barraMenu;
  * @author Sergio Anguita
  */
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.Point;
-import java.awt.Window;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -15,13 +13,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import util.Util;
-import view.parents.CustomJDialogWithBar;
-import view.parents.CustomJFrame;
 import view.parents.Moveable;
 
 
 public class EventoClickMinimizar implements MouseListener {
-	
+
 	private final Moveable ventana;
 
 	public EventoClickMinimizar(Moveable ventana) {
@@ -35,7 +31,7 @@ public class EventoClickMinimizar implements MouseListener {
 
 		Dimension lowerBorder = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		Float op = 1.0f;
-		
+
 		if(Util.isMac()){
 			Util.ocultarImagenDifuso(ventana);
 			ventana.setVisible(true);
@@ -52,7 +48,7 @@ public class EventoClickMinimizar implements MouseListener {
 		}
 		ventana.setLocation(ventana.getLastPosition());
 		ventana.setExtendedState(JFrame.ICONIFIED);
-	
+
 	}
 
 	@Override

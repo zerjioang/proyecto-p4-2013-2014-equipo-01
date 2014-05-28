@@ -1,9 +1,9 @@
 package view.elementos.botones;
 
-import javax.swing.ImageIcon;
 
+@SuppressWarnings("serial")
 public class BotonEnviar extends BotonUI{
-	
+
 	public BotonEnviar(){
 		super();
 		init();
@@ -20,6 +20,6 @@ public class BotonEnviar extends BotonUI{
 		setImagenNormal("/res/images/principal/botonEnviarTweet_normal.png");
 		setNormal();
 	}
-	
-	
+
+
 }

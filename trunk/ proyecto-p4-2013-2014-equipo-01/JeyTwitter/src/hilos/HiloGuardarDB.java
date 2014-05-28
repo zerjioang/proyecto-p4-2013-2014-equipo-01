@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import util.Util;
-import view.elementos.Cache;
 import view.elementos.ObjetoCelda;
 import controller.GUIController;
 import controller.sql.Interaccion;
@@ -14,14 +13,14 @@ import controller.sql.Interaccion;
 public class HiloGuardarDB extends Thread {
 
 	private boolean play;
-	
+
 	public HiloGuardarDB() {
 		play = true;
 	}
 
 
 	public void run(){
-		
+
 		while(play){
 			Util.pausar(2000);
 			ArrayList<Thread> hilos = AlmacenHilos.lista;
@@ -32,7 +31,7 @@ public class HiloGuardarDB extends Thread {
 					break;
 				}
 			}
-			
+
 			if(!activo) {
 				//guardar contenido en la bd;
 				//Solo guardar la timeline

@@ -4,18 +4,14 @@ package view.eventos.barraMenu;
  * Evento que controla la accion a realizar cuando el usuario clica en el boton maximizar de la barra superior
  * @author Sergio Anguita
  */
-import view.parents.CustomJFrame;
-import view.parents.Moveable;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import view.parents.Moveable;
+
 public class EventoClickMaximizar implements MouseListener {
-	
-	private final Moveable ventana;
 
 	public EventoClickMaximizar(Moveable ventana) {
-		this.ventana = ventana;
 	}
 
 	@Override

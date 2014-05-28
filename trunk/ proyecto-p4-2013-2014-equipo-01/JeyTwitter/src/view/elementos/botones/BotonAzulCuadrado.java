@@ -10,13 +10,14 @@ import javax.swing.SwingConstants;
 import util.Util;
 import view.eventos.botonesGenericos.EventosButton;
 
+@SuppressWarnings("serial")
 public class BotonAzulCuadrado extends Button {
 
 	public BotonAzulCuadrado(){
 		super();
 		init();
 	}
-	
+
 	public BotonAzulCuadrado(String string) {
 		super(string);
 		init();
@@ -29,12 +30,12 @@ public class BotonAzulCuadrado extends Button {
 
 		anchoBoton = 74;
 		altoBoton = 36;
-		
+
 		//se definen las imagenes de cada estado del boton
 		setImagenClick("/res/images/fastTweet/a_negro_pressed.png");
 		setImagenHover("/res/images/fastTweet/a_negro_hover.png");
 		setImagenNormal("/res/images/fastTweet/a_negro_normal.png");
-		
+
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		setFont(Util.getFont("Roboto-Regular", Font.PLAIN, 14));
 		setForeground(Color.WHITE);
@@ -42,8 +43,8 @@ public class BotonAzulCuadrado extends Button {
 		setHorizontalTextPosition(SwingConstants.CENTER);
 		setIcon(new ImageIcon(BotonAzulCuadrado.class.getResource(getImagenNormal())));
 		setSize(anchoBoton, altoBoton);
-		
-		//Se le añade el listener basico que las cambia dependiendo del estado
+
+		//Se le aï¿½ade el listener basico que las cambia dependiendo del estado
 		addMouseListener(new EventosButton(this));
 	}
 }

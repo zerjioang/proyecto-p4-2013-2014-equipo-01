@@ -5,11 +5,10 @@ import java.awt.event.MouseListener;
 import java.io.File;
 
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
-import controller.GUIController;
 import util.Util;
 import view.elementos.paneles.PanelEstadistica;
+import controller.GUIController;
 
 public class EventoClickIniciar implements MouseListener {
 
@@ -44,13 +43,12 @@ public class EventoClickIniciar implements MouseListener {
 							try {
 								//si la ruta no existe
 								if(!new File(ruta+"/estadistica_JeyTuiter").exists()){
-									//crea la carpeta
-									boolean a = new File(ruta+"/estadistica_JeyTuiter").mkdir();
+									new File(ruta+"/estadistica_JeyTuiter").mkdir();
 								}
 
 								//si la carpeta del usuario no existe, creala
 								if(!new File(ruta+"/estadistica_JeyTuiter/"+texto).exists()){
-									boolean b = new File(ruta+"/estadistica_JeyTuiter/"+texto).mkdir();
+									new File(ruta+"/estadistica_JeyTuiter/"+texto).mkdir();
 								}
 
 								//modifica la ruta de destico donde ya por fin almacena los archivos generados

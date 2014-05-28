@@ -4,17 +4,15 @@ package view.eventos.botonesGenericos;
  * Evento que controla las acciones a realizar en los diferentes estado de un boton (normal - click - hover)
  * @author Sergio Anguita
  */
-import view.elementos.botones.Button;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.ImageIcon;
+import view.elementos.botones.Button;
 
 public class EventosButton implements MouseListener {
-	
+
 	Button boton;
-	
+
 	public EventosButton(Button button) {
 		boton = button;
 	}

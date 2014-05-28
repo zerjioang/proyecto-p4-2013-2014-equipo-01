@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public abstract class InputField extends JLabel{
 
 	protected JTextField inputCode;
@@ -51,7 +52,7 @@ public abstract class InputField extends JLabel{
 		return imagenFondo;
 	}
 	/**
-	 * Asigna un nuevo objeto jlabel que se encargará de cambiar la imagen de fondo
+	 * Asigna un nuevo objeto jlabel que se encargara de cambiar la imagen de fondo
 	 * @param imagenFondo	JLabel a usar como imagen de fondo
 	 */
 	public void setImagenFondo(JLabel imagenFondo) {

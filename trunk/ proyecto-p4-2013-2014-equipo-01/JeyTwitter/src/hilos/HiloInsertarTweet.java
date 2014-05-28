@@ -1,7 +1,5 @@
 package hilos;
 
-import java.util.ArrayList;
-
 import model.Tweet;
 import controller.sql.Interaccion;
 
@@ -14,7 +12,7 @@ public class HiloInsertarTweet extends Thread {
 		this.usuario = usuario;
 	}
 	public HiloInsertarTweet() {
-		
+
 	}
 	public void run(){
 		Interaccion.insertarTweet(insertar, usuario, "png");

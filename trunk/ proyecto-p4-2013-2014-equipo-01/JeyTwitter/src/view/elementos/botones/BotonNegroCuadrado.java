@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 import util.Util;
 import view.eventos.botonesGenericos.EventosButton;
 
+@SuppressWarnings("serial")
 public class BotonNegroCuadrado extends Button {
 
 	public BotonNegroCuadrado(){
@@ -26,15 +27,15 @@ public class BotonNegroCuadrado extends Button {
 	 * Inicializa el contenido
 	 */
 	private void init() {
-		
+
 		anchoBoton = 74;
 		altoBoton = 36;
-		
+
 		//se definen las imagenes de cada estado del boton
 		setImagenClick("/res/images/fastTweet/b_negro_pressed.png");
 		setImagenHover("/res/images/fastTweet/b_negro_hover.png");
 		setImagenNormal("/res/images/fastTweet/b_negro_normal.png");
-		
+
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		setFont(Util.getFont("Roboto-Regular", Font.PLAIN, 14));
 		setForeground(Color.WHITE);
@@ -42,8 +43,8 @@ public class BotonNegroCuadrado extends Button {
 		setHorizontalTextPosition(SwingConstants.CENTER);
 		setIcon(new ImageIcon(BotonNegroCuadrado.class.getResource(getImagenNormal())));
 		setSize(anchoBoton, altoBoton);
-		
-		//Se le añade el listener basico que las cambia dependiendo del estado
+
+		//Se le anyade el listener basico que las cambia dependiendo del estado
 		addMouseListener(new EventosButton(this));
 	}
 }

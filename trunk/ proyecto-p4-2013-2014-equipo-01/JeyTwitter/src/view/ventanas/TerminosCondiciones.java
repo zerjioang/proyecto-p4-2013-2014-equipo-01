@@ -1,29 +1,23 @@
 package view.ventanas;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.border.MatteBorder;
+
 import util.Util;
 import view.elementos.botones.CoolBlueButton;
 import view.eventos.condiciones.EventoClickCondiciones;
 import view.parents.CustomJDialogWithBar;
 
-import java.awt.EventQueue;
-
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-
-import java.awt.Color;
-
-import javax.swing.JScrollPane;
-
-import java.awt.BorderLayout;
-
-import javax.swing.border.MatteBorder;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
+@SuppressWarnings("serial")
 public class TerminosCondiciones extends CustomJDialogWithBar {
 
 	private boolean estado;
@@ -58,10 +52,10 @@ public class TerminosCondiciones extends CustomJDialogWithBar {
 		getMainPanel().setBorder(null);
 		getMainPanel().setBackground(Color.DARK_GRAY);
 		getMainPanel().setLayout(new BorderLayout(0, 0));
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		getMainPanel().add(scrollPane, BorderLayout.CENTER);
-		
+
 		JTextArea txtMensaje = new JTextArea();
 		txtMensaje.setBackground(Color.DARK_GRAY);
 		txtMensaje.setForeground(Color.WHITE);
@@ -72,7 +66,7 @@ public class TerminosCondiciones extends CustomJDialogWithBar {
 		txtMensaje.setEditable(false);
 		txtMensaje.setFont(Util.getFont("Roboto-regular", Font.PLAIN, 12));
 		scrollPane.setViewportView(txtMensaje);
-		
+
 		JPanel inferior = new JPanel();
 		inferior.setLayout(new BorderLayout(0, 0));
 		checkbox = new JCheckBox("He leido y acepto las condiciones de uso");
@@ -82,9 +76,9 @@ public class TerminosCondiciones extends CustomJDialogWithBar {
 		boton.setBorder(new MatteBorder(3, 3, 3, 10, (Color) new Color(0f, 0f, 0f, 0f)));
 		inferior.add(boton, BorderLayout.EAST);
 		getMainPanel().add(inferior, BorderLayout.SOUTH);
-		
+
 		boton.addMouseListener(new EventoClickCondiciones(this));
-		
+
 		JLabel lblTitulo = new JLabel("Terminos y condiciones de JeyTuiter");
 		lblTitulo.setForeground(Color.WHITE);
 		lblTitulo.setBorder(new MatteBorder(10, 10, 10, 1, (Color) new Color(0f, 0f, 0f, 0f)));
