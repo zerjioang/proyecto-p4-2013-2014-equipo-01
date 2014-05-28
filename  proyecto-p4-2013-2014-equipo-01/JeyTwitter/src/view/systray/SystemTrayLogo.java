@@ -120,9 +120,9 @@ public class SystemTrayLogo {
 	}
 	
 	/**
-	 * Añade el icono en la barra de tareas
+	 * Anyade el icono en la barra de tareas
 	 */
-	private void mostrar() {
+	public void mostrar() {
 		if(!existe){
 			//Check the SystemTray support
 			if (!SystemTray.isSupported()) {
