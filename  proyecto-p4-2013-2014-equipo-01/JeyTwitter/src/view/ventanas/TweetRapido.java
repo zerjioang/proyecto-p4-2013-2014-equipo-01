@@ -255,4 +255,18 @@ public class TweetRapido extends InvisibleJFrame {
 	public void setResponderA(Tweet responderA) {
 		this.responderA = responderA;
 	}
+
+	/**
+	 * @return the txtMensaje
+	 */
+	public JTextArea getTxtMensaje() {
+		return txtMensaje;
+	}
+
+	/**
+	 * @param txtMensaje the txtMensaje to set
+	 */
+	public void setTxtMensaje(JTextArea txtMensaje) {
+		this.txtMensaje = txtMensaje;
+	}
 }
