@@ -22,8 +22,7 @@ public class EventoClickDesautorizar implements MouseListener {
 		Boolean b = Util.showError(p, "Desautorizar cuenta", "Desea cerrar sesion?", "No", "Si");
 		if(b.booleanValue()){
 			GUIController.getInstance().getGui().mostrarMensaje("Eliminando credenciales...");
-			Interaccion.reiniciarBase();
-			Interaccion.desconectar();
+			Interaccion.cerrarBase();
 			new File(Util.SQLITE_NOMBRE_BBDD).delete();
 			p.cerrar();
 			System.exit(1);

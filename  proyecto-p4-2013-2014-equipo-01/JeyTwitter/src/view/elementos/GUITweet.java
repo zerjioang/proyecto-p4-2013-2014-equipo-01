@@ -373,10 +373,25 @@ public class GUITweet extends JPanel implements ObjetoCelda{
 			lblImagenusuario.setIcon(imagenCache);
 		}
 		else{
-			lblImagenusuario.setIcon(Util.getImagenRedondeada(imagenUsuario, REDONDEO));
-			ImageIcon imagen = Util.escalarImagen(lblImagenusuario);
-			lblImagenusuario.setIcon(imagen);
-			Cache.getInstance().addImagenesUsuario(getNombreUsuario(), imagen);
+			if(imagenUsuario!=null){
+				lblImagenusuario.setIcon(Util.getImagenRedondeada(imagenUsuario, REDONDEO));
+				ImageIcon imagen = Util.escalarImagen(lblImagenusuario);
+				lblImagenusuario.setIcon(imagen);
+				Cache.getInstance().addImagenesUsuario(getNombreUsuario(), imagen);
+			}
+			else
+			{
+				ImageIcon imagenExtraida;
+				try {
+					imagenExtraida = new ImageIcon(GUIController.getInstance().getUsuario(getNombreUsuario()).getImagen());
+					lblImagenusuario.setIcon(Util.getImagenRedondeada(imagenExtraida, REDONDEO));
+					ImageIcon imagen = Util.escalarImagen(lblImagenusuario);
+					lblImagenusuario.setIcon(imagen);
+					Cache.getInstance().addImagenesUsuario(getNombreUsuario(), imagen);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
