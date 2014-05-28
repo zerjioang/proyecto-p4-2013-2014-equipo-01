@@ -18,7 +18,6 @@ public class HiloResponder extends Thread{
 	}
 
 	public void run(){
-		GUIController.getInstance().getGui().mostrarMensaje("Enviando tweet...");
 		t.getBtnResponder().setClicado(true);
 		String usuario = t.getNombreUsuario();
 		
@@ -31,7 +30,7 @@ public class HiloResponder extends Thread{
 		usuariosMencionados = usuariosMencionados.trim();
 		tr.setMensaje(usuariosMencionados+" ");
 		tr.colocarVentana(tr, event.getXOnScreen(), event.getYOnScreen());
+		tr.getTxtMensaje().setCaretPosition(tr.getTxtMensaje().getText().length());
 		tr.setVisible(true);
-	
 	}
 }
