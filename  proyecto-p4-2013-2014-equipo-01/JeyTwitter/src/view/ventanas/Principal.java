@@ -35,7 +35,7 @@ import view.elementos.paneles.PanelTablaTweets;
 import view.eventos.principal.EventoCambiarColoBoton;
 import view.eventos.principal.EventoCambiarPanelClick;
 import view.eventos.principal.EventoClickAcercaDe;
-import view.eventos.principal.EventoClickConfig;
+import view.eventos.principal.EventoClickDesautorizar;
 import view.eventos.principal.EventoClickFotoUsuario;
 import view.eventos.principal.EventoClickHelp;
 import view.models.ModeloTablaPrincipal;
@@ -235,7 +235,7 @@ public class Principal extends CustomJFrame {
 		lblConfig.setIcon(new ImageIcon(Principal.class.getResource("/res/tempIcons/configIcon.png")));
 		lblConfig.setIcon(Util.escalarImagen(lblConfig));
 		panel.add(lblConfig, BorderLayout.NORTH);
-		lblConfig.addMouseListener(new EventoClickConfig(this));
+		lblConfig.addMouseListener(new EventoClickDesautorizar(this));
 
 		JLabel lblHelp = new JLabel("Ayuda");
 		lblHelp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
