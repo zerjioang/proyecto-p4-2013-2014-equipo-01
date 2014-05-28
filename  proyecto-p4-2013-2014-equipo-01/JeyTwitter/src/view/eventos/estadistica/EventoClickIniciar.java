@@ -14,18 +14,13 @@ public class EventoClickIniciar implements MouseListener {
 
 	//numero de paginas de 199 tuits que descargar
 	int numPaginas = 13;
-	private static Thread hilostat;
 	private PanelEstadistica pe;
 	public EventoClickIniciar(PanelEstadistica panelEstadistica) {
 		pe = panelEstadistica;
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if(hilostat==null || !hilostat.isAlive()){
 			pe.getBtnIniciar().setEnabled(false);
-			hilostat = new Thread(new Runnable() {
-				@Override
-				public void run() {
 					String ruta = "";
 					String texto = pe.getTxt();
 					if(texto!=null && texto.length()>0 && GUIController.existeUsuario(texto)){
@@ -35,8 +30,7 @@ public class EventoClickIniciar implements MouseListener {
 						fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 						int seleccion = fileChooser.showSaveDialog(null);
 						//Si el boton que pincha el usuario es el de aceptar (estan el de aceptar y cancelar, creo)
-						if (seleccion == JFileChooser.APPROVE_OPTION)
-						{
+						if (seleccion == JFileChooser.APPROVE_OPTION){
 							//Recoge la ruta
 							ruta = fileChooser.getCurrentDirectory().getAbsolutePath();
 							//imprime un mensaje ROJO por consola con la ruta
@@ -60,16 +54,19 @@ public class EventoClickIniciar implements MouseListener {
 								//Si algo va mal, lanzamos un mensaje de error
 								Util.showError(null, "Error creando las carpetas de las rutas", "", "Cancelar", "Aceptar");
 							} 
+						}else{
+							//dejamos el boton como estaba
+							pe.getBtnIniciar().setEnabled(true);
+
 						}
 					}else{
 						//si la condicion no se cumple, es porque no existe el usuario o no se ha introducido uno en el textfield
 						Util.showError(null, "Error", "Nombre de usuario no existe/no especificado", "Cancelar", "Aceptar");
+						pe.getBtnIniciar().setEnabled(true);
+
 					}
 				}
-			});
-			hilostat.start();
-		}
-	}
+			
 
 	//funciones de click que no usaremos
 	@Override
