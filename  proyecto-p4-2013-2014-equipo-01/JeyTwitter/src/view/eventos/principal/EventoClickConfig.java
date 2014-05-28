@@ -18,7 +18,7 @@ public class EventoClickConfig implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Boolean b = Util.showError(p, "Desautorizar cuenta", "¿Desea cerrar sesion?", "No", "Si");
+		Boolean b = Util.showError(p, "Desautorizar cuenta", "Desea cerrar sesion?", "No", "Si");
 		if(b.booleanValue()){
 			Interaccion.reiniciarBase();
 			p.cerrar();
