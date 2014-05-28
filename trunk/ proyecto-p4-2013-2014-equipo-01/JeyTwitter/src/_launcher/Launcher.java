@@ -1,9 +1,11 @@
 package _launcher;
 import java.io.File;
 import java.io.IOException;
+
 import controller.GUIController;
 import controller.sql.Interaccion;
 import util.Util;
+import view.systray.SystemTrayLogo;
 import view.ventanas.Principal;
 import view.ventanas.Splash;
 import view.ventanas.Bienvenida;
@@ -92,6 +94,8 @@ public class Launcher {
 		// Tenemos token, lanzamos la ventana principal
 		//Este usuario es el usuario que tiene la sesion de twitter abierta y que tiene que ser cargado
 		//de la bd o online dependiendo de si esta conectado o no
+		SystemTrayLogo l = SystemTrayLogo.getInstace();
+		l.mostrar();
 		Launcher.mostrarMensaje("Esperando datos...");
 		Principal p;
 		try {
