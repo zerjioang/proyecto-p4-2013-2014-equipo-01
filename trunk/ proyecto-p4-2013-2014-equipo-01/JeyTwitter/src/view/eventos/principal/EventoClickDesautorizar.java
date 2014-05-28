@@ -6,13 +6,14 @@ import java.io.File;
 
 import util.Util;
 import view.ventanas.Principal;
+import controller.GUIController;
 import controller.sql.Interaccion;
 
-public class EventoClickConfig implements MouseListener {
+public class EventoClickDesautorizar implements MouseListener {
 	
 	private final Principal p;
 	
-	public EventoClickConfig(Principal principal) {
+	public EventoClickDesautorizar(Principal principal) {
 		p = principal;
 	}
 
@@ -20,9 +21,11 @@ public class EventoClickConfig implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		Boolean b = Util.showError(p, "Desautorizar cuenta", "Desea cerrar sesion?", "No", "Si");
 		if(b.booleanValue()){
+			GUIController.getInstance().getGui().mostrarMensaje("Eliminando credenciales...");
 			Interaccion.reiniciarBase();
-			p.cerrar();
+			Interaccion.desconectar();
 			new File(Util.SQLITE_NOMBRE_BBDD).delete();
+			p.cerrar();
 			System.exit(1);
 		}
 	}
