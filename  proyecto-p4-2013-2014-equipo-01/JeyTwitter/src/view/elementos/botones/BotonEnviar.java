@@ -15,11 +15,9 @@ public class BotonEnviar extends BotonUI{
 	private void init() {
 		//se definen las imagenes de cada estado del boton
 		setEnabled(true);
-		setImagenClick("/res/images/principal/botonEnviarTweet_pressed.png");
-		setImagenHover("/res/images/principal/botonEnviarTweet_hover.png");
-		setImagenNormal("/res/images/principal/botonEnviarTweet_normal.png");
+		setImagenClick("/res/images/botonEnviarTweet_pressed.png");
+		setImagenHover("/res/images/botonEnviarTweet_hover.png");
+		setImagenNormal("/res/images/botonEnviarTweet_normal.png");
 		setNormal();
 	}
-
-
 }
