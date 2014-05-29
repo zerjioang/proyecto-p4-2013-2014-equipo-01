@@ -30,8 +30,9 @@ public class HiloFavoritos extends Thread{
 
 			boolean activo = false;
 			ArrayList<Thread> hilosActivos = AlmacenHilos.lista;
+			
 			for (Thread t : hilosActivos) {
-				if(t.isAlive()) {
+				if(t.isAlive() && !t.equals(this)) {
 					activo = true;
 					break;
 				}
