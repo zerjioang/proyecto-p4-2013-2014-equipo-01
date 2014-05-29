@@ -25,7 +25,7 @@ public class EventoClickDesautorizar implements MouseListener {
 			Interaccion.cerrarBase();
 			new File(Util.SQLITE_NOMBRE_BBDD).delete();
 			p.cerrar();
-			System.exit(1);
+			System.exit(0);
 		}
 	}
 
