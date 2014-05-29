@@ -3,7 +3,6 @@ package hilos;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import controller.GUIController;
 import view.elementos.GUITweet;
 import view.ventanas.TweetRapido;
 
