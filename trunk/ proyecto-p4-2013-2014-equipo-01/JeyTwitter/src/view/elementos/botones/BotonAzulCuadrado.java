@@ -32,9 +32,9 @@ public class BotonAzulCuadrado extends Button {
 		altoBoton = 36;
 
 		//se definen las imagenes de cada estado del boton
-		setImagenClick("/res/images/fastTweet/a_negro_pressed.png");
-		setImagenHover("/res/images/fastTweet/a_negro_hover.png");
-		setImagenNormal("/res/images/fastTweet/a_negro_normal.png");
+		setImagenClick("/res/images/fastTweet/anpressed.png");
+		setImagenHover("/res/images/fastTweet/anhover.png");
+		setImagenNormal("/res/images/fastTweet/annormal.png");
 
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		setFont(Util.getFont("Roboto-Regular", Font.PLAIN, 14));
