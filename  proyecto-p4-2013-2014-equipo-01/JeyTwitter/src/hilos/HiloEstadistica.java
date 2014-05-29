@@ -2,7 +2,6 @@
 package hilos;
 
 import java.awt.Color;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,8 +9,9 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import javax.imageio.ImageIO;
+
 import model.Tweet;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartUtilities;
@@ -23,6 +23,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
+
 import twitter4j.Paging;
 import twitter4j.ResponseList;
 import twitter4j.Status;
@@ -63,6 +64,7 @@ public class HiloEstadistica extends Thread {
 			GUIController.getInstance().getGui().ocultarMensajeInformativo();
 			pe.getBtnIniciar().setEnabled(true);
 		} catch (Exception e) {
+			e.printStackTrace();
 			Util.showError(null, "Error", "Error generando las graficas", "Cancelar", "Aceptar");
 		}
 		try {
@@ -234,10 +236,7 @@ public class HiloEstadistica extends Thread {
 
 		JFreeChart chart = ChartFactory.createBarChart3D("Cantidad total de tuits por dia","dias de la semana", "Tweets",	dataset, PlotOrientation.VERTICAL, true, true, false);
 		//obtenemos el splash del fondo de JeyTuiter
-		BufferedImage img = ImageIO.read(new File("src/res/images/Splash.png"));
-		chart.setBackgroundImage(img);
 		CategoryPlot plot = chart.getCategoryPlot();
-		plot.setBackgroundImage(img);
 		BarRenderer render = (BarRenderer)plot.getRenderer();
 		render.setSeriesPaint(0, Color.darkGray);
 		render.setSeriesPaint(1, Color.RED);
