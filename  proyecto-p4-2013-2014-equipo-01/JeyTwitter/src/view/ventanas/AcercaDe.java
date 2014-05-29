@@ -3,6 +3,7 @@ package view.ventanas;
 import view.elementos.URLLabel;
 import util.Util;
 import view.elementos.botones.BotonId;
+import view.eventos.principal.EventoClickImagenEscudo;
 import view.parents.CustomJDialogWithBar;
 import view.parents.CustomJFrame;
 
@@ -83,6 +84,7 @@ public class AcercaDe extends CustomJDialogWithBar {
 		lblEscudo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEscudo.setIcon(new ImageIcon(AcercaDe.class.getResource("/res/images/letreros/JeyTwitterVersion.png")));
 		panelNombresEscudo.add(lblEscudo, BorderLayout.SOUTH);
+		lblEscudo.addMouseListener(new EventoClickImagenEscudo(this));
 		
 		JPanel panelNombres = new JPanel();
 		panelNombres.setBackground(COLOR_FONDO);
